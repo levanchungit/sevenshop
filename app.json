@@ -28,6 +28,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7076de2a-0de0-4a71-aa4c-dae2b8dd04fb"
+      }
+    },
+    "owner": "levanchung.it"
   }
 }
