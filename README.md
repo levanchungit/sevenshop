@@ -1,16 +1,16 @@
 # Setup project
 
-## Cập nhật yarn
+## Run yarn
 ```bash
 yarn
 ```
 
-## Chạy project
+## Run project
 ```bash
 yarn android
 ```
 
-## Cập nhật những thay đổi mới của nhánh
+## Update branch
 ```bash
 git fetch
 ```
@@ -22,16 +22,6 @@ git add .
 ## Tạo commit
 ```bash
 git commit -m "feat: ..."
-```
-
-## Push code
-```bash
-git push
-```
-
-## Pull code
-```bash
-git pull
 ```
 
 ## Tạo pull request sau khi push code
