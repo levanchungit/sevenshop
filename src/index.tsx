@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Test git</Text>
+      <Text>Test pull request</Text>
       <StatusBar style="auto" />
     </View>
   );
