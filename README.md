@@ -7,7 +7,7 @@ yarn
 
 ## Run project
 ```bash
-yarn android
+yarn start
 ```
 
 ## Update branch
