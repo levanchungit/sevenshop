@@ -14,11 +14,20 @@
     "format:fix": "prettier --write ."
   },
   "dependencies": {
+    "@expo-google-fonts/raleway": "^0.2.2",
+    "@react-navigation/bottom-tabs": "^6.5.2",
+    "@react-navigation/native": "^6.1.1",
+    "cra-template-typescript": "^1.2.0",
     "expo": "~47.0.9",
+    "expo-app-loading": "~2.1.1",
+    "expo-font": "~11.0.1",
     "expo-status-bar": "~1.4.2",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-feather": "^1.1.2",
+    "react-native-svg": "13.4.0",
+    "react-native-svg-transformer": "^1.0.0",
     "react-native-web": "~0.18.7"
   },
   "devDependencies": {
