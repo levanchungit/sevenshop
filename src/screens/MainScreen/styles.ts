@@ -1,8 +1,3 @@
-// import {
-//   useFonts,
-//   Raleway_400Regular,
-//   Raleway_400Regular_Italic,
-// } from '@expo-google-fonts/raleway';
 import { StyleSheet, Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -21,11 +16,9 @@ const styles = StyleSheet.create({
   },
   head_content1: {
     fontSize: 14,
-    // fontFamily: 'Raleway_400Regular',
   },
   head_content2: {
     fontSize: 30,
-    // fontFamily: 'Raleway_400Regular',
   },
   flastList: {
     display: 'flex',

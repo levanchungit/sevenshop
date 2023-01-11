@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable } from 'react-native';
-import styles from 'screens/MainScreen/styles';
+import styles from './styles';
 
 type Props = {
   onPress: Function;
