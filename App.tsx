@@ -1,4 +1,4 @@
-import HomePage from './src/screens//HomeScreen';
-export default HomePage;
-// import App from "./src"
-// export default App;
+import App from './src';
+export default App;
+// import Navigation from './src/Navigation';
+// export default Navigation;
