@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Image, ScrollView, Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 type Props = object;
 
@@ -45,7 +46,7 @@ const SlideShowImage = (props: Props) => {
         ref={myRef}
         pagingEnabled
         horizontal
-        style={{ width: '100%', height: '25%' }}
+        style={{ width: windowWidth, height: windowHeight * 0.2 }}
       >
         {dataSource.map((image, index) => (
           <Image

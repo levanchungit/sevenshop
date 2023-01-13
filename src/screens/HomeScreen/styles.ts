@@ -1,11 +1,11 @@
 import { StyleSheet, Dimensions } from 'react-native';
-
 const windowWidth = Dimensions.get('window').width;
 // const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: 30,
+    flex: 1,
   },
   coverHeader: {
     display: 'flex',
