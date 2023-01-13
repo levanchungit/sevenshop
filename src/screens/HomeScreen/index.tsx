@@ -94,6 +94,7 @@ const HomePage = (props: Props) => {
       horizontal={false}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
+      style={{ height: '100%', width: '100%' }}
     >
       <View style={styles.container}>
         <View>
