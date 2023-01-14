@@ -1,20 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import Login from './screens/LoginScreen';
+// import Register from './screens/RegisterScreen';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App = () => {
+  return <Login />;
+};
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Test git</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+export default App;
