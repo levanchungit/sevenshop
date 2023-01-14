@@ -2,14 +2,11 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Entypo from '@expo/vector-icons/Entypo';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
-import { View, Text } from 'react-native';
-import Home from 'screens/Home';
-import styles from 'styles/global';
+import { Provider } from 'providers';
+import { StackNavigator } from 'providers/navigation';
 
 SplashScreen.preventAutoHideAsync();
-SystemUI.setBackgroundColorAsync('#eafafc');
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -40,11 +37,8 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <Home />
-      <Text>Hello World</Text>
-      <Entypo name="rocket" size={30} />
-      <StatusBar style="auto" />
-    </View>
+    <Provider onLayout={onLayoutRootView}>
+      <StackNavigator />
+    </Provider>
   );
 }

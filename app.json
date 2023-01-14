@@ -11,6 +11,7 @@
       "resizeMode": "contain"
       // "backgroundColor": "#ffffff"
     },
+    "scheme": "sevenshop",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
