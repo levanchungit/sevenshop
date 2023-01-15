@@ -1,5 +1,6 @@
 import React from 'react';
 import { NativeBaseProvider } from 'native-base';
+import theme from 'theme';
 import { NavigationProvider } from './navigation';
 
 type ProviderProps = {
@@ -10,7 +11,7 @@ type ProviderProps = {
 export function Provider({ children, onLayout }: ProviderProps) {
   return (
     <NavigationProvider onLayout={onLayout}>
-      <NativeBaseProvider>{children}</NativeBaseProvider>
+      <NativeBaseProvider theme={theme}>{children}</NativeBaseProvider>
     </NavigationProvider>
   );
 }

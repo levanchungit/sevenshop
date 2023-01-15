@@ -1,14 +1,23 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Button, Center, Text } from 'native-base';
-import { LoginScreenNavigationProp } from 'providers/navigation/types';
+import { AppNavigationProp } from 'providers/navigation/types';
 
 const LoginScreen = () => {
-  const navigation = useNavigation<LoginScreenNavigationProp>();
+  const navigation = useNavigation<AppNavigationProp>();
   return (
-    <Center flex="1" _dark={{ bg: 'blueGray.900' }} _light={{ bg: 'blueGray.50' }}>
-      <Text>Login Screen</Text>
-      <Button onPress={() => navigation.replace('Main')}>Login</Button>
+    <Center flex="1">
+      <Text fontWeight={700} fontSize="2xl">
+        Login Screen
+      </Text>
+      <Button
+        fontWeight={700}
+        fontSize="2xl"
+        bg="primary.400"
+        onPress={() => navigation.replace('Main')}
+      >
+        Login
+      </Button>
     </Center>
   );
 };

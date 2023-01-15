@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { FlatList, Pressable, Text, View } from 'native-base';
-import { HomeScreenNavigationProp } from 'providers/navigation/types';
+import { MainScreenNavigationProp } from 'providers/navigation/types';
 
 type UserData = {
   id: number;
@@ -37,18 +37,11 @@ const DATA: UserData[] = [
 ];
 
 export const MainScreen = () => {
-  const navigation = useNavigation<HomeScreenNavigationProp>();
+  const navigation = useNavigation<MainScreenNavigationProp>();
 
   const renderListItems = ({ item }: { item: UserData }) => {
     return (
-      <Pressable
-        onPress={() =>
-          navigation.navigate('Details', {
-            name: item.name,
-            birthYear: item.birth_year,
-          })
-        }
-      >
+      <Pressable onPress={() => navigation.navigate('Cart', { itemId: item.id })}>
         <Text style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}>
           {item.name}
         </Text>

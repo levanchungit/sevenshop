@@ -13,6 +13,7 @@ const BottomTabs = () => {
     <Navigator screenOptions={{ headerShown: false }}>
       <Screen name="Home" component={MainScreen} />
       <Screen name="Favorites" component={FavoriteScreen} />
+      <Screen name="Cart" component={ProfileScreen} />
       <Screen name="Profile" component={ProfileScreen} />
     </Navigator>
   );

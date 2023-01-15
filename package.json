@@ -14,12 +14,12 @@
     "lint": "yarn lint-types"
   },
   "dependencies": {
+    "@expo-google-fonts/raleway": "^0.2.2",
     "@expo/webpack-config": "^0.17.2",
     "@react-navigation/bottom-tabs": "^6.5.3",
     "@react-navigation/native": "^6.1.2",
     "@react-navigation/native-stack": "^6.9.8",
     "expo": "~47.0.9",
-    "expo-linking": "~3.3.0",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "expo-system-ui": "~2.0.1",

@@ -1,4 +1,5 @@
-import { RouteProp } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export type AppStackNavigatorParamList = {
@@ -10,20 +11,20 @@ export type AppStackNavigatorParamList = {
   };
 };
 
-export type LoginScreenNavigationProp = NativeStackNavigationProp<
-  AppStackNavigatorParamList,
-  'Main'
->;
-
-export type HomeScreenNavigationProp = NativeStackNavigationProp<
-  AppStackNavigatorParamList,
-  'Details'
->;
-
-export type DetailsScreenRouteProp = RouteProp<AppStackNavigatorParamList, 'Details'>;
-
 export type BottomTabNavigatorParamList = {
   Home: undefined;
   Favorites: undefined;
+  Cart?: {
+    itemId?: number;
+  };
   Profile: undefined;
 };
+
+export type AppNavigationProp = NativeStackNavigationProp<AppStackNavigatorParamList>;
+
+export type DetailRouteProp = RouteProp<AppStackNavigatorParamList, 'Details'>;
+
+export type MainScreenNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<AppStackNavigatorParamList>,
+  BottomTabNavigationProp<BottomTabNavigatorParamList>
+>;
