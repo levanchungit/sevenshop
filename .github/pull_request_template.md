@@ -1,23 +1,25 @@
 ## Backlog issue link
 
-<!-- Make sure that the backlog issue has the background and specifications. Also, make sure that the necessary links (file, figma, slack) are pasted. -->
+<!-- Hãy chắc chắn rằng backlog issue có background và specifications. Ngoài ra, hãy chắc chắn rằng các liên kết cần thiết (file, figma, slack) đã được dán. -->
+<!-- [[Mobile] Choose voucher](https://trello.com/c/gaJFiNK5) -->
 
 ## What I did
 
 <!-- Please include list any issues that are outside the scope of this PR. -->
+<!-- Ghi ra những thứ mình làm -->
+<!-- [] Làm gì -->
+<!-- [] Làm gì -->
 
 ## Test data for confirmation
 
-<!-- If you have test data, please enter its URL or data ID. -->
+<!-- Nếu có dữ liệu test, hãy nhập URL hoặc ID dữ liệu -->
+<!-- Nếu không có, hãy ghi ra "No test data" -->
+<!-- Màn hình nào. VD: Home Screen -->
 
 ## Others
 
-<!-- Feel free to add any supplements or concerns. -->
+<!-- Hãy thêm bất kỳ thông tin bổ sung nào hoặc ý kiến của bạn. -->
 
 ## Screenshot / Screen recording video
 
-<!-- In the case of a bug fix issue, please consider filling in the following items. -->
-
-<!-- ## Cause of failure -->
-
-<!-- ## Investigation methods and results to see if similar problems have occurred elsewhere -->
+<!-- Hãy chụp ảnh hoặc ghi lại video màn hình để hiển thị cho reviewer. -->
