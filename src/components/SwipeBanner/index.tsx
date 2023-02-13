@@ -3,10 +3,13 @@ import { View, Image, ScrollView, Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-type Props = object;
+type Props = {
+  style: object;
+};
 
 const SlideShowImage = (props: Props) => {
   // const [position, setPosition] = useState(1);
+  const { style } = props;
   const dataSource = [
     {
       title: 'Burger 1',
@@ -40,7 +43,7 @@ const SlideShowImage = (props: Props) => {
   }, [dataSource]);
 
   return (
-    <View>
+    <View style={style}>
       <ScrollView
         showsHorizontalScrollIndicator={false}
         ref={myRef}

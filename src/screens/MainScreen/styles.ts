@@ -5,14 +5,16 @@ const windowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 30,
+    // paddingTop: 30,
   },
   coverHeader: {
-    display: 'flex',
+    position: 'absolute',
+    top: 20,
+    right: 12,
+    padding: 12,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 12,
   },
   head_content1: {
     fontSize: 14,
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  item_product: {
+  itemProduct: {
     marginHorizontal: 5,
     width: windowWidth * 0.47,
     padding: 10,
@@ -43,7 +45,15 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
   },
 
-  item_product_plashsale: {
+  itemProductCategory: {
+    marginHorizontal: 5,
+    width: windowWidth * 0.6,
+    padding: 10,
+    marginBottom: 20,
+    borderColor: '#cccccc',
+    borderWidth: 0.5,
+  },
+  itemProductFlastSale: {
     marginHorizontal: 5,
     width: windowWidth * 0.3,
     padding: 10,
@@ -51,6 +61,7 @@ const styles = StyleSheet.create({
     borderColor: '#cccccc',
     borderWidth: 0.5,
   },
+
   ButtonTabOpacity: {
     width: 80,
     height: 40,
@@ -72,13 +83,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     marginVertical: 12,
   },
-  ImageItem: {
+
+  imageItemCategory: {
+    width: '100%',
+    height: 300,
+    marginBottom: 8,
+  },
+  imageItemForYou: {
     width: '100%',
     height: 150,
     marginBottom: 8,
   },
 
-  ImageItemFlashSale: {
+  imageItemFlashSale: {
     width: '100%',
     height: 100,
     marginBottom: 8,
