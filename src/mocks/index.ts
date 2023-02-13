@@ -1,4 +1,6 @@
-export const DATA = [
+import { Item } from 'screens/MainScreen';
+
+export const DATA: Item[] = [
   {
     _id: '1',
     name: 'Michael Scottshhhhhhhhhsdddddddddddđ',

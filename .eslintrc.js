@@ -52,9 +52,14 @@ module.exports = {
         alphabetize: { order: 'asc', caseInsensitive: true },
       },
     ],
+    'import/no-cycle': ['error', { maxDepth: 1 }],
+    'jsx-a11y/aria-role': 'off',
   },
-
   settings: {
     'import/ignore': ['react-native'],
+    'import/resolver': {
+      node: { paths: ['src'], extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+    },
   },
+  globals: { JSX: 'readonly', ScrollLogicalPosition: 'readonly' },
 };
