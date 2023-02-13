@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   },
   inputuser: {
     fontSize: 16,
+    width: '80%',
   },
 
   viewPass: {
@@ -52,13 +53,15 @@ const styles = StyleSheet.create({
   // }
 
   txtFogot: {
+    marginTop: 5,
     textAlign: 'right',
+    color: 'red',
   },
 
   button: {
-    marginTop: 5,
-    width: '60%',
-    height: '20%',
+    marginTop: 7,
+    width: '55%',
+    height: '22%',
     backgroundColor: 'red',
     borderRadius: 15,
     justifyContent: 'center',
@@ -68,6 +71,13 @@ const styles = StyleSheet.create({
 
   viewBotoom: {
     alignItems: 'center',
+  },
+
+  viewimage: {
+    marginTop: 5,
+    flexDirection: 'row',
+    width: '25%',
+    justifyContent: 'space-around',
   },
 });
 

@@ -24,8 +24,13 @@ const LoginScreen = (props: Props) => {
         </View>
 
         <View style={styles.viewPass}>
-          <Icon.User stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
-          <TextInput style={styles.inputuser} placeholder="Enter your email/phone number" />
+          <Icon.Lock stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
+          <TextInput
+            style={styles.inputuser}
+            placeholder="Enter your password"
+            secureTextEntry={true}
+          />
+          <Icon.EyeOff stroke="black" width={24} height={24} />
         </View>
         <View style={{ width: '80%' }}>
           <Text style={styles.txtFogot}>Forgot password?</Text>
@@ -36,15 +41,24 @@ const LoginScreen = (props: Props) => {
       </View>
 
       <View style={styles.viewBotoom}>
-        <Text style={{ fontSize: 14 }}>Or login with</Text>
-        <View>
+        <Text style={{ fontSize: 14, marginTop: 10 }}>Or login with</Text>
+        <View style={styles.viewimage}>
           <Image
-            style={{ width: 50, height: 50 }}
-            shadow={1}
+            style={{ width: 40, height: 40 }}
+            source={{
+              uri: 'https://storage.googleapis.com/nexzinc/2019/06/Facebook-Icon-3-600x600.png',
+            }}
+          />
+          <Image
+            style={{ width: 40, height: 40 }}
             source={{
               uri: 'https://imagepng.org/wp-content/uploads/2019/08/google-icon.png',
             }}
           />
+        </View>
+        <View style={{ flexDirection: 'row', marginTop: 5 }}>
+          <Text style={{ fontSize: 14 }}>Don’t you have an account?</Text>
+          <Text style={{ fontSize: 14, color: 'red' }}>Register</Text>
         </View>
       </View>
     </View>
