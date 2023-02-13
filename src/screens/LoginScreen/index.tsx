@@ -1,111 +1,53 @@
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { Button, Center, FormControl, Input, Text, Toast, VStack } from 'native-base';
-import { clearAuthTokens, getRefreshToken } from 'react-native-axios-jwt';
-import { RefreshTokenPayload, SignInPayload } from 'interfaces/Auth';
-import { authAPI } from 'modules/api';
-import { AppNavigationProp } from 'providers/navigation/types';
+import React from 'react';
+import { Text, View, Image } from 'native-base';
+import { TextInput, TouchableOpacity } from 'react-native';
+import * as Icon from 'react-native-feather';
+import styles from './style';
+type Props = object;
 
-const LoginScreen = () => {
-  const [formData, setData] = useState<SignInPayload>({
-    email: 'ryanvo.0162@gmail.com',
-    password: '123456',
-  });
-  const [refreshToken, setRefreshToken] = useState<RefreshTokenPayload>({ refresh_token: '' });
-  const navigation = useNavigation<AppNavigationProp>();
-
-  const onSubmit = async () => {
-    clearAuthTokens();
-    try {
-      const response = await authAPI.login(formData);
-      Toast.show({
-        title: response.data.message,
-        duration: 3000,
-      });
-      navigation.navigate('Main');
-    } catch (e: any) {
-      Toast.show({
-        title: e.response?.data?.message,
-        duration: 3000,
-      });
-    }
-  };
-
-  const fetchData = async () => {
-    try {
-      const response = await authAPI.me();
-      Toast.show({
-        title: response.data.result.email,
-        duration: 3000,
-      });
-    } catch (e: any) {
-      Toast.show({
-        title: e.response?.data?.message,
-        duration: 3000,
-      });
-    }
-  };
-  const logout = async () => {
-    getRefreshToken().then((token) => {
-      setRefreshToken({ refresh_token: token });
-    });
-    try {
-      await authAPI.logout(refreshToken);
-      clearAuthTokens();
-    } catch (e: any) {
-      Toast.show({
-        title: e.response?.data?.message,
-        duration: 3000,
-      });
-    }
-  };
-
+const LoginScreen = (props: Props) => {
   return (
-    <Center flex="1">
-      <Text fontWeight={700} fontSize="2xl">
-        Login Screen
-      </Text>
-      <VStack width="90%" mx="3" maxW="300px">
-        <FormControl isRequired>
-          <FormControl.Label
-            _text={{
-              bold: true,
+    <View style={styles.container}>
+      <Image
+        style={styles.image}
+        shadow={1}
+        source={{
+          uri: 'https://th.bing.com/th/id/OIP.cH80uEpp8kXrYliDjpuk2AHaFh?pid=ImgDet&rs=1',
+        }}
+      />
+      <Text style={styles.title}>Login</Text>
+
+      <View style={styles.viewFrom}>
+        <View style={styles.viewUser}>
+          <Icon.User stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
+          <TextInput style={styles.inputuser} placeholder="Enter your email/phone number" />
+        </View>
+
+        <View style={styles.viewPass}>
+          <Icon.User stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
+          <TextInput style={styles.inputuser} placeholder="Enter your email/phone number" />
+        </View>
+        <View style={{ width: '80%' }}>
+          <Text style={styles.txtFogot}>Forgot password?</Text>
+        </View>
+        <TouchableOpacity style={styles.button}>
+          <Text style={{ fontSize: 14 }}>Login</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.viewBotoom}>
+        <Text style={{ fontSize: 14 }}>Or login with</Text>
+        <View>
+          <Image
+            style={{ width: 50, height: 50 }}
+            shadow={1}
+            source={{
+              uri: 'https://imagepng.org/wp-content/uploads/2019/08/google-icon.png',
             }}
-          >
-            Email
-          </FormControl.Label>
-          <Input
-            placeholder="Email"
-            autoComplete="email"
-            autoCapitalize="none"
-            value={formData.email}
-            onChangeText={(value) => setData({ ...formData, email: value })}
           />
-          <FormControl.Label
-            _text={{
-              bold: true,
-            }}
-          >
-            Password
-          </FormControl.Label>
-          <Input
-            placeholder="Password"
-            secureTextEntry
-            value={formData.password}
-            onChangeText={(value) => setData({ ...formData, password: value })}
-          />
-        </FormControl>
-        <Button onPress={onSubmit} mt="5" colorScheme="cyan">
-          Login
-        </Button>
-      </VStack>
-      <Button fontWeight={700} fontSize="2xl" bg="primary.400" onPress={logout}>
-        Logout
-      </Button>
-      <Button fontWeight={700} fontSize="2xl" bg="primary.400" onPress={fetchData}>
-        Fetch Data
-      </Button>
-    </Center>
+        </View>
+      </View>
+    </View>
   );
 };
 
