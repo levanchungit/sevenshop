@@ -14,7 +14,7 @@ const Navigation = () => {
           headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName: any;
-            if (route.name === 'Home') {
+            if (route.name === 'Home111') {
               iconName = focused ? 'home' : 'home';
             } else if (route.name === 'Favorite') {
               iconName = focused ? 'heart' : 'heart';
@@ -30,10 +30,10 @@ const Navigation = () => {
         })}
       >
         <Tab.Screen
-          name="Home"
+          name="Home111"
           component={HomePage}
           options={{
-            title: 'My home',
+            title: 'My home111',
             headerStyle: {
               backgroundColor: '#f4511e',
             },
