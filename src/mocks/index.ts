@@ -1,8 +1,17 @@
-import { Item } from 'screens/MainScreen';
+// import { Item } from 'screens/MainScreen';
+
+export type Item = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+  selled: number;
+};
 
 export const DATA: Item[] = [
   {
-    _id: '1',
+    id: '1',
     name: 'Michael Scottshhhhhhhhhsdddddddddddđ',
     price: 100,
     image: 'https://cf.shopee.vn/file/01de43664f52231011f570463e9393be',
@@ -10,7 +19,7 @@ export const DATA: Item[] = [
     selled: 200,
   },
   {
-    _id: '2',
+    id: '2',
     name: 'Michael Scott',
     price: 100,
     image: 'https://cf.shopee.vn/file/90779d1d1ed2d86bf3b6be39c9908ec7',
@@ -18,7 +27,7 @@ export const DATA: Item[] = [
     selled: 200,
   },
   {
-    _id: '3',
+    id: '3',
     name: 'Michael Scott',
     price: 100,
     image:
@@ -27,7 +36,7 @@ export const DATA: Item[] = [
     selled: 200,
   },
   {
-    _id: '4',
+    id: '4',
     name: 'Michael Scott',
     price: 100,
     image:
@@ -36,7 +45,7 @@ export const DATA: Item[] = [
     selled: 200,
   },
   {
-    _id: '5',
+    id: '5',
     name: 'Michael Scott',
     price: 100,
     image:
@@ -45,7 +54,7 @@ export const DATA: Item[] = [
     selled: 200,
   },
   {
-    _id: '6',
+    id: '6',
     name: 'Michael Scott',
     price: 100,
     image:

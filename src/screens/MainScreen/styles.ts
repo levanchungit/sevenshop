@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const windowWidth = Dimensions.get('window').width;
+// const windowWidth = Dimensions.get('window').width;
 // const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   coverHeader: {
     position: 'absolute',
-    top: 20,
+    top: 30,
     right: 12,
     padding: 12,
     flexDirection: 'row',
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
   },
   flastList: {
     display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
+    // flexWrap: 'wrap',
     width: '100%',
     alignItems: 'center',
     paddingBottom: 50,
@@ -35,31 +35,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  itemProduct: {
-    marginHorizontal: 5,
-    width: windowWidth * 0.47,
-    padding: 10,
-    marginBottom: 20,
-    borderColor: '#cccccc',
-    borderWidth: 0.5,
-  },
-
-  itemProductCategory: {
-    marginHorizontal: 5,
-    width: windowWidth * 0.6,
-    padding: 10,
-    marginBottom: 20,
-    borderColor: '#cccccc',
-    borderWidth: 0.5,
-  },
-  itemProductFlastSale: {
-    marginHorizontal: 5,
-    width: windowWidth * 0.3,
-    padding: 10,
-    marginBottom: 20,
-    borderColor: '#cccccc',
-    borderWidth: 0.5,
   },
 
   ButtonTabOpacity: {
@@ -82,23 +57,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginVertical: 12,
-  },
-
-  imageItemCategory: {
-    width: '100%',
-    height: 300,
-    marginBottom: 8,
-  },
-  imageItemForYou: {
-    width: '100%',
-    height: 150,
-    marginBottom: 8,
-  },
-
-  imageItemFlashSale: {
-    width: '100%',
-    height: 100,
-    marginBottom: 8,
   },
 });
 export default styles;

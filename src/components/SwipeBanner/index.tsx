@@ -8,7 +8,6 @@ type Props = {
 };
 
 const SlideShowImage = (props: Props) => {
-  // const [position, setPosition] = useState(1);
   const { style } = props;
   const dataSource = [
     {
@@ -27,20 +26,20 @@ const SlideShowImage = (props: Props) => {
       url: 'https://vcdn1-giaitri.vnecdn.net/2021/10/30/Banner-bi-a-8702-1635607445.png?w=0&h=0&q=100&dpr=2&fit=crop&s=KfesGkqKqdl2vZN4qEwf2Q',
     },
   ];
-  const myRef: any = useRef(null);
-
+  const myRef: any = useRef();
   useEffect(() => {
     if (dataSource.length > 0) {
       let index = 0;
       setInterval(() => {
         myRef.current.scrollTo({ x: Math.floor(index * windowWidth), y: 0, animated: true });
         index += 1;
-        if (index > dataSource.length) {
+        if (index >= dataSource.length) {
           index = 0;
         }
+        console.log('index:' + index);
       }, 3000);
     }
-  }, [dataSource]);
+  }, [myRef]);
 
   return (
     <View style={style}>
@@ -54,7 +53,7 @@ const SlideShowImage = (props: Props) => {
         {dataSource.map((image, index) => (
           <Image
             key={index}
-            style={{ width: windowWidth, height: 150, resizeMode: 'cover' }}
+            style={{ width: windowWidth, height: 200, resizeMode: 'cover' }}
             source={{ uri: image.url }}
           />
         ))}
