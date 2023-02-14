@@ -8,7 +8,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 12,
   },
-  textColorSelected: {
+  // backGroundButton: {
+  //   backgroundColor: '#FD5535',
+  // },
+
+  textColor: {
     color: '#000',
     fontWeight: 'bold',
   },
