@@ -36,6 +36,7 @@ const SlideShowImage = (props: Props) => {
         if (index >= dataSource.length) {
           index = 0;
         }
+        console.log('index:' + index);
       }, 3000);
     }
   }, [myRef]);
