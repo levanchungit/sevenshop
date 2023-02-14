@@ -1,19 +1,11 @@
 import { useState } from 'react';
 import { Text, View, Flex, Pressable, Box } from 'native-base';
-import { useWindowDimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
-
-const FirstRoute = () => <View style={{ flex: 1, backgroundColor: '#ff4081' }} />;
-
-const SecondRoute = () => <View style={{ flex: 1, backgroundColor: '#673ab7' }} />;
-
-const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-});
+import { Dimensions } from 'react-native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 const DetailsScreen = () => {
-  const layout = useWindowDimensions();
+  const DescriptionRoute = () => <View style={{ flex: 1, backgroundColor: '#ffffff' }} />;
+  const ReviewRoute = () => <View style={{ flex: 1, backgroundColor: '#ffffff' }} />;
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {
@@ -25,6 +17,34 @@ const DetailsScreen = () => {
       title: 'Review',
     },
   ]);
+
+  const renderScene = SceneMap({
+    first: DescriptionRoute,
+    second: ReviewRoute,
+  });
+
+  // const renderTabBar = (props: string) => (
+
+  //   // <TabBar
+  //   //   indicatorStyle={{ backgroundColor: 'black' }}
+  //   //   style={{ backgroundColor: 'white' }}
+  //     // layout={{
+  //     //   width: Dimensions.get('window').width,
+  //     //   height: 0,
+  //     // }}
+  //     // position={0}
+  //     // jumpTo={function (key: string): void {
+  //     //   throw new Error('Function not implemented.');
+  //     // }}
+  //     // navigationState={{
+  //     //   index: 0,
+  //     //   routes: [
+  //     //     { key: 'first', title: 'Description' },
+  //     //     { key: 'second', title: 'Review' },
+  //     //   ],
+  //     // }}
+  //   // />
+  // );
 
   return (
     <View style={{ flex: 1, paddingTop: 12, paddingHorizontal: 10, flexDirection: 'column' }}>
@@ -46,7 +66,33 @@ const DetailsScreen = () => {
         }}
         renderScene={renderScene}
         onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
+        renderTabBar={(prop) => (
+          <TabBar
+            {...prop}
+            indicatorStyle={{ backgroundColor: 'transparent' }}
+            style={{
+              backgroundColor: 'white',
+            }}
+            renderLabel={({ route, focused }) => (
+              <Text
+                style={{
+                  padding: 10,
+                  borderBottomColor: focused ? 'black' : 'green',
+                  borderBottomWidth: focused ? 1 : 0,
+                }}
+              >
+                {route.title}
+              </Text>
+            )}
+            inactiveColor={'gray'}
+            pressColor={'transparent'}
+            tabStyle={{
+              width: 'auto',
+            }}
+            activeColor={'black'}
+          />
+        )}
+        initialLayout={{ width: Dimensions.get('window').width }}
       />
       <Flex direction="row" justifyContent="space-between">
         <Text fontSize="md" fontWeight="bold">
