@@ -4,8 +4,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     pading: 12,
-    width: '100%',
-    height: '100%',
   },
 
   title: {
@@ -23,12 +21,12 @@ const styles = StyleSheet.create({
   },
 
   viewFrom: {
-    height: 200,
+    height: 150,
     alignItems: 'center',
   },
 
   viewUser: {
-    marginTop: 40,
+    marginTop: 30,
     flexDirection: 'row',
     width: '80%',
     alignItems: 'center',
@@ -41,29 +39,12 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 
-  viewPass: {
-    marginTop: 20,
-    flexDirection: 'row',
-    width: '80%',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    paddingBottom: 5,
-    paddingHorizontal: 10,
-  },
-
-  txtFogot: {
-    marginTop: 5,
-    textAlign: 'right',
-    color: 'red',
-    fontSize: 15,
-  },
-
   button: {
-    marginTop: 10,
+    marginTop: 24,
     width: '55%',
-    height: '20%',
+    height: '26%',
     backgroundColor: 'red',
-    borderRadius: 10,
+    borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
