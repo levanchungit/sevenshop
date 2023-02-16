@@ -4,8 +4,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     pading: 12,
-    width: '100%',
-    height: '100%',
   },
 
   title: {
@@ -13,6 +11,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 30,
     lineHeight: 40,
+  },
+
+  txtOTP: {
+    fontSize: 13,
+
+    width: '80%',
+    marginTop: 25,
   },
 
   image: {
@@ -28,7 +33,7 @@ const styles = StyleSheet.create({
   },
 
   viewUser: {
-    marginTop: 40,
+    marginTop: 25,
     flexDirection: 'row',
     width: '80%',
     alignItems: 'center',
@@ -41,39 +46,15 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 
-  viewPass: {
-    marginTop: 20,
-    flexDirection: 'row',
-    width: '80%',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    paddingBottom: 5,
-    paddingHorizontal: 10,
-  },
-
-  txtFogot: {
-    marginTop: 5,
-    textAlign: 'right',
-    color: 'red',
-    fontSize: 15,
-  },
-
   button: {
-    marginTop: 10,
+    marginTop: 24,
     width: '55%',
-    height: '20%',
+    height: 40,
     backgroundColor: 'red',
-    borderRadius: 10,
+    borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-  },
-
-  viewimage: {
-    marginTop: 10,
-    flexDirection: 'row',
-    width: '25%',
-    justifyContent: 'space-around',
   },
 });
 
