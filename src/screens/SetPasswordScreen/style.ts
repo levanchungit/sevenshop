@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: 10,
+    marginTop: 25,
     width: '55%',
-    height: '20%',
+    height: 40,
     backgroundColor: 'red',
     borderRadius: 10,
     justifyContent: 'center',
