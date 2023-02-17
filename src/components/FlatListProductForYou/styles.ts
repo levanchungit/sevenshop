@@ -8,5 +8,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 50,
   },
+  headerForYou: {
+    textTransform: 'uppercase',
+    fontSize: 16,
+    marginLeft: 12,
+    marginBottom: 8,
+  },
 });
 export default styles;

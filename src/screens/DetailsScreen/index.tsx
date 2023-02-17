@@ -11,7 +11,7 @@ const DetailsScreen = () => {
     <View style={{ flex: 1, paddingTop: 12, paddingHorizontal: 10 }}>
       <Text style={{ fontSize: 18, paddingBottom: 12 }}>Name: {name}</Text>
       <Text style={{ fontSize: 18 }}>Birth Year: {birthYear}</Text>
-      <Button onPress={() => navigation.navigate('Cart')} style={{ marginTop: 12 }}>
+      <Button onPress={() => navigation.navigate('Profile')} style={{ marginTop: 12 }}>
         Go to Profile
       </Button>
     </View>

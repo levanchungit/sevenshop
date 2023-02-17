@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
     height: 100,
     marginBottom: 8,
   },
+  coverTextPrice: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+  },
 });
 
 export default styles;

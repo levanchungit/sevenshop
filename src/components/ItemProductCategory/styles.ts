@@ -4,17 +4,30 @@ const windowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   itemProductCategory: {
-    marginHorizontal: 5,
     width: windowWidth * 0.6,
-    padding: 10,
+    paddingBottom: 10,
+    paddingRight: 12,
     marginBottom: 20,
-    borderColor: '#cccccc',
-    borderWidth: 0.5,
+  },
+  coverImage: {
+    marginBottom: 10,
+    alignItems: 'center',
+    shadowColor: 'black ',
+    borderColor: 'white',
+    borderRadius: 10,
+    borderWidth: 1,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 10,
   },
   imageItemCategory: {
     width: '100%',
     height: 300,
-    marginBottom: 8,
+    borderRadius: 10,
   },
 });
 

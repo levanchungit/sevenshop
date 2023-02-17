@@ -3,15 +3,25 @@ import { View, Text, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
 
 type Props = {
-  onPress: Function;
+  onPressCart: Function;
+  onPressSearch: Function;
   quantityItems: string;
 };
 
 const IconCart = (props: Props) => {
-  const { onPress, quantityItems } = props;
+  const { onPressCart, onPressSearch, quantityItems } = props;
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-      <Pressable onPress={() => onPress()}>
+      <Pressable onPress={() => onPressSearch()}>
+        <Icon.Search
+          onPress={() => onPressSearch()}
+          stroke="black"
+          width={24}
+          height={24}
+          style={{ marginRight: 12 }}
+        />
+      </Pressable>
+      <Pressable onPress={() => onPressCart()}>
         <Icon.ShoppingCart stroke="black" width={24} height={24} />
         <View
           backgroundColor="primary.600"
@@ -29,7 +39,6 @@ const IconCart = (props: Props) => {
           </Text>
         </View>
       </Pressable>
-      {/* <Text fontSize={'5xl'}>.</Text> */}
     </View>
   );
 };

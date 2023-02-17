@@ -57,7 +57,7 @@ const FlatListProductCategory = (props: Props) => {
   };
   return (
     <View>
-      <View style={styles.coverButtonOpac}>
+      <View style={styles.coverCategories}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {ItemSelected.map((item) => (
             <ButtonCategory
@@ -77,7 +77,7 @@ const FlatListProductCategory = (props: Props) => {
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal
-        contentContainerStyle={styles.flastListFlashSale}
+        contentContainerStyle={styles.flashListFlashSale}
         data={DATA}
         renderItem={({ item }) => <RenderItemCategory data={item} />}
         keyExtractor={(item1) => item1.id}

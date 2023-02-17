@@ -69,25 +69,13 @@ const FlatListProductFlashSale = (props: Props) => {
   };
   return (
     <View style={{}}>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingHorizontal: 12,
-          marginBottom: 12,
-        }}
-      >
-        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-          <Text
-            fontWeight={'bold'}
-            style={{ textTransform: 'uppercase', fontSize: 20, marginRight: 10 }}
-          >
+      <View style={styles.coverHeader}>
+        <View style={styles.headerFlashSale}>
+          <Text fontWeight={'bold'} textTransform="uppercase" fontSize={14} marginRight={14}>
             Flash sale
           </Text>
           <Text
-            style={{ borderRadius: 5, padding: 4, borderWidth: 1, fontSize: 20, width: 100 }}
+            style={styles.textTime}
             color="primary.600"
             borderColor="primary.600"
             fontStyle="-moz-initial"

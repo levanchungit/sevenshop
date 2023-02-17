@@ -14,7 +14,7 @@ export type AppStackNavigatorParamList = {
 export type BottomTabNavigatorParamList = {
   Home: undefined;
   Favorites: undefined;
-  Cart?: {
+  Notification?: {
     itemId?: number;
   };
   Profile: undefined;

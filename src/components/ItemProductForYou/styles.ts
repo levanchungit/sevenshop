@@ -1,7 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
-// const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   itemProductForYou: {
@@ -16,6 +15,13 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 150,
     marginBottom: 8,
+  },
+  coverTextSeller: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
   },
 });
 

@@ -26,10 +26,7 @@ const FlatListProductForYou = (props: Props) => {
       scrollEnabled={false}
     >
       <View>
-        <Text
-          fontWeight={'bold'}
-          style={{ textTransform: 'uppercase', fontSize: 20, marginLeft: 12, marginBottom: 8 }}
-        >
+        <Text fontWeight={'bold'} style={styles.headerForYou}>
           FOR YOU
         </Text>
         <FlatList
