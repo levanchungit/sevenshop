@@ -20,15 +20,13 @@ const ItemProductFlastSale = (props: Props) => {
       />
       <View>
         <Text numberOfLines={1}>{name}</Text>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}
-        >
-          <Text color="primary.600">{price}đ</Text>
+        <View style={styles.coverTextPrice}>
+          <Text fontSize={14} textDecorationLine="line-through">
+            {price}đ
+          </Text>
+          <Text color="primary.600" fontSize={16}>
+            {price}đ
+          </Text>
         </View>
       </View>
     </Pressable>

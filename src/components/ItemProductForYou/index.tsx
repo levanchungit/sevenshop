@@ -20,17 +20,14 @@ const ItemProductForYou = (props: Props) => {
         source={{ uri: image ? image + '' : '123' }}
       />
       <View>
-        <Text numberOfLines={1}>{name}</Text>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}
-        >
-          <Text color="primary.600">{price}đ</Text>
-          <Text>Đã bán {selled}</Text>
+        <Text numberOfLines={1} fontSize={16}>
+          {name}
+        </Text>
+        <View style={styles.coverTextSeller}>
+          <Text color="primary.600" fontSize={16}>
+            {price}đ
+          </Text>
+          <Text fontSize={12}>Đã bán {selled}</Text>
         </View>
       </View>
     </Pressable>
