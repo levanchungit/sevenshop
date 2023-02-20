@@ -29,3 +29,14 @@ git add .
 ```bash
 git commit -m "feat: ..."
 ```
+
+##Git rebase
+Pull code 2 nhánh về (master, nhánh con)
+Vào nhánh phụ
+```bash
+git rebase master
+```
+Xử lý conflict tới khi nào xong rồi
+```bash
+git push force-with-lease
+```
