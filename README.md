@@ -30,7 +30,7 @@ git add .
 git commit -m "feat: ..."
 ```
 
-##Git rebase
+## Git rebase
 Pull code 2 nhánh về (master, nhánh con)
 Vào nhánh phụ
 ```bash
