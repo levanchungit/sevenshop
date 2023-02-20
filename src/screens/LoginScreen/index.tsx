@@ -62,9 +62,10 @@ const LoginScreen = () => {
 
   return (
     <Center flex="1">
-      <Text fontWeight={700} fontSize="2xl">
-        Login Screen
-      </Text>
+      <Text variant="h1">Login Screen</Text>
+      <Button variant="primary" endIcon={<></>}>
+        Button
+      </Button>
       <VStack width="90%" mx="3" maxW="300px">
         <FormControl isRequired>
           <FormControl.Label
