@@ -42,5 +42,5 @@ git rebase master
 Xử lý conflict tới khi nào xong rồi
 
 ```bash
-git push force-with-lease
+git push --force-with-lease
 ```
