@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Text, View, Flex, Pressable, Image, Center, Modal, Box, FlatList } from 'native-base';
 import { Dimensions } from 'react-native';
+import * as Icon from 'react-native-feather';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 const DetailsScreen = () => {
@@ -90,10 +91,11 @@ const DetailsScreen = () => {
   //     data: 'Fusion Shirt',
   //   },
   // ];
-  const [selectedColor, setSelectedColor] = useState<string>();
-  console.log(selectedColor);
+  // const [selectedColor, setSelectedColor] = useState<string>();
   const [selectedSize, setSelectedSize] = useState<string>();
+  const [statusLike, setStatusLike] = useState(false);
   const initialWidth = Dimensions.get('window').width;
+  let [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const DescriptionRoute = () => (
     <View style={{ flex: 1, backgroundColor: 'transparent' }}>
@@ -134,10 +136,10 @@ const DetailsScreen = () => {
     >
       <Flex direction="row" justifyContent={'space-between'}>
         <Pressable>
-          <Text>Back</Text>
+          <Icon.ChevronLeft stroke="black" />
         </Pressable>
         <Pressable>
-          <Text>Cart</Text>
+          <Icon.ShoppingCart stroke="black" />
         </Pressable>
       </Flex>
 
@@ -149,7 +151,7 @@ const DetailsScreen = () => {
         size="full"
         shadow="9"
         alignSelf="center"
-        style={{ width: '80%', height: '50%' }}
+        style={{ width: '90%', height: '50%' }}
       />
 
       <Text fontSize="24" fontWeight="semibold">
@@ -246,10 +248,15 @@ const DetailsScreen = () => {
           width="43"
           height="43"
           borderRadius="6"
-          backgroundColor="#AC1506"
+          alignItems="center"
+          backgroundColor="primary.600"
+          onPress={() => setStatusLike(!statusLike)}
           justifyContent="center"
-        ></Pressable>
+        >
+          <Icon.Heart stroke="white" fill={statusLike ? 'white' : 'none'} />
+        </Pressable>
         <Pressable
+          flexDirection="row"
           width="40%"
           height="43"
           borderRadius="6"
@@ -260,21 +267,22 @@ const DetailsScreen = () => {
           justifyContent="center"
           onPress={() => setShowModal(true)}
         >
-          <Text color="#AC1506" fontWeight="bold" fontSize="14">
-            Buy now
+          <Icon.ShoppingCart stroke="#AC1506" />
+          <Text color="primary.600" fontWeight="bold" marginLeft="3" fontSize="14">
+            Add to cart
           </Text>
         </Pressable>
         <Pressable
           width="40%"
           height="43"
           borderRadius="6"
-          backgroundColor="#AC1506"
+          backgroundColor="primary.600"
           alignItems="center"
           justifyContent="center"
           onPress={() => setShowModal(true)}
         >
           <Text color="white" fontWeight="bold" fontSize="14">
-            Add to cart
+            Buy now
           </Text>
         </Pressable>
       </Center>
@@ -307,14 +315,14 @@ const DetailsScreen = () => {
                 </Box>
                 <Flex
                   direction="row"
-                  width="70%"
+                  width="77%"
                   justifyContent="space-between"
                   alignItems="center"
                 >
                   <Text fontSize="md">Warehouse: 20</Text>
                   <Flex direction="row" justifyContent="center" alignItems="center">
-                    <Pressable>
-                      <Text>-</Text>
+                    <Pressable onPress={() => setQuantity(quantity--)}>
+                      <Icon.Minus stroke="black" />
                     </Pressable>
                     <Box
                       borderWidth="1"
@@ -326,10 +334,10 @@ const DetailsScreen = () => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Text>6</Text>
+                      <Text>{quantity}</Text>
                     </Box>
-                    <Pressable>
-                      <Text>+</Text>
+                    <Pressable onPress={() => setQuantity(quantity++)}>
+                      <Icon.Plus stroke="black" />
                     </Pressable>
                   </Flex>
                 </Flex>
@@ -339,17 +347,16 @@ const DetailsScreen = () => {
               <FlatList
                 data={data}
                 scrollEnabled={false}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
                 numColumns={3}
                 ListHeaderComponent={
                   <Text fontSize="14" fontWeight="bold">
                     Color
                   </Text>
                 }
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => (
                   <Pressable
-                    onPress={() => setSelectedColor(item.data)}
                     marginRight="3"
                     marginBottom="3"
                     backgroundColor={item.data}
@@ -380,8 +387,8 @@ const DetailsScreen = () => {
                     marginRight="3"
                     marginBottom="3"
                     borderWidth="1"
-                    backgroundColor={item.data === selectedSize ? '#AC1506' : 'transparent'}
-                    borderColor="#AC1506"
+                    backgroundColor={item.data === selectedSize ? 'primary.600' : 'transparent'}
+                    borderColor="primary.600"
                     w="41"
                     h="41"
                     borderRadius="10"
@@ -390,7 +397,7 @@ const DetailsScreen = () => {
                   >
                     <Text
                       fontSize="12"
-                      color={item.data === selectedSize ? 'white' : '#AC1506'}
+                      color={item.data === selectedSize ? 'white' : 'primary.600'}
                       fontWeight="bold"
                     >
                       {item.data}
