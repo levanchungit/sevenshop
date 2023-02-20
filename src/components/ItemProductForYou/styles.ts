@@ -6,10 +6,9 @@ const styles = StyleSheet.create({
   itemProductForYou: {
     marginHorizontal: 5,
     width: windowWidth * 0.47,
-    padding: 10,
-    marginBottom: 20,
-    borderColor: '#cccccc',
-    borderWidth: 0.5,
+    height: windowWidth * 0.47,
+    padding: 6,
+    marginBottom: 12,
   },
   imageItemForYou: {
     width: '100%',

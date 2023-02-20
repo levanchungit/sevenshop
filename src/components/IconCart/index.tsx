@@ -11,7 +11,15 @@ type Props = {
 const IconCart = (props: Props) => {
   const { onPressCart, onPressSearch, quantityItems } = props;
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+    <View
+      style={{
+        // width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        paddingRight: 20,
+      }}
+    >
       <Pressable onPress={() => onPressSearch()}>
         <Icon.Search
           onPress={() => onPressSearch()}

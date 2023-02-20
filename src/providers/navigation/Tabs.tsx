@@ -1,6 +1,7 @@
 import React from 'react';
-import Ionicons from '@expo/vector-icons/Ionicons';
+// import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as Icons from 'react-native-feather';
 import FavoriteScreen from 'screens/FavoriteScreen';
 import { MainScreen } from 'screens/MainScreen';
 import NotificationScreen from 'screens/NotificationScreen';
@@ -19,20 +20,24 @@ const BottomTabs = (props: Props) => {
     <Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-
+        tabBarStyle: {
+          height: 85,
+          alignItems: 'center',
+          paddingHorizontal: 50,
+          paddingTop: 10,
+        },
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName: any;
           if (route.name === 'Home') {
-            iconName = focused ? 'home' : 'home';
+            return focused ? <Icons.Home fill={'black'} /> : <Icons.Home stroke={'black'} />;
           } else if (route.name === 'Favorites') {
-            iconName = focused ? 'heart' : 'heart';
+            return focused ? <Icons.Heart fill={'black'} /> : <Icons.Heart stroke={'black'} />;
           } else if (route.name === 'Notification') {
-            iconName = focused ? 'notifications' : 'notifications';
+            return focused ? <Icons.Bell fill={'black'} /> : <Icons.Bell stroke={'black'} />;
           } else if (route.name === 'Profile') {
-            iconName = focused ? 'person' : 'person';
+            return focused ? <Icons.User fill={'black'} /> : <Icons.User stroke={'black'} />;
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Icons.Activity />;
         },
         tabBarActiveTintColor: 'black',
         tabBarInactiveTintColor: 'gray',
@@ -42,7 +47,11 @@ const BottomTabs = (props: Props) => {
       <Screen name="Favorites" options={{ tabBarLabel: '' }} component={FavoriteScreen} />
       <Screen
         name="Notification"
-        options={{ tabBarLabel: '', tabBarBadge: quantity }}
+        options={{
+          tabBarLabel: '',
+          tabBarBadge: quantity,
+          tabBarBadgeStyle: { marginTop: 10, backgroundColor: '#AC1506' },
+        }}
         component={NotificationScreen}
       />
       <Screen name="Profile" options={{ tabBarLabel: '' }} component={ProfileScreen} />
