@@ -3,7 +3,8 @@ export const DATA = [
     id: '1',
     name: 'Michael Scottshhhhhhhhhsdddddddddddđ',
     price: 100,
-    image: 'https://cf.shopee.vn/file/01de43664f52231011f570463e9393be',
+    image:
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lvse-monogram-degrade-crewneck--HKN44WUSO904_PM2_Front%20view.png?wid=656&hei=656',
     category: '123',
     selled: 200,
   },
@@ -11,7 +12,8 @@ export const DATA = [
     id: '2',
     name: 'Michael Scott',
     price: 100,
-    image: 'https://cf.shopee.vn/file/90779d1d1ed2d86bf3b6be39c9908ec7',
+    image:
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
     category: '123',
     selled: 200,
   },
@@ -20,7 +22,7 @@ export const DATA = [
     name: 'Michael Scott',
     price: 100,
     image:
-      'https://mochanstore.com/wp-content/uploads/2022/11/mochanstore.com-AO-NI-SWEETER-KY-HOA-KHUNG-LONG-KIM.jpg',
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-signature-cardigan--HON46WU34MU1_PM2_Front%20view.png?wid=656&hei=656',
     category: '123',
     selled: 200,
   },
@@ -29,7 +31,7 @@ export const DATA = [
     name: 'Michael Scott',
     price: 100,
     image:
-      'https://salt.tikicdn.com/cache/w1200/ts/product/d0/2f/c0/186c8e184b92ccd59a6b44fc68f86cf5.jpg',
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-hybrid-nylon-hooded-tracksuit--HON12WZLW304_PM2_Front%20view.png?wid=656&hei=656',
     category: '123',
     selled: 200,
   },
@@ -38,7 +40,7 @@ export const DATA = [
     name: 'Michael Scott',
     price: 100,
     image:
-      'https://static.wixstatic.com/media/b6f0c5_71dbc45986954ee58dcd3151d7d714cd~mv2.jpg/v1/fit/w_500,h_500,q_90/file.jpg',
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-music-line-embroidered-crewneck--HOY03WIHN900_PM2_Front%20view.png?wid=656&hei=656',
     category: '123',
     selled: 200,
   },
@@ -47,7 +49,7 @@ export const DATA = [
     name: 'Michael Scott',
     price: 100,
     image:
-      'https://static.wixstatic.com/media/b6f0c5_71dbc45986954ee58dcd3151d7d714cd~mv2.jpg/v1/fit/w_500,h_500,q_90/file.jpg',
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-monogram-zip-through-hoodie--HOY04WSQ5620_PM2_Front%20view.png?wid=656&hei=656',
     category: '123',
     selled: 200,
   },
