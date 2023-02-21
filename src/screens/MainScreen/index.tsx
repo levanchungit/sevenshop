@@ -1,47 +1,40 @@
-import { useNavigation } from '@react-navigation/native';
-import { FlatList, Pressable, Text, View } from 'native-base';
-import { MainScreenNavigationProp } from 'providers/navigation/types';
+import { useEffect, useState } from 'react';
+// import { useNavigation } from '@react-navigation/native';
+import { FlatList, Pressable, Text, View, Toast } from 'native-base';
+import { authAPI } from 'modules/api';
+// import { MainScreenNavigationProp } from 'providers/navigation/types';
 
-type UserData = {
-  id: number;
+type ProductData = {
+  _id: string;
   name: string;
-  birth_year: string;
+  description: string;
 };
 
-const DATA: UserData[] = [
-  {
-    id: 1,
-    name: 'Luke Skywalker',
-    birth_year: '19BBY',
-  },
-  {
-    id: 2,
-    name: 'C-3PO',
-    birth_year: '112BBY',
-  },
-  {
-    id: 3,
-    name: 'R2-D2',
-    birth_year: '33BBY',
-  },
-  {
-    id: 4,
-    name: 'Darth Vader',
-    birth_year: '41.9BBY',
-  },
-  {
-    id: 5,
-    name: 'Leia Organa',
-    birth_year: '19BBY',
-  },
-];
-
 export const MainScreen = () => {
-  const navigation = useNavigation<MainScreenNavigationProp>();
+  const [dataProducts, setDataProducts] = useState([]);
 
-  const renderListItems = ({ item }: { item: UserData }) => {
+  const fetchData = async () => {
+    try {
+      const response = await authAPI.getProducts();
+      setDataProducts(response.data.result);
+      console.log('DATA', response.data);
+    } catch (e: any) {
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // const navigation = useNavigation<MainScreenNavigationProp>();
+
+  const renderListItems = ({ item }: { item: ProductData }) => {
     return (
-      <Pressable onPress={() => navigation.navigate('Cart', { itemId: item.id })}>
+      <Pressable onPress={() => console.log(item)}>
         <Text style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}>
           {item.name}
         </Text>
@@ -57,7 +50,7 @@ export const MainScreen = () => {
 
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
-      <FlatList data={DATA} renderItem={renderListItems} />
+      <FlatList data={dataProducts} renderItem={renderListItems} />
     </View>
   );
 };
