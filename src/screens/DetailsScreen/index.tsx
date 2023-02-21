@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Text, View, Flex, Pressable, Image, Center, Modal, Box, FlatList } from 'native-base';
 import { Dimensions } from 'react-native';
 import * as Icon from 'react-native-feather';
+import { Rating } from 'react-native-ratings';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 const DetailsScreen = () => {
@@ -92,6 +93,21 @@ const DetailsScreen = () => {
   //   },
   // ];
   // const [selectedColor, setSelectedColor] = useState<string>();
+  const data4 = [
+    {
+      name: 'Lê Văn Chung',
+      rating: '5',
+      comment:
+        'Dùng oke lắm luôn mọi người ạ. Shop giao hàng nhanh, đóng gói cẩn thận.Tư vấn siu nhiệt tình luôn. Cho shop 5 sao',
+      time: '2015-02-01 9:00PM',
+    },
+    {
+      name: 'Trần Trọng Đăng Khoa',
+      rating: '5',
+      comment: 'Very good product',
+      time: '2015-02-01 9:00PM',
+    },
+  ];
   const [selectedSize, setSelectedSize] = useState<string>();
   const [statusLike, setStatusLike] = useState(false);
   const initialWidth = Dimensions.get('window').width;
@@ -104,9 +120,83 @@ const DetailsScreen = () => {
         cartoon characters in an overlapping collage with vibrant colored details. This joyful piece
         has a kangaroo pocket and a ribbed hem and cuffs, with an inside-out label at the back.
       </Text>
+      <Flex direction="row" justifyContent="space-between">
+        <Text fontSize="md" fontWeight="bold">
+          Recommend for you
+        </Text>
+        <Pressable>
+          <Text fontSize="md" fontWeight="bold">
+            See all
+          </Text>
+        </Pressable>
+      </Flex>
+      {/* <FlatList
+        style={{ borderWidth: 1, height: 100 }}
+        data={data3}
+        horizontal={true}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <Pressable w="100" h="100">
+            <Image
+              source={{
+                uri: 'https://wallpaperaccess.com/full/317501.jpg',
+              }}
+              alt="Alternate Text"
+              size="full"
+              style={{ width: 100, height: 100 }}
+            />
+            <Text>{item.title}</Text>
+          </Pressable>
+        )}
+        keyExtractor={(item) => item.title}
+      /> */}
     </View>
   );
-  const ReviewRoute = () => <View style={{ flex: 1, backgroundColor: 'transparent' }} />;
+  const ReviewRoute = () => (
+    <View style={{ flex: 1, backgroundColor: 'transparent' }}>
+      <Rating readonly={true} imageSize={30} style={{ paddingVertical: 10, width: 180 }} />
+      <FlatList
+        data={data4}
+        renderItem={({ item }) => (
+          <Box paddingY="5" w="100%" borderTopWidth="1" borderTopColor="#C9C9C9">
+            <Flex direction="row">
+              <Image
+                source={{
+                  uri: 'https://wallpaperaccess.com/full/317501.jpg',
+                }}
+                alt="Alternate Text"
+                size="full"
+                shadow="9"
+                alignSelf="center"
+                borderRadius="full"
+                style={{ width: 50, height: 50, margin: 10 }}
+              />
+              <Flex direction="column" w="full">
+                <Flex direction="row" justifyContent="space-between" width="85%">
+                  <Text fontSize="20" fontWeight="bold">
+                    {item.name}
+                  </Text>
+                  <Text fontSize="16">{item.time}</Text>
+                </Flex>
+                <Rating
+                  imageSize={25}
+                  readonly={true}
+                  style={{
+                    paddingVertical: 10,
+                    width: 130,
+                  }}
+                />
+                <Text fontSize="16" width="80%">
+                  {item.comment}
+                </Text>
+              </Flex>
+            </Flex>
+          </Box>
+        )}
+        keyExtractor={(item) => item.name}
+      />
+    </View>
+  );
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {
@@ -201,37 +291,6 @@ const DetailsScreen = () => {
         )}
         initialLayout={{ width: initialWidth, height: 0 }}
       />
-
-      <Flex direction="row" justifyContent="space-between">
-        <Text fontSize="md" fontWeight="bold">
-          Recommend for you
-        </Text>
-        <Pressable>
-          <Text fontSize="md" fontWeight="bold">
-            See all
-          </Text>
-        </Pressable>
-      </Flex>
-      {/* <FlatList
-        style={{ borderWidth: 1, height: 100 }}
-        data={data3}
-        horizontal={true}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <Pressable w="100" h="100">
-            <Image
-              source={{
-                uri: 'https://wallpaperaccess.com/full/317501.jpg',
-              }}
-              alt="Alternate Text"
-              size="full"
-              style={{ width: 100, height: 100 }}
-            />
-            <Text>{item.title}</Text>
-          </Pressable>
-        )}
-        keyExtractor={(item) => item.title}
-      /> */}
 
       <Center
         height="auto"
