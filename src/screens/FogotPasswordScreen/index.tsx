@@ -12,6 +12,7 @@ const ForgotPasswordScreen = (props: Props) => {
   return (
     <View w={'100%'} h={'100%'} flex={1}>
       <Image
+        alt="Image Forgotpassword"
         w={'100%'}
         h={250}
         borderBottomLeftRadius={12}
