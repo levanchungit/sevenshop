@@ -55,7 +55,7 @@ const OTPScreen = (props: Props) => {
             fontStyle={'normal'}
             w={{ base: '85%' }}
             variant="unstyled"
-            placeholder="Enter your email/phone number"
+            placeholder="Enter your OTP..."
           />
         </View>
 

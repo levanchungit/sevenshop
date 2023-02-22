@@ -13,6 +13,7 @@ const LoginScreen = (props: Props) => {
   return (
     <View w={'100%'} h={'100%'} flex={1}>
       <Image
+        alt="Image Login"
         w={'100%'}
         h={250}
         borderBottomLeftRadius={12}
@@ -20,7 +21,6 @@ const LoginScreen = (props: Props) => {
         source={{
           uri: 'https://th.bing.com/th/id/OIP.cH80uEpp8kXrYliDjpuk2AHaFh?pid=ImgDet&rs=1',
         }}
-        alt="description of image"
       />
 
       <Text
@@ -118,6 +118,7 @@ const LoginScreen = (props: Props) => {
         <View mt={3} flexDirection={'row'} w={'25%'} justifyContent={'space-around'}>
           <Image
             style={{ width: 40, height: 40 }}
+            alt="Image Facebook"
             source={{
               uri: 'https://images.vexels.com/media/users/3/223136/isolated/preview/984f500cf9de4519b02b354346eb72e0-facebook-icon-social-media-by-vexels.png',
             }}
@@ -127,6 +128,7 @@ const LoginScreen = (props: Props) => {
             source={{
               uri: 'https://imagepng.org/wp-content/uploads/2019/08/google-icon.png',
             }}
+            alt="Image Gmail"
           />
         </View>
         <View flexDirection={'row'} alignItems={'center'} mt={5}>
