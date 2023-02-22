@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Button, Center, FormControl, Input, Text, Toast, VStack } from 'native-base';
+import { Text, View, Image, Toast, Center, Button, VStack, Input, FormControl } from 'native-base';
+import { TextInput, TouchableOpacity } from 'react-native';
 import { clearAuthTokens, getRefreshToken } from 'react-native-axios-jwt';
+import * as Icon from 'react-native-feather';
 import { RefreshTokenPayload, SignInPayload } from 'interfaces/Auth';
 import { authAPI } from 'modules/api';
 import { AppNavigationProp } from 'providers/navigation/types';
+import styles from './style';
+type Props = object;
 
-const LoginScreen = () => {
-  const [formData, setData] = useState<SignInPayload>({
-    email: 'ryanvo.0162@gmail.com',
+const LoginScreen = (props: Props) => {
+  const [formData, setFormData] = useState<SignInPayload>({
+    email: 'levanchunq123@gmail.com',
     password: '123456',
   });
   const [refreshToken, setRefreshToken] = useState<RefreshTokenPayload>({ refresh_token: '' });
@@ -45,12 +49,17 @@ const LoginScreen = () => {
       });
     }
   };
+
   const logout = async () => {
     getRefreshToken().then((token) => {
       setRefreshToken({ refresh_token: token });
     });
     try {
-      await authAPI.logout(refreshToken);
+      const response = await authAPI.logout(refreshToken);
+      Toast.show({
+        title: response.data.message,
+        duration: 3000,
+      });
       clearAuthTokens();
     } catch (e: any) {
       Toast.show({
@@ -91,32 +100,60 @@ const LoginScreen = () => {
             autoComplete="email"
             autoCapitalize="none"
             value={formData.email}
-            onChangeText={(value) => setData({ ...formData, email: value })}
-          />
-          <FormControl.Label
-            _text={{
-              bold: true,
-            }}
-          >
-            Password
-          </FormControl.Label>
-          <Input
-            placeholder="Password"
-            secureTextEntry
-            value={formData.password}
-            onChangeText={(value) => setData({ ...formData, password: value })}
+            onChangeText={(value) => setFormData({ ...formData, email: value })}
+            style={styles.inputuser}
+            // placeholder="Enter your email/phone number"
           />
         </FormControl>
-        <Button onPress={onSubmit} mt="5" colorScheme="cyan">
-          Login
-        </Button>
+
+        <View style={styles.viewPass}>
+          <Icon.Lock stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
+          <TextInput
+            value={formData.password}
+            onChangeText={(value) => setFormData({ ...formData, password: value })}
+            style={styles.inputuser}
+            placeholder="Enter your password"
+            secureTextEntry={true}
+          />
+          <Icon.EyeOff stroke="black" width={24} height={24} />
+        </View>
+        <View style={{ width: '80%' }}>
+          <Text style={styles.txtFogot}>Forgot password?</Text>
+        </View>
+        <TouchableOpacity style={styles.button} onPress={onSubmit}>
+          <Text style={{ fontSize: 14 }}>Login</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={logout}>
+          <Text style={{ fontSize: 14 }}>Logout</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={fetchData}>
+          <Text style={{ fontSize: 14 }}>Me</Text>
+        </TouchableOpacity>
+
+        <Text style={{ fontSize: 14, marginTop: 30 }}>Or login with</Text>
+        <View style={styles.viewimage}>
+          <Image
+            alt="1"
+            style={{ width: 40, height: 40 }}
+            source={{
+              uri: 'https://storage.googleapis.com/nexzinc/2019/06/Facebook-Icon-3-600x600.png',
+            }}
+          />
+          <Image
+            alt="1"
+            style={{ width: 40, height: 40 }}
+            source={{
+              uri: 'https://imagepng.org/wp-content/uploads/2019/08/google-icon.png',
+            }}
+          />
+        </View>
+        <View style={{ flexDirection: 'row', marginTop: 5 }}>
+          <Text style={{ fontSize: 14 }}>Don’t you have an account?</Text>
+          <Text style={{ fontSize: 14, color: 'red' }}>Register</Text>
+        </View>
       </VStack>
-      <Button fontWeight={700} fontSize="2xl" bg="primary.400" onPress={logout}>
-        Logout
-      </Button>
-      <Button fontWeight={700} fontSize="2xl" bg="primary.400" onPress={fetchData}>
-        Fetch Data
-      </Button>
     </Center>
   );
 };

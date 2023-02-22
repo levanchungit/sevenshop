@@ -12,3 +12,9 @@ export type GetMeSuccessData = {
   email: string;
   avatar: string;
 };
+
+export type GetProductSuccessData = {
+  _id: string;
+  name: string;
+  description: string;
+};
