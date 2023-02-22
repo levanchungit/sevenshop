@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Image, Toast } from 'native-base';
+import { Text, View, Image, Toast, Center, Button, VStack, Input, FormControl } from 'native-base';
 import { TextInput, TouchableOpacity } from 'react-native';
 import { clearAuthTokens, getRefreshToken } from 'react-native-axios-jwt';
 import * as Icon from 'react-native-feather';
@@ -70,27 +70,41 @@ const LoginScreen = (props: Props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.image}
-        shadow={1}
-        source={{
-          uri: 'https://th.bing.com/th/id/OIP.cH80uEpp8kXrYliDjpuk2AHaFh?pid=ImgDet&rs=1',
-        }}
-        alt={'Alt'}
-      />
-      <Text style={styles.title}>Login</Text>
-
-      <View style={styles.viewFrom}>
-        <View style={styles.viewUser}>
-          <Icon.User stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
-          <TextInput
+    <Center flex="1">
+      <Text variant="h1">Heading 1</Text>
+      <Text variant="h2">Heading 2</Text>
+      <Text variant="h3">Heading 3</Text>
+      <Text variant="h4">Heading 4</Text>
+      <Text variant="title">Title</Text>
+      <Text variant="subtitle1">Subtitle 1</Text>
+      <Text variant="subtitle2">Subtitle 2</Text>
+      <Text variant="body1">Body 1</Text>
+      <Text variant="body2">Body 2</Text>
+      <Text variant="button">BUTTON</Text>
+      <Text variant="caption">Caption</Text>
+      <Text variant="overline">OVERLINE</Text>
+      <Button variant="primary" endIcon={<></>}>
+        Button
+      </Button>
+      <VStack width="90%" mx="3" maxW="300px">
+        <FormControl isRequired>
+          <FormControl.Label
+            _text={{
+              bold: true,
+            }}
+          >
+            Email
+          </FormControl.Label>
+          <Input
+            placeholder="Email"
+            autoComplete="email"
+            autoCapitalize="none"
             value={formData.email}
             onChangeText={(value) => setFormData({ ...formData, email: value })}
             style={styles.inputuser}
-            placeholder="Enter your email/phone number"
+            // placeholder="Enter your email/phone number"
           />
-        </View>
+        </FormControl>
 
         <View style={styles.viewPass}>
           <Icon.Lock stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
@@ -139,8 +153,8 @@ const LoginScreen = (props: Props) => {
           <Text style={{ fontSize: 14 }}>Don’t you have an account?</Text>
           <Text style={{ fontSize: 14, color: 'red' }}>Register</Text>
         </View>
-      </View>
-    </View>
+      </VStack>
+    </Center>
   );
 };
 
