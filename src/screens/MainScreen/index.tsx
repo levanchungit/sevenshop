@@ -1,63 +1,52 @@
-import { useNavigation } from '@react-navigation/native';
-import { FlatList, Pressable, Text, View } from 'native-base';
-import { MainScreenNavigationProp } from 'providers/navigation/types';
-
-type UserData = {
-  id: number;
-  name: string;
-  birth_year: string;
-};
-
-const DATA: UserData[] = [
-  {
-    id: 1,
-    name: 'Luke Skywalker',
-    birth_year: '19BBY',
-  },
-  {
-    id: 2,
-    name: 'C-3PO',
-    birth_year: '112BBY',
-  },
-  {
-    id: 3,
-    name: 'R2-D2',
-    birth_year: '33BBY',
-  },
-  {
-    id: 4,
-    name: 'Darth Vader',
-    birth_year: '41.9BBY',
-  },
-  {
-    id: 5,
-    name: 'Leia Organa',
-    birth_year: '19BBY',
-  },
-];
+import React, { useState } from 'react';
+import { View, ScrollView } from 'native-base';
+import { TextInput } from 'react-native';
+import FlatListProductCategory from 'components/FlatListProductCategory';
+import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
+import FlatListProductForYou from 'components/FlatListProductForYou';
+import IconCart from 'components/IconCart';
+import SlideShowImage from 'components/SwipeBanner';
+import styles from './styles';
 
 export const MainScreen = () => {
-  const navigation = useNavigation<MainScreenNavigationProp>();
-
-  const renderListItems = ({ item }: { item: UserData }) => {
-    return (
-      <Pressable onPress={() => navigation.navigate('Cart', { itemId: item.id })}>
-        <Text style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}>
-          {item.name}
-        </Text>
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: '#ccc',
-          }}
-        />
-      </Pressable>
-    );
-  };
+  let yOffset = '';
+  const [scrollEnable, setScrollEnable] = useState(false);
 
   return (
-    <View style={{ flex: 1, paddingTop: 10 }}>
-      <FlatList data={DATA} renderItem={renderListItems} />
+    <View style={styles.container}>
+      <ScrollView
+        horizontal={false}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        onScroll={(event) => {
+          yOffset = event.nativeEvent.contentOffset.y.toString();
+          if (parseFloat(yOffset) > 50) {
+            setScrollEnable(true);
+          } else if (parseFloat(yOffset) === 0) {
+            setScrollEnable(false);
+          }
+        }}
+      >
+        <View>
+          <SlideShowImage style={{}} />
+
+          <FlatListProductCategory />
+
+          <FlatListProductFlashSale />
+
+          <FlatListProductForYou />
+        </View>
+      </ScrollView>
+      <View>
+        <View style={scrollEnable ? styles.coverHeaderOnScroll : styles.coverHeader}>
+          {scrollEnable ? <TextInput style={styles.search} placeholder="Search" /> : <View></View>}
+          <IconCart
+            onPressCart={() => alert('cart nè')}
+            onPressSearch={() => alert('search nè')}
+            quantityItems="20"
+          />
+        </View>
+      </View>
     </View>
   );
 };
