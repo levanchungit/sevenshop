@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { TokenRefreshRequest, applyAuthTokenInterceptor } from 'react-native-axios-jwt';
 import { API_URL } from 'global/config';
-import API_ROUTES from 'global/constants/apiRoutes';
+import { API_ROUTES } from 'global/constants';
 
 // 1. Create an axios instance that you wish to apply the interceptor to
 
