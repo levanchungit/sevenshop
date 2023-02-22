@@ -1,5 +1,16 @@
 import { useState } from 'react';
-import { Text, View, Flex, Pressable, Image, Center, Modal, Box, FlatList } from 'native-base';
+import {
+  Text,
+  View,
+  Flex,
+  Pressable,
+  Image,
+  Center,
+  Modal,
+  Box,
+  FlatList,
+  ScrollView,
+} from 'native-base';
 import { Dimensions } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
@@ -115,21 +126,25 @@ const DetailsScreen = () => {
   const [showModal, setShowModal] = useState(false);
   const DescriptionRoute = () => (
     <View style={{ flex: 1, backgroundColor: 'transparent' }}>
-      <Text style={{ fontSize: 18 }}>
-        This playful hoodie has an allover Monogram Comics motif in which House signatures become
-        cartoon characters in an overlapping collage with vibrant colored details. This joyful piece
-        has a kangaroo pocket and a ribbed hem and cuffs, with an inside-out label at the back.
-      </Text>
-      <Flex direction="row" justifyContent="space-between">
-        <Text fontSize="md" fontWeight="bold">
-          Recommend for you
+      <ScrollView>
+        <Text fontSize={[12, 16, 20]}>
+          This playful hoodie has an allover Monogram Comics motif in which House signatures become
+          cartoon characters in an overlapping collage with vibrant colored details. This joyful
+          piece has a kangaroo pocket and a ribbed hem and cuffs, with an inside-out label at the
+          back.
         </Text>
-        <Pressable>
-          <Text fontSize="md" fontWeight="bold">
-            See all
+        <Flex direction="row" justifyContent="space-between">
+          <Text fontSize={[12, 16, 20]} fontWeight="bold">
+            Recommend for you
           </Text>
-        </Pressable>
-      </Flex>
+          <Pressable>
+            <Text fontSize={[12, 16, 20]} fontWeight="bold">
+              See all
+            </Text>
+          </Pressable>
+        </Flex>
+      </ScrollView>
+
       {/* <FlatList
         style={{ borderWidth: 1, height: 100 }}
         data={data3}
@@ -154,7 +169,7 @@ const DetailsScreen = () => {
   );
   const ReviewRoute = () => (
     <View style={{ flex: 1, backgroundColor: 'transparent' }}>
-      <Rating readonly={true} imageSize={30} style={{ paddingVertical: 10, width: 180 }} />
+      <Rating readonly={true} imageSize={15} style={{ paddingVertical: 5, width: '30%' }} />
       <FlatList
         data={data4}
         renderItem={({ item }) => (
@@ -167,26 +182,29 @@ const DetailsScreen = () => {
                 alt="Alternate Text"
                 size="full"
                 shadow="9"
-                alignSelf="center"
+                alignSelf="flex-start"
                 borderRadius="full"
-                style={{ width: 50, height: 50, margin: 10 }}
+                w={[10, 50, 70]}
+                h={[10, 50, 70]}
+                margin={[2, 10]}
               />
-              <Flex direction="column" w="full">
-                <Flex direction="row" justifyContent="space-between" width="85%">
-                  <Text fontSize="20" fontWeight="bold">
+              <Flex direction="column" w="80%">
+                <Flex direction="row" justifyContent="space-between">
+                  <Text fontSize={[12, 20, 24]} fontWeight="bold">
                     {item.name}
                   </Text>
-                  <Text fontSize="16">{item.time}</Text>
+                  <Text fontSize={[10, 16, 24]}>{item.time}</Text>
                 </Flex>
                 <Rating
-                  imageSize={25}
+                  imageSize={15}
                   readonly={true}
                   style={{
                     paddingVertical: 10,
-                    width: 130,
+                    width: '30%',
+                    alignItems: 'flex-start',
                   }}
                 />
-                <Text fontSize="16" width="80%">
+                <Text fontSize={[12, 16, 24]} width="80%">
                   {item.comment}
                 </Text>
               </Flex>
@@ -241,17 +259,18 @@ const DetailsScreen = () => {
         size="full"
         shadow="9"
         alignSelf="center"
-        style={{ width: '90%', height: '50%' }}
+        w="90%"
+        h="50%"
       />
 
-      <Text fontSize="24" fontWeight="semibold">
+      <Text fontSize={[18, 24, 26]} fontWeight="semibold">
         Product Name
       </Text>
       <Flex direction="row" alignItems="center" justifyContent="flex-start">
-        <Text fontSize="20" fontWeight="semibold" color="red.600" marginRight="1.5">
+        <Text fontSize={[16, 20, 24]} fontWeight="semibold" color="red.600" marginRight="1.5">
           100.000đ
         </Text>
-        <Text fontSize="md" strikeThrough color="gray.500">
+        <Text fontSize={[12, 16, 20]} strikeThrough color="gray.500">
           400.000đ
         </Text>
       </Flex>
@@ -272,13 +291,11 @@ const DetailsScreen = () => {
             }}
             renderLabel={({ route, focused }) => (
               <Text
-                style={{
-                  padding: 10,
-                  fontSize: 14,
-                  color: focused ? 'black' : 'gray',
-                  borderBottomColor: focused ? 'black' : 'green',
-                  borderBottomWidth: focused ? 1 : 0,
-                }}
+                padding={[2, 4, 8]}
+                fontSize={[10, 16, 20]}
+                color={focused ? 'black' : 'gray'}
+                borderBottomColor={focused ? 'black' : 'green'}
+                borderBottomWidth={focused ? 1 : 0}
               >
                 {route.title}
               </Text>
@@ -295,7 +312,7 @@ const DetailsScreen = () => {
       <Center
         height="auto"
         width="100%"
-        borderTopRadius="10"
+        borderTopRadius={[5, 10]}
         flexDirection="row"
         backgroundColor="white"
         paddingTop="5"
@@ -304,20 +321,20 @@ const DetailsScreen = () => {
         shadow="9"
       >
         <Pressable
-          width="43"
-          height="43"
+          width={[8, 43, 50]}
+          height={[8, 43, 50]}
           borderRadius="6"
           alignItems="center"
           backgroundColor="primary.600"
           onPress={() => setStatusLike(!statusLike)}
           justifyContent="center"
         >
-          <Icon.Heart stroke="white" fill={statusLike ? 'white' : 'none'} />
+          <Icon.Heart width="60%" stroke="white" fill={statusLike ? 'white' : 'none'} />
         </Pressable>
         <Pressable
           flexDirection="row"
           width="40%"
-          height="43"
+          height={[8, 43, 50]}
           borderRadius="6"
           borderWidth="1"
           borderColor="#C9C9C9"
@@ -326,14 +343,14 @@ const DetailsScreen = () => {
           justifyContent="center"
           onPress={() => setShowModal(true)}
         >
-          <Icon.ShoppingCart stroke="#AC1506" />
+          <Icon.ShoppingCart width="13%" stroke="#AC1506" />
           <Text color="primary.600" fontWeight="bold" marginLeft="3" fontSize="14">
             Add to cart
           </Text>
         </Pressable>
         <Pressable
           width="40%"
-          height="43"
+          height={[8, 43, 50]}
           borderRadius="6"
           backgroundColor="primary.600"
           alignItems="center"
@@ -353,7 +370,7 @@ const DetailsScreen = () => {
         >
           <Modal.CloseButton />
 
-          <Modal.Body style={{ height: 'auto' }}>
+          <Modal.Body height="auto" w="full">
             <Flex direction="row" marginBottom="3">
               <Image
                 source={{
@@ -361,14 +378,15 @@ const DetailsScreen = () => {
                 }}
                 alt="Alternate Text"
                 size="full"
-                style={{ width: 100, height: 100 }}
+                w={[60, 100, 120]}
+                h={[60, 100, 120]}
               />
               <Flex marginLeft="2" direction="column" height="100" justifyContent="space-between">
                 <Box>
-                  <Text fontSize="22" fontWeight="semibold" color="red.600">
+                  <Text fontSize={[12, 22, 24]} fontWeight="semibold" color="red.600">
                     100.000đ
                   </Text>
-                  <Text fontSize="md" strikeThrough color="gray.500">
+                  <Text fontSize={[10, 16, 20]} strikeThrough color="gray.500">
                     400.000đ
                   </Text>
                 </Box>
@@ -378,7 +396,7 @@ const DetailsScreen = () => {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Text fontSize="md">Warehouse: 20</Text>
+                  <Text fontSize={[10, 16, 20]}>Warehouse: 20</Text>
                   <Flex direction="row" justifyContent="center" alignItems="center">
                     <Pressable onPress={() => setQuantity(quantity--)}>
                       <Icon.Minus stroke="black" />
@@ -421,8 +439,8 @@ const DetailsScreen = () => {
                     backgroundColor={item.data}
                     borderWidth="1"
                     borderColor={item.data === 'white' ? '#C9C9C9' : 'transparent'}
-                    w="41"
-                    h="41"
+                    w={[7, 41, 51]}
+                    h={[7, 41, 51]}
                     borderRadius="full"
                   />
                 )}
@@ -448,14 +466,14 @@ const DetailsScreen = () => {
                     borderWidth="1"
                     backgroundColor={item.data === selectedSize ? 'primary.600' : 'transparent'}
                     borderColor="primary.600"
-                    w="41"
-                    h="41"
-                    borderRadius="10"
+                    w={[7, 41, 51]}
+                    h={[7, 41, 51]}
+                    borderRadius={[5, 10]}
                     justifyContent="center"
                     alignItems="center"
                   >
                     <Text
-                      fontSize="12"
+                      fontSize={[8, 12]}
                       color={item.data === selectedSize ? 'white' : 'primary.600'}
                       fontWeight="bold"
                     >
