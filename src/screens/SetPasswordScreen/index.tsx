@@ -1,46 +1,112 @@
-import React from 'react';
-import { Text, View, Image } from 'native-base';
-import { TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Text, View, Image, Input, Button, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
-import styles from './style';
+import { AppNavigationProp } from 'providers/navigation/types';
 type Props = object;
 
 const SetPassWordScreen = (props: Props) => {
+  const [showPass, setShowPass] = useState(false);
+  const [showPass1, setShowPass1] = useState(false);
+  const navigation = useNavigation<AppNavigationProp>();
   return (
-    <View style={styles.container}>
+    <View w={'100%'} h={'100%'} flex={1}>
       <Image
-        style={styles.image}
+        w={'100%'}
+        h={250}
+        borderBottomLeftRadius={12}
+        borderBottomRightRadius={12}
         shadow={1}
         source={{
           uri: 'https://th.bing.com/th/id/OIP.cH80uEpp8kXrYliDjpuk2AHaFh?pid=ImgDet&rs=1',
         }}
       />
-      <Text style={styles.title}>Set Password</Text>
+      <Text
+        mt="5"
+        fontFamily={'heading'}
+        fontStyle={'normal'}
+        fontWeight={400}
+        fontSize={36}
+        textAlign={'center'}
+      >
+        Set Password
+      </Text>
 
-      <View style={styles.viewFrom}>
-        <View style={styles.viewUser}>
-          <Icon.User stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
-          <TextInput
-            style={styles.inputuser}
-            secureTextEntry={true}
-            placeholder="Enter your password..."
-          />
-          <Icon.EyeOff stroke="black" width={24} height={24} />
-        </View>
-
-        <View style={styles.viewPass}>
+      <View h={200} alignItems={'center'}>
+        <View
+          flexDirection={'row'}
+          w={'80%'}
+          alignItems={'center'}
+          borderBottomWidth={1}
+          px={4}
+          mt={5}
+        >
           <Icon.Lock stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
-          <TextInput
-            style={styles.inputuser}
-            placeholder="Enter confirm your password..."
-            secureTextEntry={true}
+          <Input
+            fontSize={16}
+            fontFamily={'heading'}
+            fontStyle={'normal'}
+            w={{ base: '85%' }}
+            variant="unstyled"
+            placeholder="Enter your email/phone number"
+            secureTextEntry={!showPass}
           />
-          <Icon.EyeOff stroke="black" width={24} height={24} />
+          <Pressable
+            onPress={() => {
+              setShowPass(!showPass);
+            }}
+          >
+            {showPass ? (
+              <Icon.Eye stroke="grey" width={24} height={24} />
+            ) : (
+              <Icon.EyeOff stroke="grey" width={24} height={24} />
+            )}
+          </Pressable>
         </View>
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={{ fontSize: 14 }}>Set</Text>
-        </TouchableOpacity>
+        <View
+          flexDirection={'row'}
+          w={'80%'}
+          alignItems={'center'}
+          borderBottomWidth={1}
+          px={4}
+          mt={5}
+        >
+          <Icon.Lock stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
+          <Input
+            fontSize={16}
+            fontFamily={'heading'}
+            fontStyle={'normal'}
+            w={{ base: '85%' }}
+            variant="unstyled"
+            placeholder="Enter your email/phone number"
+            secureTextEntry={!showPass1}
+          />
+          <Pressable
+            onPress={() => {
+              setShowPass1(!showPass1);
+            }}
+          >
+            {showPass1 ? (
+              <Icon.Eye stroke="grey" width={24} height={24} />
+            ) : (
+              <Icon.EyeOff stroke="grey" width={24} height={24} />
+            )}
+          </Pressable>
+        </View>
+
+        <Button
+          onPress={() => {
+            navigation.navigate('Login');
+          }}
+          w={{ base: '50%' }}
+          mb="1"
+          mt="6"
+        >
+          <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
+            Set
+          </Text>
+        </Button>
       </View>
     </View>
   );

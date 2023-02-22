@@ -1,50 +1,125 @@
-import React from 'react';
-import { Text, View, Image } from 'native-base';
-import { TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Text, View, Input, Button, Image, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
-import styles from './style';
+import { AppNavigationProp } from 'providers/navigation/types';
+
 type Props = object;
 
 const LoginScreen = (props: Props) => {
+  const [showPass, setShowPass] = useState(false);
+  const navigation = useNavigation<AppNavigationProp>();
+
   return (
-    <View style={styles.container}>
+    <View w={'100%'} h={'100%'} flex={1}>
       <Image
-        style={styles.image}
-        shadow={1}
+        w={'100%'}
+        h={250}
+        borderBottomLeftRadius={12}
+        borderBottomRightRadius={12}
         source={{
           uri: 'https://th.bing.com/th/id/OIP.cH80uEpp8kXrYliDjpuk2AHaFh?pid=ImgDet&rs=1',
         }}
+        alt="description of image"
       />
-      <Text style={styles.title}>Login</Text>
 
-      <View style={styles.viewFrom}>
-        <View style={styles.viewUser}>
-          <Icon.User stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
-          <TextInput style={styles.inputuser} placeholder="Enter your email/phone number" />
+      <Text
+        mt="5"
+        fontFamily={'heading'}
+        fontStyle={'normal'}
+        fontWeight={400}
+        fontSize={36}
+        textAlign={'center'}
+      >
+        Login
+      </Text>
+
+      <View h={200} alignItems={'center'}>
+        <View
+          flexDirection={'row'}
+          w={'80%'}
+          alignItems={'center'}
+          borderBottomWidth={1}
+          px={4}
+          mt={5}
+        >
+          <Icon.User stroke="#1C1C1C" width={24} height={24} />
+          <Input
+            fontSize={16}
+            fontFamily={'heading'}
+            fontStyle={'normal'}
+            w={{ base: '85%' }}
+            variant="unstyled"
+            placeholder="Enter your email/phone number"
+          />
         </View>
 
-        <View style={styles.viewPass}>
-          <Icon.Lock stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
-          <TextInput
-            style={styles.inputuser}
+        <View
+          flexDirection={'row'}
+          w={'80%'}
+          alignItems={'center'}
+          borderBottomWidth={1}
+          px={4}
+          mt={5}
+        >
+          <Icon.Lock stroke="#1C1C1C" width={24} height={24} />
+          <Input
+            fontSize={16}
+            w={{ base: '85%' }}
+            variant="unstyled"
             placeholder="Enter your password"
-            secureTextEntry={true}
+            secureTextEntry={!showPass}
           />
-          <Icon.EyeOff stroke="black" width={24} height={24} />
+          <Pressable
+            onPress={() => {
+              setShowPass(!showPass);
+            }}
+          >
+            {showPass ? (
+              <Icon.Eye stroke="grey" width={24} height={24} />
+            ) : (
+              <Icon.EyeOff stroke="grey" width={24} height={24} />
+            )}
+          </Pressable>
         </View>
         <View style={{ width: '80%' }}>
-          <Text style={styles.txtFogot}>Forgot password?</Text>
+          <Text
+            textAlign={'right'}
+            fontSize={14}
+            fontStyle={'normal'}
+            fontFamily={'heading'}
+            fontWeight={400}
+            color={'primary.600'}
+            mt={3}
+            onPress={() => {
+              navigation.navigate('ForgotPassWord');
+            }}
+          >
+            Forgot password?
+          </Text>
         </View>
-        <TouchableOpacity style={styles.button}>
-          <Text style={{ fontSize: 14 }}>Login</Text>
-        </TouchableOpacity>
 
-        <Text style={{ fontSize: 14, marginTop: 30 }}>Or login with</Text>
-        <View style={styles.viewimage}>
+        <Button
+          onPress={() => {
+            navigation.navigate('Main');
+          }}
+          borderRadius={6}
+          w={{ base: '50%' }}
+          mb="1"
+          mt="3"
+        >
+          <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
+            Login
+          </Text>
+        </Button>
+        <Text mt={5} fontSize={14} fontWeight={500} fontStyle={'normal'} fontFamily={'heading'}>
+          Or login with
+        </Text>
+        <View mt={3} flexDirection={'row'} w={'25%'} justifyContent={'space-around'}>
           <Image
             style={{ width: 40, height: 40 }}
             source={{
-              uri: 'https://storage.googleapis.com/nexzinc/2019/06/Facebook-Icon-3-600x600.png',
+              uri: 'https://images.vexels.com/media/users/3/223136/isolated/preview/984f500cf9de4519b02b354346eb72e0-facebook-icon-social-media-by-vexels.png',
             }}
           />
           <Image
@@ -54,9 +129,21 @@ const LoginScreen = (props: Props) => {
             }}
           />
         </View>
-        <View style={{ flexDirection: 'row', marginTop: 5 }}>
-          <Text style={{ fontSize: 14 }}>Don’t you have an account?</Text>
-          <Text style={{ fontSize: 14, color: 'red' }}>Register</Text>
+        <View flexDirection={'row'} alignItems={'center'} mt={5}>
+          <Text fontSize={16} fontWeight={500}>
+            Don’t you have an account?
+          </Text>
+          <Text
+            onPress={() => {
+              navigation.navigate('Register');
+            }}
+            fontSize={14}
+            ml={1}
+            fontWeight={'bold'}
+            color={'primary.600'}
+          >
+            Register
+          </Text>
         </View>
       </View>
     </View>

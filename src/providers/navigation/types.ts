@@ -5,6 +5,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 export type AppStackNavigatorParamList = {
   Main: undefined;
   Login: undefined;
+  Register: undefined;
+  OTP: undefined;
+  SetPassWord: undefined;
+  ForgotPassWord: undefined;
   Details: {
     name: string;
     birthYear: string;
