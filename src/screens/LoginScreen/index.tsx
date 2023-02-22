@@ -123,6 +123,13 @@ const LoginScreen = (props: Props) => {
               uri: 'https://images.vexels.com/media/users/3/223136/isolated/preview/984f500cf9de4519b02b354346eb72e0-facebook-icon-social-media-by-vexels.png',
             }}
           />
+          <Image
+            style={{ width: 40, height: 40 }}
+            alt="Image Gmail"
+            source={{
+              uri: 'https://e7.pngegg.com/pngimages/344/344/png-clipart-google-logo-google-logo-g-suite-google-text-logo.png',
+            }}
+          />
         </View>
         <View flexDirection={'row'} alignItems={'center'} mt={5}>
           <Text fontSize={16} fontWeight={500}>
