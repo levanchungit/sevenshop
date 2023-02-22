@@ -47,15 +47,20 @@ git push --force-with-lease
 
 ## Git Stash
 Ở nhánh đang có thay đổi code
+
 ``bash
 git add .
 ```
+
 ``bash
 git stash .
 ```
+
 Lưu lại thay đổi đó
 Tạo nhánh mới
+
 ```bash
 git stash apply
 ```
+
 Áp dụng thay đổi đó cho nhánh mới
