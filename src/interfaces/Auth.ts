@@ -18,3 +18,9 @@ export type GetProductSuccessData = {
   name: string;
   description: string;
 };
+
+export type GetProductData = {
+  name: string;
+  price: number;
+  quantity: number;
+};

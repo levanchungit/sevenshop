@@ -4,7 +4,15 @@ import { API_URL } from 'global/config';
 import API_ROUTES from 'global/constants/apiRoutes';
 
 // 1. Create an axios instance that you wish to apply the interceptor to
-export const axiosInstance = axios.create({ baseURL: API_URL });
+
+export const axiosInstance = axios.create({
+  baseURL: 'https://sevenshop.herokuapp.com',
+  headers: {
+    // Authorization: `Bearer ${user.access_token}`,
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+});
 
 // 2. Define token refresh function.
 const requestRefresh: TokenRefreshRequest = async (refreshToken: string): Promise<string> => {
