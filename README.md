@@ -46,6 +46,7 @@ git push --force-with-lease
 ```
 
 ## Git Stash
+
 Ở nhánh đang có thay đổi code
 
 ```bash
@@ -66,6 +67,7 @@ git stash apply
 Áp dụng thay đổi đó cho nhánh mới
 
 ## Xóa nhánh đã merge trong Visual code
+
 ```bash
 git checkout master
 ```

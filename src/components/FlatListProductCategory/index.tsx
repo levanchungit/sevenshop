@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { ScrollView, View, FlatList } from 'native-base';
 import ButtonCategory from 'components/ButtonCategory';
 import ItemProductCategory from 'components/ItemProductCategory';
-import styles from './styles';
 import { DATA, Item } from '../../mocks';
+import styles from './styles';
 
 type Props = object;
 

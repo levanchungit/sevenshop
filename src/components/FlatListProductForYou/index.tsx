@@ -1,8 +1,8 @@
 import React from 'react';
 import { ScrollView, View, Text, FlatList } from 'native-base';
 import ItemProductForYou from 'components/ItemProductForYou';
-import styles from './styles';
 import { DATA, Item } from '../../mocks';
+import styles from './styles';
 
 type Props = object;
 
