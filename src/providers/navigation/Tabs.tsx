@@ -26,7 +26,7 @@ const BottomTabs = (props: Props) => {
           paddingHorizontal: 50,
           paddingTop: 10,
         },
-        tabBarIcon: ({ focused, color, size }: any) => {
+        tabBarIcon: ({ focused }: any) => {
           if (route.name === 'Home') {
             return focused ? <Icons.Home fill={'black'} /> : <Icons.Home stroke={'black'} />;
           } else if (route.name === 'Favorites') {
