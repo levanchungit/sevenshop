@@ -64,3 +64,16 @@ git stash apply
 ```
 
 Áp dụng thay đổi đó cho nhánh mới
+
+## Xóa nhánh đã merge trong Visual code
+```bash
+git checkout master
+```
+
+```bash
+git branch -d [tên branch đã merge muốn xóa]
+```
+
+```bash
+git fetch
+```
