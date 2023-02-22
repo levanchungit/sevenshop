@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+// import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, FlatList } from 'native-base';
 import ButtonCategory from 'components/ButtonCategory';
 import ItemProductCategory from 'components/ItemProductCategory';
+// import { AppNavigationProp } from 'providers/navigation/types';
 import { DATA, Item } from '../../mocks';
 import styles from './styles';
 
 type Props = object;
 
 const FlatListProductCategory = (props: Props) => {
+  // const navigation = useNavigation<AppNavigationProp>();
   const [ItemSelected, setItemSelected] = useState([
     {
       _id: 1,
@@ -48,7 +51,7 @@ const FlatListProductCategory = (props: Props) => {
   const RenderItemCategory = ({ data }: { data: Item }) => {
     return (
       <ItemProductCategory
-        onPress={() => alert('item nè')}
+        onPress={() => console.log(0)}
         name={data.name}
         image={data.image}
         price={data.price}

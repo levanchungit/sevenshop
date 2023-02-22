@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ScrollView, View, Text, FlatList } from 'native-base';
-import ItemProductFlastSale from 'components/ItemProductFlashSale';
+import ItemProductFlashSale from 'components/ItemProductFlashSale';
 import { DATA, Item } from '../../mocks';
 import styles from './styles';
 
@@ -59,7 +59,7 @@ const FlatListProductFlashSale = (props: Props) => {
   }, [second]);
   const RenderItemFlashSale = ({ data }: { data: Item }) => {
     return (
-      <ItemProductFlastSale
+      <ItemProductFlashSale
         onPress={() => alert('item nè')}
         name={data.name}
         image={data.image}

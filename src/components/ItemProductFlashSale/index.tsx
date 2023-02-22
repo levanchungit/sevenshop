@@ -8,7 +8,7 @@ type Props = {
   onPress: Function;
 };
 
-const ItemProductFlastSale = (props: Props) => {
+const ItemProductFlashSale = (props: Props) => {
   const { name, image, price, onPress } = props;
   return (
     <Pressable style={styles.itemProductFlastSale} onPress={() => onPress()}>
@@ -33,4 +33,4 @@ const ItemProductFlastSale = (props: Props) => {
   );
 };
 
-export default ItemProductFlastSale;
+export default ItemProductFlashSale;
