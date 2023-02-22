@@ -1,7 +1,7 @@
 import { setAuthTokens } from 'react-native-axios-jwt';
 import { API_ROUTES } from 'global/constants';
 import { TypeReturn } from 'interfaces/APIResponse';
-import { RefreshTokenPayload, SignInPayload, GetMeSuccessData } from 'interfaces/Auth';
+import { RefreshTokenPayload, SignInPayload } from 'interfaces/Auth';
 import { axiosInstance } from './config/AxiosInstance';
 
 const authAPI = {
@@ -17,11 +17,14 @@ const authAPI = {
     }
     return response;
   },
-  me(): TypeReturn<GetMeSuccessData> {
+  me() {
     return axiosInstance.get(API_ROUTES.me);
   },
   logout(payload: RefreshTokenPayload): TypeReturn<null> {
     return axiosInstance.post(API_ROUTES.logout, payload);
+  },
+  getProducts() {
+    return axiosInstance.get(API_ROUTES.getProducts);
   },
 };
 

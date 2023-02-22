@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Button, Center, FormControl, Input, Text, Toast, VStack } from 'native-base';
+import { Text, Toast, Center, Button, VStack, Input, FormControl } from 'native-base';
 import { clearAuthTokens, getRefreshToken } from 'react-native-axios-jwt';
 import { RefreshTokenPayload, SignInPayload } from 'interfaces/Auth';
 import { authAPI } from 'modules/api';
 import { AppNavigationProp } from 'providers/navigation/types';
+import styles from './style';
+type Props = object;
 
-const LoginScreen = () => {
-  const [formData, setData] = useState<SignInPayload>({
-    email: 'ryanvo.0162@gmail.com',
+const LoginScreen = (props: Props) => {
+  const [formData, setFormData] = useState<SignInPayload>({
+    email: 'levanchunq123@gmail.com',
     password: '123456',
   });
   const [refreshToken, setRefreshToken] = useState<RefreshTokenPayload>({ refresh_token: '' });
@@ -45,12 +47,17 @@ const LoginScreen = () => {
       });
     }
   };
+
   const logout = async () => {
     getRefreshToken().then((token) => {
       setRefreshToken({ refresh_token: token });
     });
     try {
-      await authAPI.logout(refreshToken);
+      const response = await authAPI.logout(refreshToken);
+      Toast.show({
+        title: response.data.message,
+        duration: 3000,
+      });
       clearAuthTokens();
     } catch (e: any) {
       Toast.show({
@@ -62,10 +69,7 @@ const LoginScreen = () => {
 
   return (
     <Center flex="1">
-      <Text variant="h1">Login Screen</Text>
-      <Button variant="primary" endIcon={<></>}>
-        Button
-      </Button>
+      <Text variant={'h1'}>Login</Text>
       <VStack width="90%" mx="3" maxW="300px">
         <FormControl isRequired>
           <FormControl.Label
@@ -80,8 +84,12 @@ const LoginScreen = () => {
             autoComplete="email"
             autoCapitalize="none"
             value={formData.email}
-            onChangeText={(value) => setData({ ...formData, email: value })}
+            onChangeText={(value) => setFormData({ ...formData, email: value })}
+            style={styles.inputuser}
           />
+        </FormControl>
+
+        <FormControl isRequired>
           <FormControl.Label
             _text={{
               bold: true,
@@ -90,22 +98,26 @@ const LoginScreen = () => {
             Password
           </FormControl.Label>
           <Input
-            placeholder="Password"
-            secureTextEntry
+            placeholder="Enter your password"
+            autoComplete="email"
+            autoCapitalize="none"
             value={formData.password}
-            onChangeText={(value) => setData({ ...formData, password: value })}
+            onChangeText={(value) => setFormData({ ...formData, password: value })}
+            style={styles.inputuser}
+            secureTextEntry={true}
           />
         </FormControl>
-        <Button onPress={onSubmit} mt="5" colorScheme="cyan">
+
+        <Button my={2} onPress={onSubmit}>
           Login
         </Button>
+        <Button my={2} onPress={logout}>
+          Logout
+        </Button>
+        <Button my={2} onPress={fetchData}>
+          Me
+        </Button>
       </VStack>
-      <Button fontWeight={700} fontSize="2xl" bg="primary.400" onPress={logout}>
-        Logout
-      </Button>
-      <Button fontWeight={700} fontSize="2xl" bg="primary.400" onPress={fetchData}>
-        Fetch Data
-      </Button>
     </Center>
   );
 };

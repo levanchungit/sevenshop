@@ -3,19 +3,37 @@ const baseStyle = (props: Record<string, any>) => {
   return {
     fontSize:
       variant === 'h1'
-        ? '4xl'
+        ? 48
         : variant === 'h2'
-        ? '3xl'
+        ? 34
         : variant === 'h3'
-        ? '2xl'
+        ? 24
         : variant === 'h4'
-        ? 'xl'
-        : variant === 'h5'
-        ? 'lg'
-        : variant === 'h6'
-        ? 'md'
+        ? 20
+        : variant === 'title'
+        ? 20
+        : variant === 'subtitle1'
+        ? 16
+        : variant === 'subtitle2'
+        ? 14
+        : variant === 'body1'
+        ? 16
+        : variant === 'body2'
+        ? 14
+        : variant === 'button'
+        ? 14
+        : variant === 'caption'
+        ? 12
+        : variant === 'overline'
+        ? 10
         : 'md',
-    fontWeight: variant === 'h1' ? 'bold' : 'normal',
+    fontWeight: variant === 'title' ? 'bold' : variant === 'button' ? 'bold' : 'normal',
+    fontFamily:
+      variant === 'title' || variant === 'button'
+        ? 'Raleway_700Bold'
+        : variant === 'subtitle2'
+        ? 'Raleway_500Medium'
+        : 'Raleway_400Regular',
     ...props,
   };
 };
