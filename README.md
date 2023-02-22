@@ -45,7 +45,7 @@ Xử lý conflict tới khi nào xong rồi
 git push --force-with-lease
 ```
 
-##Git Stash
+## Git Stash
 Ở nhánh đang có thay đổi code
 ``bash
 git add .
