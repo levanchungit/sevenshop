@@ -48,11 +48,11 @@ git push --force-with-lease
 ## Git Stash
 Ở nhánh đang có thay đổi code
 
-``bash
+```bash
 git add .
 ```
 
-``bash
+```bash
 git stash .
 ```
 
