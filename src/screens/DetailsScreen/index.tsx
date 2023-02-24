@@ -74,6 +74,7 @@ const DetailsScreen = (props: DetailScreenProps) => {
               See all
             </Text>
           </Pressable>
+          {/* <FlatListProductFlashSale /> */}
         </Flex>
       </ScrollView>
     </View>
