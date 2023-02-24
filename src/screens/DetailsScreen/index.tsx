@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
   Text,
   View,
@@ -15,9 +16,13 @@ import { Dimensions } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { AppNavigationProp } from 'providers/navigation/types';
 
-const DetailsScreen = () => {
-  const data = [
+const DetailsScreen = (data: any, onBack: any) => {
+  const { name, description, price, image } = data.route.params;
+  const navigation = useNavigation<AppNavigationProp>();
+
+  const dataColor = [
     {
       title: 'Cyan',
       data: 'cyan.500',
@@ -51,6 +56,7 @@ const DetailsScreen = () => {
       data: 'black',
     },
   ];
+
   const data2 = [
     {
       title: 'Size S',
@@ -77,33 +83,7 @@ const DetailsScreen = () => {
       data: 'XXXL',
     },
   ];
-  // const data3 = [
-  //   {
-  //     title: 'Effortless Shirt',
-  //     data: 'Effortless Shirt',
-  //   },
-  //   {
-  //     title: 'Intuitive Shirt',
-  //     data: 'Intuitive Shirt',
-  //   },
-  //   {
-  //     title: 'Pro Series X Shirt',
-  //     data: 'Pro Series X Shirt',
-  //   },
-  //   {
-  //     title: 'SuperB Shirt',
-  //     data: 'SuperB Shirt',
-  //   },
-  //   {
-  //     title: 'Shirt Plus',
-  //     data: 'Shirt Plus',
-  //   },
-  //   {
-  //     title: 'Fusion Shirt',
-  //     data: 'Fusion Shirt',
-  //   },
-  // ];
-  // const [selectedColor, setSelectedColor] = useState<string>();
+
   const data4 = [
     {
       name: 'Lê Văn Chung',
@@ -124,15 +104,11 @@ const DetailsScreen = () => {
   const initialWidth = Dimensions.get('window').width;
   let [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
+
   const DescriptionRoute = () => (
     <View style={{ flex: 1, backgroundColor: 'transparent' }}>
       <ScrollView>
-        <Text fontSize={[12, 16, 20]}>
-          This playful hoodie has an allover Monogram Comics motif in which House signatures become
-          cartoon characters in an overlapping collage with vibrant colored details. This joyful
-          piece has a kangaroo pocket and a ribbed hem and cuffs, with an inside-out label at the
-          back.
-        </Text>
+        <Text fontSize={[12, 16, 20]}>{description}</Text>
         <Flex direction="row" justifyContent="space-between">
           <Text fontSize={[12, 16, 20]} fontWeight="bold">
             Recommend for you
@@ -215,6 +191,7 @@ const DetailsScreen = () => {
       />
     </View>
   );
+
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {
@@ -243,7 +220,7 @@ const DetailsScreen = () => {
       }}
     >
       <Flex direction="row" justifyContent={'space-between'}>
-        <Pressable>
+        <Pressable onPress={() => navigation.goBack()}>
           <Icon.ChevronLeft stroke="black" />
         </Pressable>
         <Pressable>
@@ -253,7 +230,7 @@ const DetailsScreen = () => {
 
       <Image
         source={{
-          uri: 'https://wallpaperaccess.com/full/317501.jpg',
+          uri: image,
         }}
         alt="Alternate Text"
         size="full"
@@ -264,11 +241,11 @@ const DetailsScreen = () => {
       />
 
       <Text fontSize={[18, 24, 26]} fontWeight="semibold">
-        Product Name
+        {name}
       </Text>
       <Flex direction="row" alignItems="center" justifyContent="flex-start">
         <Text fontSize={[16, 20, 24]} fontWeight="semibold" color="red.600" marginRight="1.5">
-          100.000đ
+          {price}đ
         </Text>
         <Text fontSize={[12, 16, 20]} strikeThrough color="gray.500">
           400.000đ
@@ -374,7 +351,7 @@ const DetailsScreen = () => {
             <Flex direction="row" marginBottom="3">
               <Image
                 source={{
-                  uri: 'https://wallpaperaccess.com/full/317501.jpg',
+                  uri: image,
                 }}
                 alt="Alternate Text"
                 size="full"
@@ -384,7 +361,7 @@ const DetailsScreen = () => {
               <Flex marginLeft="2" direction="column" height="100" justifyContent="space-between">
                 <Box>
                   <Text fontSize={[12, 22, 24]} fontWeight="semibold" color="red.600">
-                    100.000đ
+                    {price}đ
                   </Text>
                   <Text fontSize={[10, 16, 20]} strikeThrough color="gray.500">
                     400.000đ
@@ -422,7 +399,7 @@ const DetailsScreen = () => {
             </Flex>
             <Flex direction="row">
               <FlatList
-                data={data}
+                data={dataColor}
                 scrollEnabled={false}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}

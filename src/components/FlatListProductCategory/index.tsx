@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, FlatList } from 'native-base';
 import ButtonCategory from 'components/ButtonCategory';
 import ItemProductCategory from 'components/ItemProductCategory';
-// import { AppNavigationProp } from 'providers/navigation/types';
-import { DATA, Item } from '../../mocks';
+import { AppNavigationProp } from 'providers/navigation/types';
+import { DATA } from '../../mocks';
 import styles from './styles';
 
 type Props = object;
 
 const FlatListProductCategory = (props: Props) => {
-  // const navigation = useNavigation<AppNavigationProp>();
+  const navigation = useNavigation<AppNavigationProp>();
   const [ItemSelected, setItemSelected] = useState([
     {
       _id: 1,
@@ -48,16 +48,21 @@ const FlatListProductCategory = (props: Props) => {
       isSelected: false,
     },
   ]);
-  const RenderItemCategory = ({ data }: { data: Item }) => {
+
+  const RenderItemCategory = ({ data }: any) => {
     return (
       <ItemProductCategory
-        onPress={() => console.log(0)}
+        onPress={() => {
+          console.log(data);
+          navigation.navigate('Details', data);
+        }}
         name={data.name}
         image={data.image}
         price={data.price}
       />
     );
   };
+
   return (
     <View>
       <View style={styles.coverCategories}>
