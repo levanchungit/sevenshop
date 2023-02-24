@@ -1,8 +1,7 @@
 import React from 'react';
-// import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as Icons from 'react-native-feather';
-import FavoriteScreen from 'screens/FavoriteScreen';
+import CheckoutScreen from 'screens/CheckoutScreen';
 import { MainScreen } from 'screens/MainScreen';
 import NotificationScreen from 'screens/NotificationScreen';
 import ProfileScreen from 'screens/ProfileScreen';
@@ -29,7 +28,7 @@ const BottomTabs = (props: Props) => {
         tabBarIcon: ({ focused }: any) => {
           if (route.name === 'Home') {
             return focused ? <Icons.Home fill="black" /> : <Icons.Home stroke={'black'} />;
-          } else if (route.name === 'Favorites') {
+          } else if (route.name === 'CheckoutScreen') {
             return focused ? <Icons.Heart fill={'black'} /> : <Icons.Heart stroke={'black'} />;
           } else if (route.name === 'Notification') {
             return focused ? <Icons.Bell fill={'black'} /> : <Icons.Bell stroke={'black'} />;
@@ -44,7 +43,7 @@ const BottomTabs = (props: Props) => {
       })}
     >
       <Screen name="Home" options={{ tabBarLabel: '' }} component={MainScreen} />
-      <Screen name="Favorites" options={{ tabBarLabel: '' }} component={FavoriteScreen} />
+      <Screen name="CheckoutScreen" options={{ tabBarLabel: '' }} component={CheckoutScreen} />
       <Screen
         name="Notification"
         options={{

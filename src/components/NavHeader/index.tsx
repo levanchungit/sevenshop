@@ -7,7 +7,6 @@ type Props = object;
 const NavHeader = (props: Props) => {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12 }}>
-      <Icon.MapPin stroke={'black'} width={24} height={24} />
       <Icon.ArrowLeft stroke={'black'} width={24} height={24} />
       <Text variant={'title'} style={{ marginLeft: 12 }}>
         Checkout
