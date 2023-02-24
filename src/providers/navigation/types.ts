@@ -10,6 +10,7 @@ export type AppStackNavigatorParamList = {
   SetPassWord: undefined;
   ForgotPassWord: undefined;
   Details: undefined;
+  Cart: undefined;
 };
 
 export type BottomTabNavigatorParamList = {

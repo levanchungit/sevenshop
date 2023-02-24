@@ -1,19 +1,24 @@
 import React from 'react';
 import { ScrollView, View, Text, FlatList } from 'native-base';
 import ItemProductForYou from 'components/ItemProductForYou';
-import { DATA, Item } from '../../mocks';
+import { GetProductSuccessData } from 'interfaces/Auth';
 import styles from './styles';
 
-type Props = object;
+type Props = {
+  data: GetProductSuccessData[];
+};
 
 const FlatListProductForYou = (props: Props) => {
-  const RenderItemForYou = ({ data }: { data: Item }) => {
+  const { data } = props;
+  const RenderItemForYou = ({ data }: { data: GetProductSuccessData }) => {
     return (
       <ItemProductForYou
         name={data.name}
-        image={data.image}
+        image={
+          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lvse-monogram-degrade-crewneck--HKN44WUSO904_PM2_Front%20view.png?wid=656&hei=656'
+        }
         price={data.price}
-        selled={data.selled}
+        selled={123}
         onPress={() => alert('item nè')}
       />
     );
@@ -32,10 +37,10 @@ const FlatListProductForYou = (props: Props) => {
         <FlatList
           contentContainerStyle={styles.flashList}
           numColumns={2}
-          data={DATA}
+          data={data}
           scrollEnabled={false}
           renderItem={({ item }) => <RenderItemForYou data={item} />}
-          keyExtractor={(item1) => item1.id}
+          // keyExtractor={(item1) => item1._id}
         />
       </View>
     </ScrollView>

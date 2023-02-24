@@ -80,6 +80,7 @@ const FlatListProductFlashSale = (props: Props) => {
             borderColor="primary.600"
             fontStyle="-moz-initial"
             textAlign="center"
+            variant={'body1'}
           >
             {timeBar()}
           </Text>
@@ -91,7 +92,7 @@ const FlatListProductFlashSale = (props: Props) => {
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal
-          contentContainerStyle={styles.flastListFlashSale}
+          contentContainerStyle={styles.flashListFlashSale}
           data={DATA}
           renderItem={({ item }) => <RenderItemFlashSale data={item} />}
           keyExtractor={(item1) => item1.id}

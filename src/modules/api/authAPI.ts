@@ -5,7 +5,7 @@ import {
   RefreshTokenPayload,
   SignInPayload,
   GetMeSuccessData,
-  GetProductData,
+  GetProductSuccessData,
 } from 'interfaces/Auth';
 import { axiosInstance } from './config/AxiosInstance';
 
@@ -29,7 +29,7 @@ const authAPI = {
     return axiosInstance.post(API_ROUTES.logout, payload);
   },
 
-  async getProduct(): TypeReturn<GetProductData> {
+  async getProduct(): TypeReturn<GetProductSuccessData> {
     const result = await axiosInstance.get(API_ROUTES.getProducts);
     return result;
   },
