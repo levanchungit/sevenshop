@@ -5,8 +5,7 @@ export const API_ROUTES = {
   refresh_token: `/user/refresh_token`,
   me: `/user/me`,
 
-  //product
+  // product
   getProducts: `/product/`,
 };
-
 export default API_ROUTES;

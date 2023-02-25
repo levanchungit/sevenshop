@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    alignItems: 'center',
     paddingBottom: 50,
   },
   headerForYou: {

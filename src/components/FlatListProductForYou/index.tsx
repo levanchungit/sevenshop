@@ -1,29 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View, Text, FlatList } from 'native-base';
+import { RefreshControl } from 'react-native';
 import ItemProductForYou from 'components/ItemProductForYou';
-import { DATA, Item } from '../../mocks';
+import { GetProductSuccessData } from 'interfaces/Auth';
 import styles from './styles';
 
-type Props = object;
+type Props = {
+  data: GetProductSuccessData[];
+  footer: any;
+  // readChy: Function;
+};
 
 const FlatListProductForYou = (props: Props) => {
-  const RenderItemForYou = ({ data }: { data: Item }) => {
+  const { data, footer } = props;
+  const [refreshScroll, setrefreshScroll] = useState(false);
+
+  const RenderItemForYou = ({ data }: { data: GetProductSuccessData }) => {
     return (
       <ItemProductForYou
         name={data.name}
-        image={data.image}
+        image={
+          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lvse-monogram-degrade-crewneck--HKN44WUSO904_PM2_Front%20view.png?wid=656&hei=656'
+        }
         price={data.price}
-        selled={data.selled}
+        selled={123}
         onPress={() => alert('item nè')}
       />
     );
   };
   return (
     <ScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={{ flex: 1 }}
       horizontal
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       scrollEnabled={false}
+      nestedScrollEnabled
     >
       <View>
         <Text fontWeight={'bold'} style={styles.headerForYou}>
@@ -32,10 +45,23 @@ const FlatListProductForYou = (props: Props) => {
         <FlatList
           contentContainerStyle={styles.flashList}
           numColumns={2}
-          data={DATA}
-          scrollEnabled={false}
+          data={data}
+          // scrollEnabled={false}
           renderItem={({ item }) => <RenderItemForYou data={item} />}
-          keyExtractor={(item1) => item1.id}
+          ListFooterComponent={footer}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshScroll}
+              onRefresh={() => {
+                // console.log('lam moi');
+                setrefreshScroll(true);
+              }}
+              colors={['red']}
+            />
+          }
+          // onEndReached={() => console.log('load ne')}
+          onEndReachedThreshold={0.1}
+          nestedScrollEnabled
         />
       </View>
     </ScrollView>

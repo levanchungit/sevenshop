@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, Input, Button, Image, Pressable } from 'native-base';
+// import { clearAuthTokens, getRefreshToken } from 'react-native-axios-jwt';
 import * as Icon from 'react-native-feather';
+// import { authAPI } from 'modules/api';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 type Props = object;
@@ -9,6 +11,57 @@ type Props = object;
 const LoginScreen = (props: Props) => {
   const [showPass, setShowPass] = useState(false);
   const navigation = useNavigation<AppNavigationProp>();
+
+  // const onSubmit = async () => {
+  //   clearAuthTokens();
+  //   try {
+  //     const response = await authAPI.login(formData);
+  //     Toast.show({
+  //       title: response.data.message,
+  //       duration: 3000,
+  //     });
+  //     navigation.navigate('Main');
+  //   } catch (e: any) {
+  //     Toast.show({
+  //       title: e.response?.data?.message,
+  //       duration: 3000,
+  //     });
+  //   }
+  // };
+
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await authAPI.me();
+  //     Toast.show({
+  //       title: response.data.result.email,
+  //       duration: 3000,
+  //     });
+  //   } catch (e: any) {
+  //     Toast.show({
+  //       title: e.response?.data?.message,
+  //       duration: 3000,
+  //     });
+  //   }
+  // };
+
+  // const logout = async () => {
+  //   getRefreshToken().then((token) => {
+  //     setRefreshToken({ refresh_token: token });
+  //   });
+  //   try {
+  //     const response = await authAPI.logout(refreshToken);
+  //     Toast.show({
+  //       title: response.data.message,
+  //       duration: 3000,
+  //     });
+  //     clearAuthTokens();
+  //   } catch (e: any) {
+  //     Toast.show({
+  //       title: e.response?.data?.message,
+  //       duration: 3000,
+  //     });
+  //   }
+  // };
 
   return (
     <View w={'100%'} h={'100%'} flex={1}>

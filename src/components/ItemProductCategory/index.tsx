@@ -2,6 +2,7 @@ import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View, Image, Pressable } from 'native-base';
 import styles from './styles';
+
 type Props = {
   name: string;
   image: string;

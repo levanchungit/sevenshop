@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  flastListFlashSale: {
+  flashListFlashSale: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -23,10 +23,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 4,
     borderWidth: 1,
-    fontSize: 16,
     width: 100,
     height: 30,
-    lineHeight: 22,
+    lineHeight: 18,
   },
 });
 export default styles;

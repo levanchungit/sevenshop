@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+// import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, FlatList } from 'native-base';
+import * as Progress from 'react-native-progress';
 import ButtonCategory from 'components/ButtonCategory';
 import ItemProductCategory from 'components/ItemProductCategory';
-import { AppNavigationProp } from 'providers/navigation/types';
-import { DATA } from '../../mocks';
+import { GetProductSuccessData } from 'interfaces/Auth';
+// import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';
 
-type Props = object;
-
+type Props = {
+  data: GetProductSuccessData[];
+};
 const FlatListProductCategory = (props: Props) => {
-  const navigation = useNavigation<AppNavigationProp>();
+  // const navigation = useNavigation<AppNavigationProp>();
+  const { data } = props;
   const [ItemSelected, setItemSelected] = useState([
     {
       _id: 1,
@@ -49,15 +52,31 @@ const FlatListProductCategory = (props: Props) => {
     },
   ]);
 
-  const RenderItemCategory = ({ data }: any) => {
+  const [progressEnable, setProgressEnable] = useState(true);
+
+  const id_Category: any = () => {
+    let category;
+    ItemSelected.map((item) => {
+      if (item.isSelected === true) {
+        return (category = item._id);
+      }
+    });
+    return category;
+  };
+  useEffect(() => {
+    setInterval(() => {
+      setProgressEnable(false);
+    }, 3000);
+  }, [id_Category()]);
+
+  const RenderItemCategory = ({ data }: { data: GetProductSuccessData }) => {
     return (
       <ItemProductCategory
-        onPress={() => {
-          console.log(data);
-          navigation.navigate('Details', data);
-        }}
+        onPress={() => alert('')}
         name={data.name}
-        image={data.image}
+        image={
+          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656'
+        }
         price={data.price}
       />
     );
@@ -82,14 +101,30 @@ const FlatListProductCategory = (props: Props) => {
           ))}
         </ScrollView>
       </View>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        contentContainerStyle={styles.flashListFlashSale}
-        data={DATA}
-        renderItem={({ item }) => <RenderItemCategory data={item} />}
-        keyExtractor={(item1) => item1.id}
-      />
+      {progressEnable ? (
+        <View
+          style={{
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '30%',
+          }}
+        >
+          <Progress.Circle size={30} indeterminate={true} />
+        </View>
+      ) : (
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          contentContainerStyle={styles.flashListFlashSale}
+          data={data.filter(function (item) {
+            return item.categories_type === id_Category();
+          })}
+          renderItem={({ item }) => <RenderItemCategory data={item} />}
+          keyExtractor={(item1) => item1._id}
+        />
+      )}
+      //{' '}
     </View>
   );
 };

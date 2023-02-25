@@ -27,11 +27,16 @@ const SlideShowImage = (props: Props) => {
     },
   ];
   const myRef: any = useRef();
+
   useEffect(() => {
     if (dataSource.length > 0) {
       let index = 0;
       setInterval(() => {
-        myRef.current.scrollTo({ x: Math.floor(index * windowWidth), y: 0, animated: true });
+        myRef.current?.scrollTo({
+          x: Math.floor(index * windowWidth),
+          y: 0,
+          animated: true,
+        });
         index += 1;
         if (index >= dataSource.length) {
           index = 0;
@@ -44,7 +49,9 @@ const SlideShowImage = (props: Props) => {
     <View style={style}>
       <ScrollView
         showsHorizontalScrollIndicator={false}
-        ref={myRef}
+        ref={(ref) => {
+          myRef.current = ref;
+        }}
         pagingEnabled
         horizontal
         style={{ width: windowWidth, height: windowHeight * 0.2 }}
