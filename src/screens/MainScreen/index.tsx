@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, ScrollView, Toast } from 'native-base';
-import { TextInput } from 'react-native';
+import { ActivityIndicator, TextInput } from 'react-native';
 import { clearAuthTokens } from 'react-native-axios-jwt';
+// import DeviceInfo from 'react-native-device-info';
+// import * as Progress from 'react-native-progress';
 import FlatListProductCategory from 'components/FlatListProductCategory';
 import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import FlatListProductForYou from 'components/FlatListProductForYou';
@@ -21,7 +23,11 @@ export const MainScreen = () => {
     email: 'quyentran.02062000@gmail.com',
     password: '123',
   });
+  const [isLoader, setIsLoader] = useState(false);
+  // const [pageCurrent, setPageCurrent] = useState(1);
+  // const [refreshScroll, setrefreshScroll] = useState(false);
   let yOffset = '';
+  // let deviceId = DeviceInfo.getDeviceId();
 
   const onSubmit = async () => {
     clearAuthTokens();
@@ -60,12 +66,24 @@ export const MainScreen = () => {
   useEffect(() => {
     onSubmit();
     getProducts();
+    setIsLoader(true);
+
     setData({ email: 'quyentran.02062000@gmail.com', password: '123' });
+    // console.log(deviceId);
   }, []);
+
+  // useEffect(() => {
+  //   if (isLoader) {
+  //     setTimeout(() => {
+  //       setIsLoader(false);
+  //     }, 1000);
+  //   }
+  // }, [isLoader]);
 
   return (
     <View style={styles.container}>
       <ScrollView
+        nestedScrollEnabled
         directionalLockEnabled={false}
         horizontal={false}
         pinchGestureEnabled={false}
@@ -80,15 +98,45 @@ export const MainScreen = () => {
           }
         }}
       >
+        {/* <FlatList
+          data={Data1}
+          renderItem={null}
+          contentContainerStyle={{ marginBottom: 50 }}
+          onEndReached={() => {
+            console.log(isLoader);
+            setIsLoader(true);
+            // setTimeout(() => {
+            //   setIsLoader(false);
+            // }, 1000);
+          }}
+          onEndReachedThreshold={0.01}
+          ListHeaderComponent={() => ( */}
         <View>
-          <SlideShowImage style={{}} />
+          <View>
+            <SlideShowImage style={{}} />
 
-          <FlatListProductCategory data={Data1} />
+            <FlatListProductCategory data={Data1} />
 
-          <FlatListProductFlashSale />
+            <FlatListProductFlashSale />
+          </View>
+          <FlatListProductForYou
+            data={Data1}
+            footer={
+              isLoader ? (
+                <View>
+                  <ActivityIndicator />
+                </View>
+              ) : (
+                <View></View>
+              )
+            }
+            // readChy={() => {
 
-          <FlatListProductForYou data={Data1} />
+            // }}
+          />
         </View>
+        {/* )} */}
+        {/* // /> */}
       </ScrollView>
       <View>
         <View style={scrollEnable ? styles.coverHeaderOnScroll : styles.coverHeader}>

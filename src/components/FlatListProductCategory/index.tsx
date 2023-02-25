@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 // import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, FlatList } from 'native-base';
+import * as Progress from 'react-native-progress';
 import ButtonCategory from 'components/ButtonCategory';
 import ItemProductCategory from 'components/ItemProductCategory';
 // import { AppNavigationProp } from 'providers/navigation/types';
 import { GetProductSuccessData } from 'interfaces/Auth';
-// import { DATA, Item } from '../../mocks';
 import styles from './styles';
 
 type Props = {
@@ -51,7 +51,23 @@ const FlatListProductCategory = (props: Props) => {
       isSelected: false,
     },
   ]);
-  const [idCategory, setIdCategory] = useState(0);
+
+  const [progressEnable, setProgressEnable] = useState(true);
+
+  const id_Category: any = () => {
+    let category;
+    ItemSelected.map((item) => {
+      if (item.isSelected === true) {
+        return (category = item._id);
+      }
+    });
+    return category;
+  };
+  useEffect(() => {
+    setInterval(() => {
+      setProgressEnable(false);
+    }, 3000);
+  }, [id_Category()]);
 
   const RenderItemCategory = ({ data }: { data: GetProductSuccessData }) => {
     return (
@@ -65,20 +81,6 @@ const FlatListProductCategory = (props: Props) => {
       />
     );
   };
-
-  const id_Category: any = () => {
-    let category;
-    ItemSelected.map((item) => {
-      if (item.isSelected === true) {
-        return (category = item._id);
-      }
-    });
-    return category;
-  };
-  useEffect(() => {
-    setIdCategory(id_Category());
-    console.log(id_Category());
-  }, [id_Category()]);
 
   return (
     <View>
@@ -99,16 +101,29 @@ const FlatListProductCategory = (props: Props) => {
           ))}
         </ScrollView>
       </View>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        contentContainerStyle={styles.flashListFlashSale}
-        data={data.filter(function (item) {
-          return item.categories_type === idCategory;
-        })}
-        renderItem={({ item }) => <RenderItemCategory data={item} />}
-        keyExtractor={(item1) => item1._id}
-      />
+      {progressEnable ? (
+        <View
+          style={{
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '30%',
+          }}
+        >
+          <Progress.Circle size={30} indeterminate={true} />
+        </View>
+      ) : (
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          contentContainerStyle={styles.flashListFlashSale}
+          data={data.filter(function (item) {
+            return item.categories_type === id_Category();
+          })}
+          renderItem={({ item }) => <RenderItemCategory data={item} />}
+          keyExtractor={(item1) => item1._id}
+        />
+      )}
     </View>
   );
 };

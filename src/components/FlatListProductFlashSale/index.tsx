@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ScrollView, View, Text, FlatList } from 'native-base';
+import { View, Text, FlatList } from 'native-base';
 import ItemProductFlashSale from 'components/ItemProductFlashSale';
 import { DATA, Item } from '../../mocks';
 import styles from './styles';
@@ -88,16 +88,15 @@ const FlatListProductFlashSale = (props: Props) => {
         <Text fontWeight={'bold'}>See All</Text>
       </View>
 
-      <ScrollView>
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          contentContainerStyle={styles.flashListFlashSale}
-          data={DATA}
-          renderItem={({ item }) => <RenderItemFlashSale data={item} />}
-          keyExtractor={(item1) => item1.id}
-        />
-      </ScrollView>
+      <FlatList
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        contentContainerStyle={styles.flashListFlashSale}
+        data={DATA}
+        renderItem={({ item }) => <RenderItemFlashSale data={item} />}
+        keyExtractor={(item1) => item1.id}
+        onEndReached={() => console.log('load ne')}
+      />
     </View>
   );
 };

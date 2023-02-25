@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View, Text, FlatList } from 'native-base';
+import { RefreshControl } from 'react-native';
 import ItemProductForYou from 'components/ItemProductForYou';
 import { GetProductSuccessData } from 'interfaces/Auth';
 import styles from './styles';
 
 type Props = {
   data: GetProductSuccessData[];
+  footer: any;
+  // readChy: Function;
 };
 
 const FlatListProductForYou = (props: Props) => {
-  const { data } = props;
+  const { data, footer } = props;
+  const [refreshScroll, setrefreshScroll] = useState(false);
+
   const RenderItemForYou = ({ data }: { data: GetProductSuccessData }) => {
     return (
       <ItemProductForYou
@@ -25,10 +30,13 @@ const FlatListProductForYou = (props: Props) => {
   };
   return (
     <ScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={{ flex: 1 }}
       horizontal
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       scrollEnabled={false}
+      nestedScrollEnabled
     >
       <View>
         <Text fontWeight={'bold'} style={styles.headerForYou}>
@@ -38,9 +46,22 @@ const FlatListProductForYou = (props: Props) => {
           contentContainerStyle={styles.flashList}
           numColumns={2}
           data={data}
-          scrollEnabled={false}
+          // scrollEnabled={false}
           renderItem={({ item }) => <RenderItemForYou data={item} />}
-          // keyExtractor={(item1) => item1._id}
+          ListFooterComponent={footer}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshScroll}
+              onRefresh={() => {
+                console.log('lam moi');
+                setrefreshScroll(true);
+              }}
+              colors={['red']}
+            />
+          }
+          onEndReached={() => console.log('load ne')}
+          onEndReachedThreshold={0.1}
+          nestedScrollEnabled
         />
       </View>
     </ScrollView>
