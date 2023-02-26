@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 // import { useNavigation } from '@react-navigation/native';
-import { ScrollView, View, FlatList } from 'native-base';
+import { ScrollView, View, FlatList, Pressable, Text } from 'native-base';
+// import { ActivityIndicator } from 'react-native';
+// import * as Icons from 'react-native-feather';
 import * as Progress from 'react-native-progress';
 import ButtonCategory from 'components/ButtonCategory';
 import ItemProductCategory from 'components/ItemProductCategory';
@@ -51,8 +53,12 @@ const FlatListProductCategory = (props: Props) => {
       isSelected: false,
     },
   ]);
+  // const [isLoaddingItemCategory, setIsLoaddingItemCategory] = useState(false);
 
   const [progressEnable, setProgressEnable] = useState(true);
+  // const [data1, setdata1]: any = useState([]);
+  // const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(1);
 
   const id_Category: any = () => {
     let category;
@@ -64,10 +70,31 @@ const FlatListProductCategory = (props: Props) => {
     return category;
   };
   useEffect(() => {
+    // setdata1(
+    //   data
+    //     .filter(function (item) {
+    //       return item.categories_type === id_Category();
+    //     })
+    //     .slice(0, 1)
+    // );
     setInterval(() => {
       setProgressEnable(false);
     }, 3000);
   }, [id_Category()]);
+
+  // useEffect(() => {
+  //   set
+  // }, [isLoaddingItemCategory]);
+
+  // const setTimeLoad = () => {
+  //   // setIsLoaddingItemCategory(true);
+  //   let varibale: any;
+  //   setTimeout(() => setIsLoaddingItemCategory(false), 1000);
+  //   // setTimeout(() => setIsLoaddingItemCategory(true), 1000);
+
+  //   // console.log(isLoaddingItemCategory);
+  //   // setTimeout(() => clearTimeout(varibale), 1000);
+  // };
 
   const RenderItemCategory = ({ data }: { data: IProduct }) => {
     return (
@@ -124,6 +151,59 @@ const FlatListProductCategory = (props: Props) => {
           renderItem={({ item }) => <RenderItemCategory data={item} />}
           keyExtractor={(item1, index) => index.toString()}
         />
+        // <View style={{ flexDirection: 'row' }}>
+        //   <ScrollView>
+        //     <FlatList
+        //       showsHorizontalScrollIndicator={false}
+        //       horizontal
+        //       contentContainerStyle={styles.flashListFlashSale}
+        //       data={
+        //         data
+        //           .filter(function (item) {
+        //             return item.categories_type === id_Category();
+        //           })
+        //           .slice(0, end)
+        //         // .concat(data1)
+        //       }
+        //       renderItem={({ item }) => <RenderItemCategory data={item} />}
+        //       keyExtractor={(item) => item.id}
+        //       onEndReached={() => {
+        //         // setdata1(data1.concat(data1));
+        //         setEnd(end + 1);
+        //         // setTimeLoad();
+        //       }}
+        //       onEndReachedThreshold={0.1}
+        //       ListFooterComponent={
+        //         // !isLoaddingItemCategory ? (
+        //         //   <View style={{ marginBottom: 100, marginHorizontal: 20 }}>
+        //         //     <ActivityIndicator size={30} />
+        //         //   </View>
+        //         // ) : (
+        //         //   <View style={{ marginRight: -100 }}></View>
+        //         // )
+        //         <Pressable
+        //           style={{
+        //             width: 150,
+        //             height: '75%',
+        //             justifyContent: 'center',
+        //             alignItems: 'center',
+        //             marginBottom: 100,
+        //             borderWidth: 0.2,
+        //             borderRadius: 2,
+        //             flexDirection: 'row',
+        //           }}
+        //           borderColor={'gray.300'}
+        //           backgroundColor={'gray.100'}
+        //         >
+        //           <Text marginRight={2} variant={'button'}>
+        //             See All
+        //           </Text>
+        //           <Icons.ArrowRight fontSize={24} stroke={'black'} />
+        //         </Pressable>
+        //       }
+        //     />
+        //   </ScrollView>
+        // </View>
       )}
     </View>
   );

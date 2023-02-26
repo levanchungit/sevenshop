@@ -1,95 +1,89 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, ScrollView, Toast } from 'native-base';
-import { BackHandler, TextInput } from 'react-native';
+import useGetCarts from 'hook/product/useGetCarts';
+import { View, FlatList } from 'native-base';
+import { ActivityIndicator, TextInput } from 'react-native';
+import FlatListProductCategory from 'components/FlatListProductCategory';
 import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
+import FlatListProductForYou from 'components/FlatListProductForYou';
 import IconCart from 'components/IconCart';
 import SlideShowImage from 'components/SwipeBanner';
-import { authAPI } from 'modules';
+import useGetProducts from 'hook/product/useGetProducts';
 import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';
 
 export const MainScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
-  const [scrollEnabled, setScrollEnabled] = useState(false);
-  const [lastBackPressed, setLastBackPressed] = useState(0);
+  const [scrollEnable, setScrollEnable] = useState(false);
+  let yOffset = '';
 
-  const logOut = async () => {
-    try {
-      const response = await authAPI.logout();
-      Toast.show({
-        title: response.data.message,
-        duration: 3000,
-      });
-      navigation.navigate('Login');
-    } catch (e: any) {
-      Toast.show({
-        title: e.response?.data?.message,
-        duration: 3000,
-      });
-    }
-  };
-
-  const handleBackPress = () => {
-    const currentTime = new Date().getTime();
-
-    if (currentTime - lastBackPressed < 2000) {
-      logOut();
-      return true;
-    }
-
-    Toast.show({ title: 'Press back again to exit', duration: 2000 });
-    setLastBackPressed(currentTime);
-    return true;
-  };
+  const [limit, setLimit] = useState(2);
+  const [product, setProduct] = useState(() => []);
+  const { products, err_products } = useGetProducts(limit);
+  const { carts } = useGetCarts();
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-
-    return () => backHandler.remove();
-  }, [handleBackPress]);
-
-  const handleScroll = (event: any) => {
-    const yOffset = event.nativeEvent.contentOffset.y;
-    if (yOffset > 50) {
-      setScrollEnabled(true);
-    } else if (yOffset === 0) {
-      setScrollEnabled(false);
+    if (products?.data) {
+      setProduct(products.data.results);
+      // setProduct((prevProduct) => {
+      //   if (prevProduct) {
+      //     const set = new Set([...prevProduct, ...products.data.results]);
+      //     return Array.from(set);
+      //   } else {
+      //     return products.data.results;
+      //   }
+      // });
     }
-  };
+  }, [products]);
+
   return (
     <View style={styles.container}>
-      <ScrollView
-        nestedScrollEnabled
-        directionalLockEnabled={false}
-        horizontal={false}
-        pinchGestureEnabled={false}
+      <FlatList
+        data={null}
+        renderItem={null}
         showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-      >
-        <View>
-          <View>
-            <SlideShowImage style={{}} />
+        contentContainerStyle={{ marginBottom: 50 }}
+        onEndReached={() => {
+          setLimit(limit + 2);
+        }}
+        onScroll={(event) => {
+          yOffset = event.nativeEvent.contentOffset.y.toString();
+          if (parseFloat(yOffset) > 50) {
+            setScrollEnable(true);
+          } else if (parseFloat(yOffset) === 0) {
+            setScrollEnable(false);
+          }
+        }}
+        onEndReachedThreshold={0.01}
+        ListHeaderComponent={() => {
+          return (
+            <View>
+              <View>
+                <SlideShowImage style={{}} />
 
-            <FlatListProductFlashSale />
-            <FlatListProductFlashSale />
-            <FlatListProductFlashSale />
-            <FlatListProductFlashSale />
-            <FlatListProductFlashSale />
-            <FlatListProductFlashSale />
-            <FlatListProductFlashSale />
-            <FlatListProductFlashSale />
-          </View>
-        </View>
-      </ScrollView>
+                <FlatListProductCategory data={product} />
+                <FlatListProductFlashSale data={product} error={err_products} />
+              </View>
+              <FlatListProductForYou
+                data={product}
+                footer={
+                  <View w={'100%'} alignItems="center" mt={12}>
+                    <ActivityIndicator size={30} />
+                  </View>
+                }
+                onEndReadChy={() => {}}
+              />
+            </View>
+          );
+        }}
+      />
       <View>
-        <View style={scrollEnabled ? styles.coverHeaderOnScroll : styles.coverHeader}>
-          {scrollEnabled ? <TextInput style={styles.search} placeholder="Search" /> : <View></View>}
+        <View style={scrollEnable ? styles.coverHeaderOnScroll : styles.coverHeader}>
+          {scrollEnable ? <TextInput style={styles.search} placeholder="Search" /> : <View></View>}
           <IconCart
             onPressCart={() => navigation.navigate('Cart')}
             onPressSearch={() => alert('search nè')}
-            quantityItems="20"
+            quantityItems={carts?.data.length}
           />
         </View>
       </View>
