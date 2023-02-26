@@ -124,7 +124,6 @@ const FlatListProductCategory = (props: Props) => {
           keyExtractor={(item1) => item1._id}
         />
       )}
-      //{' '}
     </View>
   );
 };

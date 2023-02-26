@@ -129,9 +129,6 @@ export const MainScreen = () => {
                 <View></View>
               )
             }
-            // readChy={() => {
-
-            // }}
           />
         </View>
         {/* )} */}
