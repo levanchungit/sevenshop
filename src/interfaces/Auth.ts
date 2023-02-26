@@ -3,6 +3,19 @@ export type SignInPayload = {
   password: string;
 };
 
+export type RegisterPayload = {
+  email: string;
+};
+
+export type CheckOTPPayload = {
+  id: string;
+  otp: string;
+};
+
+export type SetPasswordPayload = {
+  password: string;
+};
+
 export type RefreshTokenPayload = {
   refresh_token: string | null | undefined;
 };
