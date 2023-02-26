@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Image, Button, Input } from 'native-base';
+import { View, Text, Image, Button, Input, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
+import { RegisterPayload } from 'interfaces/Auth';
+import { authAPI } from 'modules/api';
 import { AppNavigationProp } from 'providers/navigation/types';
 type Props = object;
 
 const RegisterScreen = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
+
+  const [formData, setFormData] = useState<RegisterPayload>({
+    email: 'khuyenpv0509@gmail.com',
+  });
+
+  const onSubmit = async () => {
+    try {
+      const response = await authAPI.register(formData);
+
+      Toast.show({
+        title: response.data.message,
+        duration: 3000,
+      });
+      navigation.navigate('OTP', response.data.result);
+    } catch (e: any) {
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
   return (
     <View w={'100%'} h={'100%'} flex={1}>
       <Image
@@ -46,18 +69,13 @@ const RegisterScreen = (props: Props) => {
             fontStyle={'normal'}
             w={{ base: '85%' }}
             variant="unstyled"
+            value={formData.email}
+            onChangeText={(value) => setFormData({ ...formData, email: value })}
             placeholder="Enter your email/phone number"
           />
         </View>
 
-        <Button
-          onPress={() => {
-            navigation.navigate('SetPassWord');
-          }}
-          w={{ base: '50%' }}
-          mb="1"
-          mt="8"
-        >
+        <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="8">
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
             Register
           </Text>
