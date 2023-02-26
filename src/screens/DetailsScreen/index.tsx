@@ -1,11 +1,20 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Flex, Pressable, Image, Center, FlatList, ScrollView } from 'native-base';
+import {
+  Text,
+  View,
+  Flex,
+  Pressable,
+  Image,
+  Center,
+  FlatList,
+  ScrollView,
+  // useToast,
+} from 'native-base';
 import { Dimensions } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import ItemRating from 'components/ItemRating';
 import ModalPopupCart from 'components/ModalPopupCart';
 import { AppNavigationProp, DetailRouteProp } from 'providers/navigation/types';
@@ -18,11 +27,36 @@ type DetailScreenProps = {
 const DetailsScreen = (props: DetailScreenProps) => {
   const { name, description, price, image } = props.route.params;
   const navigation = useNavigation<AppNavigationProp>();
-  const [selectedSize, setSelectedSize] = useState<string>('');
+  // const [selectedSize, setSelectedSize] = useState<number>(1);
+  // const [selectedColor, setSelectedColor] = useState<number>(1);
   const [statusLike, setStatusLike] = useState(false);
   const initialWidth = Dimensions.get('window').width;
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  // const toast = useToast();
+  // const [addToCart, setAddToCart] = useState<AddToCart>({
+  //   product_id: '63fa5fccb8d9374ffb848c1a',
+  //   color: selectedColor,
+  //   size: selectedSize,
+  //   quantity: quantity,
+  //   image:
+  //     'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1677226561/SevenShop/ggcrdttat4hgirsqwl2k.avif',
+  // });
+
+  // const add = async () => {
+  //   try {
+  //     const response = await authAPI.addToCart(addToCart);
+  //     toast.show({
+  //       title: response.data.message,
+  //       duration: 3000,
+  //     });
+  //   } catch (e: any) {
+  //     toast.show({
+  //       title: e.response?.data?.message,
+  //       duration: 3000,
+  //     });
+  //   }
+  // };
 
   const DescriptionRoute = () => (
     <View style={{ flex: 1, backgroundColor: 'transparent' }}>
@@ -37,7 +71,6 @@ const DetailsScreen = (props: DetailScreenProps) => {
               See all
             </Text>
           </Pressable>
-          <FlatListProductFlashSale />
         </Flex>
       </ScrollView>
     </View>
@@ -208,10 +241,11 @@ const DetailsScreen = (props: DetailScreenProps) => {
         </Pressable>
       </Center>
       <ModalPopupCart
+        // onPress={add}
         showModal={showModal}
         setShowModal={setShowModal}
-        selectedSize={selectedSize}
-        setSelectedSize={setSelectedSize}
+        // selectedSize={selectedSize}
+        // setSelectedSize={setSelectedSize}
         quantity={quantity}
         setQuantity={setQuantity}
         image={image}

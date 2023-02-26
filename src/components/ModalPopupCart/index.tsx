@@ -8,28 +8,30 @@ const initialWidth = Dimensions.get('window').width;
 type Props = {
   showModal: boolean;
   setShowModal: Function;
-  selectedSize: string;
-  setSelectedSize: Function;
+  selectedSize?: number;
+  setSelectedSize?: Function;
   quantity: number;
   setQuantity: Function;
   image: string;
   price: number;
   colors: color[];
   size: size[];
+  onPress?: Function;
 };
 
 const ModalPopupCart = (props: Props) => {
   const {
     showModal,
     setShowModal,
-    selectedSize,
-    setSelectedSize,
+    // selectedSize,
+    // setSelectedSize,
     quantity,
     setQuantity,
     size,
     colors,
     image,
     price,
+    // onPress,
   } = props;
   return (
     <Modal isOpen={showModal} onClose={() => setShowModal()}>
@@ -121,11 +123,11 @@ const ModalPopupCart = (props: Props) => {
               showsHorizontalScrollIndicator={false}
               renderItem={({ item }) => (
                 <Pressable
-                  onPress={() => setSelectedSize(item.title)}
+                  // onPress={() => setSelectedSize(item.title)}
                   marginRight="3"
                   marginBottom="3"
                   borderWidth="1"
-                  backgroundColor={item.title === selectedSize ? 'primary.600' : 'transparent'}
+                  // backgroundColor={item.title === selectedSize ? 'primary.600' : 'transparent'}
                   borderColor="primary.600"
                   w={[7, 41, 51]}
                   h={[7, 41, 51]}
@@ -135,7 +137,7 @@ const ModalPopupCart = (props: Props) => {
                 >
                   <Text
                     fontSize={[8, 12]}
-                    color={item.title === selectedSize ? 'white' : 'primary.600'}
+                    // color={item.title === selectedSize ? 'white' : 'primary.600'}
                     fontWeight="bold"
                   >
                     {item.title}
@@ -154,9 +156,9 @@ const ModalPopupCart = (props: Props) => {
             backgroundColor="#AC1506"
             alignItems="center"
             justifyContent="center"
-            onPress={() => {
-              setShowModal(false);
-            }}
+            // onPress={() => {
+            //   onPress();
+            // }}
           >
             <Text color="white" fontWeight="bold" fontSize="14">
               Confirm
