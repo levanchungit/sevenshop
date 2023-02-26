@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Image, Input, Button, Pressable } from 'native-base';
+import { Text, View, Image, Input, Button, Pressable, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
+import { SetPasswordPayload } from 'interfaces/Auth';
+import { authAPI } from 'modules/api';
 import { AppNavigationProp } from 'providers/navigation/types';
 type Props = object;
 
@@ -9,6 +11,30 @@ const SetPassWordScreen = (props: Props) => {
   const [showPass, setShowPass] = useState(false);
   const [showPass1, setShowPass1] = useState(false);
   const navigation = useNavigation<AppNavigationProp>();
+
+  const [formData, setFormData] = useState<SetPasswordPayload>({
+    password: '',
+  });
+
+  const onSubmit = async () => {
+    try {
+      const response = await authAPI.set_password(formData);
+      console.log(response);
+      Toast.show({
+        title: response.data.message,
+        duration: 3000,
+      });
+
+      navigation.navigate('Main');
+    } catch (e: any) {
+      console.log(e.message);
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
+
   return (
     <View w={'100%'} h={'100%'} flex={1}>
       <Image
@@ -49,8 +75,10 @@ const SetPassWordScreen = (props: Props) => {
             fontStyle={'normal'}
             w={{ base: '85%' }}
             variant="unstyled"
-            placeholder="Enter your email/phone number"
+            placeholder="Enter your password..."
             secureTextEntry={!showPass}
+            value={formData.password}
+            onChangeText={(value) => setFormData({ ...formData, password: value })}
           />
           <Pressable
             onPress={() => {
@@ -80,7 +108,7 @@ const SetPassWordScreen = (props: Props) => {
             fontStyle={'normal'}
             w={{ base: '85%' }}
             variant="unstyled"
-            placeholder="Enter your email/phone number"
+            placeholder="Enter confirm your password..."
             secureTextEntry={!showPass1}
           />
           <Pressable
@@ -96,14 +124,7 @@ const SetPassWordScreen = (props: Props) => {
           </Pressable>
         </View>
 
-        <Button
-          onPress={() => {
-            navigation.navigate('Login');
-          }}
-          w={{ base: '50%' }}
-          mb="1"
-          mt="6"
-        >
+        <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="6">
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
             Set
           </Text>

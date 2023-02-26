@@ -1,14 +1,42 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Input, Button, Image, Pressable } from 'native-base';
+import { Text, View, Input, Button, Image, Pressable, Toast } from 'native-base';
+import { clearAuthTokens } from 'react-native-axios-jwt';
 import * as Icon from 'react-native-feather';
+import { SignInPayload } from 'interfaces/Auth';
+import { authAPI } from 'modules/api';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 type Props = object;
 
 const LoginScreen = (props: Props) => {
   const [showPass, setShowPass] = useState(false);
+
   const navigation = useNavigation<AppNavigationProp>();
+
+  const [formData, setFormData] = useState<SignInPayload>({
+    email: 'phamkhuyen0879249035@gmail.com',
+    password: '123',
+  });
+
+  const onSubmit = async () => {
+    clearAuthTokens();
+    try {
+      const response = await authAPI.login(formData);
+
+      Toast.show({
+        title: response.data.message,
+        duration: 3000,
+      });
+      console.log(response);
+      navigation.navigate('Main');
+    } catch (e: any) {
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
 
   return (
     <View w={'100%'} h={'100%'} flex={1}>
@@ -50,7 +78,9 @@ const LoginScreen = (props: Props) => {
             fontStyle={'normal'}
             w={{ base: '85%' }}
             variant="unstyled"
-            placeholder="Enter your email/phone number"
+            placeholder={'Enter your email/phone number'}
+            value={formData.email}
+            onChangeText={(value) => setFormData({ ...formData, email: value })}
           />
         </View>
 
@@ -69,6 +99,8 @@ const LoginScreen = (props: Props) => {
             variant="unstyled"
             placeholder="Enter your password"
             secureTextEntry={!showPass}
+            value={formData.password}
+            onChangeText={(value) => setFormData({ ...formData, password: value })}
           />
           <Pressable
             onPress={() => {
@@ -99,15 +131,7 @@ const LoginScreen = (props: Props) => {
           </Text>
         </View>
 
-        <Button
-          onPress={() => {
-            navigation.navigate('Main');
-          }}
-          borderRadius={6}
-          w={{ base: '50%' }}
-          mb="1"
-          mt="3"
-        >
+        <Button onPress={onSubmit} borderRadius={6} w={{ base: '50%' }} mb="1" mt="3">
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
             Login
           </Text>
@@ -125,10 +149,10 @@ const LoginScreen = (props: Props) => {
           />
           <Image
             style={{ width: 40, height: 40 }}
-            alt="Image Gmail"
             source={{
-              uri: 'https://e7.pngegg.com/pngimages/344/344/png-clipart-google-logo-google-logo-g-suite-google-text-logo.png',
+              uri: 'https://imagepng.org/wp-content/uploads/2019/08/google-icon.png',
             }}
+            alt="Image Gmail"
           />
         </View>
         <View flexDirection={'row'} alignItems={'center'} mt={5}>
