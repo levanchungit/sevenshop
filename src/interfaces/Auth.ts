@@ -59,3 +59,11 @@ export type color = {
 export type size = {
   title: string;
 };
+
+export type AddToCart = {
+  product_id: string;
+  color: number;
+  size: number;
+  quantity: number;
+  image: string;
+};

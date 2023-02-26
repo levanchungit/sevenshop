@@ -153,7 +153,7 @@ const ModalPopupCart = (props: Props) => {
                 >
                   <Text
                     fontSize={[8, 12]}
-                    color={item.title === selectedSize ? 'white' : 'primary.600'}
+                    // color={item.title === selectedSize ? 'white' : 'primary.600'}
                     fontWeight="bold"
                   >
                     {item.title}
