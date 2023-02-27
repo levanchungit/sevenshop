@@ -4,33 +4,30 @@ import { Text, View, Input, Button, Image, Pressable, Toast } from 'native-base'
 import { clearAuthTokens } from 'react-native-axios-jwt';
 import * as Icon from 'react-native-feather';
 import { SignInPayload } from 'interfaces/Auth';
-import { authAPI } from 'modules/api';
+import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
-type Props = object;
-
-const LoginScreen = (props: Props) => {
+const LoginScreen = () => {
   const [showPass, setShowPass] = useState(false);
 
   const navigation = useNavigation<AppNavigationProp>();
 
   const [formData, setFormData] = useState<SignInPayload>({
-    email: 'phamkhuyen0879249035@gmail.com',
-    password: '123',
+    email: '',
+    password: '',
   });
 
   const onSubmit = async () => {
     clearAuthTokens();
     try {
       const response = await authAPI.login(formData);
-
       Toast.show({
         title: response.data.message,
         duration: 3000,
       });
-      console.log(response);
       navigation.navigate('Main');
     } catch (e: any) {
+      console.error(e);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
@@ -39,10 +36,10 @@ const LoginScreen = (props: Props) => {
   };
 
   return (
-    <View w={'100%'} h={'100%'} flex={1}>
+    <View w="100%" h="100%" flex={1}>
       <Image
         alt="Image Login"
-        w={'100%'}
+        w="100%"
         h={250}
         borderBottomLeftRadius={12}
         borderBottomRightRadius={12}
@@ -53,45 +50,32 @@ const LoginScreen = (props: Props) => {
 
       <Text
         mt="5"
-        fontFamily={'heading'}
-        fontStyle={'normal'}
+        fontFamily="heading"
+        fontStyle="normal"
         fontWeight={400}
         fontSize={36}
-        textAlign={'center'}
+        textAlign="center"
       >
         Login
       </Text>
 
-      <View h={200} alignItems={'center'}>
-        <View
-          flexDirection={'row'}
-          w={'80%'}
-          alignItems={'center'}
-          borderBottomWidth={1}
-          px={4}
-          mt={5}
-        >
+      <View h={200} alignItems="center">
+        <View flexDirection="row" w="80%" alignItems="center" borderBottomWidth={1} px={4} mt={5}>
           <Icon.User stroke="#1C1C1C" width={24} height={24} />
           <Input
+            autoCapitalize="none"
             fontSize={16}
-            fontFamily={'heading'}
-            fontStyle={'normal'}
+            fontFamily="heading"
+            fontStyle="normal"
             w={{ base: '85%' }}
             variant="unstyled"
-            placeholder={'Enter your email/phone number'}
+            placeholder="Enter your email/phone number"
             value={formData.email}
             onChangeText={(value) => setFormData({ ...formData, email: value })}
           />
         </View>
 
-        <View
-          flexDirection={'row'}
-          w={'80%'}
-          alignItems={'center'}
-          borderBottomWidth={1}
-          px={4}
-          mt={5}
-        >
+        <View flexDirection="row" w="80%" alignItems="center" borderBottomWidth={1} px={4} mt={5}>
           <Icon.Lock stroke="#1C1C1C" width={24} height={24} />
           <Input
             fontSize={16}
@@ -116,12 +100,12 @@ const LoginScreen = (props: Props) => {
         </View>
         <View style={{ width: '80%' }}>
           <Text
-            textAlign={'right'}
+            textAlign="right"
             fontSize={14}
-            fontStyle={'normal'}
-            fontFamily={'heading'}
+            fontStyle="normal"
+            fontFamily="heading"
             fontWeight={400}
-            color={'primary.600'}
+            color="primary.600"
             mt={3}
             onPress={() => {
               navigation.navigate('ForgotPassWord');
@@ -132,14 +116,14 @@ const LoginScreen = (props: Props) => {
         </View>
 
         <Button onPress={onSubmit} borderRadius={6} w={{ base: '50%' }} mb="1" mt="3">
-          <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
+          <Text fontSize={14} color="light.100" fontWeight={'bold'}>
             Login
           </Text>
         </Button>
-        <Text mt={5} fontSize={14} fontWeight={500} fontStyle={'normal'} fontFamily={'heading'}>
+        <Text mt={5} fontSize={14} fontWeight={500} fontStyle="normal" fontFamily="heading">
           Or login with
         </Text>
-        <View mt={3} flexDirection={'row'} w={'25%'} justifyContent={'space-around'}>
+        <View mt={3} flexDirection="row" w="25%" justifyContent="space-around">
           <Image
             style={{ width: 40, height: 40 }}
             alt="Image Facebook"
@@ -155,7 +139,7 @@ const LoginScreen = (props: Props) => {
             alt="Image Gmail"
           />
         </View>
-        <View flexDirection={'row'} alignItems={'center'} mt={5}>
+        <View flexDirection="row" alignItems="center" mt={5}>
           <Text fontSize={16} fontWeight={500}>
             Don’t you have an account?
           </Text>
@@ -165,8 +149,8 @@ const LoginScreen = (props: Props) => {
             }}
             fontSize={14}
             ml={1}
-            fontWeight={'bold'}
-            color={'primary.600'}
+            fontWeight="bold"
+            color="primary.600"
           >
             Register
           </Text>

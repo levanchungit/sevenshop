@@ -2,16 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, ScrollView, Toast } from 'native-base';
 import { ActivityIndicator, TextInput } from 'react-native';
-import { clearAuthTokens } from 'react-native-axios-jwt';
-// import DeviceInfo from 'react-native-device-info';
-// import * as Progress from 'react-native-progress';
 import FlatListProductCategory from 'components/FlatListProductCategory';
 import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import FlatListProductForYou from 'components/FlatListProductForYou';
 import IconCart from 'components/IconCart';
 import SlideShowImage from 'components/SwipeBanner';
-import { SignInPayload } from 'interfaces/Auth';
-import { authAPI } from 'modules/api';
+import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';
 
@@ -19,40 +15,33 @@ export const MainScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const [Data1, setData1] = useState([]);
   const [scrollEnable, setScrollEnable] = useState(false);
-  const [formData, setData] = useState<SignInPayload>({
-    email: 'quyentran.02062000@gmail.com',
-    password: '123',
-  });
+  // const [formData, setData] = useState<SignInPayload>({
+  //   email: '',
+  //   password: '',
+  // });
   const [isLoader, setIsLoader] = useState(false);
-  // const [pageCurrent, setPageCurrent] = useState(1);
-  // const [refreshScroll, setrefreshScroll] = useState(false);
   let yOffset = '';
-  // let deviceId = DeviceInfo.getDeviceId();
 
-  const onSubmit = async () => {
-    clearAuthTokens();
-    try {
-      const response = await authAPI.login(formData);
-      Toast.show({
-        title: response.data.message,
-        duration: 3000,
-      });
-    } catch (e: any) {
-      Toast.show({
-        title: e.response?.data?.message,
-        duration: 3000,
-      });
-    }
-  };
+  // const onSubmit = async () => {
+  //   clearAuthTokens();
+  //   try {
+  //     const response = await authAPI.login(formData);
+  //     Toast.show({
+  //       title: response.data.message,
+  //       duration: 3000,
+  //     });
+  //   } catch (e: any) {
+  //     Toast.show({
+  //       title: e.response?.data?.message,
+  //       duration: 3000,
+  //     });
+  //   }
+  // };
   const getProducts = async () => {
     let result: any;
     try {
       const response = await authAPI.getProduct();
       result = response.data.result;
-      Toast.show({
-        title: response.data.result[0].name,
-        duration: 3000,
-      });
     } catch (e: any) {
       Toast.show({
         title: e.response?.data?.message,
@@ -63,11 +52,11 @@ export const MainScreen = () => {
   };
 
   useEffect(() => {
-    onSubmit();
+    // onSubmit();
     getProducts();
     setIsLoader(true);
 
-    setData({ email: 'quyentran.02062000@gmail.com', password: '123' });
+    // setData({ email: 'quyentran.02062000@gmail.com', password: '123' });
     // console.log(deviceId);
   }, []);
 

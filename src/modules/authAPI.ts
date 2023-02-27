@@ -15,7 +15,6 @@ import { axiosInstance } from './config/AxiosInstance';
 const authAPI = {
   async login(payload: SignInPayload): TypeReturn<GetMeSuccessData> {
     const response = await axiosInstance.post(API_ROUTES.login, payload);
-
     try {
       await setAuthTokens({
         accessToken: response.data.access_token,
@@ -34,7 +33,6 @@ const authAPI = {
 
   async check_otp(payload: CheckOTPPayload) {
     const response = await axiosInstance.post(API_ROUTES.check_otp, payload);
-
     try {
       await setAuthTokens({
         accessToken: response.data.access_token,

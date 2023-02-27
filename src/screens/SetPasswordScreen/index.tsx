@@ -3,11 +3,10 @@ import { useNavigation } from '@react-navigation/native';
 import { Text, View, Image, Input, Button, Pressable, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
 import { SetPasswordPayload } from 'interfaces/Auth';
-import { authAPI } from 'modules/api';
+import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
-type Props = object;
 
-const SetPassWordScreen = (props: Props) => {
+const SetPassWordScreen = () => {
   const [showPass, setShowPass] = useState(false);
   const [showPass1, setShowPass1] = useState(false);
   const navigation = useNavigation<AppNavigationProp>();
@@ -19,15 +18,13 @@ const SetPassWordScreen = (props: Props) => {
   const onSubmit = async () => {
     try {
       const response = await authAPI.set_password(formData);
-      console.log(response);
       Toast.show({
         title: response.data.message,
         duration: 3000,
       });
-
       navigation.navigate('Main');
     } catch (e: any) {
-      console.log(e.message);
+      console.error(e);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
@@ -36,10 +33,10 @@ const SetPassWordScreen = (props: Props) => {
   };
 
   return (
-    <View w={'100%'} h={'100%'} flex={1}>
+    <View w="100%" h="100%" flex={1}>
       <Image
-        alt="Image Setpassword"
-        w={'100%'}
+        alt="Image"
+        w="100%"
         h={250}
         borderBottomLeftRadius={12}
         borderBottomRightRadius={12}
@@ -50,29 +47,22 @@ const SetPassWordScreen = (props: Props) => {
       />
       <Text
         mt="5"
-        fontFamily={'heading'}
-        fontStyle={'normal'}
+        fontFamily="heading"
+        fontStyle="normal"
         fontWeight={400}
         fontSize={36}
-        textAlign={'center'}
+        textAlign="center"
       >
         Set Password
       </Text>
 
-      <View h={200} alignItems={'center'}>
-        <View
-          flexDirection={'row'}
-          w={'80%'}
-          alignItems={'center'}
-          borderBottomWidth={1}
-          px={4}
-          mt={5}
-        >
+      <View h={200} alignItems="center">
+        <View flexDirection="row" w="80%" alignItems="center" borderBottomWidth={1} px={4} mt={5}>
           <Icon.Lock stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
           <Input
             fontSize={16}
-            fontFamily={'heading'}
-            fontStyle={'normal'}
+            fontFamily="heading"
+            fontStyle="normal"
             w={{ base: '85%' }}
             variant="unstyled"
             placeholder="Enter your password..."

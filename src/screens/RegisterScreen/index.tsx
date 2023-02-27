@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, Button, Input, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
 import { RegisterPayload } from 'interfaces/Auth';
-import { authAPI } from 'modules/api';
+import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 type Props = object;
 
