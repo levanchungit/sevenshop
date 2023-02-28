@@ -1,4 +1,6 @@
-import { clearAuthTokens, setAuthTokens } from 'react-native-axios-jwt';
+import axios from 'axios';
+import { setAuthTokens } from 'react-native-axios-jwt';
+import { API_URL } from 'global/config';
 import { API_ROUTES } from 'global/constants';
 import { TypeReturn } from 'interfaces/APIResponse';
 import {
@@ -14,7 +16,7 @@ import { axiosInstance } from './config/AxiosInstance';
 
 const authAPI = {
   async login(payload: SignInPayload): TypeReturn<GetMeSuccessData> {
-    const response = await axiosInstance.post(API_ROUTES.login, payload);
+    const response = await axios.post(API_URL + API_ROUTES.login, payload);
     try {
       await setAuthTokens({
         accessToken: response.data.access_token,
@@ -27,8 +29,8 @@ const authAPI = {
   },
 
   async register(payload: RegisterPayload) {
-    clearAuthTokens();
-    return await axiosInstance.post(API_ROUTES.register, payload);
+    const response = await axios.post(API_URL + API_ROUTES.register, payload);
+    return response;
   },
 
   async check_otp(payload: CheckOTPPayload) {
@@ -36,7 +38,7 @@ const authAPI = {
     try {
       await setAuthTokens({
         accessToken: response.data.access_token,
-        refreshToken: response.data.refresh_token || null,
+        refreshToken: response.data.refresh_token,
       });
     } catch (error) {
       console.error(error);
@@ -45,6 +47,7 @@ const authAPI = {
   },
 
   async set_password(payload: SetPasswordPayload) {
+    //header token
     const response = await axiosInstance.post(API_ROUTES.set_password, payload);
     try {
       await setAuthTokens({

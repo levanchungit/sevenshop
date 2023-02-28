@@ -18,13 +18,14 @@ const SetPassWordScreen = () => {
   const onSubmit = async () => {
     try {
       const response = await authAPI.set_password(formData);
+      console.log(response);
       Toast.show({
         title: response.data.message,
         duration: 3000,
       });
       navigation.navigate('Main');
     } catch (e: any) {
-      console.error(e);
+      console.error(e.response);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,

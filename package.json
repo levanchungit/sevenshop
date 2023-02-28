@@ -59,6 +59,7 @@
     "@babel/core": "^7.19.3",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
+    "@types/react-native-dotenv": "^0.2.0",
     "babel-plugin-module-resolver": "^5.0.0",
     "eslint": "^8.31.0",
     "eslint-config-universe": "^11.1.1",

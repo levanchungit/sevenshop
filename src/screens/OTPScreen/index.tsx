@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Image, Input, Button } from 'native-base';
+import { View, Text, Image, Input, Button, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
+import { CheckOTPPayload } from 'interfaces/Auth';
+import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
-type Props = object;
 
-const OTPScreen = (props: Props) => {
+const OTPScreen = (props: any) => {
   const navigation = useNavigation<AppNavigationProp>();
+
+  const [formData, setFormData] = useState<CheckOTPPayload>({
+    id: props.route.params.user_id,
+    otp: '',
+  });
+
+  const onSubmit = async () => {
+    try {
+      const response = await authAPI.check_otp(formData);
+      Toast.show({
+        title: response.data.message,
+        duration: 3000,
+      });
+      navigation.navigate('SetPassWord');
+    } catch (e: any) {
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
+
   return (
     <View w={'100%'} h={'100%'} flex={1}>
       <Image
@@ -56,19 +79,13 @@ const OTPScreen = (props: Props) => {
             fontStyle={'normal'}
             w={{ base: '85%' }}
             variant="unstyled"
+            value={formData.otp}
+            onChangeText={(value) => setFormData({ ...formData, otp: value })}
             placeholder="Enter your OTP..."
           />
         </View>
 
-        <Button
-          onPress={() => {
-            navigation.navigate('SetPassWord');
-          }}
-          w={{ base: '50%' }}
-          mb="1"
-          mt="6"
-          borderRadius={6}
-        >
+        <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="6" borderRadius={6}>
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
             Verify
           </Text>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, ScrollView, Toast } from 'native-base';
+import { View, ScrollView, Toast, Button } from 'native-base';
 import { ActivityIndicator, TextInput } from 'react-native';
 import FlatListProductCategory from 'components/FlatListProductCategory';
 import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
@@ -51,6 +51,18 @@ export const MainScreen = () => {
     setData1(result);
   };
 
+  const onGetMe = async () => {
+    try {
+      const response = await authAPI.me();
+      console.log(response.data);
+    } catch (e: any) {
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
+
   useEffect(() => {
     // onSubmit();
     getProducts();
@@ -70,6 +82,7 @@ export const MainScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Button onPress={onGetMe}>Get ME</Button>
       <ScrollView
         nestedScrollEnabled
         directionalLockEnabled={false}

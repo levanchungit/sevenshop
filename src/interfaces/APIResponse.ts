@@ -1,6 +1,5 @@
 export type DataResSuccess<T> = {
   message: string;
-  access_token: string;
   result: T[];
 };
 

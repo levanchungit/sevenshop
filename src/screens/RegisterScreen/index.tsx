@@ -11,25 +11,26 @@ const RegisterScreen = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
 
   const [formData, setFormData] = useState<RegisterPayload>({
-    email: 'khuyenpv0509@gmail.com',
+    email: 'levanchung.it@gmail.com',
   });
 
   const onSubmit = async () => {
     try {
       const response = await authAPI.register(formData);
-
       Toast.show({
         title: response.data.message,
         duration: 3000,
       });
       navigation.navigate('OTP', response.data.result);
     } catch (e: any) {
+      console.log(e.response);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
       });
     }
   };
+
   return (
     <View w={'100%'} h={'100%'} flex={1}>
       <Image

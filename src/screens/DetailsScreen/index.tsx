@@ -16,10 +16,14 @@ import { Dimensions } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { AppNavigationProp } from 'providers/navigation/types';
+import { AppNavigationProp, DetailRouteProp } from 'providers/navigation/types';
 
-const DetailsScreen = (data: any, onBack: any) => {
-  const { name, description, price, image } = data.route.params;
+type DetailScreenProps = {
+  route: DetailRouteProp;
+};
+
+const DetailsScreen = (props: DetailScreenProps) => {
+  const { name, description, price, image } = props.route.params;
   const navigation = useNavigation<AppNavigationProp>();
 
   const dataColor = [

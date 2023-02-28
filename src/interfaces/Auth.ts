@@ -21,9 +21,9 @@ export type RefreshTokenPayload = {
 };
 
 export type GetMeSuccessData = {
-  full_name: string;
-  email: string;
-  avatar: string;
+  message: string;
+  access_token: string;
+  refresh_token: string;
 };
 
 export type GetProductSuccessData = {

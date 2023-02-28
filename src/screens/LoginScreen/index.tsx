@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, Input, Button, Image, Pressable, Toast } from 'native-base';
-import { clearAuthTokens } from 'react-native-axios-jwt';
 import * as Icon from 'react-native-feather';
 import { SignInPayload } from 'interfaces/Auth';
 import { authAPI } from 'modules';
@@ -18,7 +17,6 @@ const LoginScreen = () => {
   });
 
   const onSubmit = async () => {
-    clearAuthTokens();
     try {
       const response = await authAPI.login(formData);
       Toast.show({
@@ -27,13 +25,14 @@ const LoginScreen = () => {
       });
       navigation.navigate('Main');
     } catch (e: any) {
-      console.error(e);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
       });
     }
   };
+
+  //useEffect check isLoggedIn == true ? navigation Main : Home
 
   return (
     <View w="100%" h="100%" flex={1}>
