@@ -127,13 +127,13 @@ const LoginScreen = () => {
             style={{ width: 40, height: 40 }}
             alt="Image Facebook"
             source={{
-              uri: 'https://images.vexels.com/media/users/3/223136/isolated/preview/984f500cf9de4519b02b354346eb72e0-facebook-icon-social-media-by-vexels.png',
+              uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1677553446/SevenShop/facebook_abaweh.png',
             }}
           />
           <Image
             style={{ width: 40, height: 40 }}
             source={{
-              uri: 'https://imagepng.org/wp-content/uploads/2019/08/google-icon.png',
+              uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1677553444/SevenShop/google_wopk5u.png',
             }}
             alt="Image Gmail"
           />

@@ -1,10 +1,10 @@
-// import { API_URL_ENV } from '@env';
-import Constants from 'expo-constants';
+import { API_URL_ENV } from '@env';
+// import Constants from 'expo-constants';
 
 //HOST BUILD || TEST LOCAL
-export const API_URL = Constants.expoConfig?.extra?.apiUrl || 'http://10.0.2.2:3000';
+// export const API_URL = Constants.expoConfig?.extra?.apiUrl || 'http://10.0.2.2:3000';
 
 //HOST MAIN
-// export const API_URL = API_URL_ENV;
+export const API_URL = API_URL_ENV;
 
-console.log('API_URL => ', API_URL);
+console.info('API_URL => ', API_URL);
