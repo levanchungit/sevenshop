@@ -40,6 +40,7 @@ const StackNavigator = () => {
       <Screen name="Cart" component={Cart} />
       <Screen name="PaymentSuccess" component={PaymentSuccess} />
       <Screen name="SetPassWordForgot" component={SetPasswordForgotScreen} />
+      <Screen name="PaymentSuccess" component={PaymentSuccess} />
     </Navigator>
   );
 };
