@@ -158,87 +158,41 @@ export const DATA4: size[] = [
   },
 ];
 
-export type color = {
-  title: string;
-  data: string;
+export type address = {
+  id: number;
+  full_name: string;
+  phone: number;
+  address: string;
+  isDefault: boolean;
 };
 
-export const DATA2: color[] = [
+export const DATA5: address[] = [
   {
-    title: 'Cyan',
-    data: 'cyan.500',
+    id: 1,
+    full_name: 'Trần Trọng Đăng Khoa',
+    phone: 931739042,
+    address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    isDefault: true,
   },
   {
-    title: 'Yellow',
-    data: 'yellow.100',
+    id: 2,
+    full_name: 'Lê Văn Chung',
+    phone: 931739042,
+    address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    isDefault: false,
   },
   {
-    title: 'Violet',
-    data: 'violet.200',
+    id: 3,
+    full_name: 'Lương Quốc Duy',
+    phone: 931739042,
+    address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    isDefault: false,
   },
   {
-    title: 'red',
-    data: 'red.200',
-  },
-  {
-    title: 'blue',
-    data: 'blue.200',
-  },
-  {
-    title: 'white',
-    data: 'white',
-  },
-  {
-    title: 'green',
-    data: 'green.300',
-  },
-  {
-    title: 'black',
-    data: 'black',
-  },
-];
-
-export type review = {
-  name: string;
-  rating: number;
-  comment: string;
-  time: string;
-};
-
-export const DATA3: review[] = [
-  {
-    name: 'Lê Văn Chung',
-    rating: 5,
-    comment:
-      'Dùng oke lắm luôn mọi người ạ. Shop giao hàng nhanh, đóng gói cẩn thận.Tư vấn siu nhiệt tình luôn. Cho shop 5 sao',
-    time: '2015-02-01 9:00PM',
-  },
-  {
-    name: 'Trần Trọng Đăng Khoa',
-    rating: 5,
-    comment: 'Very good product',
-    time: '2015-02-01 9:00PM',
-  },
-];
-
-export type size = {
-  title: string;
-};
-
-export const DATA4: size[] = [
-  {
-    title: 'S',
-  },
-  {
-    title: 'M',
-  },
-  {
-    title: 'L',
-  },
-  {
-    title: 'XL',
-  },
-  {
-    title: 'XXL',
+    id: 4,
+    full_name: 'Trần Ngọc Thủy',
+    phone: 931739042,
+    address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    isDefault: false,
   },
 ];
