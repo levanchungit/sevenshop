@@ -48,7 +48,7 @@ const authAPI = {
 
   async set_password(payload: SetPasswordPayload) {
     //header token
-    const response = await axiosInstance.post(API_ROUTES.set_password, payload);
+    const response = await axiosInstance.post(API_URL + API_ROUTES.set_password, payload);
     try {
       await setAuthTokens({
         accessToken: response.data.access_token,
@@ -68,7 +68,8 @@ const authAPI = {
   },
 
   async getProduct(): TypeReturn<GetProductSuccessData> {
-    const result = await axiosInstance.get(API_ROUTES.getProducts);
+    const result = await axiosInstance.get(API_URL + API_ROUTES.getProducts);
+    console.log('result', result);
     return result;
   },
 };

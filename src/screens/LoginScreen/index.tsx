@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Input, Button, Image, Pressable, Toast } from 'native-base';
+import { Text, View, Input, Button, Image, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
 import { SignInPayload } from 'interfaces/Auth';
-import { authAPI } from 'modules';
+// import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 const LoginScreen = () => {
@@ -16,21 +16,21 @@ const LoginScreen = () => {
     password: '',
   });
 
-  const onSubmit = async () => {
-    try {
-      const response = await authAPI.login(formData);
-      Toast.show({
-        title: response.data.message,
-        duration: 3000,
-      });
-      navigation.navigate('Main');
-    } catch (e: any) {
-      Toast.show({
-        title: e.response?.data?.message,
-        duration: 3000,
-      });
-    }
-  };
+  // const onSubmit = async () => {
+  //   try {
+  //     const response = await authAPI.login(formData);
+  //     Toast.show({
+  //       title: response.data.message,
+  //       duration: 3000,
+  //     });
+  //     navigation.navigate('Main');
+  //   } catch (e: any) {
+  //     Toast.show({
+  //       title: e.response?.data?.message,
+  //       duration: 3000,
+  //     });
+  //   }
+  // };
 
   //useEffect check isLoggedIn == true ? navigation Main : Home
 
@@ -114,7 +114,13 @@ const LoginScreen = () => {
           </Text>
         </View>
 
-        <Button onPress={onSubmit} borderRadius={6} w={{ base: '50%' }} mb="1" mt="3">
+        <Button
+          onPress={() => navigation.navigate('Main')}
+          borderRadius={6}
+          w={{ base: '50%' }}
+          mb="1"
+          mt="3"
+        >
           <Text fontSize={14} color="light.100" fontWeight={'bold'}>
             Login
           </Text>
