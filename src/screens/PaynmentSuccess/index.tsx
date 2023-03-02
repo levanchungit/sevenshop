@@ -15,6 +15,7 @@ const PaymentSuccess = () => {
             h={100}
             source={require('../../assets/images/paymentsuccess.png')}
           />
+          <Image w={100} h={100} source={require('../../assets/images/paymentsuccess.png')} />
           <Text variant={'Title'} fontWeight="bold" fontSize={20} mt={4} color="black">
             Successful payment
           </Text>
