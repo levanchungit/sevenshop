@@ -19,8 +19,12 @@ const CheckoutScreen = (props: Props) => {
             </Text>
           </View>
           <View flexDirection={'column'}>
-            <Text>Trần Quyền | 0834196884</Text>
-            <Text numberOfLines={1}>12a/2 Đường QL 50, Xã Long An, Cần Giuộc, Long An</Text>
+            <Text numberOfLines={1} fontWeight="medium" variant={'Body2'}>
+              Trần Quyền | 0834196884
+            </Text>
+            <Text numberOfLines={1} fontWeight="medium" variant={'Body2'}>
+              12a/2 Đường QL 50, Xã Long An, Cần Giuộc, Long An
+            </Text>
           </View>
         </View>
         {/* <FlatListProductForYou data={data} /> */}
