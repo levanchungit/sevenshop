@@ -10,7 +10,7 @@ const CheckoutScreen = (props: Props) => {
   return (
     <ScrollView>
       <View style={{ marginTop: 20 }}>
-        <NavHeader />
+        <NavHeader title="Checkout" />
         <View style={{ padding: 12 }} borderBottomColor={'gray.500'} borderBottomWidth={0.5}>
           <View style={{ flexDirection: 'row', marginBottom: 8 }}>
             <Icons.MapPin stroke={'black'} fontSize={24} />

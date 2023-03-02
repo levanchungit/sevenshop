@@ -11,12 +11,14 @@ export type AppStackNavigatorParamList = {
   ForgotPassWord: undefined;
   Details: { name: string; description: string; price: number; image: string };
   Cart: undefined;
+  PaymentSuccess: undefined;
 };
 
 export type BottomTabNavigatorParamList = {
   Home: undefined;
   Favorites: undefined;
   CheckoutScreen: undefined;
+  PaymentSuccess: undefined;
   Notification?: {
     itemId?: number;
   };
