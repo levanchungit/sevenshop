@@ -118,6 +118,7 @@ const FlatListProductCategory = (props: Props) => {
           horizontal
           contentContainerStyle={styles.flashListFlashSale}
           data={data.filter(function (item) {
+            console.log(item);
             return item.categories_type === id_Category();
           })}
           renderItem={({ item }) => <RenderItemCategory data={item} />}
