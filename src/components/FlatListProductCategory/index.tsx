@@ -14,7 +14,6 @@ type Props = {
   data: IProduct[];
 };
 const FlatListProductCategory = (props: Props) => {
-  // const navigation = useNavigation<AppNavigationProp>();
   const { data } = props;
   const [ItemSelected, setItemSelected] = useState([
     {
@@ -53,12 +52,9 @@ const FlatListProductCategory = (props: Props) => {
       isSelected: false,
     },
   ]);
-  // const [isLoaddingItemCategory, setIsLoaddingItemCategory] = useState(false);
 
   const [progressEnable, setProgressEnable] = useState(true);
-  // const [data1, setdata1]: any = useState([]);
-  // const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(1);
+  const [end, setEnd] = useState(3);
 
   const id_Category: any = () => {
     let category;
@@ -67,16 +63,10 @@ const FlatListProductCategory = (props: Props) => {
         return (category = item._id);
       }
     });
+    // console.log('categoryyyyyyyy' + category);
     return category;
   };
   useEffect(() => {
-    // setdata1(
-    //   data
-    //     .filter(function (item) {
-    //       return item.categories_type === id_Category();
-    //     })
-    //     .slice(0, 1)
-    // );
     setInterval(() => {
       setProgressEnable(false);
     }, 3000);
