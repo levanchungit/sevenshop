@@ -9,7 +9,12 @@ const PaymentSuccess = () => {
         <NavHeader title="Payment Success" />
 
         <View mt={50} alignItems="center">
-          <Image w={100} h={100} source={require('../../assets/images/paymentsuccess.png')} />
+          <Image
+            alt="123"
+            w={100}
+            h={100}
+            source={require('../../assets/images/paymentsuccess.png')}
+          />
           <Text variant={'Title'} fontWeight="bold" fontSize={20} mt={4} color="black">
             Successful payment
           </Text>
