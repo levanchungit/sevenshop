@@ -2,12 +2,12 @@ import { Box } from 'native-base';
 import * as Icon from 'react-native-feather';
 
 type Props = {
-  boolean: boolean;
+  isChecked: boolean;
 };
 
 const IconCheck = (props: Props) => {
-  const { boolean } = props;
-  if (boolean) {
+  const { isChecked } = props;
+  if (isChecked) {
     return (
       <Box
         borderWidth={1}

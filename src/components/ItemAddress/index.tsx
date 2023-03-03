@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Flex, Text } from 'native-base';
+import { Box, Flex, Pressable, Text } from 'native-base';
 import * as Icon from 'react-native-feather';
 import IconCheck from 'components/IconCheck';
 
@@ -8,33 +8,40 @@ type Props = {
   phone: number;
   address: string;
   isDefault: boolean;
-  checked: boolean;
+  check: number;
+  setCheck: Function;
+  dataId: number;
 };
 
 const ItemAdrress = (props: Props) => {
-  const { name, phone, address, isDefault, checked } = props;
+  const { name, phone, address, isDefault, dataId, check, setCheck } = props;
   const [elementVisible] = useState(isDefault);
   return (
     <Flex
       direction="row"
       justifyContent="center"
       alignItems="center"
-      paddingY={5}
+      h={[100, 150]}
       w="100%"
-      height={150}
       marginBottom={2}
       borderWidth={1}
       borderColor="#C9C9C9"
       borderRadius={10}
     >
-      <Box justifyContent="center" alignItems="center" h="100%" w="10%">
-        <IconCheck boolean={checked} width={35} height={35} />
-      </Box>
+      <Pressable
+        justifyContent="center"
+        alignItems="center"
+        h="100%"
+        w="10%"
+        onPress={() => setCheck(dataId)}
+      >
+        {dataId === check ? <IconCheck isChecked={true} /> : <IconCheck isChecked={false} />}
+      </Pressable>
       <Box w="80%">
-        <Text variant="h4">
+        <Text variant={'h4'}>
           {name} | {phone}
         </Text>
-        <Text variant="h4">{address}</Text>
+        <Text variant={'h4'}>{address}</Text>
         {elementVisible ? (
           <Box
             borderColor="red.600"

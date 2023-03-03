@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ItemAdrress from 'components/ItemAddress';
@@ -6,11 +6,12 @@ import SSButton from 'components/SSButton';
 import { DATA5 } from 'mocks';
 
 const Address = (onBack: any) => {
+  const [isChecked, setIsChecked] = useState(0);
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        paddingTop: 12,
+        paddingVertical: 12,
         paddingHorizontal: 10,
         backgroundColor: 'white',
       }}
@@ -23,12 +24,14 @@ const Address = (onBack: any) => {
             phone={item.phone}
             address={item.address}
             isDefault={item.isDefault}
-            checked={false}
+            check={isChecked}
+            setCheck={setIsChecked}
+            dataId={item.id}
           />
         )}
         keyExtractor={(item) => item.full_name}
       />
-      <SSButton variant={'white'}></SSButton>
+      <SSButton variant={'red'} text={'Add address'}></SSButton>
     </SafeAreaView>
   );
 };
