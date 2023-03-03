@@ -34,7 +34,7 @@ const authAPI = {
   },
 
   async check_otp(payload: CheckOTPPayload) {
-    const response = await axiosInstance.post(API_ROUTES.check_otp, payload);
+    const response = await axios.post(API_URL + API_ROUTES.check_otp, payload);
     try {
       await setAuthTokens({
         accessToken: response.data.access_token,

@@ -76,7 +76,7 @@ const RegisterScreen = (props: Props) => {
           />
         </View>
 
-        <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="8">
+        <Button variant={'abc'} onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="8">
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
             Register
           </Text>
@@ -89,14 +89,14 @@ const RegisterScreen = (props: Props) => {
           <Image
             style={{ width: 40, height: 40 }}
             source={{
-              uri: 'https://images.vexels.com/media/users/3/223136/isolated/preview/984f500cf9de4519b02b354346eb72e0-facebook-icon-social-media-by-vexels.png',
+              uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1677553446/SevenShop/facebook_abaweh.png',
             }}
             alt="Image Facebook"
           />
           <Image
             style={{ width: 40, height: 40 }}
             source={{
-              uri: 'https://imagepng.org/wp-content/uploads/2019/08/google-icon.png',
+              uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1677553444/SevenShop/google_wopk5u.png',
             }}
             alt="Image Gmail"
           />

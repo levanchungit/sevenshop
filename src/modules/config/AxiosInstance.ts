@@ -7,7 +7,6 @@ export const axiosInstance = axios.create({
   baseURL: API_URL,
 });
 
-// 2. Define token refresh function.
 const requestRefresh: TokenRefreshRequest = async (refreshToken: string): Promise<string> => {
   const response = await axios.post(`${API_URL}${API_ROUTES.refresh_token}`, {
     refresh_token: refreshToken,
@@ -20,6 +19,6 @@ const requestRefresh: TokenRefreshRequest = async (refreshToken: string): Promis
 
 applyAuthTokenInterceptor(axiosInstance, {
   requestRefresh,
-  header: 'Authorization', // header name
-  headerPrefix: 'Bearer ', // header value prefix
+  header: 'Authorization',
+  headerPrefix: 'Bearer ',
 });
