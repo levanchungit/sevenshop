@@ -42,3 +42,20 @@ export type GetProductData = {
   price: number;
   quantity: number;
 };
+
+export type AddToCart = {
+  product_id: string;
+  color: number;
+  size: number;
+  quantity: number;
+  image: string;
+};
+
+export type color = {
+  title: string;
+  data: string;
+};
+
+export type size = {
+  title: string;
+};
