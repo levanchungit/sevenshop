@@ -50,3 +50,12 @@ export type AddToCart = {
   quantity: number;
   image: string;
 };
+
+export type color = {
+  title: string;
+  data: string;
+};
+
+export type size = {
+  title: string;
+};

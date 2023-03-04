@@ -25,14 +25,17 @@ type DetailScreenProps = {
 };
 
 const DetailsScreen = (props: DetailScreenProps) => {
-  const { name, description, price, image } = props.route.params;
+  // const { name, description, price, image } = props.route.params;
   const navigation = useNavigation<AppNavigationProp>();
-  // const [selectedSize, setSelectedSize] = useState<number>(1);
-  // const [selectedColor, setSelectedColor] = useState<number>(1);
+  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedColor, setSelectedColor] = useState('');
   const [statusLike, setStatusLike] = useState(false);
   const initialWidth = Dimensions.get('window').width;
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const add = () => {
+    console.log('Hello');
+  };
   // const toast = useToast();
   // const [addToCart, setAddToCart] = useState<AddToCart>({
   //   product_id: '63fa5fccb8d9374ffb848c1a',
@@ -61,7 +64,7 @@ const DetailsScreen = (props: DetailScreenProps) => {
   const DescriptionRoute = () => (
     <View style={{ flex: 1, backgroundColor: 'transparent' }}>
       <ScrollView>
-        <Text fontSize={[12, 16, 20]}>{description}</Text>
+        <Text fontSize={[12, 16, 20]}></Text>
         <Flex direction="row" justifyContent="space-between">
           <Text fontSize={[12, 16, 20]} fontWeight="bold">
             Recommend for you
@@ -131,7 +134,7 @@ const DetailsScreen = (props: DetailScreenProps) => {
 
       <Image
         source={{
-          uri: image,
+          uri: 'https://wallpaperaccess.com/full/317501.jpg',
         }}
         alt="Alternate Text"
         size="full"
@@ -142,11 +145,11 @@ const DetailsScreen = (props: DetailScreenProps) => {
       />
 
       <Text fontSize={[18, 24, 26]} fontWeight="semibold">
-        {name}
+        Hello
       </Text>
       <Flex direction="row" alignItems="center" justifyContent="flex-start">
         <Text fontSize={[16, 20, 24]} fontWeight="semibold" color="red.600" marginRight="1.5">
-          {price}đ
+          200.00đ
         </Text>
         <Text fontSize={[12, 16, 20]} strikeThrough color="gray.500">
           400.000đ
@@ -241,17 +244,18 @@ const DetailsScreen = (props: DetailScreenProps) => {
         </Pressable>
       </Center>
       <ModalPopupCart
-        // onPress={add}
-        showModal={showModal}
-        setShowModal={setShowModal}
-        // selectedSize={selectedSize}
-        // setSelectedSize={setSelectedSize}
-        quantity={quantity}
-        setQuantity={setQuantity}
-        image={image}
-        price={price}
+        price={200000}
         colors={DATA2}
         size={DATA4}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        selectedSize={selectedSize}
+        setSelectedSize={setSelectedSize}
+        selectedColor={selectedColor}
+        setSelectedColor={setSelectedColor}
+        quantity={quantity}
+        setQuantity={setQuantity}
+        onPress={add}
       />
     </View>
   );
