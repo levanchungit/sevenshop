@@ -9,8 +9,14 @@ export type AppStackNavigatorParamList = {
   OTP: undefined;
   SetPassWord: undefined;
   ForgotPassWord: undefined;
-  Details: { name: string; description: string; price: number; image: string };
+  Details: {
+    name: string;
+    description: string;
+    price: number;
+    image: [];
+  };
   Cart: undefined;
+  Address: undefined;
 };
 
 export type BottomTabNavigatorParamList = {

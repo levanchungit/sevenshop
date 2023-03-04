@@ -157,3 +157,42 @@ export const DATA4: size[] = [
     title: 'XXL',
   },
 ];
+
+export type address = {
+  id: number;
+  full_name: string;
+  phone: number;
+  address: string;
+  isDefault: boolean;
+};
+
+export const DATA5: address[] = [
+  {
+    id: 1,
+    full_name: 'Trần Trọng Đăng Khoa',
+    phone: 931739042,
+    address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    isDefault: true,
+  },
+  {
+    id: 2,
+    full_name: 'Lê Văn Chung',
+    phone: 931739042,
+    address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    isDefault: false,
+  },
+  {
+    id: 3,
+    full_name: 'Lương Quốc Duy',
+    phone: 931739042,
+    address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    isDefault: false,
+  },
+  {
+    id: 4,
+    full_name: 'Trần Ngọc Thủy',
+    phone: 931739042,
+    address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    isDefault: false,
+  },
+];
