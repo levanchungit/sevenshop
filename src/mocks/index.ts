@@ -163,6 +163,7 @@ export type address = {
   full_name: string;
   phone: number;
   address: string;
+  type: string;
   isDefault: boolean;
 };
 
@@ -172,6 +173,7 @@ export const DATA5: address[] = [
     full_name: 'Trần Trọng Đăng Khoa',
     phone: 931739042,
     address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    type: 'work',
     isDefault: true,
   },
   {
@@ -179,6 +181,7 @@ export const DATA5: address[] = [
     full_name: 'Lê Văn Chung',
     phone: 931739042,
     address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    type: 'work',
     isDefault: false,
   },
   {
@@ -186,6 +189,7 @@ export const DATA5: address[] = [
     full_name: 'Lương Quốc Duy',
     phone: 931739042,
     address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    type: 'home',
     isDefault: false,
   },
   {
@@ -193,6 +197,7 @@ export const DATA5: address[] = [
     full_name: 'Trần Ngọc Thủy',
     phone: 931739042,
     address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    type: 'home',
     isDefault: false,
   },
 ];

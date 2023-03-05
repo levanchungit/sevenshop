@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, Pressable } from 'native-base';
 import * as Icons from 'react-native-feather';
+import { AppNavigationProp } from 'providers/navigation/types';
 
 type Props = {
   tabHeaderSearchEnabled: boolean;
@@ -14,6 +16,7 @@ type Props = {
 };
 
 const SSHeaderNavigation = (props: Props) => {
+  const navigation = useNavigation<AppNavigationProp>();
   const {
     tabHeaderSearchEnabled,
     titleHeaderSearchEnabled,
@@ -64,12 +67,12 @@ const SSHeaderNavigation = (props: Props) => {
     </View>
   ) : (
     <View flexDirection={'row'} alignItems="center" justifyContent={'space-between'}>
-      <View flexDirection={'row'} alignItems="center">
+      <Pressable flexDirection={'row'} alignItems="center" onPress={() => navigation.goBack()}>
         <Icons.ChevronLeft stroke={'black'} width={24} height={24} />
         <Text ml={3} variant="Title" fontWeight={'bold'} fontSize={20}>
           {titleHeaderScreen}
         </Text>
-      </View>
+      </Pressable>
       {iconRightHeaderScreen ? (
         <Icons.Headphones stroke={'black'} width={24} height={24} />
       ) : (
