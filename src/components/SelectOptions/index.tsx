@@ -19,7 +19,6 @@ const SelectOptions = (props: Props) => {
           marginTop: 12,
           paddingHorizontal: 12,
           paddingBottom: 8,
-
           justifyContent: 'space-between',
           borderBottomWidth: 1,
         }}
