@@ -6,10 +6,11 @@ type Props = {
   image: string;
   price: number;
   size_color: string;
+  quantity: number;
 };
 
 const ItemProductCheckout = (props: Props) => {
-  const { name, image, price, size_color } = props;
+  const { name, image, price, size_color, quantity } = props;
   return (
     <Pressable flexDirection={'row'} style={{ padding: 12 }} alignItems={'center'}>
       <Image
@@ -25,9 +26,12 @@ const ItemProductCheckout = (props: Props) => {
         <Text numberOfLines={1} fontSize={16} color="black" variant={'Body2'}>
           {size_color}
         </Text>
-        <View style={{}}>
+        <View flexDirection={'row'} justifyContent="space-between" alignItems={'center'}>
           <Text color="primary.600" fontSize={16} variant={'Button'}>
             {price}đ
+          </Text>
+          <Text color="black" fontSize={14} variant={'Subtitle2'}>
+            x{quantity}
           </Text>
         </View>
       </View>

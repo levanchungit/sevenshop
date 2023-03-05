@@ -37,36 +37,42 @@ const CheckoutScreen = (props: Props) => {
             price={123}
             image="https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656"
             size_color="XL_Black"
+            quantity={2}
           />
           <ItemProductCheckout
             name="Áo sơ mi nam phối màu cực chất"
             price={123}
             image="https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656"
             size_color="XL_Black"
+            quantity={2}
           />
           <ItemProductCheckout
             name="Áo sơ mi nam phối màu cực chất"
             price={123}
             image="https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656"
             size_color="XL_Black"
+            quantity={2}
           />
           <ItemProductCheckout
             name="Áo sơ mi nam phối màu cực chất"
             price={123}
             image="https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656"
             size_color="XL_Black"
+            quantity={2}
           />
           <ItemProductCheckout
             name="Áo sơ mi nam phối màu cực chất"
             price={123}
             image="https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656"
             size_color="XL_Black"
+            quantity={2}
           />
           <ItemProductCheckout
             name="Áo sơ mi nam phối màu cực chất"
             price={123}
             image="https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656"
             size_color="XL_Black"
+            quantity={2}
           />
         </View>
       </ScrollView>

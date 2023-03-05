@@ -17,6 +17,7 @@ const FlatListProductCheckout = (props: Props) => {
         price={123}
         image="https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656"
         size_color="XL_Black"
+        quantity={4}
       />
     );
   };
