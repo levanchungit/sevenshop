@@ -18,6 +18,7 @@ export type AppStackNavigatorParamList = {
   Cart: undefined;
   PaymentSuccess: undefined;
   Address: undefined;
+  EditAddress: undefined;
 };
 
 export type BottomTabNavigatorParamList = {

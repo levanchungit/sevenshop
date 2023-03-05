@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Address from 'screens/AddressScreen';
 import Cart from 'screens/CartScreen';
 import DetailScreen from 'screens/DetailsScreen';
+import EditAddressScreen from 'screens/EditAddressScreen';
 import ForgotPasswordScreen from 'screens/FogotPasswordScreen';
 import HomeScreen from 'screens/HomeScreen';
 import LoginScreen from 'screens/LoginScreen';
@@ -32,6 +33,7 @@ const StackNavigator = () => {
       <Screen name="SetPassWord" component={SetPassWordScreen} />
       <Screen name="ForgotPassWord" component={ForgotPasswordScreen} />
       <Screen name="Address" component={Address} />
+      <Screen name="EditAddress" component={EditAddressScreen} />
       <Screen name="Cart" component={Cart} />
       <Screen name="PaymentSuccess" component={PaymentSuccess} />
     </Navigator>
