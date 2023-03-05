@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, ScrollView, Toast, Button } from 'native-base';
 import { ActivityIndicator, TextInput } from 'react-native';
+import { clearAuthTokens } from 'react-native-axios-jwt';
 import FlatListProductCategory from 'components/FlatListProductCategory';
 import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import FlatListProductForYou from 'components/FlatListProductForYou';
 import IconCart from 'components/IconCart';
 import SlideShowImage from 'components/SwipeBanner';
+import { SignInPayload } from 'interfaces/Auth';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';
@@ -15,39 +17,41 @@ export const MainScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const [Data1, setData1] = useState([]);
   const [scrollEnable, setScrollEnable] = useState(false);
-  // const [formData, setData] = useState<SignInPayload>({
-  //   email: '',
-  //   password: '',
-  // });
+  const [formData, setData] = useState<SignInPayload>({
+    email: 'quyentran.02062000@gmail.com',
+    password: '123',
+  });
   const [isLoader, setIsLoader] = useState(false);
   let yOffset = '';
 
-  // const onSubmit = async () => {
-  //   clearAuthTokens();
-  //   try {
-  //     const response = await authAPI.login(formData);
-  //     Toast.show({
-  //       title: response.data.message,
-  //       duration: 3000,
-  //     });
-  //   } catch (e: any) {
-  //     Toast.show({
-  //       title: e.response?.data?.message,
-  //       duration: 3000,
-  //     });
-  //   }
-  // };
-  const getProducts = async () => {
-    let result: any;
+  const onSubmit = async () => {
+    clearAuthTokens();
     try {
-      const response = await authAPI.getProduct();
-      result = response.data.result;
+      const response = await authAPI.login(formData);
+      Toast.show({
+        title: response.data.message,
+        duration: 3000,
+      });
     } catch (e: any) {
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
       });
     }
+  };
+  const getProducts = async () => {
+    let result: any;
+    try {
+      const response = await authAPI.getProduct();
+      result = response.data.result;
+    } catch (e: any) {
+      console.log(e.message);
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+    console.log(result);
     setData1(result);
   };
 
@@ -64,21 +68,12 @@ export const MainScreen = () => {
   };
 
   useEffect(() => {
-    // onSubmit();
+    onSubmit();
     getProducts();
     setIsLoader(true);
 
-    // setData({ email: 'quyentran.02062000@gmail.com', password: '123' });
-    // console.log(deviceId);
+    setData({ email: 'quyentran.02062000@gmail.com', password: '123' });
   }, []);
-
-  // useEffect(() => {
-  //   if (isLoader) {
-  //     setTimeout(() => {
-  //       setIsLoader(false);
-  //     }, 1000);
-  //   }
-  // }, [isLoader]);
 
   return (
     <View style={styles.container}>
