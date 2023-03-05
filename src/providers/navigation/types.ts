@@ -16,6 +16,7 @@ export type AppStackNavigatorParamList = {
     image: [];
   };
   Cart: undefined;
+  PaymentSuccess: undefined;
   Address: undefined;
 };
 
@@ -23,6 +24,7 @@ export type BottomTabNavigatorParamList = {
   Home: undefined;
   Favorites: undefined;
   CheckoutScreen: undefined;
+  PaymentSuccess: undefined;
   Notification?: {
     itemId?: number;
   };

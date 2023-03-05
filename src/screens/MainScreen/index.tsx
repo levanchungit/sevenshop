@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { View, ScrollView, Toast, Button } from 'native-base';
 import { ActivityIndicator, TextInput } from 'react-native';
 import { clearAuthTokens } from 'react-native-axios-jwt';
-import FlatListProductCategory from 'components/FlatListProductCategory';
+// import FlatListProductCategory from 'components/FlatListProductCategory';
 import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import FlatListProductForYou from 'components/FlatListProductForYou';
 import IconCart from 'components/IconCart';
@@ -111,7 +111,7 @@ export const MainScreen = () => {
           <View>
             <SlideShowImage style={{}} />
 
-            <FlatListProductCategory data={Data1} />
+            {/* <FlatListProductCategory data={Data1} /> */}
 
             <FlatListProductFlashSale />
           </View>
