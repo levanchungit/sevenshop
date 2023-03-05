@@ -1,12 +1,21 @@
 import React from 'react';
 import { Image, Text, View, Pressable } from 'native-base';
-import NavHeader from 'components/NavHeader';
+import SSHeaderNavigation from 'components/SSHeaderNavigation';
 
 const PaymentSuccess = () => {
   return (
     <View bgColor={'white'} flex={1}>
       <View mt={7}>
-        <NavHeader title="Payment Success" />
+        <SSHeaderNavigation
+          tabHeaderSearchEnabled={false}
+          titleHeaderSearchEnabled={false}
+          iconSearchEnabled={false}
+          iconOther={false}
+          titleHeaderSearch={''}
+          titleHeaderScreen={'Payment Success'}
+          iconRightHeaderScreen={false}
+          quantityItems={0}
+        />
 
         <View mt={50} alignItems="center">
           <Image
@@ -15,7 +24,6 @@ const PaymentSuccess = () => {
             h={100}
             source={require('../../assets/images/paymentsuccess.png')}
           />
-          <Image w={100} h={100} source={require('../../assets/images/paymentsuccess.png')} />
           <Text variant={'Title'} fontWeight="bold" fontSize={20} mt={4} color="black">
             Successful payment
           </Text>
