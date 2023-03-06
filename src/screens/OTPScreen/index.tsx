@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Image, Input, Button, Toast } from 'native-base';
+import { View, Text, Image, Button, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
-import { CheckOTPPayload } from 'interfaces/Auth';
+// import { CheckOTPPayload } from 'interfaces/Auth';
+import SSTextInput from 'components/SSTextInput';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 const OTPScreen = (props: any) => {
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [formData, setFormData] = useState<CheckOTPPayload>({
-    id: props.route.params.user_id,
-    otp: '',
-  });
+  // const [formData, setFormData] = useState<CheckOTPPayload>({
+  //   id: props.route.params.user_id,
+  //   otp: '',
+  // });
 
+  const [id] = useState(props.route.params.user_id);
+  console.log(id);
+  const [otp, setOtp] = useState('');
   const onSubmit = async () => {
     try {
-      const response = await authAPI.check_otp(formData);
+      const response = await authAPI.check_otp({ id, otp });
       Toast.show({
         title: response.data.message,
         duration: 3000,
       });
+
       navigation.navigate('SetPassWord');
     } catch (e: any) {
       Toast.show({
@@ -64,26 +69,15 @@ const OTPScreen = (props: any) => {
         >
           We have sent OTP to the phone number. The expiry date is 5 minutes
         </Text>
-        <View
-          flexDirection={'row'}
-          w={'80%'}
-          alignItems={'center'}
-          borderBottomWidth={1}
-          px={4}
-          mt={7}
-        >
-          <Icon.Mail stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
-          <Input
-            fontSize={16}
-            fontFamily={'heading'}
-            fontStyle={'normal'}
-            w={{ base: '85%' }}
-            variant="unstyled"
-            value={formData.otp}
-            onChangeText={(value) => setFormData({ ...formData, otp: value })}
-            placeholder="Enter your OTP..."
-          />
-        </View>
+
+        <SSTextInput
+          placeholder={'Enter your OTP...'}
+          type={''}
+          inputLeftElement={<Icon.Mail stroke="black" width={24} height={24} />}
+          setEyes={false}
+          value={otp}
+          changeValue={setOtp}
+        ></SSTextInput>
 
         <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="6" borderRadius={6}>
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>

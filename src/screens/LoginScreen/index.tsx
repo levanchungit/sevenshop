@@ -1,24 +1,21 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Input, Button, Image, Pressable, Toast } from 'native-base';
+import { Text, View, Button, Image, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
-import { SignInPayload } from 'interfaces/Auth';
+// import { SignInPayload } from 'interfaces/Auth';
+import SSTextInput from 'components/SSTextInput';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 const LoginScreen = () => {
-  const [showPass, setShowPass] = useState(false);
-
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [formData, setFormData] = useState<SignInPayload>({
-    email: '',
-    password: '',
-  });
+  const [email, setEmail] = useState('phamkhuyen0879249035@gmail.com');
+  const [password, setPassword] = useState('123');
 
   const onSubmit = async () => {
     try {
-      const response = await authAPI.login(formData);
+      const response = await authAPI.login({ email, password });
       Toast.show({
         title: response.data.message,
         duration: 3000,
@@ -31,8 +28,6 @@ const LoginScreen = () => {
       });
     }
   };
-
-  //useEffect check isLoggedIn == true ? navigation Main : Home
 
   return (
     <View w="100%" h="100%" flex={1}>
@@ -59,44 +54,24 @@ const LoginScreen = () => {
       </Text>
 
       <View h={200} alignItems="center">
-        <View flexDirection="row" w="80%" alignItems="center" borderBottomWidth={1} px={4} mt={5}>
-          <Icon.User stroke="#1C1C1C" width={24} height={24} />
-          <Input
-            autoCapitalize="none"
-            fontSize={16}
-            fontFamily="heading"
-            fontStyle="normal"
-            w={{ base: '85%' }}
-            variant="unstyled"
-            placeholder="Enter your email/phone number"
-            value={formData.email}
-            onChangeText={(value) => setFormData({ ...formData, email: value })}
-          />
-        </View>
+        <SSTextInput
+          placeholder={'Enter your email/phone number'}
+          value={email}
+          changeValue={setEmail}
+          inputLeftElement={<Icon.User stroke="#1C1C1C" width={24} height={24} />}
+          setEyes={false}
+          type={''}
+        ></SSTextInput>
 
-        <View flexDirection="row" w="80%" alignItems="center" borderBottomWidth={1} px={4} mt={5}>
-          <Icon.Lock stroke="#1C1C1C" width={24} height={24} />
-          <Input
-            fontSize={16}
-            w={{ base: '85%' }}
-            variant="unstyled"
-            placeholder="Enter your password"
-            secureTextEntry={!showPass}
-            value={formData.password}
-            onChangeText={(value) => setFormData({ ...formData, password: value })}
-          />
-          <Pressable
-            onPress={() => {
-              setShowPass(!showPass);
-            }}
-          >
-            {showPass ? (
-              <Icon.Eye stroke="grey" width={24} height={24} />
-            ) : (
-              <Icon.EyeOff stroke="grey" width={24} height={24} />
-            )}
-          </Pressable>
-        </View>
+        <SSTextInput
+          placeholder={'Enter your password'}
+          value={password}
+          changeValue={setPassword}
+          type="password"
+          inputLeftElement={<Icon.Lock stroke="#1C1C1C" width={24} height={24} />}
+          setEyes={true}
+        ></SSTextInput>
+
         <View style={{ width: '80%' }}>
           <Text
             textAlign="right"

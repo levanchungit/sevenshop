@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Image, Button, Input, Toast } from 'native-base';
+import { View, Text, Image, Button, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
-import { RegisterPayload } from 'interfaces/Auth';
+import SSTextInput from 'components/SSTextInput';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 type Props = object;
@@ -10,13 +10,11 @@ type Props = object;
 const RegisterScreen = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [formData, setFormData] = useState<RegisterPayload>({
-    email: 'levanchung.it@gmail.com',
-  });
+  const [email, setEmail] = useState('khuyenpv0509@gmail.com');
 
   const onSubmit = async () => {
     try {
-      const response = await authAPI.register(formData);
+      const response = await authAPI.register({ email });
       Toast.show({
         title: response.data.message,
         duration: 3000,
@@ -55,26 +53,14 @@ const RegisterScreen = (props: Props) => {
       </Text>
 
       <View h={200} alignItems={'center'}>
-        <View
-          flexDirection={'row'}
-          w={'80%'}
-          alignItems={'center'}
-          borderBottomWidth={1}
-          px={3}
-          mt={5}
-        >
-          <Icon.Phone stroke="black" width={24} height={24} style={{ marginRight: 5 }} />
-          <Input
-            fontSize={16}
-            fontFamily={'heading'}
-            fontStyle={'normal'}
-            w={{ base: '85%' }}
-            variant="unstyled"
-            value={formData.email}
-            onChangeText={(value) => setFormData({ ...formData, email: value })}
-            placeholder="Enter your email/phone number"
-          />
-        </View>
+        <SSTextInput
+          placeholder={'Enter your email/phone number'}
+          type={''}
+          inputLeftElement={<Icon.Phone stroke="black" width={24} height={24} />}
+          setEyes={false}
+          value={email}
+          changeValue={setEmail}
+        ></SSTextInput>
 
         <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="8">
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>

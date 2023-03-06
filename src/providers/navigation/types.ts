@@ -8,7 +8,10 @@ export type AppStackNavigatorParamList = {
   Register: undefined;
   OTP: undefined;
   SetPassWord: undefined;
+  SetPassWordForgot: undefined;
   ForgotPassWord: undefined;
+  OTPForgot: undefined;
+
   Details: { name: string; description: string; price: number; image: string };
   Cart: undefined;
 };
