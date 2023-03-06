@@ -6,7 +6,7 @@ import SSTextInput from 'components/SSTextInput';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
-const SetPassWordScreen = () => {
+const SetPasswordForgotScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
 
   const [password, setPassword] = useState('');
@@ -14,13 +14,15 @@ const SetPassWordScreen = () => {
 
   const onSubmit = async () => {
     try {
-      const response = await authAPI.set_password(formData);
+      const response = await authAPI.set_password({ password });
+      console.log(response);
       Toast.show({
         title: response.data.message,
         duration: 3000,
       });
-      navigation.navigate('Main');
+      navigation.navigate('Login');
     } catch (e: any) {
+      console.error(e.response);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
@@ -54,7 +56,7 @@ const SetPassWordScreen = () => {
 
       <View h={200} alignItems="center">
         <SSTextInput
-          placeholder={'Enter confirm your password...'}
+          placeholder={'Enter your password old...'}
           type={'password'}
           inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
           setEyes={true}
@@ -63,7 +65,7 @@ const SetPassWordScreen = () => {
         ></SSTextInput>
 
         <SSTextInput
-          placeholder={'Enter confirm your password...'}
+          placeholder={'Enter confirm your password new...'}
           type={'password'}
           inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
           setEyes={true}
@@ -81,4 +83,4 @@ const SetPassWordScreen = () => {
   );
 };
 
-export default SetPassWordScreen;
+export default SetPasswordForgotScreen;

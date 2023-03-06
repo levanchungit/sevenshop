@@ -1,38 +1,39 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Image, Button, Toast } from 'native-base';
+import { View, Text, Image, Toast, Button } from 'native-base';
 import * as Icon from 'react-native-feather';
+// import { CheckOTPPayload } from 'interfaces/Auth';
 import SSTextInput from 'components/SSTextInput';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
-type Props = object;
-
-const ForgotPasswordScreen = (props: Props) => {
+const OTPForgotScreen = (props: any) => {
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [email, setEmail] = useState('khuyenpv0509@gmail.com');
-
+  const [id] = useState(props.route.params.user_id);
+  console.log(id);
+  const [otp, setOtp] = useState('');
   const onSubmit = async () => {
     try {
-      const response = await authAPI.forgotpassword({ email });
+      const response = await authAPI.check_otp({ id, otp });
       Toast.show({
         title: response.data.message,
         duration: 3000,
       });
-      navigation.navigate('OTPForgot', response.data.result);
+
+      navigation.navigate('SetPassWordForgot');
     } catch (e: any) {
-      console.log(e.response);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
       });
     }
   };
+
   return (
     <View w={'100%'} h={'100%'} flex={1}>
       <Image
-        alt="Image Forgotpassword"
+        alt="Image OTP"
         w={'100%'}
         h={250}
         borderBottomLeftRadius={12}
@@ -49,32 +50,33 @@ const ForgotPasswordScreen = (props: Props) => {
         fontSize={36}
         textAlign={'center'}
       >
-        Forgot Password
+        OTP Verification
       </Text>
 
       <View h={200} alignItems={'center'}>
         <Text
-          mt={7}
+          mt={8}
           w={'80%'}
           fontSize={16}
           fontWeight={500}
           fontFamily={'heading'}
           fontStyle={'normal'}
         >
-          Please enter your email or phone number:
+          We have sent OTP to the phone number. The expiry date is 5 minutes
         </Text>
 
         <SSTextInput
-          placeholder={'Enter your email/phone number'}
+          placeholder={'Enter your OTP...'}
           type={''}
-          inputLeftElement={<Icon.Phone stroke="black" width={24} height={24} />}
+          inputLeftElement={<Icon.Mail stroke="black" width={24} height={24} />}
           setEyes={false}
-          value={email}
-          changeValue={setEmail}
+          value={otp}
+          changeValue={setOtp}
         ></SSTextInput>
+
         <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="6" borderRadius={6}>
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
-            Send
+            Verify
           </Text>
         </Button>
       </View>
@@ -82,4 +84,4 @@ const ForgotPasswordScreen = (props: Props) => {
   );
 };
 
-export default ForgotPasswordScreen;
+export default OTPForgotScreen;

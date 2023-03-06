@@ -12,8 +12,17 @@ export type CheckOTPPayload = {
   otp: string;
 };
 
+export type ForgotPayload = {
+  email: string;
+};
+
 export type SetPasswordPayload = {
   password: string;
+};
+
+export type ChangePasswordPayload = {
+  password: string;
+  password_new: string;
 };
 
 export type RefreshTokenPayload = {
