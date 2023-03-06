@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Button, Image } from 'native-base';
+import { Text, View, Button, Image, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
 // import { SignInPayload } from 'interfaces/Auth';
 import SSTextInput from 'components/SSTextInput';
-// import { authAPI } from 'modules';
+import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 const LoginScreen = () => {
@@ -13,21 +13,21 @@ const LoginScreen = () => {
   const [email, setEmail] = useState('phamkhuyen0879249035@gmail.com');
   const [password, setPassword] = useState('123');
 
-  // const onSubmit = async () => {
-  //   try {
-  //     const response = await authAPI.login({ email, password });
-  //     Toast.show({
-  //       title: response.data.message,
-  //       duration: 3000,
-  //     });
-  //     navigation.navigate('Main');
-  //   } catch (e: any) {
-  //     Toast.show({
-  //       title: e.response?.data?.message,
-  //       duration: 3000,
-  //     });
-  //   }
-  // };
+  const onSubmit = async () => {
+    try {
+      const response = await authAPI.login({ email, password });
+      Toast.show({
+        title: response.data.message,
+        duration: 3000,
+      });
+      navigation.navigate('Main');
+    } catch (e: any) {
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
 
   return (
     <View w="100%" h="100%" flex={1}>
