@@ -14,7 +14,8 @@ const SetPassWordScreen = () => {
 
   const onSubmit = async () => {
     try {
-      const response = await authAPI.set_password(formData);
+      const response = await authAPI.set_password({ password });
+      console.log(response);
       Toast.show({
         title: response.data.message,
         duration: 3000,
