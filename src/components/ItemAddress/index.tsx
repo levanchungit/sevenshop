@@ -12,13 +12,12 @@ type Props = {
   isDefault: boolean;
   check: number;
   setCheck: Function;
-  type: string;
   dataId: number;
 };
 
 const ItemAdrress = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
-  const { name, phone, address, isDefault, dataId, check, setCheck, type } = props;
+  const { name, phone, address, isDefault, dataId, check, setCheck } = props;
   const [elementVisible] = useState(isDefault);
 
   return (
@@ -26,7 +25,7 @@ const ItemAdrress = (props: Props) => {
       direction="row"
       justifyContent="center"
       alignItems="center"
-      h={[100, 150]}
+      h={150}
       w="100%"
       marginBottom={2}
       borderWidth={1}
@@ -43,15 +42,20 @@ const ItemAdrress = (props: Props) => {
         {dataId === check ? <IconCheck isChecked={true} /> : <IconCheck isChecked={false} />}
       </Pressable>
       <Box w="80%">
-        <Text variant={'h4'}>
+        <Text
+          variant={'body1'}
+          style={{
+            fontVariant: ['lining-nums'],
+          }}
+        >
           {name} | {phone}
         </Text>
-        <Text variant={'h4'}>
-          {type === 'home' ? (
-            <Icon.Home stroke="black" strokeWidth={1} />
-          ) : (
-            <Icon.Briefcase stroke="black" strokeWidth={1} />
-          )}
+        <Text
+          variant={'body1'}
+          style={{
+            fontVariant: ['lining-nums'],
+          }}
+        >
           {address}
         </Text>
         {elementVisible ? (
@@ -65,7 +69,7 @@ const ItemAdrress = (props: Props) => {
             w="20%"
             padding={1}
           >
-            <Text color="red.600" variant="body1">
+            <Text color="red.600" variant="subtitle2">
               Default
             </Text>
           </Box>
@@ -78,7 +82,7 @@ const ItemAdrress = (props: Props) => {
         w="10%"
         onPress={() => navigation.navigate('EditAddress')}
       >
-        <Icon.Edit2 stroke="#AC1506" width="35" height="35" />
+        <Icon.Edit2 stroke="#AC1506" width={26} height={26} />
       </Pressable>
     </Flex>
   );

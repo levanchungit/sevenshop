@@ -16,7 +16,7 @@ const SSButton = (props: Props) => {
       justifyContent={'center'}
       alignItems={'center'}
     >
-      <Text fontFamily={'Raleway_700Bold'} variant={'h3'} color={'white'}>
+      <Text fontFamily={'Raleway_700Bold'} variant={'button'} color={'white'}>
         {text}
       </Text>
     </Button>
@@ -31,7 +31,7 @@ const SSButton = (props: Props) => {
       width={width}
       borderWidth={2}
     >
-      <Text fontFamily={'Raleway_700Bold'} variant={'h3'} color={'primary.600'}>
+      <Text fontFamily={'Raleway_700Bold'} variant={'button'} color={'primary.600'}>
         {text}
       </Text>
     </Button>

@@ -15,7 +15,15 @@ const SSTextInput = (props: Props) => {
   const [showPass, setShowPass] = useState(true);
   const { placeholder, value, changeValue, inputLeftElement, setEyes, type } = props;
   return (
-    <View flexDirection="row" w="80%" alignItems="center" borderBottomWidth={1} px={4} mt={5}>
+    <View
+      flexDirection="row"
+      w="100%"
+      alignItems="center"
+      alignSelf="center"
+      borderBottomWidth={1}
+      px={4}
+      mt={5}
+    >
       <Input
         autoCapitalize="none"
         fontSize={16}

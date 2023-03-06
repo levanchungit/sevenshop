@@ -11,23 +11,23 @@ const IconCheck = (props: Props) => {
     return (
       <Box
         borderWidth={1}
-        w={[20, 35]}
-        h={[20, 35]}
+        w={6}
+        h={6}
         justifyContent="center"
         alignItems="center"
         borderRadius="full"
         backgroundColor="#AC1506"
         borderColor="#AC1506"
       >
-        <Icon.Check stroke="white" />
+        <Icon.Check width={18} stroke="white" />
       </Box>
     );
   } else {
     return (
       <Box
         borderWidth={1}
-        w={[20, 35]}
-        h={[20, 35]}
+        w={6}
+        h={6}
         justifyContent="center"
         alignItems="center"
         borderRadius="full"

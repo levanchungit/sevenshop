@@ -39,7 +39,6 @@ const Address = (onBack: any) => {
             check={isChecked}
             setCheck={setIsChecked}
             dataId={item.id}
-            type={item.type}
           />
         )}
         keyExtractor={(item) => item.full_name}
