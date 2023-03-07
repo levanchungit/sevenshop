@@ -21,6 +21,7 @@ export type AppStackNavigatorParamList = {
   PaymentSuccess: undefined;
   Address: undefined;
   EditAddress: undefined;
+  Voucher: undefined;
 };
 
 export type BottomTabNavigatorParamList = {

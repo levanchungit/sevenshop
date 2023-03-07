@@ -68,3 +68,12 @@ export type AddToCart = {
   quantity: number;
   image: string;
 };
+
+export type voucher = {
+  id: number;
+  name: string;
+  description: string;
+  time: string;
+  image: string;
+  condition: string;
+};

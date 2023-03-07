@@ -67,9 +67,8 @@ const OTPForgotScreen = (props: any) => {
 
         <SSTextInput
           placeholder={'Enter your OTP...'}
-          type={''}
+          typePassword={false}
           inputLeftElement={<Icon.Mail stroke="black" width={24} height={24} />}
-          setEyes={false}
           value={otp}
           changeValue={setOtp}
         ></SSTextInput>

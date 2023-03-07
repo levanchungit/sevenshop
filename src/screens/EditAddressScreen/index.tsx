@@ -33,27 +33,24 @@ const EditAddressScreen = () => {
 
       <SSTextInput
         placeholder={'Enter the recipient’s name'}
-        type={''}
+        typePassword={false}
         inputLeftElement={<Icon.User strokeWidth={1} stroke={'black'} />}
-        setEyes={false}
         value={name}
         changeValue={setName}
       />
 
       <SSTextInput
         placeholder={'Enter the recipient’s phone number'}
-        type={''}
+        typePassword={false}
         inputLeftElement={<Icon.Phone strokeWidth={1} stroke={'black'} />}
-        setEyes={false}
         value={name}
         changeValue={setName}
       />
 
       <SSTextInput
         placeholder={'Enter the address'}
-        type={''}
+        typePassword={false}
         inputLeftElement={<Icon.MapPin strokeWidth={1} stroke={'black'} />}
-        setEyes={false}
         value={name}
         changeValue={setName}
       />

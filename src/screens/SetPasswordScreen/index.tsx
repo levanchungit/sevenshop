@@ -55,18 +55,16 @@ const SetPassWordScreen = () => {
       <View h={200} alignItems="center">
         <SSTextInput
           placeholder={'Enter confirm your password...'}
-          type={'password'}
+          typePassword={false}
           inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
-          setEyes={true}
           value={password}
           changeValue={setPassword}
         ></SSTextInput>
 
         <SSTextInput
           placeholder={'Enter confirm your password...'}
-          type={'password'}
+          typePassword={false}
           inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
-          setEyes={true}
           value={password_new}
           changeValue={setPassword_new}
         ></SSTextInput>

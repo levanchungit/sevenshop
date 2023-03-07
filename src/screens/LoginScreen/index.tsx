@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Input, Button, Image, Pressable } from 'native-base';
+import { Text, View, Button, Image } from 'native-base';
 import * as Icon from 'react-native-feather';
-import { SignInPayload } from 'interfaces/Auth';
+// import { SignInPayload } from 'interfaces/Auth';
+import SSTextInput from 'components/SSTextInput';
 // import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
@@ -58,17 +59,15 @@ const LoginScreen = () => {
           value={email}
           changeValue={setEmail}
           inputLeftElement={<Icon.User stroke="#1C1C1C" width={24} height={24} />}
-          setEyes={false}
-          type={''}
+          typePassword={false}
         ></SSTextInput>
 
         <SSTextInput
           placeholder={'Enter your password'}
           value={password}
           changeValue={setPassword}
-          type="password"
+          typePassword={true}
           inputLeftElement={<Icon.Lock stroke="#1C1C1C" width={24} height={24} />}
-          setEyes={true}
         ></SSTextInput>
 
         <View style={{ width: '80%' }}>

@@ -55,9 +55,8 @@ const RegisterScreen = (props: Props) => {
       <View h={200} alignItems={'center'}>
         <SSTextInput
           placeholder={'Enter your email/phone number'}
-          type={''}
+          typePassword={false}
           inputLeftElement={<Icon.Phone stroke="black" width={24} height={24} />}
-          setEyes={false}
           value={email}
           changeValue={setEmail}
         ></SSTextInput>
