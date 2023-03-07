@@ -12,4 +12,6 @@ export { default as RatingScreen } from './RatingScreen';
 export { default as RegisterScreen } from './RegisterScreen';
 export { default as SelectVoucherScreen } from './SelectVoucherScreen';
 export { default as SetPasswordForgotScreen } from './SetPasswordForgotScreen';
+export { default as ProductScreen } from './ProductScreen';
+export { default as SearchKeywordproductsScreen } from './SearchKeywordproducts';
 export { default as SetPasswordScreen } from './SetPasswordScreen';

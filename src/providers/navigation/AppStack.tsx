@@ -17,6 +17,14 @@ import {
   SetPasswordForgotScreen,
   SetPasswordScreen,
 } from 'screens';
+
+
+import ProductScreen from 'screens/ProductScreen';
+
+import SearchKeywordproductsScreen from 'screens/SearchKeywordproducts';
+import SearchProductScreen from 'screens/SearchProductScreen';
+
+import SetPassWordScreen from 'screens/SetPasswordScreen';
 import { AppStackNavigatorParamList } from './types';
 
 const AppStack = createNativeStackNavigator<AppStackNavigatorParamList>();
@@ -46,6 +54,9 @@ const StackNavigator = () => {
       <Screen name="PaymentSuccess" component={PaymentSuccess} />
       <Screen name="SelectVoucher" component={SelectVoucherScreen} />
       <Screen name="SetPasswordForgot" component={SetPasswordForgotScreen} />
+      <Screen name="SearchProduct" component={SearchProductScreen} />
+      <Screen name="SearchKeywordproducts" component={SearchKeywordproductsScreen} />
+      <Screen name="Product" component={ProductScreen} />
     </Navigator>
   );
 };
