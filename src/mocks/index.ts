@@ -294,3 +294,34 @@ export const DATA6: voucher[] = [
       'Quam pellentesque nec nam aliquam sem et tortor consequat id. Id aliquet lectus proin nibh nisl.',
   },
 ];
+export const DATA6: voucher[] = [
+  {
+    id: 1,
+    name: 'Giảm 20%',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    time: '25/03/2002 12:00AM',
+    image: 'https://picsum.photos/200/300?random=1',
+    condition:
+      'Quam pellentesque nec nam aliquam sem et tortor consequat id. Id aliquet lectus proin nibh nisl.',
+  },
+  {
+    id: 2,
+    name: 'Giảm 30%',
+    description:
+      'Malesuada pellentesque elit eget gravida. Lectus quam id leo in vitae turpis massa sed elementum.',
+    time: '25/03/2002 12:00AM',
+    image: 'https://picsum.photos/200/300?random=2',
+    condition:
+      'Quam pellentesque nec nam aliquam sem et tortor consequat id. Id aliquet lectus proin nibh nisl.',
+  },
+  {
+    id: 3,
+    name: 'Giảm 40%',
+    description:
+      'Malesuada pellentesque elit eget gravida. Lectus quam id leo in vitae turpis massa sed elementum.',
+    time: '25/03/2002 12:00AM',
+    image: 'https://picsum.photos/200/300?random=3',
+    condition:
+      'Quam pellentesque nec nam aliquam sem et tortor consequat id. Id aliquet lectus proin nibh nisl.',
+  },
+];
