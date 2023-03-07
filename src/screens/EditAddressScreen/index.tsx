@@ -34,7 +34,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
         iconSearchEnabled={false}
         iconOther={false}
         titleHeaderSearch={''}
-        titleHeaderScreen={'Edit'}
+        titleHeaderScreen={typeEdit === true ? 'Edit address' : 'Add address'}
         iconRightHeaderScreen={false}
         quantityItems={0}
       />
