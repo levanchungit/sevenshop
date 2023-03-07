@@ -32,6 +32,7 @@ export type AppStackNavigatorParamList = {
     };
   };
   Voucher: undefined;
+  SelectVoucher: undefined;
 };
 
 export type BottomTabNavigatorParamList = {
