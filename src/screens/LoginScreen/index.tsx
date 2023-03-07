@@ -15,7 +15,7 @@ const LoginScreen = () => {
 
   // const onSubmit = async () => {
   //   try {
-  //     const response = await authAPI.login(formData);
+  //     const response = await authAPI.login({ email, password });
   //     Toast.show({
   //       title: response.data.message,
   //       duration: 3000,
