@@ -69,6 +69,22 @@ export type AddToCart = {
   image: string;
 };
 
+export type address = {
+  id: number;
+  full_name: string;
+  phone: number;
+  address: string;
+  type: string;
+  isDefault: boolean;
+};
+
+export type review = {
+  name: string;
+  rating: number;
+  comment: string;
+  time: string;
+};
+
 export type voucher = {
   id: number;
   name: string;

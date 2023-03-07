@@ -6,11 +6,19 @@ import IconCheck from 'components/IconCheck';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SSTextInput from 'components/SSTextInput';
+import { EditAddressRouteProp } from 'providers/navigation/types';
 
-const EditAddressScreen = () => {
-  const [isDefault, setIsDefault] = useState(false);
-  const [selectedType, setSelectedType] = useState('work');
-  const [name, setName] = useState('');
+type EditAddressScreenProps = {
+  route: EditAddressRouteProp;
+};
+
+const EditAddressScreen = (props: EditAddressScreenProps) => {
+  const { typeEdit, address } = props.route.params;
+  const [isDefault, setIsDefault] = useState(address?.isDefault);
+  const [selectedType, setSelectedType] = useState(address?.type);
+  const [name, setName] = useState(address?.full_name);
+  const [phone, setPhone] = useState(address?.phone);
+  const [addressDescription, setAddressDescription] = useState(address?.address);
   return (
     <SafeAreaView
       style={{
@@ -35,7 +43,7 @@ const EditAddressScreen = () => {
         placeholder={'Enter the recipient’s name'}
         typePassword={false}
         inputLeftElement={<Icon.User strokeWidth={1} stroke={'black'} />}
-        value={name}
+        value={name === undefined ? '' : name}
         changeValue={setName}
       />
 
@@ -43,16 +51,16 @@ const EditAddressScreen = () => {
         placeholder={'Enter the recipient’s phone number'}
         typePassword={false}
         inputLeftElement={<Icon.Phone strokeWidth={1} stroke={'black'} />}
-        value={name}
-        changeValue={setName}
+        value={phone === undefined ? '' : phone.toString()}
+        changeValue={setPhone}
       />
 
       <SSTextInput
         placeholder={'Enter the address'}
         typePassword={false}
         inputLeftElement={<Icon.MapPin strokeWidth={1} stroke={'black'} />}
-        value={name}
-        changeValue={setName}
+        value={addressDescription === undefined ? '' : addressDescription}
+        changeValue={setAddressDescription}
       />
 
       <Box width={'100%'} margin={3} />
@@ -86,9 +94,17 @@ const EditAddressScreen = () => {
         <Switch size="lg" onToggle={() => setIsDefault(!isDefault)} isChecked={isDefault} />
       </Flex>
 
-      <SSButton variant={'white'} text={'Cancle'} />
+      <SSButton
+        variant={'white'}
+        text={typeEdit === true ? 'Delete' : 'Cancle'}
+        onPress={() => console.log(typeEdit === true ? 'Delete' : 'Cancle')}
+      />
       <Box width={'100%'} margin={3} />
-      <SSButton variant={'red'} text={'Add'} />
+      <SSButton
+        variant={'red'}
+        text={typeEdit === true ? 'Submit' : 'Add'}
+        onPress={() => console.log(typeEdit === true ? 'Submit' : 'Add')}
+      />
     </SafeAreaView>
   );
 };

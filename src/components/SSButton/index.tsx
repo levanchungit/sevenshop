@@ -4,12 +4,14 @@ type Props = {
   variant: string;
   text: string;
   width?: any;
+  onPress: Function;
 };
 
 const SSButton = (props: Props) => {
-  const { variant, text, width } = props;
+  const { variant, text, width, onPress } = props;
   return variant === 'red' ? (
     <Button
+      onPress={() => onPress()}
       fontFamily={'Raleway_700Bold'}
       borderRadius={10}
       width={width}
@@ -22,6 +24,7 @@ const SSButton = (props: Props) => {
     </Button>
   ) : variant === 'white' ? (
     <Button
+      onPress={() => onPress()}
       fontFamily={'Raleway_700Bold'}
       backgroundColor={'white'}
       borderRadius={10}

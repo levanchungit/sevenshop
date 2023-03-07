@@ -1,6 +1,6 @@
 // import { Item } from 'screens/MainScreen';
 
-import { voucher } from 'interfaces/Auth';
+import { address, color, review, size, voucher } from 'interfaces/Auth';
 
 export type Item = {
   id: string;
@@ -75,11 +75,6 @@ export const DATA: Item[] = [
   },
 ];
 
-export type color = {
-  title: string;
-  data: string;
-};
-
 export const DATA2: color[] = [
   {
     title: 'Cyan',
@@ -115,13 +110,6 @@ export const DATA2: color[] = [
   },
 ];
 
-export type review = {
-  name: string;
-  rating: number;
-  comment: string;
-  time: string;
-};
-
 export const DATA3: review[] = [
   {
     name: 'Lê Văn Chung',
@@ -137,10 +125,6 @@ export const DATA3: review[] = [
     time: '2015-02-01 9:00PM',
   },
 ];
-
-export type size = {
-  title: string;
-};
 
 export const DATA4: size[] = [
   {
@@ -159,15 +143,6 @@ export const DATA4: size[] = [
     title: 'XXL',
   },
 ];
-
-export type address = {
-  id: number;
-  full_name: string;
-  phone: number;
-  address: string;
-  type: string;
-  isDefault: boolean;
-};
 
 export const DATA5: address[] = [
   {
@@ -200,6 +175,14 @@ export const DATA5: address[] = [
     phone: 931739042,
     address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
     type: 'home',
+    isDefault: false,
+  },
+  {
+    id: 5,
+    full_name: 'Đặng Trương Lương',
+    phone: 931739042,
+    address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    type: 'work',
     isDefault: false,
   },
 ];

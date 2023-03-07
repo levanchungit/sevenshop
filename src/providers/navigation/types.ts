@@ -20,7 +20,17 @@ export type AppStackNavigatorParamList = {
   Cart: undefined;
   PaymentSuccess: undefined;
   Address: undefined;
-  EditAddress: undefined;
+  EditAddress: {
+    typeEdit: boolean;
+    address?: {
+      id: number;
+      full_name: string;
+      phone: number;
+      address: string;
+      type: string;
+      isDefault: boolean;
+    };
+  };
   Voucher: undefined;
 };
 
@@ -40,6 +50,8 @@ export type BottomTabNavigatorParamList = {
 export type AppNavigationProp = NativeStackNavigationProp<AppStackNavigatorParamList>;
 
 export type DetailRouteProp = RouteProp<AppStackNavigatorParamList, 'Details'>;
+
+export type EditAddressRouteProp = RouteProp<AppStackNavigatorParamList, 'EditAddress'>;
 
 export type MainScreenNavigationProp = CompositeNavigationProp<
   NativeStackNavigationProp<AppStackNavigatorParamList>,

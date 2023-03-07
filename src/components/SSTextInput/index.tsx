@@ -25,6 +25,9 @@ const SSTextInput = (props: Props) => {
       mt={5}
     >
       <Input
+        style={{
+          fontVariant: ['lining-nums'],
+        }}
         autoCapitalize="none"
         fontSize={16}
         fontFamily="heading"
