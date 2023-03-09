@@ -1,16 +1,6 @@
 // import { Item } from 'screens/MainScreen';
 
-import { address, color, review, size, voucher } from 'interfaces/Auth';
-
-export type Item = {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-  selled: number;
-  categories: number;
-};
+import { address, Item, review, size, voucher } from 'interfaces/Auth';
 
 export const DATA: Item[] = [
   {
@@ -248,6 +238,7 @@ export const DATA6: voucher[] = [
       'Quam pellentesque nec nam aliquam sem et tortor consequat id. Id aliquet lectus proin nibh nisl.',
   },
 ];
+
 export const DATA6: voucher[] = [
   {
     id: 1,

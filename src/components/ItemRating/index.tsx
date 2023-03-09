@@ -1,4 +1,5 @@
-import { Box, Flex, Image, Text } from 'native-base';
+import { Box, Flex, Image, Text, Pressable } from 'native-base';
+import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
 
 type Props = {
@@ -6,10 +7,19 @@ type Props = {
   time: string;
   comment: string;
   rating: number;
+  product?: {
+    id: string;
+    name: string;
+    price: number;
+    image: string;
+    category: string;
+    selled: number;
+    categories: number;
+  };
 };
 
 const ItemRating = (props: Props) => {
-  const { name, time, comment, rating } = props;
+  const { name, time, comment, rating, product } = props;
   return (
     <Box paddingY="5" w="100%" borderTopWidth="1" borderTopColor="#C9C9C9">
       <Flex direction="row">
@@ -19,19 +29,30 @@ const ItemRating = (props: Props) => {
           }}
           alt="Alternate Text"
           size="full"
-          shadow="9"
           alignSelf="flex-start"
           borderRadius="full"
-          w={[10, 70, 90]}
-          h={[10, 70, 90]}
+          w={[51, 71, 91]}
+          h={[51, 71, 91]}
           marginX={3}
         />
         <Flex direction="column" w="80%">
           <Flex direction="row" justifyContent="space-between">
-            <Text fontSize={[12, 20, 24]} fontWeight="bold">
+            <Text
+              variant="title"
+              style={{
+                fontVariant: ['lining-nums'],
+              }}
+            >
               {name}
             </Text>
-            <Text fontSize={[10, 16, 24]}>{time}</Text>
+            <Text
+              variant="caption"
+              style={{
+                fontVariant: ['lining-nums'],
+              }}
+            >
+              {time}
+            </Text>
           </Flex>
           <Rating
             startingValue={rating}
@@ -43,9 +64,44 @@ const ItemRating = (props: Props) => {
               alignItems: 'flex-start',
             }}
           />
-          <Text fontSize={[12, 16, 24]} width="80%">
+          <Text
+            variant="body1"
+            width="80%"
+            style={{
+              fontVariant: ['lining-nums'],
+            }}
+          >
             {comment}
           </Text>
+          {product ? (
+            <Pressable onPress={() => console.log(product.name)}>
+              <Flex
+                direction="row"
+                backgroundColor="gray.200"
+                w="100%"
+                marginTop={3}
+                minH={60}
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Image
+                  source={{
+                    uri: product?.image,
+                  }}
+                  alt="Product img"
+                  size="full"
+                  alignSelf="flex-start"
+                  borderRadius="full"
+                  w="15%"
+                  marginX={3}
+                />
+                <Text variant="body2" width="65%" padding={3} alignItems="center">
+                  {product.name}
+                </Text>
+                <Icon.ChevronRight strokeWidth={1} width="10%" stroke="black" />
+              </Flex>
+            </Pressable>
+          ) : null}
         </Flex>
       </Flex>
     </Box>

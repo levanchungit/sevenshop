@@ -61,6 +61,32 @@ export type size = {
   title: string;
 };
 
+export type Item = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+  selled: number;
+  categories: number;
+};
+
+export type address = {
+  id: number;
+  full_name: string;
+  phone: number;
+  address: string;
+  type: string;
+  isDefault: boolean;
+};
+
+export type review = {
+  name: string;
+  rating: number;
+  comment: string;
+  time: string;
+};
+
 export type AddToCart = {
   product_id: string;
   color: number;

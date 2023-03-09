@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, FlatList } from 'native-base';
 import ItemProductFlashSale from 'components/ItemProductFlashSale';
-import { DATA, Item } from '../../mocks';
+import { Item } from 'interfaces/Auth';
+import { DATA } from '../../mocks';
 import styles from './styles';
 
 type Props = object;
