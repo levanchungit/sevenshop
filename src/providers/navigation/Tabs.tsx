@@ -1,9 +1,9 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as Icons from 'react-native-feather';
-import CheckoutScreen from 'screens/CheckoutScreen';
+// import CheckoutScreen from 'screens/CheckoutScreen';
 import { MainScreen } from 'screens/MainScreen';
-// import NotificationScreen from 'screens/NotificationScreen';
+import NotificationScreen from 'screens/NotificationScreen';
 import PaymentSuccess from 'screens/PaynmentSuccess';
 import ProfileScreen from 'screens/ProfileScreen';
 import { BottomTabNavigatorParamList } from './types';
@@ -29,7 +29,7 @@ const BottomTabs = (props: Props) => {
         tabBarIcon: ({ focused }: any) => {
           if (route.name === 'Home') {
             return focused ? <Icons.Home fill="black" /> : <Icons.Home stroke={'black'} />;
-          } else if (route.name === 'CheckoutScreen') {
+          } else if (route.name === 'Notification') {
             return focused ? <Icons.Heart fill={'black'} /> : <Icons.Heart stroke={'black'} />;
           } else if (route.name === 'PaymentSuccess') {
             return focused ? <Icons.Bell fill={'black'} /> : <Icons.Bell stroke={'black'} />;
@@ -44,7 +44,7 @@ const BottomTabs = (props: Props) => {
       })}
     >
       <Screen name="Home" options={{ tabBarLabel: '' }} component={MainScreen} />
-      <Screen name="CheckoutScreen" options={{ tabBarLabel: '' }} component={CheckoutScreen} />
+      <Screen name="Notification" options={{ tabBarLabel: '' }} component={NotificationScreen} />
       <Screen
         name="PaymentSuccess"
         options={{

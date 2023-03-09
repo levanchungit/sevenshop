@@ -86,7 +86,7 @@ const CheckoutScreen = (props: Props) => {
           />
         </View>
       </ScrollView>
-      <View h={'32%'}>
+      <View h={'33%'}>
         <View w="100%" position={'absolute'} bottom={0} left={0}>
           <SelectOptions
             style={{}}
