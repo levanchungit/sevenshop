@@ -27,6 +27,7 @@ export type BottomTabNavigatorParamList = {
   CheckoutScreen: undefined;
   PaymentSuccess: undefined;
   MyPurchase: undefined;
+  OrderDetail: undefined;
   Notification?: {
     itemId?: number;
   };
