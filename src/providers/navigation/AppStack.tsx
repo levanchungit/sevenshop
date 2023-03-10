@@ -19,7 +19,13 @@ import {
 } from 'screens';
 
 
+
+
+
+
+import ProductFavoritesScreen from 'screens/ProductFavoritesScreen';
 import ProductScreen from 'screens/ProductScreen';
+import ProfileScreen from 'screens/ProfileScreen';
 
 import SearchKeywordproductsScreen from 'screens/SearchKeywordproducts';
 import SearchProductScreen from 'screens/SearchProductScreen';
@@ -57,6 +63,8 @@ const StackNavigator = () => {
       <Screen name="SearchProduct" component={SearchProductScreen} />
       <Screen name="SearchKeywordproducts" component={SearchKeywordproductsScreen} />
       <Screen name="Product" component={ProductScreen} />
+      <Screen name="ProductFavorites" component={ProductFavoritesScreen} />
+      <Screen name="Profile" component={ProfileScreen} />
     </Navigator>
   );
 };

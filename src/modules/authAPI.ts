@@ -32,7 +32,7 @@ const authAPI = {
     return response;
   },
 
-  async forgotpassword(payload: ForgotPayload) {
+  async forgot_password(payload: ForgotPayload) {
     const response = await axios.post(API_URL + API_ROUTES.forgotPassword, payload);
     return response;
   },
