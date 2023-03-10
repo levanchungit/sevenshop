@@ -1,69 +1,6 @@
 // import { Item } from 'screens/MainScreen';
 
-import { address, Item, review, size, voucher } from 'interfaces/Auth';
-
-export const DATA: Item[] = [
-  {
-    id: '1',
-    name: 'Michael Scottshhhhhhhhhsdddddddddddđ',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lvse-monogram-degrade-crewneck--HKN44WUSO904_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    selled: 200,
-    categories: 1,
-  },
-  {
-    id: '2',
-    name: 'Michael Scott',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    selled: 200,
-    categories: 1,
-  },
-  {
-    id: '3',
-    name: 'Michael Scott',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-signature-cardigan--HON46WU34MU1_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    selled: 200,
-    categories: 1,
-  },
-  {
-    id: '4',
-    name: 'Michael Scott',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-hybrid-nylon-hooded-tracksuit--HON12WZLW304_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    selled: 200,
-    categories: 2,
-  },
-  {
-    id: '5',
-    name: 'Michael Scott',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-music-line-embroidered-crewneck--HOY03WIHN900_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    selled: 200,
-    categories: 2,
-  },
-  {
-    id: '6',
-    name: 'Michael Scott',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-monogram-zip-through-hoodie--HOY04WSQ5620_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    selled: 200,
-    categories: 2,
-  },
-];
+import { address, color, Item, review, size, voucher } from 'interfaces/Auth';
 
 export const DATA2: color[] = [
   {
@@ -131,6 +68,93 @@ export const DATA4: size[] = [
   },
   {
     title: 'XXL',
+  },
+];
+
+export const DATA: Item[] = [
+  {
+    id: '1',
+    name: 'Michael Scottshhhhhhhhhsdddddddddddđ',
+    price: 100,
+    image:
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lvse-monogram-degrade-crewneck--HKN44WUSO904_PM2_Front%20view.png?wid=656&hei=656',
+    category: '123',
+    type: {
+      size: DATA4[1],
+      color: DATA2[2],
+    },
+    selled: 200,
+    categories: 1,
+  },
+  {
+    id: '2',
+    name: 'Michael Scott',
+    price: 100,
+    image:
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
+    category: '123',
+    selled: 200,
+    categories: 1,
+    type: {
+      size: DATA4[1],
+      color: DATA2[2],
+    },
+  },
+  {
+    id: '3',
+    name: 'Michael Scott',
+    price: 100,
+    image:
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-signature-cardigan--HON46WU34MU1_PM2_Front%20view.png?wid=656&hei=656',
+    category: '123',
+    selled: 200,
+    categories: 1,
+    type: {
+      size: DATA4[1],
+      color: DATA2[2],
+    },
+  },
+  {
+    id: '4',
+    name: 'Michael Scott',
+    price: 100,
+    image:
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-hybrid-nylon-hooded-tracksuit--HON12WZLW304_PM2_Front%20view.png?wid=656&hei=656',
+    category: '123',
+    selled: 200,
+    categories: 2,
+    type: {
+      size: DATA4[1],
+      color: DATA2[2],
+    },
+  },
+  {
+    id: '5',
+    name: 'Michael Scott',
+    price: 100,
+    image:
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-music-line-embroidered-crewneck--HOY03WIHN900_PM2_Front%20view.png?wid=656&hei=656',
+    category: '123',
+    selled: 200,
+    type: {
+      size: DATA4[1],
+      color: DATA2[2],
+    },
+    categories: 2,
+  },
+  {
+    id: '6',
+    name: 'Michael Scott',
+    price: 100,
+    image:
+      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-monogram-zip-through-hoodie--HOY04WSQ5620_PM2_Front%20view.png?wid=656&hei=656',
+    category: '123',
+    selled: 200,
+    type: {
+      size: DATA4[1],
+      color: DATA2[2],
+    },
+    categories: 2,
   },
 ];
 

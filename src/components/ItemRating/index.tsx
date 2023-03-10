@@ -1,6 +1,7 @@
 import { Box, Flex, Image, Text, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
+import { color, size } from 'interfaces/Auth';
 
 type Props = {
   name: string;
@@ -13,6 +14,10 @@ type Props = {
     price: number;
     image: string;
     category: string;
+    type: {
+      size: size;
+      color: color;
+    };
     selled: number;
     categories: number;
   };
@@ -95,9 +100,12 @@ const ItemRating = (props: Props) => {
                   w="15%"
                   marginX={3}
                 />
-                <Text variant="body2" width="65%" padding={3} alignItems="center">
-                  {product.name}
-                </Text>
+                <Flex direction="column" width="65%" padding={3}>
+                  <Text variant="body2">{product.name}</Text>
+                  <Text variant="body2">
+                    Size: {product.type.size.title} Color: {product.type.color.title}
+                  </Text>
+                </Flex>
                 <Icon.ChevronRight strokeWidth={1} width="10%" stroke="black" />
               </Flex>
             </Pressable>

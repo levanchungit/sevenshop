@@ -67,6 +67,10 @@ export type Item = {
   price: number;
   image: string;
   category: string;
+  type: {
+    size: size;
+    color: color;
+  };
   selled: number;
   categories: number;
 };

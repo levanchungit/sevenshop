@@ -4,11 +4,14 @@ import { Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ItemRating from 'components/ItemRating';
+import ModelPopupRating from 'components/ModelPopupRating';
+import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { DATA3, DATA } from 'mocks';
 
 const RatingScreen = () => {
   const initialWidth = Dimensions.get('window').width;
+  const [showModal, setShowModal] = useState(false);
 
   const Rated = () => (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
@@ -28,7 +31,11 @@ const RatingScreen = () => {
     </View>
   );
 
-  const NotYetRated = () => <View style={{ flex: 1, backgroundColor: 'blue' }}></View>;
+  const NotYetRated = () => (
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <SSButton variant={'red'} text={'Hi'} onPress={() => setShowModal(!showModal)} />
+    </View>
+  );
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -98,6 +105,12 @@ const RatingScreen = () => {
           />
         )}
         initialLayout={{ width: initialWidth, height: 0 }}
+      />
+      <ModelPopupRating
+        showModal={showModal}
+        setShowModal={setShowModal}
+        rating={4}
+        product={DATA[1]}
       />
     </SafeAreaView>
   );

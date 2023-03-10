@@ -96,7 +96,12 @@ const SelectVoucherScreen = () => {
       />
       <Box height="auto" width="100%" paddingTop={3}>
         <Text variant="button">{0} voucher selected</Text>
-        <SSButton variant={'red'} text={'Select voucher'} width="100%" />
+        <SSButton
+          variant={'red'}
+          text={'Select voucher'}
+          width="100%"
+          onPress={() => console.log('Hello')}
+        />
       </Box>
     </SafeAreaView>
   );
