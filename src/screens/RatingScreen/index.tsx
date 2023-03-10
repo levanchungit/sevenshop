@@ -3,9 +3,9 @@ import { View, Text, FlatList } from 'native-base';
 import { Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import ItemNotYetRated from 'components/ItemNotYetRated';
 import ItemRating from 'components/ItemRating';
 import ModelPopupRating from 'components/ModelPopupRating';
-import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { DATA3, DATA } from 'mocks';
 
@@ -33,7 +33,14 @@ const RatingScreen = () => {
 
   const NotYetRated = () => (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <SSButton variant={'red'} text={'Hi'} onPress={() => setShowModal(!showModal)} />
+      {/* <SSButton variant={'red'} text={'Hi'} onPress={() => setShowModal(!showModal)} /> */}
+      <FlatList
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
+        data={DATA3}
+        numColumns={2}
+        renderItem={({ item }) => <ItemNotYetRated product={DATA[2]} />}
+        keyExtractor={(item) => item.name}
+      />
     </View>
   );
 
@@ -58,8 +65,8 @@ const RatingScreen = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        paddingVertical: 12,
-        paddingHorizontal: 10,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
         backgroundColor: 'white',
       }}
     >
