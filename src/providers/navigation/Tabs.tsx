@@ -1,10 +1,10 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as Icons from 'react-native-feather';
-// import CheckoutScreen from 'screens/CheckoutScreen';
 import { MainScreen } from 'screens/MainScreen';
+// import MyPurchaseScreen from 'screens/MyPurchaseScreen';
 import NotificationScreen from 'screens/NotificationScreen';
-import PaymentSuccess from 'screens/PaynmentSuccess';
+import OrderDetailScreen from 'screens/OrderDetailScreen';
 import ProfileScreen from 'screens/ProfileScreen';
 import { BottomTabNavigatorParamList } from './types';
 
@@ -29,9 +29,9 @@ const BottomTabs = (props: Props) => {
         tabBarIcon: ({ focused }: any) => {
           if (route.name === 'Home') {
             return focused ? <Icons.Home fill="black" /> : <Icons.Home stroke={'black'} />;
-          } else if (route.name === 'Notification') {
+          } else if (route.name === 'OrderDetail') {
             return focused ? <Icons.Heart fill={'black'} /> : <Icons.Heart stroke={'black'} />;
-          } else if (route.name === 'PaymentSuccess') {
+          } else if (route.name === 'Notification') {
             return focused ? <Icons.Bell fill={'black'} /> : <Icons.Bell stroke={'black'} />;
           } else if (route.name === 'Profile') {
             return focused ? <Icons.User fill={'black'} /> : <Icons.User stroke={'black'} />;
@@ -44,15 +44,15 @@ const BottomTabs = (props: Props) => {
       })}
     >
       <Screen name="Home" options={{ tabBarLabel: '' }} component={MainScreen} />
-      <Screen name="Notification" options={{ tabBarLabel: '' }} component={NotificationScreen} />
+      <Screen name="OrderDetail" options={{ tabBarLabel: '' }} component={OrderDetailScreen} />
       <Screen
-        name="PaymentSuccess"
+        name="Notification"
         options={{
           tabBarLabel: '',
           tabBarBadge: quantity,
           tabBarBadgeStyle: { marginTop: 10, backgroundColor: '#AC1506' },
         }}
-        component={PaymentSuccess}
+        component={NotificationScreen}
       />
       <Screen name="Profile" options={{ tabBarLabel: '' }} component={ProfileScreen} />
     </Navigator>

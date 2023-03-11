@@ -26,6 +26,8 @@ export type BottomTabNavigatorParamList = {
   Favorites: undefined;
   CheckoutScreen: undefined;
   PaymentSuccess: undefined;
+  MyPurchase: undefined;
+  OrderDetail: undefined;
   Notification?: {
     itemId?: number;
   };
