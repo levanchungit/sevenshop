@@ -1,5 +1,7 @@
 // import { Item } from 'screens/MainScreen';
 
+import { address, color, review, size, voucher } from 'interfaces/Auth';
+
 export type Item = {
   id: string;
   name: string;
@@ -73,11 +75,6 @@ export const DATA: Item[] = [
   },
 ];
 
-export type color = {
-  title: string;
-  data: string;
-};
-
 export const DATA2: color[] = [
   {
     title: 'Cyan',
@@ -113,13 +110,6 @@ export const DATA2: color[] = [
   },
 ];
 
-export type review = {
-  name: string;
-  rating: number;
-  comment: string;
-  time: string;
-};
-
 export const DATA3: review[] = [
   {
     name: 'Lê Văn Chung',
@@ -135,10 +125,6 @@ export const DATA3: review[] = [
     time: '2015-02-01 9:00PM',
   },
 ];
-
-export type size = {
-  title: string;
-};
 
 export const DATA4: size[] = [
   {
@@ -157,15 +143,6 @@ export const DATA4: size[] = [
     title: 'XXL',
   },
 ];
-
-export type address = {
-  id: number;
-  full_name: string;
-  phone: number;
-  address: string;
-  type: string;
-  isDefault: boolean;
-};
 
 export const DATA5: address[] = [
   {
@@ -199,5 +176,44 @@ export const DATA5: address[] = [
     address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
     type: 'home',
     isDefault: false,
+  },
+  {
+    id: 5,
+    full_name: 'Đặng Trương Lương',
+    phone: 931739042,
+    address: '13 Lô C Chung cư Trần Quốc Thảo, P.4, Q.3, TP.HCM',
+    type: 'work',
+    isDefault: false,
+  },
+];
+export const DATA6: voucher[] = [
+  {
+    id: 1,
+    name: 'Giảm 20%',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    time: '25/03/2002 12:00AM',
+    image: 'https://picsum.photos/200/300?random=1',
+    condition:
+      'Quam pellentesque nec nam aliquam sem et tortor consequat id. Id aliquet lectus proin nibh nisl.',
+  },
+  {
+    id: 2,
+    name: 'Giảm 30%',
+    description:
+      'Malesuada pellentesque elit eget gravida. Lectus quam id leo in vitae turpis massa sed elementum.',
+    time: '25/03/2002 12:00AM',
+    image: 'https://picsum.photos/200/300?random=2',
+    condition:
+      'Quam pellentesque nec nam aliquam sem et tortor consequat id. Id aliquet lectus proin nibh nisl.',
+  },
+  {
+    id: 3,
+    name: 'Giảm 40%',
+    description:
+      'Malesuada pellentesque elit eget gravida. Lectus quam id leo in vitae turpis massa sed elementum.',
+    time: '25/03/2002 12:00AM',
+    image: 'https://picsum.photos/200/300?random=3',
+    condition:
+      'Quam pellentesque nec nam aliquam sem et tortor consequat id. Id aliquet lectus proin nibh nisl.',
   },
 ];

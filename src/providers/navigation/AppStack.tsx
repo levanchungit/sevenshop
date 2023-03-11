@@ -7,9 +7,11 @@ import EditAddressScreen from 'screens/EditAddressScreen';
 import ForgotPasswordScreen from 'screens/FogotPasswordScreen';
 import HomeScreen from 'screens/HomeScreen';
 import LoginScreen from 'screens/LoginScreen';
+import OTPForgotScreen from 'screens/OTPForgotScreen';
 import OTPScreen from 'screens/OTPScreen';
 import PaymentSuccess from 'screens/PaynmentSuccess';
 import RegisterScreen from 'screens/RegisterScreen';
+import SetPasswordForgotScreen from 'screens/SetPasswordForgotScreen';
 import SetPassWordScreen from 'screens/SetPasswordScreen';
 import { AppStackNavigatorParamList } from './types';
 
@@ -30,11 +32,14 @@ const StackNavigator = () => {
       <Screen name="Details" component={DetailScreen} />
       <Screen name="Register" component={RegisterScreen} />
       <Screen name="OTP" component={OTPScreen} />
+      <Screen name="OTPForgot" component={OTPForgotScreen} />
       <Screen name="SetPassWord" component={SetPassWordScreen} />
       <Screen name="ForgotPassWord" component={ForgotPasswordScreen} />
       <Screen name="Address" component={Address} />
       <Screen name="EditAddress" component={EditAddressScreen} />
       <Screen name="Cart" component={Cart} />
+      <Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Screen name="SetPassWordForgot" component={SetPasswordForgotScreen} />
       <Screen name="PaymentSuccess" component={PaymentSuccess} />
     </Navigator>
   );

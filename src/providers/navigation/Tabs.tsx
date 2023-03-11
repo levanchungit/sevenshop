@@ -3,7 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as Icons from 'react-native-feather';
 import FavoriteScreen from 'screens/FavoriteScreen';
 import { MainScreen } from 'screens/MainScreen';
-import NotificationScreen from 'screens/NotificationScreen';
+// import NotificationScreen from 'screens/NotificationScreen';
+import PaymentSuccess from 'screens/PaynmentSuccess';
 import ProfileScreen from 'screens/ProfileScreen';
 import { BottomTabNavigatorParamList } from './types';
 
@@ -30,7 +31,7 @@ const BottomTabs = (props: Props) => {
             return focused ? <Icons.Home fill="black" /> : <Icons.Home stroke={'black'} />;
           } else if (route.name === 'Favorites') {
             return focused ? <Icons.Heart fill={'black'} /> : <Icons.Heart stroke={'black'} />;
-          } else if (route.name === 'Notification') {
+          } else if (route.name === 'PaymentSuccess') {
             return focused ? <Icons.Bell fill={'black'} /> : <Icons.Bell stroke={'black'} />;
           } else if (route.name === 'Profile') {
             return focused ? <Icons.User fill={'black'} /> : <Icons.User stroke={'black'} />;
@@ -45,13 +46,13 @@ const BottomTabs = (props: Props) => {
       <Screen name="Home" options={{ tabBarLabel: '' }} component={MainScreen} />
       <Screen name="Favorites" options={{ tabBarLabel: '' }} component={FavoriteScreen} />
       <Screen
-        name="Notification"
+        name="PaymentSuccess"
         options={{
           tabBarLabel: '',
           tabBarBadge: quantity,
           tabBarBadgeStyle: { marginTop: 10, backgroundColor: '#AC1506' },
         }}
-        component={NotificationScreen}
+        component={PaymentSuccess}
       />
       <Screen name="Profile" options={{ tabBarLabel: '' }} component={ProfileScreen} />
     </Navigator>

@@ -11,6 +11,8 @@ import {
   RegisterPayload,
   SetPasswordPayload,
   SignInPayload,
+  ForgotPayload,
+  ChangePasswordPayload,
 } from 'interfaces/Auth';
 import { axiosInstance } from './config/AxiosInstance';
 
@@ -33,6 +35,16 @@ const authAPI = {
     return response;
   },
 
+  async forgotpassword(payload: ForgotPayload) {
+    const response = await axios.post(API_URL + API_ROUTES.forgotPassword, payload);
+    return response;
+  },
+
+  async changePassword(payload: ChangePasswordPayload) {
+    const response = await axios.post(API_URL + API_ROUTES.changePassword, payload);
+    return response;
+  },
+
   async check_otp(payload: CheckOTPPayload) {
     const response = await axios.post(API_URL + API_ROUTES.check_otp, payload);
     try {
@@ -48,7 +60,7 @@ const authAPI = {
 
   async set_password(payload: SetPasswordPayload) {
     //header token
-    const response = await axiosInstance.post(API_URL + API_ROUTES.set_password, payload);
+    const response = await axios.post(API_URL + API_ROUTES.set_password, payload);
     try {
       await setAuthTokens({
         accessToken: response.data.access_token,
@@ -59,6 +71,19 @@ const authAPI = {
     }
     return response;
   },
+  // async changePassword(payload: ChangePasswordPayload) {
+  //   //header token
+  //   const response = await axios.post(API_URL + API_ROUTES.changePassword, payload);
+  //   try {
+  //     await setAuthTokens({
+  //       accessToken: response.data.access_token,
+  //       refreshToken: response.data.refresh_token,
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  //   return response;
+  // },
 
   me() {
     return axiosInstance.get(API_ROUTES.me);

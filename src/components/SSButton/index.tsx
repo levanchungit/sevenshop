@@ -4,24 +4,27 @@ type Props = {
   variant: string;
   text: string;
   width?: any;
+  onPress: Function;
 };
 
 const SSButton = (props: Props) => {
-  const { variant, text, width } = props;
+  const { variant, text, width, onPress } = props;
   return variant === 'red' ? (
     <Button
+      onPress={() => onPress()}
       fontFamily={'Raleway_700Bold'}
       borderRadius={10}
       width={width}
       justifyContent={'center'}
       alignItems={'center'}
     >
-      <Text fontFamily={'Raleway_700Bold'} variant={'h3'} color={'white'}>
+      <Text fontFamily={'Raleway_700Bold'} variant={'button'} color={'white'}>
         {text}
       </Text>
     </Button>
   ) : variant === 'white' ? (
     <Button
+      onPress={() => onPress()}
       fontFamily={'Raleway_700Bold'}
       backgroundColor={'white'}
       borderRadius={10}
@@ -31,7 +34,7 @@ const SSButton = (props: Props) => {
       width={width}
       borderWidth={2}
     >
-      <Text fontFamily={'Raleway_700Bold'} variant={'h3'} color={'primary.600'}>
+      <Text fontFamily={'Raleway_700Bold'} variant={'button'} color={'primary.600'}>
         {text}
       </Text>
     </Button>

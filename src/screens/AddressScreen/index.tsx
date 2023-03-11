@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Box, FlatList } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ItemAdrress from 'components/ItemAddress';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { DATA5 } from 'mocks';
+import { AppNavigationProp } from 'providers/navigation/types';
 
 const Address = (onBack: any) => {
+  const navigation = useNavigation<AppNavigationProp>();
   const [isChecked, setIsChecked] = useState(0);
   return (
     <SafeAreaView
@@ -31,20 +34,22 @@ const Address = (onBack: any) => {
       <FlatList
         data={DATA5}
         renderItem={({ item }) => (
-          <ItemAdrress
-            name={item.full_name}
-            phone={item.phone}
-            address={item.address}
-            isDefault={item.isDefault}
-            check={isChecked}
-            setCheck={setIsChecked}
-            dataId={item.id}
-            type={item.type}
-          />
+          <ItemAdrress address={item} check={isChecked} setCheck={setIsChecked} />
         )}
         keyExtractor={(item) => item.full_name}
       />
-      <SSButton variant={'red'} text={'Add address'}></SSButton>
+      <Box marginBottom={3} />
+      <SSButton
+        variant={'white'}
+        text={'Add address'}
+        onPress={() => navigation.navigate('EditAddress', { typeEdit: false })}
+      ></SSButton>
+      <Box marginBottom={3} />
+      <SSButton
+        variant={'red'}
+        text={'Select address'}
+        onPress={() => console.log('Selected')}
+      ></SSButton>
     </SafeAreaView>
   );
 };

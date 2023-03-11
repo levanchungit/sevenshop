@@ -6,6 +6,8 @@ export const API_ROUTES = {
   check_otp: `/user/check_otp`,
   set_password: `/user/set_password`,
   refresh_token: `/user/refresh_token`,
+  forgotPassword: `/user/forgotPassword`,
+  changePassword: `/user/changePassword`,
   me: `/user/me`,
 
   // product
