@@ -9,7 +9,7 @@ type Props = object;
 
 const OrderDetailScreen = (props: Props) => {
   return (
-    <View flex={1} pt={3}>
+    <View flex={1} pt={3} backgroundColor="white">
       <View mt={4}>
         <SSHeaderNavigation
           tabHeaderSearchEnabled={false}
@@ -128,7 +128,7 @@ const OrderDetailScreen = (props: Props) => {
           />
         </View>
       </ScrollView>
-      <View h={'33%'} borderTopWidth={0.5} borderTopColor="gray.300">
+      <View h={'30%'} borderTopWidth={0.5} borderTopColor="gray.300">
         <View w="100%" position={'absolute'} bottom={0} left={0}>
           <View borderBottomColor={'gray.400'} borderBottomWidth={0.5} pb={3}>
             <View px={3} flexDirection={'row'} justifyContent="space-between" alignItems={'center'}>
