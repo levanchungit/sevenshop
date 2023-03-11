@@ -6,7 +6,6 @@ import ItemAdrress from 'components/ItemAddress';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { DATA5 } from 'mocks';
-import { AppNavigationProp } from 'providers/navigation/types';
 
 const Address = (onBack: any) => {
   const navigation = useNavigation<AppNavigationProp>();
