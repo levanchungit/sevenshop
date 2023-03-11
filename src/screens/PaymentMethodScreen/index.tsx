@@ -37,7 +37,7 @@ const PaymentMethodScreen = (onBack: any) => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Icon.DollarSign stroke="black" width="10%" />
+        <Icon.DollarSign stroke="black" width={24} />
         <Text
           variant={'body1'}
           style={{
@@ -61,7 +61,7 @@ const PaymentMethodScreen = (onBack: any) => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Icon.CreditCard stroke="black" width="10%" />
+        <Icon.CreditCard stroke="black" width={24} />
         <Text
           variant={'body1'}
           style={{
@@ -72,7 +72,7 @@ const PaymentMethodScreen = (onBack: any) => {
         >
           Credit card
         </Text>
-        <Icon.ChevronRight stroke="black" width="10%" />
+        <Icon.ChevronRight stroke="black" />
       </Flex>
 
       <Flex
@@ -87,11 +87,12 @@ const PaymentMethodScreen = (onBack: any) => {
       >
         <Image
           source={{
-            uri: 'https://wallpaperaccess.com/full/317501.jpg',
+            uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1678542086/MoMo_Logo_mlifmt.png',
           }}
           alt="Icon"
           size="full"
-          w="10%"
+          w={6}
+          h={6}
         />
         <Text
           variant={'body1'}
@@ -99,7 +100,7 @@ const PaymentMethodScreen = (onBack: any) => {
             fontVariant: ['lining-nums'],
           }}
           width="80%"
-          marginLeft={3}
+          marginLeft={5}
         >
           MoMo E-Wallet
         </Text>
