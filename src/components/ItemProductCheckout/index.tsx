@@ -12,61 +12,76 @@ type Props = {
 const ItemProductCheckout = (props: Props) => {
   const { name, image, price, size_color, quantity } = props;
   return (
-    <Pressable flexDirection={'row'} style={{ padding: 12 }} alignItems={'center'}>
-      <Image
-        alt="gsgsdg"
-        style={{ width: 120, height: 120, borderRadius: 12 }}
-        resizeMode="cover"
-        source={{ uri: image ? image + '' : '123' }}
-      />
-      <View flexDirection={'column'} justifyContent={'space-between'}>
-        <Text
-          numberOfLines={1}
-          fontSize={16}
-          color="black"
-          variant={'Body1'}
-          fontFamily="Raleway_700Bold"
-        >
-          {name}
-        </Text>
-        <Text
-          style={{
-            fontVariant: ['lining-nums'],
-          }}
-          numberOfLines={1}
-          fontSize={16}
-          color="black"
-          variant={'Body2'}
-          my={2.5}
-        >
-          {size_color}
-        </Text>
-        <View flexDirection={'row'} justifyContent="space-between" alignItems={'center'}>
+    <View>
+      <Pressable flexDirection={'row'} style={{ padding: 12 }} alignItems={'center'}>
+        <Image
+          alt="gsgsdg"
+          style={{ width: 120, height: 120, borderRadius: 12 }}
+          resizeMode="cover"
+          source={{ uri: image ? image + '' : '123' }}
+        />
+        <View flexDirection={'column'} justifyContent={'space-between'}>
           <Text
-            style={{
-              fontVariant: ['lining-nums'],
-            }}
-            color="primary.600"
+            numberOfLines={1}
             fontSize={16}
-            variant={'Button'}
-            fontFamily={'Raleway_500Medium'}
+            color="black"
+            variant={'Body1'}
+            fontFamily="Raleway_700Bold"
           >
-            {price}đ
+            {name}
           </Text>
           <Text
             style={{
               fontVariant: ['lining-nums'],
             }}
+            numberOfLines={1}
+            fontSize={16}
             color="black"
-            fontSize={14}
-            variant={'Subtitle2'}
-            fontFamily={'Raleway_500Medium'}
+            variant={'Body2'}
+            my={2.5}
           >
-            x{quantity}
+            {size_color}
           </Text>
+          <View flexDirection={'row'} justifyContent="space-between" alignItems={'center'}>
+            <Text
+              style={{
+                fontVariant: ['lining-nums'],
+              }}
+              color="primary.600"
+              fontSize={16}
+              variant={'Button'}
+              fontFamily={'Raleway_500Medium'}
+            >
+              {price}đ
+            </Text>
+            <Text
+              style={{
+                fontVariant: ['lining-nums'],
+              }}
+              color="black"
+              fontSize={14}
+              variant={'Subtitle2'}
+              fontFamily={'Raleway_500Medium'}
+            >
+              x{quantity}
+            </Text>
+            <View flexDirection={'row'} justifyContent="space-between" alignItems={'center'}>
+              <Text
+                color="primary.600"
+                fontSize={16}
+                variant={'Button'}
+                fontFamily="Raleway_500Medium"
+              >
+                {price}đ
+              </Text>
+              <Text color="black" fontSize={16} variant={'Subtitle2'} fontWeight="semibold">
+                x{quantity}
+              </Text>
+            </View>
+          </View>
         </View>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 };
 

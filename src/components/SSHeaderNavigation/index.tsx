@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, Pressable } from 'native-base';
 import * as Icons from 'react-native-feather';
+import { AppNavigationProp } from 'providers/navigation/types';
 
 type Props = {
   tabHeaderSearchEnabled: boolean;
@@ -14,6 +16,7 @@ type Props = {
 };
 
 const SSHeaderNavigation = (props: Props) => {
+  const navigation = useNavigation<AppNavigationProp>();
   const {
     tabHeaderSearchEnabled,
     titleHeaderSearchEnabled,
@@ -26,7 +29,14 @@ const SSHeaderNavigation = (props: Props) => {
   } = props;
 
   return tabHeaderSearchEnabled ? (
-    <View flexDirection={'row'} justifyContent="space-between">
+    <View
+      flexDirection={'row'}
+      justifyContent="space-between"
+      borderBottomWidth={0.5}
+      borderBottomColor="gray.200"
+      paddingX={3}
+      pb={2}
+    >
       {titleHeaderSearchEnabled ? (
         <Text variant="Title" fontWeight={'bold'} fontSize={20}>
           {titleHeaderSearch}
@@ -53,7 +63,7 @@ const SSHeaderNavigation = (props: Props) => {
           w={6}
           h={6}
           top={-12}
-          right={-8}
+          right={1}
           borderRadius={15}
         >
           <Text color="white" fontSize={14} lineHeight={14}>
@@ -63,13 +73,13 @@ const SSHeaderNavigation = (props: Props) => {
       ) : null}
     </View>
   ) : (
-    <View flexDirection={'row'} alignItems="center" justifyContent={'space-between'}>
-      <View flexDirection={'row'} alignItems="center">
+    <View flexDirection={'row'} alignItems="center" justifyContent={'space-between'} paddingX={3}>
+      <Pressable flexDirection={'row'} alignItems="center" onPress={() => navigation.goBack()}>
         <Icons.ChevronLeft stroke={'black'} width={24} height={24} />
         <Text ml={3} variant="Title" fontWeight={'bold'} fontSize={20}>
           {titleHeaderScreen}
         </Text>
-      </View>
+      </Pressable>
       {iconRightHeaderScreen ? (
         <Icons.Headphones stroke={'black'} width={24} height={24} />
       ) : (

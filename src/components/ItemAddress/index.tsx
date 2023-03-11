@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Box, Flex, Pressable, Text } from 'native-base';
 import * as Icon from 'react-native-feather';
 import IconCheck from 'components/IconCheck';
+import { AppNavigationProp } from 'providers/navigation/types';
 
 type Props = {
   name: string;
@@ -10,12 +12,15 @@ type Props = {
   isDefault: boolean;
   check: number;
   setCheck: Function;
+  type: string;
   dataId: number;
 };
 
 const ItemAdrress = (props: Props) => {
-  const { name, phone, address, isDefault, dataId, check, setCheck } = props;
+  const navigation = useNavigation<AppNavigationProp>();
+  const { name, phone, address, isDefault, dataId, check, setCheck, type } = props;
   const [elementVisible] = useState(isDefault);
+
   return (
     <Flex
       direction="row"
@@ -41,7 +46,14 @@ const ItemAdrress = (props: Props) => {
         <Text variant={'h4'}>
           {name} | {phone}
         </Text>
-        <Text variant={'h4'}>{address}</Text>
+        <Text variant={'h4'}>
+          {type === 'home' ? (
+            <Icon.Home stroke="black" strokeWidth={1} />
+          ) : (
+            <Icon.Briefcase stroke="black" strokeWidth={1} />
+          )}
+          {address}
+        </Text>
         {elementVisible ? (
           <Box
             borderColor="red.600"
@@ -59,9 +71,15 @@ const ItemAdrress = (props: Props) => {
           </Box>
         ) : null}
       </Box>
-      <Box justifyContent="center" alignItems="center" h="100%" w="10%">
+      <Pressable
+        justifyContent="center"
+        alignItems="center"
+        h="100%"
+        w="10%"
+        onPress={() => navigation.navigate('EditAddress')}
+      >
         <Icon.Edit2 stroke="#AC1506" width="35" height="35" />
-      </Box>
+      </Pressable>
     </Flex>
   );
 };
