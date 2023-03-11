@@ -10,6 +10,7 @@ import LoginScreen from 'screens/LoginScreen';
 import OTPForgotScreen from 'screens/OTPForgotScreen';
 import OTPScreen from 'screens/OTPScreen';
 import PaymentSuccess from 'screens/PaynmentSuccess';
+import RatingScreen from 'screens/RatingScreen';
 import RegisterScreen from 'screens/RegisterScreen';
 import SelectVoucherScreen from 'screens/SelectVoucherScreen';
 import SetPasswordForgotScreen from 'screens/SetPasswordForgotScreen';
@@ -21,7 +22,7 @@ const { Navigator, Screen } = AppStack;
 
 const StackNavigator = () => {
   return (
-    <Navigator initialRouteName="SelectVoucher" screenOptions={{ headerShown: false }}>
+    <Navigator initialRouteName="Rating" screenOptions={{ headerShown: false }}>
       <Screen name="Login" component={LoginScreen} />
       <Screen
         name="Main"
@@ -36,6 +37,7 @@ const StackNavigator = () => {
       <Screen name="OTPForgot" component={OTPForgotScreen} />
       <Screen name="SetPassWord" component={SetPassWordScreen} />
       <Screen name="ForgotPassWord" component={ForgotPasswordScreen} />
+      <Screen name="Rating" component={RatingScreen} />
       <Screen name="Address" component={Address} />
       <Screen name="EditAddress" component={EditAddressScreen} />
       <Screen name="Cart" component={Cart} />

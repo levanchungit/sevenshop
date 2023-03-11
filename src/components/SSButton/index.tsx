@@ -17,6 +17,7 @@ const SSButton = (props: Props) => {
       width={width}
       justifyContent={'center'}
       alignItems={'center'}
+      onPress={() => onPress()}
     >
       <Text fontFamily={'Raleway_700Bold'} variant={'button'} color={'white'}>
         {text}
@@ -33,6 +34,7 @@ const SSButton = (props: Props) => {
       borderColor={'primary.600'}
       width={width}
       borderWidth={2}
+      onPress={() => onPress()}
     >
       <Text fontFamily={'Raleway_700Bold'} variant={'button'} color={'primary.600'}>
         {text}
