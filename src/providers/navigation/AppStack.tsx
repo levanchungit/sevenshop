@@ -9,6 +9,7 @@ import HomeScreen from 'screens/HomeScreen';
 import LoginScreen from 'screens/LoginScreen';
 import OTPForgotScreen from 'screens/OTPForgotScreen';
 import OTPScreen from 'screens/OTPScreen';
+import PaymentMethodScreen from 'screens/PaymentMethodScreen';
 import PaymentSuccess from 'screens/PaynmentSuccess';
 import RatingScreen from 'screens/RatingScreen';
 import RegisterScreen from 'screens/RegisterScreen';
