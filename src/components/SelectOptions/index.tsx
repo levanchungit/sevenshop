@@ -26,7 +26,7 @@ const SelectOptions = (props: Props) => {
       >
         <View flexDirection={'row'} alignItems={'center'}>
           {iconLeft}
-          <Text variant={'Button'} style={{ marginLeft: 12 }}>
+          <Text variant={'Button'} ml={3} fontFamily="Raleway_500Medium">
             {title}
           </Text>
         </View>

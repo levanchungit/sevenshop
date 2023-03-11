@@ -20,17 +20,48 @@ const ItemProductCheckout = (props: Props) => {
         source={{ uri: image ? image + '' : '123' }}
       />
       <View flexDirection={'column'} justifyContent={'space-between'}>
-        <Text numberOfLines={1} fontSize={16} color="black" variant={'Body1'}>
+        <Text
+          numberOfLines={1}
+          fontSize={16}
+          color="black"
+          variant={'Body1'}
+          fontFamily="Raleway_700Bold"
+        >
           {name}
         </Text>
-        <Text numberOfLines={1} fontSize={16} color="black" variant={'Body2'}>
+        <Text
+          style={{
+            fontVariant: ['lining-nums'],
+          }}
+          numberOfLines={1}
+          fontSize={16}
+          color="black"
+          variant={'Body2'}
+          my={2.5}
+        >
           {size_color}
         </Text>
         <View flexDirection={'row'} justifyContent="space-between" alignItems={'center'}>
-          <Text color="primary.600" fontSize={16} variant={'Button'}>
+          <Text
+            style={{
+              fontVariant: ['lining-nums'],
+            }}
+            color="primary.600"
+            fontSize={16}
+            variant={'Button'}
+            fontFamily={'Raleway_500Medium'}
+          >
             {price}đ
           </Text>
-          <Text color="black" fontSize={14} variant={'Subtitle2'}>
+          <Text
+            style={{
+              fontVariant: ['lining-nums'],
+            }}
+            color="black"
+            fontSize={14}
+            variant={'Subtitle2'}
+            fontFamily={'Raleway_500Medium'}
+          >
             x{quantity}
           </Text>
         </View>
