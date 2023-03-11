@@ -10,21 +10,23 @@ type Props = object;
 const OrderDetailScreen = (props: Props) => {
   return (
     <View flex={1} pt={3}>
-      <ScrollView>
-        <View style={{ marginTop: 20 }}>
-          <SSHeaderNavigation
-            tabHeaderSearchEnabled={false}
-            titleHeaderSearchEnabled={false}
-            iconSearchEnabled={false}
-            iconOther={false}
-            titleHeaderSearch={''}
-            titleHeaderScreen={'Order Detail'}
-            iconRightHeaderScreen={true}
-            quantityItems={0}
-          />
-          <View backgroundColor={'#EDC5C1'} p="4" mt={1}>
+      <View mt={4}>
+        <SSHeaderNavigation
+          tabHeaderSearchEnabled={false}
+          titleHeaderSearchEnabled={false}
+          iconSearchEnabled={false}
+          iconOther={false}
+          titleHeaderSearch={''}
+          titleHeaderScreen={'Order Detail'}
+          iconRightHeaderScreen={true}
+          quantityItems={0}
+        />
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View>
+          <View backgroundColor={'#EDC5C1'} px={4} py={3} mt={1}>
             <Text
-              mb={3}
+              mb={2.5}
               variant={'title'}
               fontSize={20}
               fontWeight="bold"
@@ -41,22 +43,32 @@ const OrderDetailScreen = (props: Props) => {
               Your parcel is packed and will be handed over to our logistics partner
             </Text>
           </View>
-          <View flexDirection={'row'} p={4} borderBottomWidth={0.5} borderBottomColor="gray.400">
+          <View flexDirection={'row'} p={4} borderBottomWidth={0.5} borderBottomColor="gray.300">
             <Icons.Truck fontSize={24} stroke={'black'} />
-            <Text ml={4} variant={'Body1'} fontFamily="Raleway_500Medium">
+            <Text
+              style={{
+                fontVariant: ['lining-nums'],
+              }}
+              ml={4}
+              variant={'Body1'}
+              fontFamily="Raleway_500Medium"
+            >
               Get by Mon 23 Feb - Fri 27 Feb
             </Text>
           </View>
-          <View style={{ padding: 12 }} borderBottomColor={'gray.400'} borderBottomWidth={0.5}>
+          <View p={3} borderBottomColor={'gray.300'} borderBottomWidth={0.5}>
             <View style={{ flexDirection: 'row', marginBottom: 8 }}>
               <Icons.MapPin stroke={'black'} fontSize={24} />
-              <Text variant={'body1'} style={{ marginLeft: 12 }} fontFamily={'Raleway_500Medium'}>
+              <Text variant={'body1'} ml={3} fontFamily={'Raleway_500Medium'}>
                 Delivery Address
               </Text>
             </View>
             <View flexDirection={'row'} justifyContent={'center'}>
               <View flexDirection={'column'}>
                 <Text
+                  style={{
+                    fontVariant: ['lining-nums'],
+                  }}
                   numberOfLines={1}
                   fontWeight="medium"
                   variant={'Body2'}
@@ -65,6 +77,9 @@ const OrderDetailScreen = (props: Props) => {
                   Trần Quyền | 0834196884
                 </Text>
                 <Text
+                  style={{
+                    fontVariant: ['lining-nums'],
+                  }}
                   numberOfLines={1}
                   fontWeight="medium"
                   variant={'Body2'}
@@ -111,22 +126,21 @@ const OrderDetailScreen = (props: Props) => {
             size_color="XL_Black"
             quantity={2}
           />
-          <ItemProductCheckout
-            name="Áo sơ mi nam phối màu cực chất"
-            price={123}
-            image="https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656"
-            size_color="XL_Black"
-            quantity={2}
-          />
         </View>
       </ScrollView>
-      <View h={'33%'}>
+      <View h={'33%'} borderTopWidth={0.5} borderTopColor="gray.300">
         <View w="100%" position={'absolute'} bottom={0} left={0}>
           <View borderBottomColor={'gray.400'} borderBottomWidth={0.5} pb={3}>
             <View px={3} flexDirection={'row'} justifyContent="space-between" alignItems={'center'}>
               <Text fontFamily={'Raleway_700Bold'}>Order No.</Text>
               <View flexDirection={'row'} alignItems="center">
-                <Text fontFamily={'Raleway_700Bold'} mr={3}>
+                <Text
+                  style={{
+                    fontVariant: ['lining-nums'],
+                  }}
+                  fontFamily={'Raleway_700Bold'}
+                  mr={3}
+                >
                   1234567890
                 </Text>
                 <Text fontFamily={'Raleway_500Medium'} color="#075AFA">
