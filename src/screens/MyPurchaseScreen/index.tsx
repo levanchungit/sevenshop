@@ -121,28 +121,29 @@ const MyPurchaseScreen = (props: Props) => {
       isSelected: false,
     },
   ]);
-  const RenderItemProductMyPurchases = ({ data }: { data: ItemMyPurchases }) => {
-    return (
-      <ItemProductMyPurchases
-        dataProduct={data.products}
-        total={data.total}
-        quantitiesProduct={data.products.length}
-      />
-    );
-  };
+  const RenderItemProductMyPurchases = ({ data }: { data: ItemMyPurchases }) => (
+    <ItemProductMyPurchases
+      total={data.total}
+      quantitiesProduct={data.products.length}
+      name={data.products[1].name}
+      image={data.products[1].image}
+    />
+  );
   return (
-    <View flex={1} pt={3}>
+    <View flex={1} pt={3} backgroundColor="white">
       <View style={{ marginTop: 20 }}>
-        <SSHeaderNavigation
-          tabHeaderSearchEnabled={false}
-          titleHeaderSearchEnabled={false}
-          iconSearchEnabled={false}
-          iconOther={false}
-          titleHeaderSearch={''}
-          titleHeaderScreen={'My Purchases'}
-          iconRightHeaderScreen={false}
-          quantityItems={0}
-        />
+        <View ml={3}>
+          <SSHeaderNavigation
+            tabHeaderSearchEnabled={false}
+            titleHeaderSearchEnabled={false}
+            iconSearchEnabled={false}
+            iconOther={false}
+            titleHeaderSearch={''}
+            titleHeaderScreen={'My Purchases'}
+            iconRightHeaderScreen={false}
+            quantityItems={0}
+          />
+        </View>
         <ScrollView
           paddingX={3}
           mt={3}

@@ -21,8 +21,8 @@ const SSItemNotification = (props: Props) => {
     >
       <View flexDirection={'row'}>
         <View
-          w={20}
-          h={20}
+          w={41}
+          h={41}
           backgroundColor="primary.600"
           alignItems={'center'}
           justifyContent="center"
@@ -34,8 +34,8 @@ const SSItemNotification = (props: Props) => {
             source={{
               uri: 'https://res.cloudinary.com/dlpl2vcpg/image/upload/v1678356026/sevenshop/Vector_ivwyho.png',
             }}
-            w={8}
-            h={7}
+            w={6}
+            h={5}
           />
         </View>
         <View w={'75%'}>
