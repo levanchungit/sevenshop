@@ -8,7 +8,7 @@ type Props = object;
 
 const CheckoutScreen = (props: Props) => {
   return (
-    <View flex={1} pt={3}>
+    <View flex={1} pt={3} backgroundColor="white">
       <View px={3} mt={3}>
         <SSHeaderNavigation
           tabHeaderSearchEnabled={false}
