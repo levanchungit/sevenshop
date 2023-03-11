@@ -29,7 +29,14 @@ const SSHeaderNavigation = (props: Props) => {
   } = props;
 
   return tabHeaderSearchEnabled ? (
-    <View flexDirection={'row'} justifyContent="space-between" paddingX={3} pb={2}>
+    <View
+      flexDirection={'row'}
+      justifyContent="space-between"
+      borderBottomWidth={0.5}
+      borderBottomColor="gray.200"
+      paddingX={3}
+      pb={2}
+    >
       {titleHeaderSearchEnabled ? (
         <Text variant="Title" fontWeight={'bold'} fontSize={20}>
           {titleHeaderSearch}

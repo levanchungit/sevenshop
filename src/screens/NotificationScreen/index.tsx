@@ -14,42 +14,42 @@ type Item = {
 const data: Item[] = [
   {
     id: '1',
-    title: 'Quà cho thành viên mới 👋',
+    title: 'Gift for new member 👋',
     details:
       '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
     date: '02-06-2000',
   },
   {
     id: '2',
-    title: 'Quà cho thành viên mới 👋',
+    title: 'Gift for new member 👋',
     details:
       '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
     date: '02-06-2000',
   },
   {
     id: '3',
-    title: 'Quà cho thành viên mới 👋',
+    title: 'Gift for new member 👋',
     details:
       '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
     date: '02-06-2000',
   },
   {
     id: '4',
-    title: 'Quà cho thành viên mới 👋',
+    title: 'Gift for new member 👋',
     details:
       '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
     date: '02-06-2000',
   },
   {
     id: '5',
-    title: 'Quà cho thành viên mới 👋',
+    title: 'Gift for new member 👋',
     details:
       '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
     date: '02-06-2000',
   },
   {
     id: '6',
-    title: 'Quà cho thành viên mới 👋',
+    title: 'Gift for new member 👋',
     details:
       '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
     date: '02-06-2000',
@@ -80,9 +80,9 @@ const NotificationScreen = (props: Props) => {
         quantityItems={0}
       />
       <FlatList
-        paddingX={8}
+        paddingX={6}
         pb={4}
-        mt={3}
+        // mt={2}
         data={data}
         renderItem={({ item }) => <RenderItemNotification data={item} />}
         keyExtractor={(item) => item.id}
