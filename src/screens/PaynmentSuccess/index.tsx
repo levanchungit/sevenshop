@@ -137,7 +137,7 @@ const PaymentSuccess = () => {
             height: 50,
             borderColor: 'gray',
           }}
-          backgroundColor={'primary.500'}
+          backgroundColor={'primary.600'}
         >
           <Text variant={'Button'} fontFamily="Raleway_700Bold" fontSize={16} color={'white'}>
             Keep Shopping
