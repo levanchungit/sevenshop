@@ -65,6 +65,7 @@ const StackNavigator = () => {
       <Screen name="Product" component={ProductScreen} />
       <Screen name="ProductFavorites" component={ProductFavoritesScreen} />
       <Screen name="Profile" component={ProfileScreen} />
+      {/* <Screen name="AccountSettings" component={AccountSettingScreen} /> */}
     </Navigator>
   );
 };
