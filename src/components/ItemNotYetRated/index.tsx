@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Flex, Image, Text } from 'native-base';
 import { Rating } from 'react-native-ratings';
+import ModelPopupRating from 'components/ModelPopupRating';
 import { color, size } from 'interfaces/Auth';
 
 type Props = {
@@ -19,6 +21,13 @@ type Props = {
 };
 
 const ItemNotYetRated = (props: Props) => {
+  const [showModal, setShowModal] = useState(false);
+  const [ratingScore, setRatingScore] = useState(0);
+  const ratingCompleted = (rating: number) => {
+    console.log('Rating is: ' + rating);
+    setRatingScore(rating);
+    setShowModal(!showModal);
+  };
   const { product } = props;
   return (
     <Flex
@@ -70,11 +79,18 @@ const ItemNotYetRated = (props: Props) => {
       </Flex>
       <Rating
         startingValue={0}
+        onFinishRating={(rating: number) => ratingCompleted(rating)}
         imageSize={30}
         style={{
-          paddingVertical: 10,
+          paddingVertical: 12,
           width: '100%',
         }}
+      />
+      <ModelPopupRating
+        showModal={showModal}
+        setShowModal={setShowModal}
+        rating={ratingScore}
+        product={product}
       />
     </Flex>
   );

@@ -36,10 +36,10 @@ const RatingScreen = () => {
       {/* <SSButton variant={'red'} text={'Hi'} onPress={() => setShowModal(!showModal)} /> */}
       <FlatList
         columnWrapperStyle={{ justifyContent: 'space-between' }}
-        data={DATA3}
+        data={DATA}
         numColumns={2}
-        renderItem={({ item }) => <ItemNotYetRated product={DATA[2]} />}
-        keyExtractor={(item) => item.name}
+        renderItem={({ item }) => <ItemNotYetRated product={item} />}
+        keyExtractor={(item) => item.id}
       />
     </View>
   );
@@ -101,7 +101,6 @@ const RatingScreen = () => {
                 variant="body2"
                 fontWeight={focused ? 'bold' : 'normal'}
                 color={focused ? 'black' : 'gray'}
-                borderBottomColor={focused ? 'black' : null}
                 borderBottomWidth={focused ? 1 : 0}
               >
                 {route.title}
