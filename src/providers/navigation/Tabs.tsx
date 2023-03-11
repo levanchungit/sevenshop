@@ -1,10 +1,9 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as Icons from 'react-native-feather';
+import FavoriteScreen from 'screens/FavoriteScreen';
 import { MainScreen } from 'screens/MainScreen';
-// import MyPurchaseScreen from 'screens/MyPurchaseScreen';
 import NotificationScreen from 'screens/NotificationScreen';
-import OrderDetailScreen from 'screens/OrderDetailScreen';
 import ProfileScreen from 'screens/ProfileScreen';
 import { BottomTabNavigatorParamList } from './types';
 
@@ -29,7 +28,7 @@ const BottomTabs = (props: Props) => {
         tabBarIcon: ({ focused }: any) => {
           if (route.name === 'Home') {
             return focused ? <Icons.Home fill="black" /> : <Icons.Home stroke={'black'} />;
-          } else if (route.name === 'OrderDetail') {
+          } else if (route.name === 'Favorites') {
             return focused ? <Icons.Heart fill={'black'} /> : <Icons.Heart stroke={'black'} />;
           } else if (route.name === 'Notification') {
             return focused ? <Icons.Bell fill={'black'} /> : <Icons.Bell stroke={'black'} />;
@@ -44,7 +43,7 @@ const BottomTabs = (props: Props) => {
       })}
     >
       <Screen name="Home" options={{ tabBarLabel: '' }} component={MainScreen} />
-      <Screen name="OrderDetail" options={{ tabBarLabel: '' }} component={OrderDetailScreen} />
+      <Screen name="Favorites" options={{ tabBarLabel: '' }} component={FavoriteScreen} />
       <Screen
         name="Notification"
         options={{
