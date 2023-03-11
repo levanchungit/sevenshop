@@ -2,17 +2,28 @@ import React from 'react';
 import { Button, ScrollView, Text, View } from 'native-base';
 import * as Icons from 'react-native-feather';
 import ItemProductCheckout from 'components/ItemProductCheckout';
-import NavHeader from 'components/NavHeader';
 import SelectOptions from 'components/SelectOptions';
+import SSHeaderNavigation from 'components/SSHeaderNavigation';
 type Props = object;
 
 const CheckoutScreen = (props: Props) => {
   return (
-    <View flex={1} pt={3}>
-      <ScrollView>
-        <View style={{ marginTop: 20 }}>
-          <NavHeader title="Checkout" />
-          <View style={{ padding: 12 }} borderBottomColor={'gray.500'} borderBottomWidth={0.5}>
+    <View flex={1} pt={3} backgroundColor="white">
+      <View px={3} mt={3}>
+        <SSHeaderNavigation
+          tabHeaderSearchEnabled={false}
+          titleHeaderSearchEnabled={false}
+          iconSearchEnabled={false}
+          iconOther={false}
+          titleHeaderSearch={''}
+          titleHeaderScreen={'Checkout'}
+          iconRightHeaderScreen={false}
+          quantityItems={0}
+        />
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View mt={1}>
+          <View style={{ padding: 12 }} borderBottomColor={'gray.400'} borderBottomWidth={0.5}>
             <View style={{ flexDirection: 'row', marginBottom: 8 }}>
               <Icons.MapPin stroke={'black'} fontSize={24} />
               <Text variant={'body1'} style={{ marginLeft: 12 }} fontFamily={'Raleway_500Medium'}>
@@ -22,6 +33,9 @@ const CheckoutScreen = (props: Props) => {
             <View flexDirection={'row'} justifyContent={'center'}>
               <View flexDirection={'column'}>
                 <Text
+                  style={{
+                    fontVariant: ['lining-nums'],
+                  }}
                   numberOfLines={1}
                   fontWeight="medium"
                   variant={'Body2'}
@@ -30,6 +44,9 @@ const CheckoutScreen = (props: Props) => {
                   Trần Quyền | 0834196884
                 </Text>
                 <Text
+                  style={{
+                    fontVariant: ['lining-nums'],
+                  }}
                   numberOfLines={1}
                   fontWeight="medium"
                   variant={'Body2'}
@@ -86,7 +103,7 @@ const CheckoutScreen = (props: Props) => {
           />
         </View>
       </ScrollView>
-      <View h={'33%'}>
+      <View h={'33%'} borderTopWidth={0.5} borderTopColor="gray.200">
         <View w="100%" position={'absolute'} bottom={0} left={0}>
           <SelectOptions
             style={{}}
@@ -117,11 +134,11 @@ const CheckoutScreen = (props: Props) => {
                 style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
               >
                 <Text
-                  style={{ marginBottom: 4, marginRight: 8 }}
+                  style={{ marginBottom: 4, marginRight: 8, fontVariant: ['lining-nums'] }}
                   variant="Body2"
                   fontFamily={'Raleway_500Medium'}
                 >
-                  Giảm 20%
+                  Reduce 20%
                 </Text>
                 <Icons.ChevronRight stroke={'black'} width={24} height={24} />
               </View>
@@ -136,7 +153,16 @@ const CheckoutScreen = (props: Props) => {
                 Shipping fee
               </Text>
             }
-            iconRight={<Text>20.000đ</Text>}
+            iconRight={
+              <Text
+                style={{
+                  fontVariant: ['lining-nums'],
+                }}
+                fontFamily={'Raleway_500Medium'}
+              >
+                20.000đ
+              </Text>
+            }
           />
 
           <SelectOptions
@@ -158,7 +184,10 @@ const CheckoutScreen = (props: Props) => {
                 fontWeight="bold"
                 fontSize="2xl"
                 color={'primary.600'}
-                fontFamily={'Raleway_500Medium'}
+                fontFamily={'Raleway_700Bold'}
+                style={{
+                  fontVariant: ['lining-nums'],
+                }}
               >
                 520.000đ
               </Text>
@@ -176,7 +205,7 @@ const CheckoutScreen = (props: Props) => {
                 fontSize={14}
                 color="light.100"
                 fontWeight={'bold'}
-                fontFamily={'Raleway_500Medium'}
+                fontFamily={'Raleway_700Bold'}
               >
                 Checkout
               </Text>
