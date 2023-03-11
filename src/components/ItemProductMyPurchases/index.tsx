@@ -12,7 +12,7 @@ const ItemProductMyPurchases = (props: Props) => {
   const { total, quantitiesProduct, name, image } = props;
 
   return (
-    <View width={'100%'} p={3} borderBottomColor={'gray.300'} borderBottomWidth={12}>
+    <View width={'100%'} px={3} borderBottomColor={'gray.300'} borderBottomWidth={12}>
       <Pressable flexDirection={'column'}>
         <View w={'100%'} borderBottomColor="gray.400" pb={5}>
           <View flexDirection={'row'} style={{ paddingHorizontal: 12 }} alignItems={'center'}>
