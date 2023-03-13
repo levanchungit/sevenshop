@@ -44,7 +44,6 @@ const StackNavigator = () => {
       <Screen name="PaymentSuccess" component={PaymentSuccess} />
       <Screen name="SelectVoucher" component={SelectVoucherScreen} />
       <Screen name="SetPassWordForgot" component={SetPasswordForgotScreen} />
-      <Screen name="PaymentSuccess" component={PaymentSuccess} />
     </Navigator>
   );
 };
