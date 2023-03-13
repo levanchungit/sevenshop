@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Flex, Image, Text } from 'native-base';
+import { Box, Flex, Image, Text } from 'native-base';
 import { Rating } from 'react-native-ratings';
 import ModelPopupRating from 'components/ModelPopupRating';
 import { color, size } from 'interfaces/Auth';
@@ -38,18 +38,17 @@ const ItemNotYetRated = (props: Props) => {
       borderRadius={10}
       padding={3}
     >
-      <Flex direction="row" alignItems="center" justifyContent="space-between">
+      <Flex direction="column" alignItems="center" justifyContent="space-between">
         <Image
           source={{
             uri: product?.image,
           }}
           alt="Product img"
           size="full"
-          alignSelf="flex-start"
-          w="40%"
-          h={70}
+          w="100%"
+          h={100}
         />
-        <Flex direction="column" w="50%">
+        <Flex direction="column" w="100%">
           <Text
             numberOfLines={1}
             variant={'title'}
@@ -77,6 +76,7 @@ const ItemNotYetRated = (props: Props) => {
           </Text>
         </Flex>
       </Flex>
+      <Box marginBottom={3} />
       <Rating
         startingValue={0}
         onFinishRating={(rating: number) => ratingCompleted(rating)}

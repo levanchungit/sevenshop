@@ -103,7 +103,7 @@ const ItemRating = (props: Props) => {
                 <Flex direction="column" width="65%" padding={3}>
                   <Text variant="body2">{product.name}</Text>
                   <Text variant="body2">
-                    Size: {product.type.size.title} Color: {product.type.color.title}
+                    Size: {product.type.size.title} | Color: {product.type.color.title}
                   </Text>
                 </Flex>
                 <Icon.ChevronRight strokeWidth={1} width="10%" stroke="black" />
