@@ -4,37 +4,57 @@ import SSHeaderNavigation from 'components/SSHeaderNavigation';
 const ProfileScreen = () => {
   return (
     <View flex={1}>
-      <View px={3}>
-      <SSHeaderNavigation
-        tabHeaderSearchEnabled={true}
-        titleHeaderSearchEnabled={true}
-        titleHeaderSearch="Your Products Favorite"
-        iconSearchEnabled={true}
-        iconOther={false}
-        titleHeaderScreen="Payment Success"
-        iconRightHeaderScreen={false}
-        quantityItems={12}
-      />
-      <Text style={{ fontSize: 18, marginTop: 50 }}>Profile Screen</Text>
-        <View flexDirection={'row'} borderBottomRadius={30} mt={70} pb={9}>
-          <Image
-            alt="Image OTP"
-            w={100}
-            h={100}
-            borderRadius={'full'}
-            source={{
-              uri: 'https://th.bing.com/th/id/R.07236489f54f5a6f91ede61a5b805da6?rik=m7AJs7zCdXB2Bg&pid=ImgRaw&r=0',
-            }}
+      <View
+        px={3}
+        h={'30%'}
+        justifyContent={'flex-end'}
+        borderBottomLeftRadius={30}
+        borderBottomRightRadius={30}
+        borderRightWidth={1}
+        borderLeftWidth={1}
+        borderBottomWidth={1}
+        borderColor={'gray.400'}
+        backgroundColor={'gray.300'}
+      >
+        <View h={'90%'} justifyContent={'space-between'}>
+          <SSHeaderNavigation
+            tabHeaderSearchEnabled={true}
+            titleHeaderSearchEnabled={true}
+            titleHeaderSearch="Proflie"
+            iconSearchEnabled={false}
+            iconOther={true}
+            titleHeaderScreen="Payment Success"
+            iconRightHeaderScreen={false}
+            quantityItems={12}
           />
-          <View ml={3} justifyContent={'center'}>
-            <Text variant={'subtitle1'} color={'primary.600'}>
-              SevenShop
-            </Text>
-            <Pressable backgroundColor={'primary.600'} px={2} py={1} borderRadius={10}>
-              <Text variant={'body1'} color={'white'}>
-                Member Sliver
+
+          <View flexDirection={'row'} pb={1}>
+            <Image
+              alt="Image OTP"
+              w={100}
+              h={100}
+              borderRadius={'full'}
+              source={{
+                uri: 'https://th.bing.com/th/id/R.07236489f54f5a6f91ede61a5b805da6?rik=m7AJs7zCdXB2Bg&pid=ImgRaw&r=0',
+              }}
+            />
+            <View ml={3} justifyContent={'center'}>
+              <Text variant={'subtitle1'} color={'primary.600'}>
+                SevenShop
               </Text>
-            </Pressable>
+              <Pressable
+                backgroundColor={'primary.600'}
+                px={3}
+                py={1}
+                h={'35%'}
+                borderRadius={10}
+                mt={1}
+              >
+                <Text variant={'body1'} color={'white'} textAlign={'center'}>
+                  Member Sliver
+                </Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </View>

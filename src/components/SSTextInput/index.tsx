@@ -17,7 +17,7 @@ const SSTextInput = (props: Props) => {
   return (
     <View
       flexDirection="row"
-      w="100%"
+      w="80%"
       alignItems="center"
       alignSelf="center"
       borderBottomWidth={1}

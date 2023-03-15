@@ -146,7 +146,8 @@ const renderItem2 = ({ item }: any) => {
       borderRadius={7}
       h={31}
       w={71}
-      ml={4}
+      ml={2}
+      mr={2}
       justifyContent={'center'}
       alignItems={'center'}
       backgroundColor={'gray.300'}
@@ -165,7 +166,8 @@ const renderItem3 = ({ item }: any) => {
       borderRadius={7}
       h={31}
       w={71}
-      ml={4}
+      ml={2}
+      mr={2}
       justifyContent={'center'}
       alignItems={'center'}
       backgroundColor={'gray.300'}
@@ -184,7 +186,8 @@ const renderItem4 = ({ item }: any) => {
       borderRadius={7}
       h={31}
       px={3}
-      ml={4}
+      ml={2}
+      mr={2}
       justifyContent={'center'}
       alignItems={'center'}
       backgroundColor={'gray.300'}
@@ -203,7 +206,8 @@ const renderItem5 = ({ item }: any) => {
       borderRadius={7}
       h={31}
       w={71}
-      ml={4}
+      ml={2}
+      mr={2}
       justifyContent={'center'}
       alignItems={'center'}
       backgroundColor={'gray.300'}
@@ -326,7 +330,7 @@ const ProductScreen = () => {
             <Text mt={4} variant={'button'}>
               Category
             </Text>
-            <View borderBottomWidth={0.4} py={2}>
+            <View borderBottomWidth={1} borderColor={'gray.300'} py={2}>
               <FlatList
                 w={'100%'}
                 keyExtractor={(item) => item.id}
@@ -353,12 +357,7 @@ const ProductScreen = () => {
               Price
             </Text>
             <View justifyItems={'center'}>
-              <View
-                flexDirection={'row'}
-                justifyContent={'space-between'}
-                px={6}
-                alignItems={'flex-end'}
-              >
+              <View flexDirection={'row'} justifyContent={'center'} px={6} alignItems={'center'}>
                 <View w="45%" h={30} backgroundColor={'gray.300'} mt={2} borderRadius={10}>
                   <Input
                     textAlign={'center'}
@@ -385,7 +384,7 @@ const ProductScreen = () => {
               </View>
               <FlatList
                 mt={3}
-                w={'100%'}
+                w={'98%'}
                 keyExtractor={(item) => item.id}
                 data={data1}
                 showsHorizontalScrollIndicator={false}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Pressable, Text, View, Button, Modal } from 'native-base';
 import * as Icon from 'react-native-feather';
+import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SSInputPopupPass from '../../components/SSInputPopupPass';
 
 const AccountSettingScreen = () => {
@@ -8,13 +9,19 @@ const AccountSettingScreen = () => {
   const [showModalChangePass, setShowModalChangePass] = useState(false);
   const [password, setPassword] = useState('123');
   return (
-    <View py={10}>
-      <View flexDirection={'row'} alignItems={'center'} px={3}>
-        <Icon.ChevronLeft stroke="black" width={24} height={24} />
-        <Text variant={'title'}>Account Settings</Text>
-      </View>
+    <View py={10} backgroundColor={'white'}>
+      <SSHeaderNavigation
+        tabHeaderSearchEnabled={false}
+        titleHeaderSearchEnabled={true}
+        titleHeaderSearch="Your Favorites"
+        iconSearchEnabled={true}
+        iconOther={false}
+        titleHeaderScreen="Account Settings"
+        iconRightHeaderScreen={false}
+        quantityItems={12}
+      />
 
-      <View h={'100%'}>
+      <View h={'100%'} mt={5}>
         <View flexDirection={'row'} px={3} alignItems={'center'}>
           <Icon.User stroke="black" width={24} height={24} />
           <Text variant={'subtitle1'} ml={2}>

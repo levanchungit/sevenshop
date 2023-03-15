@@ -1,5 +1,5 @@
 import { Text, View, FlatList, Pressable, Image } from 'native-base';
-import * as Icon from 'react-native-feather';
+import SSHeaderNavigation from 'components/SSHeaderNavigation';
 
 const data = [
   {
@@ -42,16 +42,19 @@ const renderItem1 = ({ item }: any) => {
 
 const ProductFavoritesScreen = () => {
   return (
-    <View flex={1} py={5} px={3} backgroundColor={'white'}>
-      <View flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
-        <Text variant={'title'}>Your Favorites</Text>
-        <View flexDirection={'row'} justifyContent={'space-between'}>
-          <Icon.Search stroke="black" width={24} height={24} />
-          <Icon.ShoppingCart stroke="black" width={24} height={24} />
-        </View>
-      </View>
+    <View flex={1} py={7} backgroundColor={'white'}>
+      <SSHeaderNavigation
+        tabHeaderSearchEnabled={true}
+        titleHeaderSearchEnabled={true}
+        titleHeaderSearch="Your Favorites"
+        iconSearchEnabled={true}
+        iconOther={false}
+        titleHeaderScreen="Payment Success"
+        iconRightHeaderScreen={false}
+        quantityItems={12}
+      />
 
-      <View>
+      <View px={3}>
         <FlatList
           w={'100%'}
           keyExtractor={(item) => item.id}
