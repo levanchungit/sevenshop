@@ -120,12 +120,12 @@ const data1 = [
 ];
 const renderItem1 = ({ item }: any) => {
   return (
-    <Pressable w={'50%'}>
-      <View w={197} h={270} borderRadius={1} mt={2}>
+    <Pressable w={'50%'} height={'100%'}>
+      <View w={'100%'} h={'auto'} borderRadius={1} mt={2}>
         <Image
           alt="Image OTP"
-          w={197}
-          h={197}
+          w={'100%'}
+          h={'197'}
           source={{
             uri: item.image,
           }}
@@ -225,10 +225,9 @@ const ProductScreen = () => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          h={'100%'}
-          w={'20%'}
-          px={2}
-          alignItems={'center'}
+          w={'18%'}
+          py={2}
+          justifyContent={'center'}
           backgroundColor={'#D1D1D6'}
           onPress={() => setShowModal(true)}
         >
@@ -241,8 +240,7 @@ const ProductScreen = () => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          h={31}
-          w={71}
+          w={'18%'}
           ml={1}
           justifyContent={'center'}
           alignItems={'center'}
@@ -255,8 +253,7 @@ const ProductScreen = () => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          h={31}
-          w={71}
+          w={'18%'}
           ml={1}
           justifyContent={'center'}
           alignItems={'center'}
@@ -269,8 +266,7 @@ const ProductScreen = () => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          h={31}
-          w={71}
+          w={'18%'}
           ml={1}
           justifyContent={'center'}
           alignItems={'center'}
@@ -283,8 +279,7 @@ const ProductScreen = () => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          h={31}
-          w={90}
+          w={'25%'}
           ml={1}
           px={1}
           alignItems={'center'}
@@ -305,6 +300,7 @@ const ProductScreen = () => {
           data={data}
           renderItem={renderItem1}
           numColumns={2}
+          showsHorizontalScrollIndicator={false}
           columnWrapperStyle={{
             flexGrow: 1,
             justifyContent: 'center',
@@ -336,6 +332,7 @@ const ProductScreen = () => {
                 keyExtractor={(item) => item.id}
                 data={data}
                 renderItem={renderItem2}
+                showsHorizontalScrollIndicator={false}
                 horizontal
               ></FlatList>
             </View>
@@ -348,6 +345,7 @@ const ProductScreen = () => {
                 keyExtractor={(item) => item.id}
                 data={data1}
                 renderItem={renderItem3}
+                showsHorizontalScrollIndicator={false}
                 horizontal
               ></FlatList>
             </View>
@@ -390,6 +388,7 @@ const ProductScreen = () => {
                 w={'100%'}
                 keyExtractor={(item) => item.id}
                 data={data1}
+                showsHorizontalScrollIndicator={false}
                 renderItem={renderItem4}
                 horizontal
               ></FlatList>
@@ -403,6 +402,7 @@ const ProductScreen = () => {
                 keyExtractor={(item) => item.id}
                 data={data1}
                 renderItem={renderItem5}
+                showsHorizontalScrollIndicator={false}
                 horizontal
               ></FlatList>
             </View>

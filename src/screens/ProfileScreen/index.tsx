@@ -38,7 +38,7 @@ const ProfileScreen = () => {
           </View>
         </View>
       </View>
-      <View px={3}>
+      <View px={3} mt={3}>
         <View flexDirection={'row'} justifyContent={'space-between'}>
           <View flexDirection={'row'}>
             <Icon.User stroke="black" width={24} height={24} />
@@ -54,20 +54,14 @@ const ProfileScreen = () => {
           </View>
         </View>
 
-        <View flexDirection={'row'} mt={2} px={5} justifyContent={'space-between'}>
+        <View flexDirection={'row'} mt={2} px={7} justifyContent={'space-between'}>
           <View>
             <View flexDirection={'row'} ml={2} mb={1}>
               <View mt={2}>
                 <Icon.Box stroke="black" width={24} height={24} />
               </View>
-              <View
-                w={5}
-                h={5}
-                borderRadius={'full'}
-                backgroundColor={'primary.600'}
-                alignItems={'center'}
-              >
-                <Text variant={'caption'} color={'white'}>
+              <View w={5} h={5} borderRadius={'full'} backgroundColor={'primary.600'}>
+                <Text fontSize={11} color={'white'} textAlign={'center'}>
                   1
                 </Text>
               </View>
@@ -88,7 +82,7 @@ const ProfileScreen = () => {
                 backgroundColor={'primary.600'}
                 alignItems={'center'}
               >
-                <Text variant={'caption'} color={'white'}>
+                <Text fontSize={11} color={'white'}>
                   1
                 </Text>
               </View>
@@ -109,7 +103,7 @@ const ProfileScreen = () => {
                 backgroundColor={'primary.600'}
                 alignItems={'center'}
               >
-                <Text variant={'caption'} color={'white'}>
+                <Text fontSize={11} color={'white'}>
                   1
                 </Text>
               </View>

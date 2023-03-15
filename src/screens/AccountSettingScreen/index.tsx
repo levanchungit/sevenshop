@@ -15,7 +15,7 @@ const AccountSettingScreen = () => {
       </View>
 
       <View h={'100%'}>
-        <View flexDirection={'row'} px={3}>
+        <View flexDirection={'row'} px={3} alignItems={'center'}>
           <Icon.User stroke="black" width={24} height={24} />
           <Text variant={'subtitle1'} ml={2}>
             Account
@@ -28,7 +28,7 @@ const AccountSettingScreen = () => {
           borderBottomWidth={'1'}
           borderColor={'gray.400'}
           alignItems={'center'}
-          h={'5%'}
+          h={'6%'}
           px={3}
         >
           <Text variant={'body1'}>Account & Security</Text>
@@ -41,7 +41,7 @@ const AccountSettingScreen = () => {
           borderBottomWidth={1}
           borderColor={'gray.400'}
           alignItems={'center'}
-          h={'5%'}
+          h={'6%'}
           px={3}
         >
           <Text variant={'body1'}>Addresses</Text>
@@ -54,7 +54,7 @@ const AccountSettingScreen = () => {
           borderBottomWidth={1}
           borderColor={'gray.400'}
           alignItems={'center'}
-          h={'5%'}
+          h={'6%'}
           px={3}
         >
           <Text variant={'body1'}>Payment method</Text>
@@ -67,7 +67,7 @@ const AccountSettingScreen = () => {
           borderBottomWidth={1}
           borderColor={'gray.400'}
           alignItems={'center'}
-          h={'5%'}
+          h={'6%'}
           px={3}
           onPress={() => setShowModalChangePass(true)}
         >
@@ -76,9 +76,8 @@ const AccountSettingScreen = () => {
         </Pressable>
 
         <View
-          h={79}
+          h={'9%'}
           justifyContent={'space-around'}
-          py={1}
           px={3}
           borderBottomWidth={1}
           borderColor={'gray.400'}
@@ -101,7 +100,7 @@ const AccountSettingScreen = () => {
           borderBottomWidth={1}
           borderColor={'gray.400'}
           alignItems={'center'}
-          h={'5%'}
+          h={'6%'}
           px={3}
           onPress={() => setShowModalLanguege(true)}
         >
@@ -110,9 +109,8 @@ const AccountSettingScreen = () => {
         </Pressable>
 
         <View
-          h={79}
+          h={'9%'}
           justifyContent={'space-around'}
-          py={1}
           px={3}
           borderBottomWidth={1}
           borderColor={'gray.400'}
@@ -134,7 +132,7 @@ const AccountSettingScreen = () => {
           borderBottomWidth={1}
           borderColor={'gray.400'}
           alignItems={'center'}
-          h={'5%'}
+          h={'6%'}
           px={3}
         >
           <Text variant={'subtitle1'}>About</Text>

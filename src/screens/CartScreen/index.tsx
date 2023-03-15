@@ -292,11 +292,11 @@ const Cart = () => {
         </View>
       </View>
 
-      <View h={'70%'}>
+      <View h={'70%'} mt={3}>
         <FlatList keyExtractor={(item) => item.id} data={data} renderItem={renderItem1} />
       </View>
 
-      <View flex={1} flexDirection={'row'} w={'100%'} mt={110}>
+      <View flex={1} flexDirection={'row'} w={'100%'} mt={105}>
         <Text flex={1} fontSize={20} fontWeight={'bold'}>
           Total
         </Text>

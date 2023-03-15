@@ -21,18 +21,18 @@ const data = [
 
 const renderItem1 = ({ item }: any) => {
   return (
-    <Pressable w={'51%'} h={'100%'}>
-      <View w={197} h={270} borderRadius={1} mt={2}>
+    <Pressable w={'50%'} h={'100%'}>
+      <View w={'100%'} h={'auto'} borderRadius={1} mt={2} px={1}>
         <Image
           alt="Image OTP"
-          w={197}
+          w={'100%'}
           h={197}
           source={{
             uri: item.image,
           }}
         />
         <Text variant={'body1'}>{item.title}</Text>
-        <Text color={'primary.600'} fontWeight={500} fontFamily={'heading'}>
+        <Text variant={'body1'} color={'primary.600'}>
           {item.price}đ
         </Text>
       </View>
@@ -58,6 +58,11 @@ const ProductFavoritesScreen = () => {
           data={data}
           renderItem={renderItem1}
           numColumns={2}
+          showsHorizontalScrollIndicator={false}
+          columnWrapperStyle={{
+            flexGrow: 1,
+            justifyContent: 'center',
+          }}
         />
       </View>
     </View>
