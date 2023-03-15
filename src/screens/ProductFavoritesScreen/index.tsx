@@ -42,7 +42,7 @@ const renderItem1 = ({ item }: any) => {
 
 const ProductFavoritesScreen = () => {
   return (
-    <View flex={1} py={7} backgroundColor={'white'}>
+    <View flex={1} py={9} backgroundColor={'white'}>
       <SSHeaderNavigation
         tabHeaderSearchEnabled={true}
         titleHeaderSearchEnabled={true}

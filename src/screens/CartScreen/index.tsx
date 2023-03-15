@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, Pressable, Box, FlatList, Image, Button, Modal, Flex } from 'native-base';
 import * as Icon from 'react-native-feather';
+import SSHeaderNavigation from 'components/SSHeaderNavigation';
 
 // import ButtonCategory from 'components/ButtonCategory';
 const Cart = () => {
@@ -264,200 +265,207 @@ const Cart = () => {
   };
 
   return (
-    <View w={'100%'} h={'100%'} flex={1} p={3} mt={2} alignItems={'center'} justifyItems={'center'}>
-      <View w={'100%'} flexDirection={'row'} mt={3} alignItems={'center'}>
-        <Icon.ChevronLeft stroke="#1C1C1C" width={24} height={24} />
-        <Text>Cart</Text>
-      </View>
+    <View w={'100%'} h={'100%'} flex={1} py={5}>
+      <SSHeaderNavigation
+        tabHeaderSearchEnabled={false}
+        titleHeaderSearchEnabled={true}
+        titleHeaderSearch="Your Favorites"
+        iconSearchEnabled={true}
+        iconOther={false}
+        titleHeaderScreen="Cart"
+        iconRightHeaderScreen={false}
+        quantityItems={12}
+      />
+      <View w={'100%'} h={'100%'} p={3}>
+        <View w={'100%'} flexDirection={'row'} justifyItems={'center'}>
+          <View w={'95%'} flexDirection={'row'}>
+            <Pressable
+              justifyContent={'center'}
+              alignItems={'center'}
+              w={6}
+              h={6}
+              backgroundColor={'primary.600'}
+              borderRadius={20}
+            >
+              <Icon.Check stroke="#FFFFFF" width={20} height={20} />
+            </Pressable>
 
-      <View w={'100%'} flexDirection={'row'} justifyItems={'center'} mt={3}>
-        <View w={'95%'} flexDirection={'row'}>
-          <Pressable
-            justifyContent={'center'}
-            alignItems={'center'}
-            w={6}
-            h={6}
-            backgroundColor={'primary.600'}
-            borderRadius={20}
-          >
-            <Icon.Check stroke="#FFFFFF" width={20} height={20} />
-          </Pressable>
+            <Text ml={3} variant={'body2'}>
+              Select All
+            </Text>
+          </View>
+          <View w={'5%'}>
+            <Icon.Trash2 stroke="#ac1506" width={24} height={24} />
+          </View>
+        </View>
 
-          <Text ml={3} variant={'body2'}>
-            Select All
+        <View h={'72%'} mt={1}>
+          <FlatList keyExtractor={(item) => item.id} data={data} renderItem={renderItem1} />
+        </View>
+
+        <View flex={1} flexDirection={'row'} w={'100%'} alignItems={'flex-end'}>
+          <Text flex={1} fontSize={20} fontWeight={'bold'}>
+            Total
+          </Text>
+          <Text color={'primary.600'} textAlign={'right'} variant={'title'}>
+            500.000đ
           </Text>
         </View>
-        <View w={'5%'}>
-          <Icon.Trash2 stroke="#ac1506" width={24} height={24} />
+        <View width={'100%'}>
+          <Button width={'100%'}>
+            <Text fontSize={14} color="light.100" fontWeight={'bold'}>
+              Buy Now
+            </Text>
+          </Button>
         </View>
-      </View>
 
-      <View h={'70%'} mt={3}>
-        <FlatList keyExtractor={(item) => item.id} data={data} renderItem={renderItem1} />
-      </View>
+        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+          <Modal.Content width={'100%'} style={{ marginBottom: 0, marginTop: 'auto' }}>
+            <Modal.CloseButton />
 
-      <View flex={1} flexDirection={'row'} w={'100%'} mt={105}>
-        <Text flex={1} fontSize={20} fontWeight={'bold'}>
-          Total
-        </Text>
-        <Text ml={3} color={'primary.600'} textAlign={'right'} variant={'title'}>
-          500.000đ
-        </Text>
-      </View>
-      <View backgroundColor={'amber.200'} width={'100%'}>
-        <Button width={'100%'}>
-          <Text fontSize={14} color="light.100" fontWeight={'bold'}>
-            Buy Now
-          </Text>
-        </Button>
-      </View>
-
-      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-        <Modal.Content width={'100%'} style={{ marginBottom: 0, marginTop: 'auto' }}>
-          <Modal.CloseButton />
-
-          <Modal.Body height="auto" w="full">
-            <Flex direction="row" marginBottom="3">
-              <Image
-                source={{
-                  uri: 'https://th.bing.com/th/id/OIP.oUOPI9UXvoNDMrG-0D9KTgHaJL?pid=ImgDet&rs=1',
-                }}
-                alt="Alternate Text"
-                size="full"
-                w={100}
-                h={100}
-                borderRadius={10}
-              />
-              <Flex marginLeft="2" direction="column" height="100" justifyContent="space-between">
-                <Box>
-                  <Text fontSize={18} fontWeight="700" color="primary.600" fontFamily={'heading'}>
-                    200.000đ
-                  </Text>
-                  <Text
-                    fontSize={14}
-                    strikeThrough
-                    color="gray.500"
-                    fontFamily={'heading'}
-                    fontWeight="400"
-                  >
-                    250.000đ
-                  </Text>
-                </Box>
-                <Flex
-                  direction="row"
-                  width="77%"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Text fontSize={16}>Warehouse: 20</Text>
-                  <Flex direction="row" ml={5} justifyItems={'center'} alignItems={'center'}>
-                    <Pressable onPress={() => setQuantity(quantity--)}>
-                      <Icon.Minus stroke="black" width={18} height={18} />
-                    </Pressable>
-                    <Box
-                      borderWidth="1"
-                      borderColor="#C9C9C9"
-                      borderRadius="5"
-                      marginX={2}
-                      w="6"
-                      h="6"
-                      justifyContent="center"
-                      alignItems="center"
-                      textAlign={'center'}
+            <Modal.Body height="auto" w="full">
+              <Flex direction="row" marginBottom="3">
+                <Image
+                  source={{
+                    uri: 'https://th.bing.com/th/id/OIP.oUOPI9UXvoNDMrG-0D9KTgHaJL?pid=ImgDet&rs=1',
+                  }}
+                  alt="Alternate Text"
+                  size="full"
+                  w={100}
+                  h={100}
+                  borderRadius={10}
+                />
+                <Flex marginLeft="2" direction="column" height="100" justifyContent="space-between">
+                  <Box>
+                    <Text fontSize={18} fontWeight="700" color="primary.600" fontFamily={'heading'}>
+                      200.000đ
+                    </Text>
+                    <Text
+                      fontSize={14}
+                      strikeThrough
+                      color="gray.500"
+                      fontFamily={'heading'}
+                      fontWeight="400"
                     >
-                      <Text textAlign={'center'} fontSize={14} fontWeight={'bold'}>
-                        {quantity}
-                      </Text>
-                    </Box>
-                    <Pressable onPress={() => setQuantity(quantity++)}>
-                      <Icon.Plus stroke="black" width={18} height={18} />
-                    </Pressable>
+                      250.000đ
+                    </Text>
+                  </Box>
+                  <Flex
+                    direction="row"
+                    width="77%"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Text fontSize={16}>Warehouse: 20</Text>
+                    <Flex direction="row" ml={5} justifyItems={'center'} alignItems={'center'}>
+                      <Pressable onPress={() => setQuantity(quantity--)}>
+                        <Icon.Minus stroke="black" width={18} height={18} />
+                      </Pressable>
+                      <Box
+                        borderWidth="1"
+                        borderColor="#C9C9C9"
+                        borderRadius="5"
+                        marginX={2}
+                        w="6"
+                        h="6"
+                        justifyContent="center"
+                        alignItems="center"
+                        textAlign={'center'}
+                      >
+                        <Text textAlign={'center'} fontSize={14} fontWeight={'bold'}>
+                          {quantity}
+                        </Text>
+                      </Box>
+                      <Pressable onPress={() => setQuantity(quantity++)}>
+                        <Icon.Plus stroke="black" width={18} height={18} />
+                      </Pressable>
+                    </Flex>
                   </Flex>
                 </Flex>
               </Flex>
-            </Flex>
-            <Flex direction="row">
-              <FlatList
-                data={dataColor}
-                scrollEnabled={false}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-                numColumns={3}
-                ListHeaderComponent={
-                  <Text fontSize="14" fontWeight="bold" mb={2}>
-                    Color
-                  </Text>
-                }
-                renderItem={({ item }) => (
-                  <Pressable
-                    marginRight="3"
-                    marginBottom="3"
-                    backgroundColor={item.data}
-                    borderWidth="1"
-                    borderColor={item.data === 'white' ? '#C9C9C9' : 'transparent'}
-                    w={39}
-                    h={39}
-                    borderRadius="full"
-                  />
-                )}
-                keyExtractor={(item) => item.title}
-              />
-
-              <FlatList
-                data={dataSize}
-                scrollEnabled={false}
-                numColumns={3}
-                ListHeaderComponent={
-                  <Text fontSize="14" fontWeight="bold" mb={2}>
-                    Size
-                  </Text>
-                }
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => (
-                  <Pressable
-                    onPress={() => setSelectedSize(item.data)}
-                    marginRight="3"
-                    marginBottom="3"
-                    borderWidth="1"
-                    backgroundColor={item.data === selectedSize ? 'primary.600' : 'transparent'}
-                    borderColor="primary.600"
-                    w={39}
-                    h={39}
-                    borderRadius={[5, 10]}
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <Text
-                      fontSize={[14]}
-                      color={item.data === selectedSize ? 'white' : 'primary.600'}
-                      fontWeight="bold"
-                    >
-                      {item.data}
+              <Flex direction="row">
+                <FlatList
+                  data={dataColor}
+                  scrollEnabled={false}
+                  showsVerticalScrollIndicator={false}
+                  showsHorizontalScrollIndicator={false}
+                  numColumns={3}
+                  ListHeaderComponent={
+                    <Text fontSize="14" fontWeight="bold" mb={2}>
+                      Color
                     </Text>
-                  </Pressable>
-                )}
-                keyExtractor={(item) => item.title}
-              />
-            </Flex>
-            <Pressable
-              width="100%"
-              height="43"
-              borderRadius="6"
-              backgroundColor="#AC1506"
-              alignItems="center"
-              justifyContent="center"
-              onPress={() => {
-                setShowModal(false);
-              }}
-            >
-              <Text color="white" fontWeight="bold" fontSize="14">
-                Confirm
-              </Text>
-            </Pressable>
-          </Modal.Body>
-        </Modal.Content>
-      </Modal>
+                  }
+                  renderItem={({ item }) => (
+                    <Pressable
+                      marginRight="3"
+                      marginBottom="3"
+                      backgroundColor={item.data}
+                      borderWidth="1"
+                      borderColor={item.data === 'white' ? '#C9C9C9' : 'transparent'}
+                      w={39}
+                      h={39}
+                      borderRadius="full"
+                    />
+                  )}
+                  keyExtractor={(item) => item.title}
+                />
+
+                <FlatList
+                  data={dataSize}
+                  scrollEnabled={false}
+                  numColumns={3}
+                  ListHeaderComponent={
+                    <Text fontSize="14" fontWeight="bold" mb={2}>
+                      Size
+                    </Text>
+                  }
+                  showsVerticalScrollIndicator={false}
+                  showsHorizontalScrollIndicator={false}
+                  renderItem={({ item }) => (
+                    <Pressable
+                      onPress={() => setSelectedSize(item.data)}
+                      marginRight="3"
+                      marginBottom="3"
+                      borderWidth="1"
+                      backgroundColor={item.data === selectedSize ? 'primary.600' : 'transparent'}
+                      borderColor="primary.600"
+                      w={39}
+                      h={39}
+                      borderRadius={[5, 10]}
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Text
+                        fontSize={[14]}
+                        color={item.data === selectedSize ? 'white' : 'primary.600'}
+                        fontWeight="bold"
+                      >
+                        {item.data}
+                      </Text>
+                    </Pressable>
+                  )}
+                  keyExtractor={(item) => item.title}
+                />
+              </Flex>
+              <Pressable
+                width="100%"
+                height="43"
+                borderRadius="6"
+                backgroundColor="#AC1506"
+                alignItems="center"
+                justifyContent="center"
+                onPress={() => {
+                  setShowModal(false);
+                }}
+              >
+                <Text color="white" fontWeight="bold" fontSize="14">
+                  Confirm
+                </Text>
+              </Pressable>
+            </Modal.Body>
+          </Modal.Content>
+        </Modal>
+      </View>
     </View>
   );
 };
