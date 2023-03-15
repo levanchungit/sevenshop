@@ -26,7 +26,7 @@ const OTPScreen = (props: any) => {
         duration: 3000,
       });
 
-      navigation.navigate('SetPassWord');
+      navigation.navigate('SetPassword');
     } catch (e: any) {
       Toast.show({
         title: e.response?.data?.message,
