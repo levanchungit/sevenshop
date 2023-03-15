@@ -24,7 +24,7 @@ type DetailScreenProps = {
   route: DetailRouteProp;
 };
 
-const DetailsScreen = (props: DetailScreenProps) => {
+const DetailScreen = (props: DetailScreenProps) => {
   // const { name, description, price, image } = props.route.params;
   const navigation = useNavigation<AppNavigationProp>();
   const [selectedSize, setSelectedSize] = useState('');
@@ -261,4 +261,4 @@ const DetailsScreen = (props: DetailScreenProps) => {
   );
 };
 
-export default DetailsScreen;
+export default DetailScreen;

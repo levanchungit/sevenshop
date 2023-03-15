@@ -15,7 +15,7 @@ const ForgotPasswordScreen = (props: Props) => {
 
   const onSubmit = async () => {
     try {
-      const response = await authAPI.forgotpassword({ email });
+      const response = await authAPI.forgot_password({ email });
       Toast.show({
         title: response.data.message,
         duration: 3000,

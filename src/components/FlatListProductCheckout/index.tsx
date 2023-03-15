@@ -1,16 +1,16 @@
 import React from 'react';
 import { ScrollView, View, FlatList } from 'native-base';
 import ItemProductCheckout from 'components/ItemProductCheckout';
-import { GetProductSuccessData } from 'interfaces/Auth';
+import { IProduct } from 'interfaces/Product';
 import styles from './styles';
 type Props = {
-  data: GetProductSuccessData[];
+  data: IProduct[];
 };
 
 const FlatListProductCheckout = (props: Props) => {
   const { data } = props;
 
-  const RenderItemCheckout = ({ data }: { data: GetProductSuccessData }) => {
+  const RenderItemCheckout = ({ data }: { data: IProduct }) => {
     return (
       <ItemProductCheckout
         name="Áo sơ mi nam phối màu cực chất"

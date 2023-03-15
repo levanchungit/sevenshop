@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { ScrollView, View, Text, FlatList } from 'native-base';
 import { RefreshControl } from 'react-native';
 import ItemProductForYou from 'components/ItemProductForYou';
-import { GetProductSuccessData } from 'interfaces/Auth';
+import { IProduct } from 'interfaces/Product';
 import styles from './styles';
 
 type Props = {
-  data: GetProductSuccessData[];
+  data: IProduct[];
   footer: any;
   // readChy: Function;
 };
@@ -15,7 +15,7 @@ const FlatListProductForYou = (props: Props) => {
   const { data, footer } = props;
   const [refreshScroll, setrefreshScroll] = useState(false);
 
-  const RenderItemForYou = ({ data }: { data: GetProductSuccessData }) => {
+  const RenderItemForYou = ({ data }: { data: IProduct }) => {
     return (
       <ItemProductForYou
         name={data.name}
