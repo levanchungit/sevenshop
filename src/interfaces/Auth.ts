@@ -35,23 +35,6 @@ export type GetMeSuccessData = {
   refresh_token: string;
 };
 
-export type GetProductSuccessData = {
-  _id: string;
-  name: string;
-  price: number;
-  description: string;
-  storage_quantity: number;
-  images: [];
-  properties_type: [];
-  categories_type: number;
-};
-
-export type GetProductData = {
-  name: string;
-  price: number;
-  quantity: number;
-};
-
 export type color = {
   title: string;
   data: string;

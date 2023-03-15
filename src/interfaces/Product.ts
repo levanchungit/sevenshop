@@ -1,9 +1,5 @@
 import { STATUS_PRODUCT } from 'global/constants';
-
-export type IModify = {
-  action: string;
-  date: string;
-};
+import { IModify } from './Basic';
 
 export type IStock = {
   size_id: string;

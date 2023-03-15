@@ -7,15 +7,10 @@ export type AppStackNavigatorParamList = {
   Login: undefined;
   Register: undefined;
   OTP: undefined;
-  SetPassWord: undefined;
-  SetPassWordForgot: undefined;
+  SetPassword: undefined;
+  SetPasswordForgot: undefined;
   ForgotPassWord: undefined;
-  Details: {
-    name: string;
-    description: string;
-    price: number;
-    image: [];
-  };
+  Detail: undefined;
   OTPForgot: undefined;
   Cart: undefined;
   PaymentSuccess: undefined;
@@ -52,7 +47,7 @@ export type BottomTabNavigatorParamList = {
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackNavigatorParamList>;
 
-export type DetailRouteProp = RouteProp<AppStackNavigatorParamList, 'Details'>;
+export type DetailRouteProp = RouteProp<AppStackNavigatorParamList, 'Detail'>;
 
 export type EditAddressRouteProp = RouteProp<AppStackNavigatorParamList, 'EditAddress'>;
 

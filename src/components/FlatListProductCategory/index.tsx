@@ -4,12 +4,12 @@ import { ScrollView, View, FlatList } from 'native-base';
 import * as Progress from 'react-native-progress';
 import ButtonCategory from 'components/ButtonCategory';
 import ItemProductCategory from 'components/ItemProductCategory';
-import { GetProductSuccessData } from 'interfaces/Auth';
 // import { AppNavigationProp } from 'providers/navigation/types';
+import { IProduct } from 'interfaces/Product';
 import styles from './styles';
 
 type Props = {
-  data: GetProductSuccessData[];
+  data: IProduct[];
 };
 const FlatListProductCategory = (props: Props) => {
   // const navigation = useNavigation<AppNavigationProp>();
@@ -69,7 +69,7 @@ const FlatListProductCategory = (props: Props) => {
     }, 3000);
   }, [id_Category()]);
 
-  const RenderItemCategory = ({ data }: { data: GetProductSuccessData }) => {
+  const RenderItemCategory = ({ data }: { data: IProduct }) => {
     return (
       <ItemProductCategory
         onPress={() => alert('')}
@@ -119,10 +119,10 @@ const FlatListProductCategory = (props: Props) => {
           contentContainerStyle={styles.flashListFlashSale}
           data={data.filter(function (item) {
             console.log(item);
-            return item.categories_type === id_Category();
+            return item.category_ids === id_Category();
           })}
           renderItem={({ item }) => <RenderItemCategory data={item} />}
-          keyExtractor={(item1) => item1._id}
+          keyExtractor={(item1, index) => index.toString()}
         />
       )}
     </View>

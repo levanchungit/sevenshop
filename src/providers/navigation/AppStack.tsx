@@ -1,20 +1,22 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Address from 'screens/AddressScreen';
-import Cart from 'screens/CartScreen';
-import DetailScreen from 'screens/DetailsScreen';
-import EditAddressScreen from 'screens/EditAddressScreen';
-import ForgotPasswordScreen from 'screens/FogotPasswordScreen';
-import HomeScreen from 'screens/HomeScreen';
-import LoginScreen from 'screens/LoginScreen';
-import OTPForgotScreen from 'screens/OTPForgotScreen';
-import OTPScreen from 'screens/OTPScreen';
-import PaymentSuccess from 'screens/PaynmentSuccess';
-import RatingScreen from 'screens/RatingScreen';
-import RegisterScreen from 'screens/RegisterScreen';
-import SelectVoucherScreen from 'screens/SelectVoucherScreen';
-import SetPasswordForgotScreen from 'screens/SetPasswordForgotScreen';
-import SetPassWordScreen from 'screens/SetPasswordScreen';
+import {
+  AddressScreen,
+  CartScreen,
+  DetailScreen,
+  EditAddressScreen,
+  ForgotPasswordScreen,
+  HomeScreen,
+  LoginScreen,
+  OTPForgotScreen,
+  OTPScreen,
+  PaymentSuccess,
+  RatingScreen,
+  RegisterScreen,
+  SelectVoucherScreen,
+  SetPasswordForgotScreen,
+  SetPasswordScreen,
+} from 'screens';
 import { AppStackNavigatorParamList } from './types';
 
 const AppStack = createNativeStackNavigator<AppStackNavigatorParamList>();
@@ -31,19 +33,19 @@ const StackNavigator = () => {
           headerTitle: 'Home',
         }}
       />
-      <Screen name="Details" component={DetailScreen} />
+      <Screen name="Detail" component={DetailScreen} />
       <Screen name="Register" component={RegisterScreen} />
       <Screen name="OTP" component={OTPScreen} />
       <Screen name="OTPForgot" component={OTPForgotScreen} />
-      <Screen name="SetPassWord" component={SetPassWordScreen} />
+      <Screen name="SetPassword" component={SetPasswordScreen} />
       <Screen name="ForgotPassWord" component={ForgotPasswordScreen} />
       <Screen name="Rating" component={RatingScreen} />
-      <Screen name="Address" component={Address} />
+      <Screen name="Address" component={AddressScreen} />
       <Screen name="EditAddress" component={EditAddressScreen} />
-      <Screen name="Cart" component={Cart} />
+      <Screen name="Cart" component={CartScreen} />
       <Screen name="PaymentSuccess" component={PaymentSuccess} />
       <Screen name="SelectVoucher" component={SelectVoucherScreen} />
-      <Screen name="SetPassWordForgot" component={SetPasswordForgotScreen} />
+      <Screen name="SetPasswordForgot" component={SetPasswordForgotScreen} />
     </Navigator>
   );
 };

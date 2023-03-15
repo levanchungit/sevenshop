@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, View, Text, FlatList } from 'native-base';
 import { RefreshControl } from 'react-native';
 import ItemProductForYou from 'components/ItemProductForYou';
-import { IProduct } from 'interfaces/Products';
+import { IProduct } from 'interfaces/Product';
 import styles from './styles';
 
 type Props = {

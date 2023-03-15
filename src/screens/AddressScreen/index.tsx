@@ -8,7 +8,7 @@ import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { DATA5 } from 'mocks';
 import { AppNavigationProp } from 'providers/navigation/types';
 
-const Address = (onBack: any) => {
+const AddressScreen = (onBack: any) => {
   const navigation = useNavigation<AppNavigationProp>();
   const [isChecked, setIsChecked] = useState(0);
   return (
@@ -54,4 +54,4 @@ const Address = (onBack: any) => {
   );
 };
 
-export default Address;
+export default AddressScreen;

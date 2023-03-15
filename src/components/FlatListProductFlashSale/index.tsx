@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList } from 'native-base';
 import ItemProductFlashSale from 'components/ItemProductFlashSale';
-import { IProduct } from 'interfaces/Products';
+import { IProduct } from 'interfaces/Product';
 import styles from './styles';
 
 type Props = {

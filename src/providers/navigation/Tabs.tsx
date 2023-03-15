@@ -4,7 +4,7 @@ import * as Icons from 'react-native-feather';
 import FavoriteScreen from 'screens/FavoriteScreen';
 import { MainScreen } from 'screens/MainScreen';
 // import NotificationScreen from 'screens/NotificationScreen';
-import PaymentSuccess from 'screens/PaynmentSuccess';
+import PaymentSuccess from 'screens/PaymentSuccess';
 import ProfileScreen from 'screens/ProfileScreen';
 import { BottomTabNavigatorParamList } from './types';
 

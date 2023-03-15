@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image, Pressable } from 'native-base';
-import { IProduct } from 'interfaces/Products';
+import { IProduct } from 'interfaces/Product';
 import styles from './styles';
 
 type Props = {
