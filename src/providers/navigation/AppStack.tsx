@@ -9,7 +9,6 @@ import HomeScreen from 'screens/HomeScreen';
 import LoginScreen from 'screens/LoginScreen';
 import OTPForgotScreen from 'screens/OTPForgotScreen';
 import OTPScreen from 'screens/OTPScreen';
-import PaymentMethodScreen from 'screens/PaymentMethodScreen';
 import PaymentSuccess from 'screens/PaynmentSuccess';
 import RatingScreen from 'screens/RatingScreen';
 import RegisterScreen from 'screens/RegisterScreen';
@@ -23,7 +22,7 @@ const { Navigator, Screen } = AppStack;
 
 const StackNavigator = () => {
   return (
-    <Navigator initialRouteName="Rating" screenOptions={{ headerShown: false }}>
+    <Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
       <Screen name="Login" component={LoginScreen} />
       <Screen
         name="Main"
