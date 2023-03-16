@@ -6,7 +6,6 @@ const SWR_KEY = API_ROUTES.getProducts;
 
 const fetcher = async () => {
   const response = await productAPI.getProducts();
-
   return response;
 };
 

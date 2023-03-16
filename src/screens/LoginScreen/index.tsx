@@ -10,8 +10,8 @@ import { AppNavigationProp } from 'providers/navigation/types';
 const LoginScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [email, setEmail] = useState('phamkhuyen0879249035@gmail.com');
-  const [password, setPassword] = useState('123');
+  const [email, setEmail] = useState('levanchunq123@gmail.com');
+  const [password, setPassword] = useState('123456');
 
   const onSubmit = async () => {
     try {
@@ -87,13 +87,7 @@ const LoginScreen = () => {
           </Text>
         </View>
 
-        <Button
-          onPress={() => navigation.navigate('Main')}
-          borderRadius={6}
-          w={{ base: '50%' }}
-          mb="1"
-          mt="3"
-        >
+        <Button onPress={onSubmit} borderRadius={6} w={{ base: '50%' }} mb="1" mt="3">
           <Text fontSize={14} color="light.100" fontWeight={'bold'}>
             Login
           </Text>
@@ -101,22 +95,6 @@ const LoginScreen = () => {
         <Text mt={5} fontSize={14} fontWeight={500} fontStyle="normal" fontFamily="heading">
           Or login with
         </Text>
-        <View mt={3} flexDirection="row" w="25%" justifyContent="space-around">
-          <Image
-            style={{ width: 40, height: 40 }}
-            alt="Image Facebook"
-            source={{
-              uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1677553446/SevenShop/facebook_abaweh.png',
-            }}
-          />
-          <Image
-            style={{ width: 40, height: 40 }}
-            source={{
-              uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1677553444/SevenShop/google_wopk5u.png',
-            }}
-            alt="Image Gmail"
-          />
-        </View>
         <View flexDirection="row" alignItems="center" mt={5}>
           <Text fontSize={16} fontWeight={500}>
             Don’t you have an account?

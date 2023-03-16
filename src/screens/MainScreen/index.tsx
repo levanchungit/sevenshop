@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, ScrollView } from 'native-base';
+import { View, ScrollView, Box } from 'native-base';
 import { TextInput } from 'react-native';
 import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import IconCart from 'components/IconCart';
@@ -17,6 +17,14 @@ export const MainScreen = () => {
   //SWR
   const { products, err_products } = useGetProducts();
 
+  if (err_products) {
+    //lỗi khi không call được api
+    return <Box>Failed load products</Box>;
+  }
+  if (!products) {
+    //xử lý skeleton ở đây
+    return <Box>Loading...</Box>;
+  }
   return (
     <View style={styles.container}>
       <ScrollView
