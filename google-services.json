@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "843706998527",
+    "project_id": "sevenshop-7b471",
+    "storage_bucket": "sevenshop-7b471.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843706998527:android:498fc88b97100f371bf6ca",
+        "android_client_info": {
+          "package_name": "com.levanchung.it.sevenshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843706998527-0morbnb4kk1c5n6dhbgn6kvspu80iahb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.levanchung.it.sevenshop",
+            "certificate_hash": "e4cbd2a3ec5367c374471e065542c72dfb4467f0"
+          }
+        },
+        {
+          "client_id": "843706998527-fgri7kmmdo0si39ceh0utup8a1mn23ar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.levanchung.it.sevenshop",
+            "certificate_hash": "fd97c716c459d7006276f77553a069a13ddb97ea"
+          }
+        },
+        {
+          "client_id": "843706998527-8dmdi1r71bsj4h3ltkj374p1t2j1dgrc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtnKi8ghoGPpaSrD6tLA29uEyP_37LwXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843706998527-8dmdi1r71bsj4h3ltkj374p1t2j1dgrc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

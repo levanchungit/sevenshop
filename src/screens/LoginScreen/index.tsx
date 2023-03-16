@@ -1,4 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { useNavigation } from '@react-navigation/native';
 import {
   Text,
@@ -11,16 +13,23 @@ import {
   VStack,
   HStack,
   Center,
+  View,
 } from 'native-base';
 import * as Icons from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
 import { URL_IMG_AUTH } from 'global/constants';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
+import 'expo-dev-client';
 
 const LoginScreen = React.memo(() => {
   const navigation = useNavigation<AppNavigationProp>();
 
+  GoogleSignin.configure({
+    webClientId: '843706998527-8dmdi1r71bsj4h3ltkj374p1t2j1dgrc.apps.googleusercontent.com',
+  });
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
   const [email, setEmail] = useState('khuyenpv0509@gmail.com');
   const [password, setPassword] = useState('123456');
   const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +59,57 @@ const LoginScreen = React.memo(() => {
   const handleRegister = useCallback(() => {
     navigation.navigate('Register');
   }, [navigation]);
+
+  // Handle user state changes
+  function onAuthStateChanged(user: any) {
+    console.log(user);
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  const onGoogleButtonPress = async () => {
+    // Check if your device supports Google Play
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // Sign-in the user with the credential
+    // return auth().signInWithCredential(googleCredential);
+    const user_sign_in = auth().signInWithCredential(googleCredential);
+    user_sign_in
+      .then((user) => {
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  if (initializing) return null;
+
+  // const onSubmit = async () => {
+  //   try {
+  //     const response = await authAPI.login({ email, password });
+  //     Toast.show({
+  //       title: response.data.message,
+  //       duration: 3000,
+  //     });
+  //     navigation.navigate('Main');
+  //   } catch (e: any) {
+  //     Toast.show({
+  //       title: e.response?.data?.message,
+  //       duration: 3000,
+  //     });
+  //   }
+  // };
 
   return (
     <KeyboardAvoidingView>
@@ -102,6 +162,15 @@ const LoginScreen = React.memo(() => {
           <Center mt={4}>
             <Text variant={'body2'}>Or login with</Text>
           </Center>
+
+          <View>
+            {!user && (
+              <GoogleSigninButton
+                style={{ width: 300, height: 65 }}
+                onPress={onGoogleButtonPress}
+              ></GoogleSigninButton>
+            )}
+          </View>
 
           <Center mt={4}>
             <HStack alignItems={'center'}>
