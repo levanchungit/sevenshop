@@ -19,3 +19,4 @@ export { default as ProfileScreen } from './ProfileScreen';
 export { default as SearchProductScreen } from './SearchProductScreen';
 export { default as ProductFavoritesScreen } from './ProductFavoritesScreen';
 export { default as AccountSettingScreen } from './AccountSettingScreen';
+export { default as AccountSecurityScreen } from './Account&SecurityScreen';

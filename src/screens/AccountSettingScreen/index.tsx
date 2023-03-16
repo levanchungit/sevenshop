@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pressable, Text, View, Button, Modal } from 'native-base';
+import { Pressable, Text, View, Button, Modal, Switch } from 'native-base';
 import * as Icon from 'react-native-feather';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SSInputPopupPass from '../../components/SSInputPopupPass';
@@ -8,6 +8,10 @@ const AccountSettingScreen = () => {
   const [showModalLanguege, setShowModalLanguege] = useState(false);
   const [showModalChangePass, setShowModalChangePass] = useState(false);
   const [password, setPassword] = useState('123');
+
+  const [isEnabled, setIsEnabled] = useState(false);
+
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   return (
     <View py={10} backgroundColor={'white'}>
       <SSHeaderNavigation
@@ -89,15 +93,23 @@ const AccountSettingScreen = () => {
           borderBottomWidth={1}
           borderColor={'gray.400'}
         >
-          <Pressable flexDirection={'row'} justifyItems={'center'}>
+          <Pressable flexDirection={'row'} justifyItems={'center'} mt={2}>
             <Icon.Settings stroke="black" width={24} height={24} />
             <Text ml={2} variant={'subtitle1'}>
               Settings
             </Text>
           </Pressable>
-          <View flexDirection={'row'} justifyContent={'space-between'}>
+          <View flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
             <Text variant={'body1'}>Notification Settings</Text>
-            <Icon.ChevronRight stroke="black" width={24} height={24} />
+            <Switch
+              size="md"
+              trackColor={{ false: '#767577', true: '#f62822' }}
+              thumbColor={isEnabled ? '#ac1506' : '#f4f3f4'}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+            {/* <Switch onTrackColor="primary.400" onThumbColor="primary.600" offThumbColor="primary.600" /> */}
           </View>
         </View>
 

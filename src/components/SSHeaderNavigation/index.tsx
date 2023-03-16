@@ -32,8 +32,8 @@ const SSHeaderNavigation = (props: Props) => {
     <View
       flexDirection={'row'}
       justifyContent="space-between"
-      borderBottomWidth={0.5}
-      borderBottomColor="gray.200"
+      // borderBottomWidth={0.5}
+      // borderBottomColor="gray.200"
       paddingX={3}
       pb={2}
     >

@@ -22,6 +22,7 @@ import {
   ProfileScreen,
   SearchProductScreen,
   AccountSettingScreen,
+  AccountSecurityScreen,
 } from 'screens';
 import { AppStackNavigatorParamList } from './types';
 const AppStack = createNativeStackNavigator<AppStackNavigatorParamList>();
@@ -57,6 +58,7 @@ const StackNavigator = () => {
       <Screen name="ProductFavorites" component={ProductFavoritesScreen} />
       <Screen name="Profile" component={ProfileScreen} />
       <Screen name="AccountSettings" component={AccountSettingScreen} />
+      <Screen name="AccountSecurity" component={AccountSecurityScreen} />
     </Navigator>
   );
 };
