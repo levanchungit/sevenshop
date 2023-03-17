@@ -227,7 +227,15 @@ const Cart = () => {
             </Pressable>
             <View w={'100%'} flexDirection={'row'}>
               <View w={'60%'}>
-                <Text mt={1} fontSize={12} strikeThrough color={'gray.400'}>
+                <Text
+                  mt={1}
+                  variant={'overline'}
+                  style={{
+                    fontVariant: ['lining-nums'],
+                  }}
+                  strikeThrough
+                  color={'gray.400'}
+                >
                   {item.price1} đ
                 </Text>
 
@@ -337,26 +345,27 @@ const Cart = () => {
                 />
                 <Flex marginLeft="2" direction="column" height="100" justifyContent="space-between">
                   <Box>
-                    <Text fontSize={18} fontWeight="700" color="primary.600" fontFamily={'heading'}>
+                    <Text variant={'button'} color="primary.600">
                       200.000đ
                     </Text>
                     <Text
-                      fontSize={14}
                       strikeThrough
                       color="gray.500"
-                      fontFamily={'heading'}
-                      fontWeight="400"
+                      variant={'caption'}
+                      style={{
+                        fontVariant: ['lining-nums'],
+                      }}
                     >
                       250.000đ
                     </Text>
                   </Box>
                   <Flex
                     direction="row"
-                    width="77%"
+                    width="74%"
                     justifyContent="space-between"
                     alignItems="center"
                   >
-                    <Text fontSize={16}>Warehouse: 20</Text>
+                    <Text variant={'caption'}>Warehouse: 20</Text>
                     <Flex direction="row" ml={5} justifyItems={'center'} alignItems={'center'}>
                       <Pressable onPress={() => setQuantity(quantity--)}>
                         <Icon.Minus stroke="black" width={18} height={18} />

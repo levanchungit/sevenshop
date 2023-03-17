@@ -16,7 +16,6 @@ import {
   SelectVoucherScreen,
   SetPasswordForgotScreen,
   SetPasswordScreen,
-  SearchKeywordproductsScreen,
   ProductScreen,
   ProductFavoritesScreen,
   ProfileScreen,
@@ -53,7 +52,6 @@ const StackNavigator = () => {
       <Screen name="SelectVoucher" component={SelectVoucherScreen} />
       <Screen name="SetPasswordForgot" component={SetPasswordForgotScreen} />
       <Screen name="SearchProduct" component={SearchProductScreen} />
-      <Screen name="SearchKeywordproducts" component={SearchKeywordproductsScreen} />
       <Screen name="Product" component={ProductScreen} />
       <Screen name="ProductFavorites" component={ProductFavoritesScreen} />
       <Screen name="Profile" component={ProfileScreen} />

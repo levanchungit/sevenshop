@@ -131,7 +131,13 @@ const renderItem1 = ({ item }: any) => {
           }}
         />
         <Text variant={'body1'}>{item.title}</Text>
-        <Text color={'primary.600'} fontWeight={500} fontFamily={'heading'}>
+        <Text
+          color={'primary.600'}
+          variant={'body1'}
+          style={{
+            fontVariant: ['lining-nums'],
+          }}
+        >
           {item.price}đ
         </Text>
       </View>
@@ -212,7 +218,13 @@ const renderItem5 = ({ item }: any) => {
       alignItems={'center'}
       backgroundColor={'gray.300'}
     >
-      <Text variant={'caption'} textAlign={'center'}>
+      <Text
+        variant={'caption'}
+        textAlign={'center'}
+        style={{
+          fontVariant: ['lining-nums'],
+        }}
+      >
         {item.review}
       </Text>
     </Pressable>
@@ -343,7 +355,7 @@ const ProductScreen = () => {
             <Text mt={4} variant={'button'}>
               Size
             </Text>
-            <View mt={2}>
+            <View borderBottomWidth={1} borderColor={'gray.300'} py={2}>
               <FlatList
                 w={'100%'}
                 keyExtractor={(item) => item.id}
@@ -356,7 +368,7 @@ const ProductScreen = () => {
             <Text mt={4} variant={'button'}>
               Price
             </Text>
-            <View justifyItems={'center'}>
+            <View justifyItems={'center'} borderBottomWidth={1} borderColor={'gray.300'} py={2}>
               <View flexDirection={'row'} justifyContent={'center'} px={6} alignItems={'center'}>
                 <View w="45%" h={30} backgroundColor={'gray.300'} mt={2} borderRadius={10}>
                   <Input

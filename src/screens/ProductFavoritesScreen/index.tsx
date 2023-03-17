@@ -32,7 +32,13 @@ const renderItem1 = ({ item }: any) => {
           }}
         />
         <Text variant={'body1'}>{item.title}</Text>
-        <Text variant={'body1'} color={'primary.600'}>
+        <Text
+          variant={'body1'}
+          color={'primary.600'}
+          style={{
+            fontVariant: ['lining-nums'],
+          }}
+        >
           {item.price}đ
         </Text>
       </View>
