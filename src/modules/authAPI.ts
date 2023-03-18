@@ -32,6 +32,16 @@ const authAPI = {
     return response;
   },
 
+  async forgot_password(payload: ForgotPayload) {
+    const response = await axios.post(API_URL + API_ROUTES.forgotPassword, payload);
+    return response;
+  },
+
+  async changePassword(payload: ChangePasswordPayload) {
+    const response = await axios.post(API_URL + API_ROUTES.changePassword, payload);
+    return response;
+  },
+
   async check_otp(payload: CheckOTPPayload) {
     const response = await axios.post(API_URL + API_ROUTES.check_otp, payload);
     try {
@@ -45,10 +55,6 @@ const authAPI = {
     return response;
   },
 
-  async forgot_password(payload: ForgotPayload) {
-    const response = await axios.post(API_URL + API_ROUTES.forgot_password, payload);
-    return response;
-  },
 
   async set_password(payload: SetPasswordPayload) {
     //header token
@@ -63,6 +69,19 @@ const authAPI = {
     }
     return response;
   },
+  // async changePassword(payload: ChangePasswordPayload) {
+  //   //header token
+  //   const response = await axios.post(API_URL + API_ROUTES.changePassword, payload);
+  //   try {
+  //     await setAuthTokens({
+  //       accessToken: response.data.access_token,
+  //       refreshToken: response.data.refresh_token,
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  //   return response;
+  // },
 
   logout(payload: RefreshTokenPayload) {
     return axiosInstance.post(API_ROUTES.logout, payload);
@@ -76,10 +95,7 @@ const authAPI = {
     return axiosInstance.get(API_ROUTES.me);
   },
 
-  async change_password(payload: ChangePasswordPayload) {
-    const response = await axios.post(API_URL + API_ROUTES.change_password, payload);
-    return response;
-  },
+ 
 };
 
 export default authAPI;

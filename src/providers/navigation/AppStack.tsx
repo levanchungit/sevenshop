@@ -16,12 +16,17 @@ import {
   SelectVoucherScreen,
   SetPasswordForgotScreen,
   SetPasswordScreen,
+  ProductScreen,
+  ProductFavoritesScreen,
+  ProfileScreen,
+  SearchProductScreen,
+  AccountSettingScreen,
+  AccountSecurityScreen,
 } from 'screens';
 import CheckoutScreen from 'screens/CheckoutScreen';
 import MyPurchaseScreen from 'screens/MyPurchaseScreen';
 import OrderDetailScreen from 'screens/OrderDetailScreen';
 import { AppStackNavigatorParamList } from './types';
-
 const AppStack = createNativeStackNavigator<AppStackNavigatorParamList>();
 const { Navigator, Screen } = AppStack;
 
@@ -53,6 +58,12 @@ const StackNavigator = () => {
       <Screen name="PaymentSuccess" component={PaymentSuccess} />
       <Screen name="SelectVoucher" component={SelectVoucherScreen} />
       <Screen name="SetPasswordForgot" component={SetPasswordForgotScreen} />
+      <Screen name="SearchProduct" component={SearchProductScreen} />
+      <Screen name="Product" component={ProductScreen} />
+      <Screen name="ProductFavorites" component={ProductFavoritesScreen} />
+      <Screen name="Profile" component={ProfileScreen} />
+      <Screen name="AccountSettings" component={AccountSettingScreen} />
+      <Screen name="AccountSecurity" component={AccountSecurityScreen} />
     </Navigator>
   );
 };
