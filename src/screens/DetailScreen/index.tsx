@@ -14,11 +14,15 @@ import {
 import { Dimensions } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import ItemProductFlashSale from 'components/ItemProductFlashSale';
 import ItemRating from 'components/ItemRating';
 import ModalPopupCart from 'components/ModalPopupCart';
+import SSButton from 'components/SSButton';
+import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { AppNavigationProp, DetailRouteProp } from 'providers/navigation/types';
-import { DATA3, DATA4, DATA2 } from '../../mocks';
+import { DATA3, DATA4, DATA2, DATA } from '../../mocks';
 
 type DetailScreenProps = {
   route: DetailRouteProp;
@@ -33,54 +37,40 @@ const DetailScreen = (props: DetailScreenProps) => {
   const initialWidth = Dimensions.get('window').width;
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
-  const add = () => {
-    console.log('Hello');
-  };
-  // const toast = useToast();
-  // const [addToCart, setAddToCart] = useState<AddToCart>({
-  //   product_id: '63fa5fccb8d9374ffb848c1a',
-  //   color: selectedColor,
-  //   size: selectedSize,
-  //   quantity: quantity,
-  //   image:
-  //     'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1677226561/SevenShop/ggcrdttat4hgirsqwl2k.avif',
-  // });
-
-  // const add = async () => {
-  //   try {
-  //     const response = await authAPI.addToCart(addToCart);
-  //     toast.show({
-  //       title: response.data.message,
-  //       duration: 3000,
-  //     });
-  //   } catch (e: any) {
-  //     toast.show({
-  //       title: e.response?.data?.message,
-  //       duration: 3000,
-  //     });
-  //   }
-  // };
 
   const DescriptionRoute = () => (
-    <View style={{ flex: 1, backgroundColor: 'transparent' }}>
-      <ScrollView>
-        <Text fontSize={[12, 16, 20]}></Text>
-        <Flex direction="row" justifyContent="space-between">
-          <Text fontSize={[12, 16, 20]} fontWeight="bold">
-            Recommend for you
-          </Text>
-          <Pressable>
-            <Text fontSize={[12, 16, 20]} fontWeight="bold">
-              See all
-            </Text>
-          </Pressable>
-        </Flex>
-      </ScrollView>
-    </View>
+    <ScrollView style={{ flex: 1, backgroundColor: 'transparent' }}>
+      <Text
+        variant="body1"
+        numberOfLines={3}
+        style={{
+          fontVariant: ['lining-nums'],
+        }}
+      >
+        This playful hoodie has an allover Monogram Comics motif in which House signatures become
+        cartoon characters in an overlapping collage with vibrant colored details. This joyful piece
+        has a kangaroo pocket and a ribbed hem and cuffs, with an inside-out label at the back.
+      </Text>
+      <Flex direction="row" justifyContent="space-between">
+        <Text variant="button">Recommend for you</Text>
+        <Pressable>
+          <Text variant="button">See all</Text>
+        </Pressable>
+      </Flex>
+      <FlatList
+        data={DATA}
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        renderItem={({ item }) => (
+          <ItemProductFlashSale onPress={() => navigation.navigate('Detail')} data={item} />
+        )}
+        keyExtractor={(item) => item.id}
+      />
+    </ScrollView>
   );
   const ReviewRoute = () => (
     <View style={{ flex: 1, backgroundColor: 'transparent' }}>
-      <Rating readonly={true} imageSize={15} style={{ paddingVertical: 5, width: '30%' }} />
+      <Rating readonly={true} imageSize={24} style={{ paddingVertical: 12, width: '30%' }} />
       <FlatList
         data={DATA3}
         renderItem={({ item }) => (
@@ -114,23 +104,24 @@ const DetailScreen = (props: DetailScreenProps) => {
   });
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
-        paddingTop: 12,
-        paddingHorizontal: 10,
-        flexDirection: 'column',
+        paddingVertical: 8,
+        paddingHorizontal: 12,
         backgroundColor: 'white',
       }}
     >
-      <Flex direction="row" justifyContent={'space-between'}>
-        <Pressable onPress={() => navigation.goBack()}>
-          <Icon.ChevronLeft stroke="black" />
-        </Pressable>
-        <Pressable>
-          <Icon.ShoppingCart stroke="black" />
-        </Pressable>
-      </Flex>
+      <SSHeaderNavigation
+        tabHeaderSearchEnabled={false}
+        titleHeaderSearchEnabled={false}
+        iconSearchEnabled={true}
+        iconOther={true}
+        titleHeaderSearch={''}
+        titleHeaderScreen={'Details'}
+        iconRightHeaderScreen={true}
+        quantityItems={0}
+      />
 
       <Image
         source={{
@@ -138,20 +129,40 @@ const DetailScreen = (props: DetailScreenProps) => {
         }}
         alt="Alternate Text"
         size="full"
-        shadow="9"
         alignSelf="center"
-        w="90%"
+        w="100%"
         h="50%"
       />
 
-      <Text fontSize={[18, 24, 26]} fontWeight="semibold">
+      <Text
+        variant="h3"
+        fontWeight="semibold"
+        style={{
+          fontVariant: ['lining-nums'],
+        }}
+      >
         Hello
       </Text>
       <Flex direction="row" alignItems="center" justifyContent="flex-start">
-        <Text fontSize={[16, 20, 24]} fontWeight="semibold" color="red.600" marginRight="1.5">
-          200.00đ
+        <Text
+          variant="title"
+          fontWeight="semibold"
+          color="red.600"
+          marginRight="1.5"
+          style={{
+            fontVariant: ['lining-nums'],
+          }}
+        >
+          200.000đ
         </Text>
-        <Text fontSize={[12, 16, 20]} strikeThrough color="gray.500">
+        <Text
+          variant="caption"
+          strikeThrough
+          color="gray.500"
+          style={{
+            fontVariant: ['lining-nums'],
+          }}
+        >
           400.000đ
         </Text>
       </Flex>
@@ -173,8 +184,8 @@ const DetailScreen = (props: DetailScreenProps) => {
             renderLabel={({ route, focused }) => (
               <Text
                 padding={[2, 4, 8]}
-                fontSize={[10, 16, 20]}
-                color={focused ? 'black' : 'gray'}
+                variant="button"
+                color={focused ? 'black' : '#C9C9C9'}
                 borderBottomColor={focused ? 'black' : 'green'}
                 borderBottomWidth={focused ? 1 : 0}
               >
@@ -193,55 +204,46 @@ const DetailScreen = (props: DetailScreenProps) => {
       <Center
         height="auto"
         width="100%"
-        borderTopRadius={[5, 10]}
+        borderTopRadius={2}
         flexDirection="row"
         backgroundColor="white"
-        paddingTop="5"
-        paddingBottom="5"
+        paddingTop={3}
+        paddingBottom={3}
         justifyContent="space-evenly"
         shadow="9"
       >
-        <Pressable
-          width={[8, 43, 50]}
-          height={[8, 43, 50]}
+        {/* <Pressable
+          width={43}
+          height={43}
           borderRadius="6"
           alignItems="center"
           backgroundColor="primary.600"
           onPress={() => setStatusLike(!statusLike)}
           justifyContent="center"
         >
-          <Icon.Heart width="60%" stroke="white" fill={statusLike ? 'white' : 'none'} />
-        </Pressable>
-        <Pressable
-          flexDirection="row"
+          <Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />
+        </Pressable> */}
+        <SSButton
+          variant={'red'}
+          leftIcon={<Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />}
+          onPress={() => setStatusLike(!statusLike)}
+        />
+        <SSButton
+          leftIcon={
+            <Icon.ShoppingCart width={24} stroke="#AC1506" fill={statusLike ? 'white' : 'none'} />
+          }
+          variant={'white'}
+          text={'Add to cart'}
+          onPress={() => console.log('Add to cart')}
           width="40%"
-          height={[8, 43, 50]}
-          borderRadius="6"
-          borderWidth="1"
-          borderColor="#C9C9C9"
-          backgroundColor="transparent"
-          alignItems="center"
-          justifyContent="center"
-          onPress={() => setShowModal(true)}
-        >
-          <Icon.ShoppingCart width="13%" stroke="#AC1506" />
-          <Text color="primary.600" fontWeight="bold" marginLeft="3" fontSize="14">
-            Add to cart
-          </Text>
-        </Pressable>
-        <Pressable
+        />
+        <SSButton
+          height="full"
+          variant={'red'}
+          text={'Buy now'}
+          onPress={() => console.log('Buy now')}
           width="40%"
-          height={[8, 43, 50]}
-          borderRadius="6"
-          backgroundColor="primary.600"
-          alignItems="center"
-          justifyContent="center"
-          onPress={() => setShowModal(true)}
-        >
-          <Text color="white" fontWeight="bold" fontSize="14">
-            Buy now
-          </Text>
-        </Pressable>
+        />
       </Center>
       <ModalPopupCart
         price={200000}
@@ -255,9 +257,9 @@ const DetailScreen = (props: DetailScreenProps) => {
         setSelectedColor={setSelectedColor}
         quantity={quantity}
         setQuantity={setQuantity}
-        onPress={add}
+        onPress={() => console.log('Hello')}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

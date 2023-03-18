@@ -2,7 +2,6 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   AddressScreen,
-  CartScreen,
   DetailScreen,
   EditAddressScreen,
   ForgotPasswordScreen,
@@ -17,9 +16,11 @@ import {
   SetPasswordForgotScreen,
   SetPasswordScreen,
 } from 'screens';
+import Cart from 'screens/CartScreen';
 import CheckoutScreen from 'screens/CheckoutScreen';
 import MyPurchaseScreen from 'screens/MyPurchaseScreen';
 import OrderDetailScreen from 'screens/OrderDetailScreen';
+import PaymentMethodScreen from 'screens/PaymentMethodScreen';
 import { AppStackNavigatorParamList } from './types';
 
 const AppStack = createNativeStackNavigator<AppStackNavigatorParamList>();
@@ -49,7 +50,8 @@ const StackNavigator = () => {
       <Screen name="Rating" component={RatingScreen} />
       <Screen name="Address" component={AddressScreen} />
       <Screen name="EditAddress" component={EditAddressScreen} />
-      <Screen name="Cart" component={CartScreen} />
+      <Screen name="Cart" component={Cart} />
+      <Screen name="PaymentMethodScreen" component={PaymentMethodScreen} />
       <Screen name="PaymentSuccess" component={PaymentSuccess} />
       <Screen name="SelectVoucher" component={SelectVoucherScreen} />
       <Screen name="SetPasswordForgot" component={SetPasswordForgotScreen} />
