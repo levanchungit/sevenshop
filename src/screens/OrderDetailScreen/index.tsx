@@ -128,7 +128,7 @@ const OrderDetailScreen = (props: Props) => {
           />
         </View>
       </ScrollView>
-      <View h={'30%'} borderTopWidth={0.5} borderTopColor="gray.300">
+      <View h={'27%'} borderTopWidth={0.5} borderTopColor="gray.300">
         <View w="100%" position={'absolute'} bottom={0} left={0}>
           <View borderBottomColor={'gray.400'} borderBottomWidth={0.5} pb={3}>
             <View px={3} flexDirection={'row'} justifyContent="space-between" alignItems={'center'}>

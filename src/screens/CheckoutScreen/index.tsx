@@ -9,7 +9,7 @@ type Props = object;
 const CheckoutScreen = (props: Props) => {
   return (
     <View flex={1} pt={3} backgroundColor="white">
-      <View px={3} mt={3}>
+      <View mt={3}>
         <SSHeaderNavigation
           tabHeaderSearchEnabled={false}
           titleHeaderSearchEnabled={false}
@@ -103,11 +103,11 @@ const CheckoutScreen = (props: Props) => {
           />
         </View>
       </ScrollView>
-      <View h={'33%'} borderTopWidth={0.5} borderTopColor="gray.200">
+      <View h={'30%'} borderTopWidth={0.5} borderTopColor="gray.200">
         <View w="100%" position={'absolute'} bottom={0} left={0}>
           <SelectOptions
             style={{}}
-            title="Checkout"
+            title="Payment Options"
             iconLeft={<Icons.CreditCard stroke={'black'} width={24} height={24} />}
             iconRight={
               <View

@@ -17,6 +17,9 @@ import {
   SetPasswordForgotScreen,
   SetPasswordScreen,
 } from 'screens';
+import CheckoutScreen from 'screens/CheckoutScreen';
+import MyPurchaseScreen from 'screens/MyPurchaseScreen';
+import OrderDetailScreen from 'screens/OrderDetailScreen';
 import { AppStackNavigatorParamList } from './types';
 
 const AppStack = createNativeStackNavigator<AppStackNavigatorParamList>();
@@ -24,7 +27,11 @@ const { Navigator, Screen } = AppStack;
 
 const StackNavigator = () => {
   return (
-    <Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+    <Navigator initialRouteName="MypurchaseScreen" screenOptions={{ headerShown: false }}>
+      <Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Screen name="OrderDetail" component={OrderDetailScreen} />
+      <Screen name="MypurchaseScreen" component={MyPurchaseScreen} />
+      <Screen name="CheckoutScreen" component={CheckoutScreen} />
       <Screen name="Login" component={LoginScreen} />
       <Screen
         name="Main"

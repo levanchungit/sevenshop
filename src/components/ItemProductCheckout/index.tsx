@@ -65,19 +65,6 @@ const ItemProductCheckout = (props: Props) => {
             >
               x{quantity}
             </Text>
-            <View flexDirection={'row'} justifyContent="space-between" alignItems={'center'}>
-              <Text
-                color="primary.600"
-                fontSize={16}
-                variant={'Button'}
-                fontFamily="Raleway_500Medium"
-              >
-                {price}đ
-              </Text>
-              <Text color="black" fontSize={16} variant={'Subtitle2'} fontWeight="semibold">
-                x{quantity}
-              </Text>
-            </View>
           </View>
         </View>
       </Pressable>

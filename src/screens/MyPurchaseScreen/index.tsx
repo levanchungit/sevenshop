@@ -156,7 +156,7 @@ const MyPurchaseScreen = (props: Props) => {
   return (
     <View flex={1} pt={3} backgroundColor="white">
       <View style={{ marginTop: 20 }}>
-        <View ml={3}>
+        <View>
           <SSHeaderNavigation
             tabHeaderSearchEnabled={false}
             titleHeaderSearchEnabled={false}
