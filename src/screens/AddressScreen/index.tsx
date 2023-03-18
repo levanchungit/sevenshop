@@ -15,8 +15,8 @@ const Address = (onBack: any) => {
     <SafeAreaView
       style={{
         flex: 1,
-        paddingVertical: 12,
-        paddingHorizontal: 10,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
         backgroundColor: 'white',
       }}
     >

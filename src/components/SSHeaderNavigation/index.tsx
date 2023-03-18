@@ -73,7 +73,7 @@ const SSHeaderNavigation = (props: Props) => {
       ) : null}
     </View>
   ) : (
-    <View flexDirection={'row'} alignItems="center" justifyContent={'space-between'} paddingX={3}>
+    <View flexDirection={'row'} alignItems="center" justifyContent={'space-between'}>
       <Pressable flexDirection={'row'} alignItems="center" onPress={() => navigation.goBack()}>
         <Icons.ChevronLeft stroke={'black'} width={24} height={24} />
         <Text ml={3} variant="Title" fontWeight={'bold'} fontSize={20}>

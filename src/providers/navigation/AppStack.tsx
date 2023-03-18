@@ -23,7 +23,7 @@ const { Navigator, Screen } = AppStack;
 
 const StackNavigator = () => {
   return (
-    <Navigator initialRouteName="Rating" screenOptions={{ headerShown: false }}>
+    <Navigator initialRouteName="Main" screenOptions={{ headerShown: false }}>
       <Screen name="Login" component={LoginScreen} />
       <Screen
         name="Main"
@@ -42,6 +42,7 @@ const StackNavigator = () => {
       <Screen name="Address" component={Address} />
       <Screen name="EditAddress" component={EditAddressScreen} />
       <Screen name="Cart" component={Cart} />
+      <Screen name="PaymentMethodScreen" component={PaymentMethodScreen} />
       <Screen name="PaymentSuccess" component={PaymentSuccess} />
       <Screen name="SelectVoucher" component={SelectVoucherScreen} />
       <Screen name="SetPassWordForgot" component={SetPasswordForgotScreen} />
