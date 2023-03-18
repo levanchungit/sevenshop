@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import { useNavigation } from '@react-navigation/native';
-import { ScrollView, View, FlatList, Pressable, Text } from 'native-base';
+import { ScrollView, View, FlatList } from 'native-base';
 // import { ActivityIndicator } from 'react-native';
 // import * as Icons from 'react-native-feather';
 import * as Progress from 'react-native-progress';
@@ -54,7 +54,7 @@ const FlatListProductCategory = (props: Props) => {
   ]);
 
   const [progressEnable, setProgressEnable] = useState(true);
-  const [end, setEnd] = useState(3);
+  // const [end, setEnd] = useState(3);
 
   const id_Category: any = () => {
     let category;

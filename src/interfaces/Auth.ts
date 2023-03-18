@@ -99,3 +99,9 @@ export type voucher = {
   image: string;
   condition: string;
 };
+
+export type GetProductData = {
+  name: string;
+  price: number;
+  quantity: number;
+};
