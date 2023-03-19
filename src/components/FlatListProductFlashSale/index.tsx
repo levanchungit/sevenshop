@@ -2,71 +2,18 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, FlatList } from 'native-base';
 import ItemProductFlashSale from 'components/ItemProductFlashSale';
+import useGetProducts from 'hook/product/useGetProducts';
 import { IProduct } from 'interfaces/Product';
 import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';
 
-type Props = {
-  data: IProduct[];
-  error: any;
-};
-
-const FlatListProductFlashSale = (props: Props) => {
-  const { data, error } = props;
+const FlatListProductFlashSale = () => {
   const navigation = useNavigation<AppNavigationProp>();
-  // const [hour, setHour] = useState(2);
-  // const [minute, setMinute] = useState(2);
-  // const [second, setSecond] = useState(5);
+  //SWR
+  const { products, err_products } = useGetProducts();
 
-  // const myRef: any = useRef();
-  // const decreaseSecond = () => setSecond((second) => second - 1);
-  // const time = () => {
-  //   if (second === 0) {
-  //     setMinute(minute - 1);
-  //     setSecond(3);
-  //   }
-  //   if (minute < 0) {
-  //     setHour(hour - 1);
-  //     setMinute(1);
-  //   }
-  //   if (hour === 0 && second === 0) {
-  //     setHour(23);
-  //     setMinute(59);
-  //     setSecond(59);
-  //   }
-  // };
-
-  // const timeBar = () => {
-  //   let secondC = '',
-  //     minuteC = '',
-  //     hourC = '';
-  //   if (second.toString().length === 1) {
-  //     secondC = '0' + second;
-  //   } else {
-  //     secondC = '' + second;
-  //   }
-  //   if (minute.toString().length === 1) {
-  //     minuteC = '0' + minute;
-  //   } else {
-  //     minuteC = minute + '';
-  //   }
-  //   if (hour.toString().length === 1) {
-  //     hourC = '0' + hour;
-  //   } else {
-  //     hourC = '' + hour;
-  //   }
-  //   return hourC + ':' + minuteC + ':' + secondC;
-  // };
-  // useEffect(() => {
-  //   time();
-  //   timeBar();
-  //   myRef.current = setInterval(decreaseSecond, 1000);
-
-  //   return () => clearInterval(myRef.current);
-  // }, [second]);
-
-  const RenderItemFlashSale = ({ data }: { data: IProduct }) => {
-    return <ItemProductFlashSale data={data} onPress={() => navigation.navigate('Detail')} />;
+  const renderItem = ({ item }: { item: IProduct }) => {
+    return <ItemProductFlashSale data={item} onPress={() => navigation.navigate('Detail')} />;
   };
 
   return (
@@ -83,26 +30,21 @@ const FlatListProductFlashSale = (props: Props) => {
             fontStyle="-moz-initial"
             textAlign="center"
             variant={'body1'}
-          >
-            {/* {timeBar()} */}
-          </Text>
+          ></Text>
         </View>
         <Text fontWeight={'bold'}>See All</Text>
       </View>
 
-      {error && <Text>Failed to load</Text>}
-
-      {data && (
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          contentContainerStyle={styles.flashListFlashSale}
-          data={data}
-          renderItem={({ item }) => <RenderItemFlashSale data={item} />}
-          keyExtractor={(item, index) => index.toString()}
-          onEndReached={() => console.log('load ne')}
-        />
-      )}
+      {err_products && <Text>Failed to load</Text>}
+      <FlatList
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        contentContainerStyle={styles.flashListFlashSale}
+        data={products?.data.results}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        onEndReached={() => console.log('load ne')}
+      />
     </View>
   );
 };

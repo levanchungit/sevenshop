@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, Pressable } from 'native-base';
+import { Text, View, Image, Pressable, Skeleton } from 'native-base';
 import { IProduct } from 'interfaces/Product';
 import styles from './styles';
 
@@ -13,26 +13,25 @@ const ItemProductFlashSale = (props: Props) => {
   return (
     <>
       <Pressable style={styles.itemProductFlastSale} onPress={() => onPress()}>
-        <Image
-          alt="1241"
-          height={20}
-          resizeMode="cover"
-          source={
-            data.images[0] === undefined
-              ? require('../../assets/images/logo_sevenshop_image_default.png')
-              : { uri: data.images[0] }
-          }
-        />
+        <Skeleton h={20} isLoaded={!!data.images[0]}>
+          <Image alt="1241" height={20} resizeMode="cover" source={{ uri: data.images[0] }} />
+        </Skeleton>
         <View>
-          <Text numberOfLines={1}>{data.name}</Text>
+          <Skeleton borderRadius={5} my={0.5} h={5} isLoaded={!!data.name}>
+            <Text numberOfLines={1}>{data.name}</Text>
+          </Skeleton>
 
           <View style={styles.coverTextPrice}>
-            <Text fontSize={14} textDecorationLine="line-through">
-              {data.price}đ
-            </Text>
-            <Text color="primary.600" fontSize={16}>
-              {data.price_sale}đ
-            </Text>
+            <Skeleton borderRadius={5} my={0.5} h={5} isLoaded={!!data.price}>
+              <Text fontSize={14} textDecorationLine="line-through">
+                {data.price}đ
+              </Text>
+            </Skeleton>
+            <Skeleton borderRadius={5} my={0.5} h={5} isLoaded={!data.price_sale}>
+              <Text color="primary.600" fontSize={16}>
+                {data.price_sale}đ
+              </Text>
+            </Skeleton>
           </View>
         </View>
       </Pressable>
