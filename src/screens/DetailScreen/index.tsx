@@ -21,6 +21,7 @@ import ItemRating from 'components/ItemRating';
 import ModalPopupCart from 'components/ModalPopupCart';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import useGetProductDetail from 'hook/product/useGetProductDetail';
 import { AppNavigationProp, DetailRouteProp } from 'providers/navigation/types';
 import { DATA3, DATA4, DATA2, DATA } from '../../mocks';
 
@@ -28,9 +29,22 @@ type DetailScreenProps = {
   route: DetailRouteProp;
 };
 
+const id = '6413204e3182be020da254d4';
+
 const DetailScreen = (props: DetailScreenProps) => {
   // const { name, description, price, image } = props.route.params;
   const navigation = useNavigation<AppNavigationProp>();
+
+  const { product, err_product } = useGetProductDetail(id);
+  if (err_product) {
+    //lỗi khi không call được api
+    console.log('ERROR', err_product);
+  }
+  if (!product) {
+    //xử lý skeleton khi chưa có product
+    console.log('CHUA CO PRODUCT');
+  }
+  console.log('DETAIL', product);
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [statusLike, setStatusLike] = useState(false);

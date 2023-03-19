@@ -5,7 +5,6 @@ import { TextInput } from 'react-native';
 import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import IconCart from 'components/IconCart';
 import SlideShowImage from 'components/SwipeBanner';
-import useGetProducts from 'hook/product/useGetProducts';
 import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';
 
@@ -13,10 +12,6 @@ export const MainScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const [scrollEnable, setScrollEnable] = useState(false);
   let yOffset = '';
-
-  //SWR
-  const { products, err_products } = useGetProducts();
-
   return (
     <View style={styles.container}>
       <ScrollView
@@ -35,41 +30,13 @@ export const MainScreen = () => {
           }
         }}
       >
-        {/* <FlatList
-          data={Data1}
-          renderItem={null}
-          contentContainerStyle={{ marginBottom: 50 }}
-          onEndReached={() => {
-            console.log(isLoader);
-            setIsLoader(true);
-            // setTimeout(() => {
-            //   setIsLoader(false);
-            // }, 1000);
-          }}
-          onEndReachedThreshold={0.01}
-          ListHeaderComponent={() => ( */}
         <View>
           <View>
             <SlideShowImage style={{}} />
 
-            {/* <FlatListProductCategory data={Data1} /> */}
-            <FlatListProductFlashSale data={products?.data.results} error={err_products} />
+            <FlatListProductFlashSale />
           </View>
-          {/* <FlatListProductForYou
-            data={cms_products.data}
-            footer={
-              isLoader ? (
-                <View>
-                  <ActivityIndicator />
-                </View>
-              ) : (
-                <View></View>
-              )
-            }
-          /> */}
         </View>
-        {/* )} */}
-        {/* // /> */}
       </ScrollView>
       <View>
         <View style={scrollEnable ? styles.coverHeaderOnScroll : styles.coverHeader}>
