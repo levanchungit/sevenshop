@@ -9,6 +9,7 @@ import {
   Center,
   FlatList,
   ScrollView,
+  Skeleton,
   // useToast,
 } from 'native-base';
 import { Dimensions } from 'react-native';
@@ -22,67 +23,63 @@ import ModalPopupCart from 'components/ModalPopupCart';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetProductDetail from 'hook/product/useGetProductDetail';
+import useGetProducts from 'hook/product/useGetProducts';
 import { IProduct } from 'interfaces/Product';
 import { AppNavigationProp, DetailRouteProp } from 'providers/navigation/types';
-import { DATA3, DATA4, DATA2, DATA } from '../../mocks';
+import { DATA3, DATA4, DATA2 } from '../../mocks';
 
 type DetailScreenProps = {
   route: DetailRouteProp;
 };
 
-const id = '6413204e3182be020da254d4';
-
 const DetailScreen = (props: DetailScreenProps) => {
-  // const { name, description, price, image } = props.route.params;
-  const navigation = useNavigation<AppNavigationProp>();
-
+  const id = '64171cdba0ebec4e7057c05f';
   const { product, err_product } = useGetProductDetail(id);
-  if (err_product) {
-    //lỗi khi không call được api
-    console.log('ERROR', err_product);
-  }
-  if (!product) {
-    //xử lý skeleton khi chưa có product
-    console.log('CHUA CO PRODUCT');
-  }
-  console.log('DETAIL', product);
+  const { products, err_products } = useGetProducts();
+  console.log('Detail', product?.data.images);
+  const navigation = useNavigation<AppNavigationProp>();
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [statusLike, setStatusLike] = useState(false);
   const initialWidth = Dimensions.get('window').width;
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const numberWithCommas = (num?: number) => {
+    return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
 
   const DescriptionRoute = () => (
     <ScrollView style={{ flex: 1, backgroundColor: 'transparent' }}>
-      <Text
-        variant="body1"
-        numberOfLines={3}
-        style={{
-          fontVariant: ['lining-nums'],
-        }}
-      >
-        This playful hoodie has an allover Monogram Comics motif in which House signatures become
-        cartoon characters in an overlapping collage with vibrant colored details. This joyful piece
-        has a kangaroo pocket and a ribbed hem and cuffs, with an inside-out label at the back.
-      </Text>
+      <Skeleton.Text lines={3} isLoaded={!product}>
+        <Text
+          variant="body1"
+          numberOfLines={3}
+          style={{
+            fontVariant: ['lining-nums'],
+          }}
+        >
+          {product?.description}
+        </Text>
+      </Skeleton.Text>
+
       <Flex direction="row" justifyContent="space-between">
         <Text variant="button">Recommend for you</Text>
         <Pressable>
           <Text variant="button">See all</Text>
         </Pressable>
       </Flex>
-      <FlatList
-        data={DATA}
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        renderItem={({ item }: { item: IProduct }) => (
-          <ItemProductFlashSale
-            onPress={() => navigation.navigate('Detail', { id_product: '' })}
-            data={item}
-          />
-        )}
-      />
+      {err_products && <Text variant="body1">Failed to load</Text>}
+      {products && (
+        <FlatList
+          data={products.data.results}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          renderItem={({ item }: { item: IProduct }) => (
+            <ItemProductFlashSale onPress={() => navigation.navigate('Detail')} data={item} />
+          )}
+          keyExtractor={(item) => item._id}
+        />
+      )}
     </ScrollView>
   );
   const ReviewRoute = () => (
@@ -129,6 +126,153 @@ const DetailScreen = (props: DetailScreenProps) => {
         backgroundColor: 'white',
       }}
     >
+      {err_product ? (
+        <Center
+          h="100%"
+          position="absolute"
+          top={8}
+          left={3}
+          right={3}
+          backgroundColor={'transparent'}
+        >
+          <Text variant="title">{err_product}</Text>
+        </Center>
+      ) : (
+        <View h="100%" position="absolute" top={8} left={3} right={3}>
+          <Skeleton w="100%" h="50%" mb="3" isLoaded={!product}>
+            <Image
+              source={
+                product?.images[0] === undefined
+                  ? require('../../assets/images/logo_sevenshop_image_default.png')
+                  : { uri: product?.images[0] }
+              }
+              alt="Invalid product image"
+              size="full"
+              alignSelf="center"
+              w="100%"
+              h="50%"
+            />
+          </Skeleton>
+
+          <Skeleton mb="3" w="70%" borderRadius="full" isLoaded={!product}>
+            <Text
+              variant="h3"
+              fontWeight="semibold"
+              style={{
+                fontVariant: ['lining-nums'],
+              }}
+            >
+              {product?.name}
+            </Text>
+          </Skeleton>
+
+          <Skeleton.Text lines={1} w="30%" borderRadius="full" mb="3" isLoaded={!product}>
+            <Text
+              variant="title"
+              fontWeight="semibold"
+              color="red.600"
+              marginRight="1.5"
+              style={{
+                fontVariant: ['lining-nums'],
+              }}
+            >
+              {product?.price_sale
+                ? numberWithCommas(product?.price_sale)
+                : numberWithCommas(product?.price)}
+              vnđ
+            </Text>
+
+            {product?.price_sale ? (
+              <Text
+                variant="caption"
+                strikeThrough
+                color="gray.500"
+                style={{
+                  fontVariant: ['lining-nums'],
+                }}
+              >
+                {numberWithCommas(product?.price)}
+              </Text>
+            ) : null}
+          </Skeleton.Text>
+          <TabView
+            navigationState={{
+              index,
+              routes,
+            }}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            renderTabBar={(prop) => (
+              <TabBar
+                {...prop}
+                indicatorStyle={{ backgroundColor: 'transparent' }}
+                style={{
+                  backgroundColor: 'transparent',
+                }}
+                renderLabel={({ route, focused }) => (
+                  <Text
+                    padding={[2, 4, 8]}
+                    variant="button"
+                    color={focused ? 'black' : '#C9C9C9'}
+                    borderBottomColor={focused ? 'black' : 'green'}
+                    borderBottomWidth={focused ? 1 : 0}
+                  >
+                    {route.title}
+                  </Text>
+                )}
+                pressColor={'transparent'}
+                tabStyle={{
+                  width: 'auto',
+                }}
+              />
+            )}
+            initialLayout={{ width: initialWidth, height: 0 }}
+          />
+          <Center
+            height="auto"
+            width="100%"
+            borderTopRadius={2}
+            flexDirection="row"
+            backgroundColor="white"
+            paddingTop={3}
+            paddingBottom={3}
+            position="absolute"
+            bottom={0}
+            left={0}
+            right={0}
+            justifyContent="space-evenly"
+            shadow="9"
+          >
+            <SSButton
+              variant={'red'}
+              leftIcon={
+                <Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />
+              }
+              onPress={() => setStatusLike(!statusLike)}
+            />
+            <SSButton
+              leftIcon={
+                <Icon.ShoppingCart
+                  width={24}
+                  stroke="#AC1506"
+                  fill={statusLike ? 'white' : 'none'}
+                />
+              }
+              variant={'white'}
+              text={'Add to cart'}
+              onPress={() => console.log('Add to cart')}
+              width="40%"
+            />
+            <SSButton
+              height="full"
+              variant={'red'}
+              text={'Buy now'}
+              onPress={() => console.log('Buy now')}
+              width="40%"
+            />
+          </Center>
+        </View>
+      )}
       <SSHeaderNavigation
         tabHeaderSearchEnabled={false}
         titleHeaderSearchEnabled={false}
@@ -141,128 +285,6 @@ const DetailScreen = (props: DetailScreenProps) => {
         iconRightHeaderCart={false}
       />
 
-      <Image
-        source={{
-          uri: 'https://wallpaperaccess.com/full/317501.jpg',
-        }}
-        alt="Alternate Text"
-        size="full"
-        alignSelf="center"
-        w="100%"
-        h="50%"
-      />
-
-      <Text
-        variant="h3"
-        fontWeight="semibold"
-        style={{
-          fontVariant: ['lining-nums'],
-        }}
-      >
-        Hello
-      </Text>
-      <Flex direction="row" alignItems="center" justifyContent="flex-start">
-        <Text
-          variant="title"
-          fontWeight="semibold"
-          color="red.600"
-          marginRight="1.5"
-          style={{
-            fontVariant: ['lining-nums'],
-          }}
-        >
-          200.000đ
-        </Text>
-        <Text
-          variant="caption"
-          strikeThrough
-          color="gray.500"
-          style={{
-            fontVariant: ['lining-nums'],
-          }}
-        >
-          400.000đ
-        </Text>
-      </Flex>
-
-      <TabView
-        navigationState={{
-          index,
-          routes,
-        }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        renderTabBar={(prop) => (
-          <TabBar
-            {...prop}
-            indicatorStyle={{ backgroundColor: 'transparent' }}
-            style={{
-              backgroundColor: 'transparent',
-            }}
-            renderLabel={({ route, focused }) => (
-              <Text
-                padding={[2, 4, 8]}
-                variant="button"
-                color={focused ? 'black' : '#C9C9C9'}
-                borderBottomColor={focused ? 'black' : 'green'}
-                borderBottomWidth={focused ? 1 : 0}
-              >
-                {route.title}
-              </Text>
-            )}
-            pressColor={'transparent'}
-            tabStyle={{
-              width: 'auto',
-            }}
-          />
-        )}
-        initialLayout={{ width: initialWidth, height: 0 }}
-      />
-
-      <Center
-        height="auto"
-        width="100%"
-        borderTopRadius={2}
-        flexDirection="row"
-        backgroundColor="white"
-        paddingTop={3}
-        paddingBottom={3}
-        justifyContent="space-evenly"
-        shadow="9"
-      >
-        {/* <Pressable
-          width={43}
-          height={43}
-          borderRadius="6"
-          alignItems="center"
-          backgroundColor="primary.600"
-          onPress={() => setStatusLike(!statusLike)}
-          justifyContent="center"
-        >
-          <Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />
-        </Pressable> */}
-        <SSButton
-          variant={'red'}
-          leftIcon={<Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />}
-          onPress={() => setStatusLike(!statusLike)}
-        />
-        <SSButton
-          leftIcon={
-            <Icon.ShoppingCart width={24} stroke="#AC1506" fill={statusLike ? 'white' : 'none'} />
-          }
-          variant={'white'}
-          text={'Add to cart'}
-          onPress={() => console.log('Add to cart')}
-          width="40%"
-        />
-        <SSButton
-          height="full"
-          variant={'red'}
-          text={'Buy now'}
-          onPress={() => console.log('Buy now')}
-          width="40%"
-        />
-      </Center>
       <ModalPopupCart
         price={200000}
         colors={DATA2}

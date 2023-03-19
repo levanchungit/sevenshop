@@ -9,7 +9,7 @@ export type IStock = {
 };
 
 export interface IProduct {
-  _id?: string;
+  _id: string;
   name: string;
   price: number;
   price_sale: number;
