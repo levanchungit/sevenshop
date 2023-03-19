@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   coverHeader: {
     width: windowWidth,
     position: 'absolute',
-    top: -windowHeight * 0.92,
+    top: -windowHeight * 1,
     right: 0,
     paddingVertical: 12,
     paddingTop: 50,

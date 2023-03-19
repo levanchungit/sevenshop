@@ -7,6 +7,7 @@ import ItemNotYetRated from 'components/ItemNotYetRated';
 import ItemRating from 'components/ItemRating';
 import ModelPopupRating from 'components/ModelPopupRating';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import { IProduct } from 'interfaces/Product';
 import { DATA3, DATA } from 'mocks';
 
 const RatingScreen = () => {
@@ -19,7 +20,7 @@ const RatingScreen = () => {
         data={DATA3}
         renderItem={({ item }) => (
           <ItemRating
-            product={DATA[4]}
+            product={DATA[0]}
             name={item.name}
             time={item.time}
             comment={item.comment}
@@ -38,8 +39,7 @@ const RatingScreen = () => {
         columnWrapperStyle={{ justifyContent: 'space-between' }}
         data={DATA}
         numColumns={2}
-        renderItem={({ item }) => <ItemNotYetRated product={item} />}
-        keyExtractor={(item) => item.id}
+        renderItem={({ item }: { item: IProduct }) => <ItemNotYetRated product={item} />}
       />
     </View>
   );
@@ -116,7 +116,7 @@ const RatingScreen = () => {
         showModal={showModal}
         setShowModal={setShowModal}
         rating={4}
-        product={DATA[1]}
+        product={DATA[0]}
       />
     </SafeAreaView>
   );

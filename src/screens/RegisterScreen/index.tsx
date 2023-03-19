@@ -10,7 +10,7 @@ type Props = object;
 const RegisterScreen = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [email, setEmail] = useState('khuyenpv0509@gmail.com');
+  const [email, setEmail] = useState('');
 
   const onSubmit = async () => {
     try {
@@ -19,9 +19,9 @@ const RegisterScreen = (props: Props) => {
         title: response.data.message,
         duration: 3000,
       });
-      navigation.navigate('OTP', response.data.result);
+      navigation.replace('OTP', response.data.result);
     } catch (e: any) {
-      console.log(e.response);
+      console.error(e.response);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
@@ -61,7 +61,14 @@ const RegisterScreen = (props: Props) => {
           changeValue={setEmail}
         ></SSTextInput>
 
-        <Button variant={'abc'} onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="8">
+        <Button
+          backgroundColor="primary.600"
+          variant={'abc'}
+          onPress={onSubmit}
+          w={{ base: '50%' }}
+          mb="1"
+          mt="8"
+        >
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
             Register
           </Text>
@@ -70,22 +77,6 @@ const RegisterScreen = (props: Props) => {
         <Text mt={5} fontSize={14} fontWeight={500} fontStyle={'normal'} fontFamily={'heading'}>
           Or login with
         </Text>
-        <View mt={3} flexDirection={'row'} w={'25%'} justifyContent={'space-around'}>
-          <Image
-            style={{ width: 40, height: 40 }}
-            source={{
-              uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1677553446/SevenShop/facebook_abaweh.png',
-            }}
-            alt="Image Facebook"
-          />
-          <Image
-            style={{ width: 40, height: 40 }}
-            source={{
-              uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1677553444/SevenShop/google_wopk5u.png',
-            }}
-            alt="Image Gmail"
-          />
-        </View>
         <View flexDirection={'row'} alignItems={'center'} mt={5}>
           <Text fontSize={16} fontWeight={500}>
             Don’t you have an account?

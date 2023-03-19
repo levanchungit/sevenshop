@@ -55,10 +55,9 @@ const authAPI = {
     return response;
   },
 
-
   async set_password(payload: SetPasswordPayload) {
     //header token
-    const response = await axios.post(API_URL + API_ROUTES.set_password, payload);
+    const response = await axiosInstance.post(API_ROUTES.set_password, payload);
     try {
       await setAuthTokens({
         accessToken: response.data.access_token,
@@ -83,8 +82,8 @@ const authAPI = {
   //   return response;
   // },
 
-  logout(payload: RefreshTokenPayload) {
-    return axiosInstance.post(API_ROUTES.logout, payload);
+  logout() {
+    return axiosInstance.get(API_ROUTES.logout);
   },
 
   refresh_token(payload: RefreshTokenPayload) {
@@ -94,8 +93,6 @@ const authAPI = {
   me() {
     return axiosInstance.get(API_ROUTES.me);
   },
-
- 
 };
 
 export default authAPI;

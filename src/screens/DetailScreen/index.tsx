@@ -22,6 +22,7 @@ import ModalPopupCart from 'components/ModalPopupCart';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetProductDetail from 'hook/product/useGetProductDetail';
+import { IProduct } from 'interfaces/Product';
 import { AppNavigationProp, DetailRouteProp } from 'providers/navigation/types';
 import { DATA3, DATA4, DATA2, DATA } from '../../mocks';
 
@@ -75,10 +76,9 @@ const DetailScreen = (props: DetailScreenProps) => {
         data={DATA}
         showsHorizontalScrollIndicator={false}
         horizontal
-        renderItem={({ item }) => (
+        renderItem={({ item }: { item: IProduct }) => (
           <ItemProductFlashSale onPress={() => navigation.navigate('Detail')} data={item} />
         )}
-        keyExtractor={(item) => item.id}
       />
     </ScrollView>
   );

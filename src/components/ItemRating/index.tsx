@@ -1,7 +1,10 @@
 import { Box, Flex, Image, Text, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
-import { color, size } from 'interfaces/Auth';
+import { STATUS_PRODUCT } from 'global/constants';
+import { review } from 'interfaces/Auth';
+import { IModify } from 'interfaces/Basic';
+import { IStock } from 'interfaces/Product';
 
 type Props = {
   name: string;
@@ -9,17 +12,21 @@ type Props = {
   comment: string;
   rating: number;
   product?: {
-    id: string;
+    _id?: string;
     name: string;
     price: number;
-    image: string;
-    category: string;
-    type: {
-      size: size;
-      color: color;
-    };
-    selled: number;
-    categories: number;
+    price_sale: number;
+    description: string;
+    images: string[];
+    stock: IStock[];
+    status: STATUS_PRODUCT;
+    category_ids: string[];
+    color_ids: string[];
+    size_ids: string[];
+    created_at: string;
+    created_by: string;
+    modify: IModify[];
+    reviews: review[];
   };
 };
 
@@ -91,7 +98,7 @@ const ItemRating = (props: Props) => {
               >
                 <Image
                   source={{
-                    uri: product?.image,
+                    uri: product?.images[0],
                   }}
                   alt="Product img"
                   size="full"
@@ -103,7 +110,7 @@ const ItemRating = (props: Props) => {
                 <Flex direction="column" width="65%" padding={3}>
                   <Text variant="body2">{product.name}</Text>
                   <Text variant="body2">
-                    Size: {product.type.size.title} | Color: {product.type.color.title}
+                    Size: {product.size_ids} | Color: {product.color_ids}
                   </Text>
                 </Flex>
                 <Icon.ChevronRight strokeWidth={1} width="10%" stroke="black" />

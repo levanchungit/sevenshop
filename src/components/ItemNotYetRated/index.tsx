@@ -2,21 +2,28 @@ import { useState } from 'react';
 import { Box, Flex, Image, Text } from 'native-base';
 import { Rating } from 'react-native-ratings';
 import ModelPopupRating from 'components/ModelPopupRating';
-import { color, size } from 'interfaces/Auth';
+import { STATUS_PRODUCT } from 'global/constants';
+import { review } from 'interfaces/Auth';
+import { IModify } from 'interfaces/Basic';
+import { IStock } from 'interfaces/Product';
 
 type Props = {
   product?: {
-    id: string;
+    _id?: string;
     name: string;
     price: number;
-    image: string;
-    category: string;
-    type: {
-      size: size;
-      color: color;
-    };
-    selled: number;
-    categories: number;
+    price_sale: number;
+    description: string;
+    images: string[];
+    stock: IStock[];
+    status: STATUS_PRODUCT;
+    category_ids: string[];
+    color_ids: string[];
+    size_ids: string[];
+    created_at: string;
+    created_by: string;
+    modify: IModify[];
+    reviews: review[];
   };
 };
 
@@ -41,7 +48,7 @@ const ItemNotYetRated = (props: Props) => {
       <Flex direction="column" alignItems="center" justifyContent="space-between">
         <Image
           source={{
-            uri: product?.image,
+            uri: product?.images[0],
           }}
           alt="Product img"
           size="full"
@@ -64,7 +71,7 @@ const ItemNotYetRated = (props: Props) => {
               fontVariant: ['lining-nums'],
             }}
           >
-            Size: {product?.type.size.title}
+            Size: {product?.size_ids}
           </Text>
           <Text
             variant={'body2'}
@@ -72,7 +79,7 @@ const ItemNotYetRated = (props: Props) => {
               fontVariant: ['lining-nums'],
             }}
           >
-            Color: {product?.type.color.title}
+            Color: {product?.color_ids}
           </Text>
         </Flex>
       </Flex>

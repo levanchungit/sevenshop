@@ -1,14 +1,14 @@
 export const API_ROUTES = {
   // auth
-  login: `/user/login`,
-  logout: `/user/logout`,
-  register: `/user/register`,
-  check_otp: `/user/check_otp`,
-  set_password: `/user/set_password`,
-  refresh_token: `/user/refresh_token`,
-  forgotPassword: `/user/forgotPassword`,
-  changePassword: `/user/changePassword`,
-  me: `/user/me`,
+  login: `/auth/login`,
+  logout: `/auth/logout`,
+  register: `/auth/register`,
+  check_otp: `/auth/check_otp`,
+  set_password: `/auth/set_password`,
+  refresh_token: `/auth/refresh_token`,
+  forgotPassword: `/auth/forgotPassword`,
+  changePassword: `/auth/changePassword`,
+  me: `/auth/me`,
 
   // product
   getProducts: `/products`,

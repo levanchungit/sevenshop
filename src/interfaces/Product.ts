@@ -1,4 +1,5 @@
 import { STATUS_PRODUCT } from 'global/constants';
+import { review } from './Auth';
 import { IModify } from './Basic';
 
 export type IStock = {
@@ -22,4 +23,5 @@ export interface IProduct {
   created_at: string;
   created_by: string;
   modify: IModify[];
+  reviews: review[];
 }

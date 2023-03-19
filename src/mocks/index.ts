@@ -1,6 +1,6 @@
-// import { Item } from 'screens/MainScreen';
-
-import { address, color, Item, review, size, voucher } from 'interfaces/Auth';
+import { STATUS_PRODUCT } from 'global/constants';
+import { address, color, review, size, voucher } from 'interfaces/Auth';
+import { IProduct } from './../interfaces/Product';
 
 export const DATA2: color[] = [
   {
@@ -71,90 +71,46 @@ export const DATA4: size[] = [
   },
 ];
 
-export const DATA: Item[] = [
+export const DATA: IProduct[] = [
   {
-    id: '1',
-    name: 'Michael Scottshhhhhhhhhsdddddddddddđ',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lvse-monogram-degrade-crewneck--HKN44WUSO904_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    type: {
-      size: DATA4[1],
-      color: DATA2[2],
-    },
-    selled: 200,
-    categories: 1,
-  },
-  {
-    id: '2',
-    name: 'Michael Scott',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    selled: 200,
-    categories: 1,
-    type: {
-      size: DATA4[1],
-      color: DATA2[2],
-    },
-  },
-  {
-    id: '3',
-    name: 'Michael Scott',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-signature-cardigan--HON46WU34MU1_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    selled: 200,
-    categories: 1,
-    type: {
-      size: DATA4[1],
-      color: DATA2[2],
-    },
-  },
-  {
-    id: '4',
-    name: 'Michael Scott',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-hybrid-nylon-hooded-tracksuit--HON12WZLW304_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    selled: 200,
-    categories: 2,
-    type: {
-      size: DATA4[1],
-      color: DATA2[2],
-    },
-  },
-  {
-    id: '5',
-    name: 'Michael Scott',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-music-line-embroidered-crewneck--HOY03WIHN900_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    selled: 200,
-    type: {
-      size: DATA4[1],
-      color: DATA2[2],
-    },
-    categories: 2,
-  },
-  {
-    id: '6',
-    name: 'Michael Scott',
-    price: 100,
-    image:
-      'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-monogram-zip-through-hoodie--HOY04WSQ5620_PM2_Front%20view.png?wid=656&hei=656',
-    category: '123',
-    selled: 200,
-    type: {
-      size: DATA4[1],
-      color: DATA2[2],
-    },
-    categories: 2,
+    _id: '64171cdba0ebec4e7057c05f',
+    name: 'DATA MOCK',
+    price: 1290000,
+    price_sale: 111,
+    description:
+      'Quần xếp li phía trước. Có hai túi phía trước và một túi may viền phía sau. Cài khóa kéo và khuy phía trước.',
+    images: [
+      'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1679236285/SevenShop/psteycjolcomioj9lo4o.jpg',
+      'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1679236286/SevenShop/i13ksuv2itufiejhawli.jpg',
+      'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1679236286/SevenShop/o0p6eg1l6luacyu0y42h.jpg',
+      'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1679236287/SevenShop/drkki7tykzhv11wtrlmt.jpg',
+      'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1679236287/SevenShop/knmfkpwpiaxhyzboub4v.jpg',
+    ],
+    stock: [
+      {
+        size_id: '641017d86d6e461901c6bb60',
+        color_id: '6410176f6d6e461901c6bb15',
+        quantity: 0,
+      },
+      {
+        size_id: '641017d86d6e461901c6bb60',
+        color_id: '6410178a6d6e461901c6bb2e',
+        quantity: 0,
+      },
+    ],
+    status: STATUS_PRODUCT.active,
+    category_ids: ['640fdb4da2a095a3e667d645'],
+    color_ids: ['6410176f6d6e461901c6bb15', '6410178a6d6e461901c6bb2e', '641017a76d6e461901c6bb4a'],
+    size_ids: ['641017d86d6e461901c6bb60', '641017dd6d6e461901c6bb6e', '641017e36d6e461901c6bb7c'],
+    created_at: '2023-03-19T14:31:55+00:00',
+    created_by: 'levanchunq123@gmail.com',
+    modify: [
+      {
+        action: 'Create by levanchunq123@gmail.com',
+        date: '2023-03-19T14:31:55+00:00',
+      },
+    ],
+    reviews: [],
   },
 ];
 

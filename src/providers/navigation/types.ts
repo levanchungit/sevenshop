@@ -13,7 +13,7 @@ export type AppStackNavigatorParamList = {
   Detail: undefined;
   OTPForgot: undefined;
   SearchProduct: undefined;
-  SearchKeywordproducts: undefined;
+  SearchKeywordProducts: undefined;
   Product: undefined;
   ProductFavorites: undefined;
   Profile: undefined;
@@ -39,7 +39,7 @@ export type AppStackNavigatorParamList = {
   PaymentMethodScreen: undefined;
   OrderDetail: undefined;
   CheckoutScreen: undefined;
-  MypurchaseScreen: undefined;
+  MyPurchaseScreen: undefined;
 };
 
 export type BottomTabNavigatorParamList = {

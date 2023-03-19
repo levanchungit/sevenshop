@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Button, Image, Toast } from 'native-base';
+import { Text, View, Button, Image, Toast, Spinner, Box } from 'native-base';
 import * as Icon from 'react-native-feather';
 // import { SignInPayload } from 'interfaces/Auth';
 import SSTextInput from 'components/SSTextInput';
@@ -12,8 +12,10 @@ const LoginScreen = () => {
 
   const [email, setEmail] = useState('levanchunq123@gmail.com');
   const [password, setPassword] = useState('123456');
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async () => {
+    setIsLoading(true);
     try {
       const response = await authAPI.login({ email, password });
       Toast.show({
@@ -27,6 +29,7 @@ const LoginScreen = () => {
         duration: 3000,
       });
     }
+    setIsLoading(false);
   };
 
   return (
@@ -112,6 +115,20 @@ const LoginScreen = () => {
           </Text>
         </View>
       </View>
+
+      {isLoading ? (
+        <Box
+          display={'flex'}
+          justifyContent="center"
+          backgroundColor={'rgba(0,0,0,0.1)'}
+          w={'100%'}
+          height={'100%'}
+          position="absolute"
+          alignItems="center"
+        >
+          <Spinner size={50}></Spinner>
+        </Box>
+      ) : null}
     </View>
   );
 };

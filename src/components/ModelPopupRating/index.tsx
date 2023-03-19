@@ -2,7 +2,10 @@ import { Flex, Image, Modal, Text, TextArea } from 'native-base';
 import { Dimensions } from 'react-native';
 import { Rating } from 'react-native-ratings';
 import SSButton from 'components/SSButton';
-import { color, size } from 'interfaces/Auth';
+import { STATUS_PRODUCT } from 'global/constants';
+import { review } from 'interfaces/Auth';
+import { IModify } from 'interfaces/Basic';
+import { IStock } from 'interfaces/Product';
 
 const initialWidth = Dimensions.get('window').width;
 
@@ -12,17 +15,21 @@ type Props = {
   setShowModal: Function;
   rating: number;
   product?: {
-    id: string;
+    _id?: string;
     name: string;
     price: number;
-    image: string;
-    category: string;
-    type: {
-      size: size;
-      color: color;
-    };
-    selled: number;
-    categories: number;
+    price_sale: number;
+    description: string;
+    images: string[];
+    stock: IStock[];
+    status: STATUS_PRODUCT;
+    category_ids: string[];
+    color_ids: string[];
+    size_ids: string[];
+    created_at: string;
+    created_by: string;
+    modify: IModify[];
+    reviews: review[];
   };
 };
 
@@ -36,7 +43,7 @@ const ModelPopupRating = (props: Props) => {
           <Flex direction="row" w="100%">
             <Image
               source={{
-                uri: product?.image,
+                uri: product?.images[0],
               }}
               alt="Product img"
               size="full"

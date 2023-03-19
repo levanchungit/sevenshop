@@ -10,13 +10,7 @@ import { AppNavigationProp } from 'providers/navigation/types';
 const OTPScreen = (props: any) => {
   const navigation = useNavigation<AppNavigationProp>();
 
-  // const [formData, setFormData] = useState<CheckOTPPayload>({
-  //   id: props.route.params.user_id,
-  //   otp: '',
-  // });
-
   const [id] = useState(props.route.params.user_id);
-  console.log(id);
   const [otp, setOtp] = useState('');
   const onSubmit = async () => {
     try {
@@ -26,7 +20,7 @@ const OTPScreen = (props: any) => {
         duration: 3000,
       });
 
-      navigation.navigate('SetPassword');
+      navigation.replace('SetPassword');
     } catch (e: any) {
       Toast.show({
         title: e.response?.data?.message,

@@ -15,12 +15,11 @@ const SetPassWordScreen = () => {
   const onSubmit = async () => {
     try {
       const response = await authAPI.set_password({ password });
-      console.log(response);
       Toast.show({
         title: response.data.message,
         duration: 3000,
       });
-      navigation.navigate('Main');
+      navigation.navigate('Login');
     } catch (e: any) {
       Toast.show({
         title: e.response?.data?.message,
@@ -56,7 +55,7 @@ const SetPassWordScreen = () => {
       <View h={200} alignItems="center">
         <SSTextInput
           placeholder={'Enter confirm your password...'}
-          typePassword={false}
+          typePassword={true}
           inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
           value={password}
           changeValue={setPassword}
@@ -64,7 +63,7 @@ const SetPassWordScreen = () => {
 
         <SSTextInput
           placeholder={'Enter confirm your password...'}
-          typePassword={false}
+          typePassword={true}
           inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
           value={password_new}
           changeValue={setPassword_new}
