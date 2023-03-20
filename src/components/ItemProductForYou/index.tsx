@@ -27,7 +27,7 @@ const ItemProductForYou = (props: Props) => {
         </Text>
         <View style={styles.coverTextSeller}>
           <Text color="primary.600" variant={'subtitle1'}>
-            {formatCurrency({ amount: price, code: 'VND' }).slice(0, 1)}
+            {formatCurrency({ amount: price ? price : 123, code: 'VND' }).slice(0, 1)}
           </Text>
           <Text fontSize={12}>Đã bán {selled}</Text>
         </View>

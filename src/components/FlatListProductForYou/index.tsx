@@ -8,12 +8,11 @@ import styles from './styles';
 type Props = {
   data: IProduct[];
   footer: any;
-  // readChy: Function;
-  size: number;
+  onEndReadChy: Function;
 };
 
 const FlatListProductForYou = (props: Props) => {
-  const { data, footer, size } = props;
+  const { data, footer, onEndReadChy } = props;
   const [refreshScroll, setrefreshScroll] = useState(false);
   // const [size, setSize] = useState(6);
 
@@ -47,7 +46,7 @@ const FlatListProductForYou = (props: Props) => {
         <FlatList
           contentContainerStyle={styles.flashList}
           numColumns={2}
-          data={data.slice(0, size)}
+          data={data}
           // scrollEnabled={false}
           renderItem={({ item }) => <RenderItemForYou data={item} />}
           ListFooterComponent={footer}
@@ -61,9 +60,7 @@ const FlatListProductForYou = (props: Props) => {
               colors={['red']}
             />
           }
-          onEndReached={() => {
-            size;
-          }}
+          onEndReached={() => onEndReadChy()}
           onEndReachedThreshold={0.1}
           nestedScrollEnabled
         />

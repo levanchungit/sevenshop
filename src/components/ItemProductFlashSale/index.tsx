@@ -12,10 +12,25 @@ const ItemProductFlashSale = (props: Props) => {
   const { data, onPress } = props;
   return (
     <>
+<<<<<<< HEAD
       <Pressable style={styles.itemProductFlastSale} onPress={() => onPress()}>
         <Skeleton h={20} isLoaded={!!data.images[0]}>
           <Image alt="1241" height={20} resizeMode="cover" source={{ uri: data.images[0] }} />
         </Skeleton>
+=======
+      <Pressable style={styles.itemProductFlashSale} onPress={() => onPress()}>
+        <Image
+          alt="1241"
+          height={20}
+          resizeMode="cover"
+          source={
+            data.images === undefined || data.images.length === 0
+              ? require('../../assets/images/logo_sevenshop_image_default.png')
+              : require('../../assets/images/logo_sevenshop_image_default.png')
+            // { uri: data.images[0] }
+          }
+        />
+>>>>>>> 2220bcd (update api home screen and the components flatlist not finished)
         <View>
           <Skeleton borderRadius={5} my={0.5} h={5} isLoaded={!!data.name}>
             <Text numberOfLines={1}>{data.name}</Text>

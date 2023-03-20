@@ -3,9 +3,8 @@ import { API_ROUTES } from 'global/constants';
 import { axiosInstance } from './config/AxiosInstance';
 
 const productAPI = {
-  getProducts() {
-    const response = axiosInstance.get(API_URL + API_ROUTES.getProducts);
-    return response;
+  getProducts(limit: number) {
+    return axiosInstance.get(API_ROUTES.getProducts(limit));
   },
 
   async getProductID(id: string) {

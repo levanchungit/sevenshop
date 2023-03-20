@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import useGetCarts from 'hook/product/useGetCarts';
 import { View, FlatList } from 'native-base';
 import { ActivityIndicator, TextInput } from 'react-native';
 import FlatListProductCategory from 'components/FlatListProductCategory';
@@ -8,6 +7,7 @@ import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import FlatListProductForYou from 'components/FlatListProductForYou';
 import IconCart from 'components/IconCart';
 import SlideShowImage from 'components/SwipeBanner';
+import useGetCarts from 'hook/product/useGetCarts';
 import useGetProducts from 'hook/product/useGetProducts';
 import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';

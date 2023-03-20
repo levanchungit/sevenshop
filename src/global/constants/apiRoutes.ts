@@ -11,13 +11,14 @@ export const API_ROUTES = {
   me: `/auth/me`,
 
   // product
-  getProducts: `/products`,
+  getProducts: (limit: number) => `/products?limit=${limit}`,
   getProductDetail: (id: string) => `/products/${id}`,
 
   //categories
   getCategories: `/categories`,
 
   //order
-  addToCart: 'order/addToCart/',
+  addToCart: '/order/addToCart/',
+  getCarts: `/carts`,
 };
 export default API_ROUTES;

@@ -30,7 +30,8 @@ const ItemProductCategory = (props: Props) => {
           </Text>
           <View>
             <Text numberOfLines={1} fontWeight="bold" color="primary.600" style={{ fontSize: 20 }}>
-              {formatCurrency({ amount: price, code: 'VND' }).slice(0, 1)}
+              {formatCurrency({ amount: price ? price : 123, code: 'VND' }).slice(0, 1)}
+              {/* hhh */}
             </Text>
           </View>
         </View>

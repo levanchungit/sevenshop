@@ -1,95 +1,53 @@
 import React, { useEffect, useState } from 'react';
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, FlatList } from 'native-base';
 // import { ActivityIndicator } from 'react-native';
 // import * as Icons from 'react-native-feather';
 import * as Progress from 'react-native-progress';
 import ButtonCategory from 'components/ButtonCategory';
 import ItemProductCategory from 'components/ItemProductCategory';
-// import { AppNavigationProp } from 'providers/navigation/types';
+import useGetCategories from 'hook/product/useGetCategories';
 import { IProduct } from 'interfaces/Product';
+import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';
 
 type Props = {
   data: IProduct[];
 };
 const FlatListProductCategory = (props: Props) => {
+  const navigation = useNavigation<AppNavigationProp>();
   const { data } = props;
-  const [ItemSelected, setItemSelected] = useState([
-    {
-      _id: 1,
-      title: 'Hoddies',
-      isSelected: true,
-    },
-    {
-      _id: 2,
-      title: 'Sweeters',
-      isSelected: false,
-    },
-    {
-      _id: 3,
-      title: 'Bombies',
-      isSelected: false,
-    },
-    {
-      _id: 4,
-      title: 'Joggers',
-      isSelected: false,
-    },
-    {
-      _id: 5,
-      title: 'Jeans',
-      isSelected: false,
-    },
-    {
-      _id: 6,
-      title: 'T-shirts',
-      isSelected: false,
-    },
-    {
-      _id: 7,
-      title: 'Vests',
-      isSelected: false,
-    },
-  ]);
-
+  const { categories } = useGetCategories();
+  const [ItemSelected2, setItemSelected2]: any = useState([]);
   const [progressEnable, setProgressEnable] = useState(true);
-  // const [end, setEnd] = useState(3);
 
-  const id_Category: any = () => {
-    let category;
-    ItemSelected.map((item) => {
-      if (item.isSelected === true) {
-        return (category = item._id);
-      }
-    });
-    // console.log('categoryyyyyyyy' + category);
-    return category;
-  };
+  // const [idCate, setIdCate] = useState('');
+
   useEffect(() => {
-    setInterval(() => {
-      setProgressEnable(false);
-    }, 3000);
-  }, [id_Category()]);
+    if (categories) {
+      const newCategories = categories?.data.results.map((category: any) => ({
+        ...category,
+        isSelected: false,
+      }));
+      setItemSelected2(newCategories);
+    }
+    setProgressEnable(true);
+  }, [categories]);
 
   // useEffect(() => {
-  //   set
-  // }, [isLoaddingItemCategory]);
-
-  // const setTimeLoad = () => {
-  //   // setIsLoaddingItemCategory(true);
-  //   let varibale: any;
-  //   setTimeout(() => setIsLoaddingItemCategory(false), 1000);
-  //   // setTimeout(() => setIsLoaddingItemCategory(true), 1000);
-
-  //   // console.log(isLoaddingItemCategory);
-  //   // setTimeout(() => clearTimeout(varibale), 1000);
-  // };
+  //   ItemSelected2.map((item: { isSelected: boolean; _id: React.SetStateAction<string> }) => {
+  //     if (item.isSelected === true) {
+  //       console.warn('Item selected', item._id);
+  //       setIdCate(item._id);
+  //     }
+  //   });
+  //   console.warn(idCate);
+  // }, [ItemSelected2]);
 
   const RenderItemCategory = ({ data }: { data: IProduct }) => {
     return (
       <ItemProductCategory
-        onPress={() => alert('')}
+        onPress={() => navigation.navigate('Detail')}
         name={data.name}
         image={
           'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656'
@@ -103,22 +61,22 @@ const FlatListProductCategory = (props: Props) => {
     <View>
       <View style={styles.coverCategories}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {ItemSelected.map((item) => (
+          {ItemSelected2.map((item: any) => (
             <ButtonCategory
               onPress={() => {
-                const ItemSelected2 = ItemSelected.map((item2) => {
-                  return { ...item2, isSelected: item.title === item2.title };
+                const ItemSelected3 = ItemSelected2.map((item2: any) => {
+                  return { ...item2, isSelected: item.name === item2.name };
                 });
-                setItemSelected(ItemSelected2);
+                setItemSelected2(ItemSelected3);
               }}
-              title={item.title}
+              title={item.name}
               isSelected={item.isSelected}
               key={item._id}
             />
           ))}
         </ScrollView>
       </View>
-      {progressEnable ? (
+      {!progressEnable ? (
         <View
           style={{
             width: '100%',
@@ -134,10 +92,14 @@ const FlatListProductCategory = (props: Props) => {
           showsHorizontalScrollIndicator={false}
           horizontal
           contentContainerStyle={styles.flashListFlashSale}
-          data={data.filter(function (item) {
-            console.log(item);
-            return item.category_ids === id_Category();
-          })}
+          data={
+            data
+            // ? data.filter(function (item) {
+            //     // console.warn(id_Category());
+            //     return item.category_ids.includes(id_Category());
+            //   })
+            // : null
+          }
           renderItem={({ item }) => <RenderItemCategory data={item} />}
           keyExtractor={(item1, index) => index.toString()}
         />

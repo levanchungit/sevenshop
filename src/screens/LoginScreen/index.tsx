@@ -10,7 +10,7 @@ import { AppNavigationProp } from 'providers/navigation/types';
 const LoginScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [email, setEmail] = useState('levanchunq123@gmail.com');
+  const [email, setEmail] = useState('quyentran.02062000@gmail.com');
   const [password, setPassword] = useState('123456');
   const [isLoading, setIsLoading] = useState(false);
 
