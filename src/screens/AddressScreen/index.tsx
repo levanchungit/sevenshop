@@ -33,6 +33,7 @@ const AddressScreen = (onBack: any) => {
       />
       <Box marginY={3} />
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={DATA5}
         renderItem={({ item }) => (
           <ItemAdrress address={item} check={isChecked} setCheck={setIsChecked} />
@@ -49,7 +50,7 @@ const AddressScreen = (onBack: any) => {
       <SSButton
         variant={'red'}
         text={'Select address'}
-        onPress={() => console.log('Selected')}
+        onPress={() => navigation.navigate('CheckoutScreen', { address_id: isChecked })}
       ></SSButton>
     </SafeAreaView>
   );

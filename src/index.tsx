@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Raleway_400Regular, Raleway_500Medium, Raleway_700Bold } from '@expo-google-fonts/raleway';
+import { StripeProvider } from '@stripe/stripe-react-native';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { Provider } from 'providers';
@@ -37,8 +38,14 @@ export default function App() {
   }
 
   return (
-    <Provider onLayout={onLayoutRootView}>
-      <StackNavigator />
-    </Provider>
+    <StripeProvider
+      publishableKey="pk_live_51Mnj6VJyku6LTTLY9BLNiANO9hlUVAx9FJMHwvUAHNWnJrGoSJbpZjznVmQ8t2RNXwW4wl3XNWD2R5mCk9rKIp5V00SIq6PHu4"
+      urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+      merchantIdentifier="merchant.com.{{SevenShop}}" // required for Apple Pay
+    >
+      <Provider onLayout={onLayoutRootView}>
+        <StackNavigator />
+      </Provider>
+    </StripeProvider>
   );
 }

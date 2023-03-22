@@ -17,8 +17,14 @@ export const API_ROUTES = {
   //categories
   getCategories: `/categories`,
 
-  //order
-  addToCart: '/order/addToCart/',
+  //cart
   getCarts: `/carts`,
+  addToCart: 'order/addToCart/',
+
+  // orders
+  getOrderById: (id: string) => `/orders/me/${id}`,
+
+  // checkout
+  checkout: '/pay',
 };
 export default API_ROUTES;

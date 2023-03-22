@@ -1,7 +1,27 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import Moment from 'moment';
 import { Image, Text, View, Pressable } from 'native-base';
+import useGetOrderById from 'hook/order/useGetOrderById';
+import { PaymentSuccessRouteProp, AppNavigationProp } from 'providers/navigation/types';
 
-const PaymentSuccess = () => {
+type Success = {
+  route: PaymentSuccessRouteProp;
+};
+const PaymentSuccess = ({ route }: Success) => {
+  const navigation = useNavigation<AppNavigationProp>();
+  const { id_order } = route.params;
+  const { order } = useGetOrderById(id_order);
+  let date = '';
+  if (order) {
+    date =
+      (order?.data.created_at).slice(11, 16) +
+      '-' +
+      Moment((order?.data.created_at).slice(0, 10)).format('DD/MM/YYYY');
+  }
+
+  // console.log('PaymentSuccess', order?.data);
+
   return (
     <View bgColor={'white'} flex={1}>
       <View mt={7}>
@@ -39,7 +59,7 @@ const PaymentSuccess = () => {
                 color={'black'}
                 fontFamily="Raleway_500Medium"
               >
-                21:41 - 13/02/2023
+                {date}
               </Text>
             </View>
             <View flexDirection={'row'} justifyContent="space-between" mb={2}>
@@ -54,7 +74,7 @@ const PaymentSuccess = () => {
                 fontSize={16}
                 color={'primary.600'}
               >
-                #0945943
+                {order ? '#' + order?.data._id : '...............'}
               </Text>
             </View>
             <View flexDirection={'row'} justifyContent="space-between" color={'black'} mb={3}>
@@ -67,7 +87,7 @@ const PaymentSuccess = () => {
                 Paid by
               </Text>
               <Text variant={'Body1'} fontSize={16} color={'black'} fontFamily="Raleway_500Medium">
-                MoMo E-Wallet
+                {order ? (order?.data.payment_type === 'cod' ? 'Cash' : '...') : '......'}
               </Text>
             </View>
             <View flexDirection={'row'} justifyContent="space-between" color={'black'}>
@@ -98,6 +118,7 @@ const PaymentSuccess = () => {
                   marginTop: 8,
                   borderColor: 'gray',
                 }}
+                onPress={() => navigation.replace('MyPurchaseScreen')}
               >
                 <Text
                   variant={'Button'}
@@ -138,6 +159,7 @@ const PaymentSuccess = () => {
             borderColor: 'gray',
           }}
           backgroundColor={'primary.600'}
+          onPress={() => navigation.navigate('Main')}
         >
           <Text variant={'Button'} fontFamily="Raleway_700Bold" fontSize={16} color={'white'}>
             Keep Shopping
