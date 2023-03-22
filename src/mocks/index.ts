@@ -91,11 +91,13 @@ export const DATA: IProduct[] = [
         size_id: '641017d86d6e461901c6bb60',
         color_id: '6410176f6d6e461901c6bb15',
         quantity: 0,
+        _id: '641017d8vbhn6e461901c6',
       },
       {
         size_id: '641017d86d6e461901c6bb60',
         color_id: '6410178a6d6e461901c6bb2e',
         quantity: 0,
+        _id: '64101345346d6e461901c6',
       },
     ],
     status: STATUS_PRODUCT.active,

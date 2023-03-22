@@ -6,10 +6,11 @@ export type IStock = {
   size_id: string;
   color_id: string;
   quantity: number;
+  _id: string;
 };
 
 export interface IProduct {
-  _id?: string;
+  _id: string;
   name: string;
   price: number;
   price_sale: number;

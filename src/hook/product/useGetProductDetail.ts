@@ -1,8 +1,5 @@
 import useSWR from 'swr';
-// import { API_ROUTES } from 'global/constants';
 import { productAPI } from 'modules';
-
-// const SWR_KEY = API_ROUTES.getProductDetail;
 
 const fetcher = async (id: string) => {
   const response = await productAPI.getProductID(id);

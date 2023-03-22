@@ -19,6 +19,13 @@ export const API_ROUTES = {
 
   //cart
   getCarts: `/carts`,
+  //colors
+  getColors: '/colors',
+
+  //sizes
+  getSizes: '/sizes',
+
+  //order
   addToCart: 'order/addToCart/',
 
   // orders

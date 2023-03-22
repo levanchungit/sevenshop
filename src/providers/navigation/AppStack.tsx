@@ -34,6 +34,8 @@ const { Navigator, Screen } = AppStack;
 const StackNavigator = () => {
   return (
     <Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+      <Screen name="MyPurchaseScreen" component={MyPurchaseScreen} />
+      <Screen name="CheckoutScreen" component={CheckoutScreen} />
       <Screen name="Login" component={LoginScreen} />
       <Screen
         name="Main"
@@ -63,8 +65,6 @@ const StackNavigator = () => {
       <Screen name="AccountSecurity" component={AccountSecurityScreen} />
       <Screen name="PaymentSuccess" component={PaymentSuccess} />
       <Screen name="OrderDetail" component={OrderDetailScreen} />
-      <Screen name="MyPurchaseScreen" component={MyPurchaseScreen} />
-      <Screen name="CheckoutScreen" component={CheckoutScreen} />
     </Navigator>
   );
 };

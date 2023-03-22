@@ -12,26 +12,54 @@ const ItemProductFlashSale = (props: Props) => {
   const { data, onPress } = props;
   return (
     <>
-      <Pressable style={styles.itemProductFlashSale} onPress={() => onPress()}>
-        <Skeleton h={20} isLoaded={!!data.images[0]}>
-          <Image alt="1241" height={20} resizeMode="cover" source={{ uri: data.images[0] }} />
+      <Pressable style={styles.itemProductFlastSale} onPress={() => onPress()}>
+        <Skeleton h={100} w={100} isLoaded={!!data.images[0]} mb={3}>
+          <Image
+            alt="Invalid image"
+            h={100}
+            w={100}
+            resizeMode="cover"
+            source={{ uri: data.images[0] }}
+          />
         </Skeleton>
         <View>
-          <Skeleton borderRadius={5} my={0.5} h={5} isLoaded={!!data.name}>
-            <Text numberOfLines={1}>{data.name}</Text>
-          </Skeleton>
+          <Skeleton.Text lines={1} isLoaded={!!data.name}>
+            <Text
+              style={{
+                fontVariant: ['lining-nums'],
+              }}
+              variant="body1"
+              numberOfLines={2}
+            >
+              {data.name}
+            </Text>
+          </Skeleton.Text>
 
           <View style={styles.coverTextPrice}>
-            <Skeleton borderRadius={5} my={0.5} h={5} isLoaded={!!data.price}>
-              <Text fontSize={14} textDecorationLine="line-through">
-                {data.price}đ
+            <Skeleton.Text lines={1} w="50%" isLoaded={data.price_sale ? !!data.price_sale : true}>
+              {data.price_sale ? (
+                <Text
+                  style={{
+                    fontVariant: ['lining-nums'],
+                  }}
+                  variant="caption"
+                  strikeThrough
+                >
+                  {data.price}vnđ
+                </Text>
+              ) : null}
+            </Skeleton.Text>
+            <Skeleton.Text lines={1} w="100%" isLoaded={!!data.price}>
+              <Text
+                style={{
+                  fontVariant: ['lining-nums'],
+                }}
+                color="primary.600"
+                variant="subtitle1"
+              >
+                {data.price_sale ? data.price_sale : data.price}đ
               </Text>
-            </Skeleton>
-            <Skeleton borderRadius={5} my={0.5} h={5} isLoaded={!data.price_sale}>
-              <Text color="primary.600" fontSize={16}>
-                {data.price_sale}đ
-              </Text>
-            </Skeleton>
+            </Skeleton.Text>
           </View>
         </View>
       </Pressable>

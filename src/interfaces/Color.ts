@@ -1,7 +1,7 @@
 import { IModify } from './Basic';
 
 export interface IColor {
-  _id?: string;
+  _id: string;
   name: string;
   code: string;
   created_at: string;
