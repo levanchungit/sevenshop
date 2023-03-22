@@ -283,6 +283,7 @@ const Cart = () => {
         titleHeaderScreen="Cart"
         iconRightHeaderScreen={false}
         quantityItems={12}
+        iconRightHeaderCart={false}
       />
       <View w={'100%'} h={'100%'} p={3}>
         <View w={'100%'} flexDirection={'row'} justifyItems={'center'}>

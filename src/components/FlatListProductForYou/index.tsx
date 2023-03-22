@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, View, Text, FlatList } from 'native-base';
-import { RefreshControl } from 'react-native';
 import ItemProductForYou from 'components/ItemProductForYou';
 import { IProduct } from 'interfaces/Product';
 import styles from './styles';
 
 type Props = {
   data: IProduct[];
-  footer: any;
-  onEndReadChy: Function;
 };
 
 const FlatListProductForYou = (props: Props) => {
-  const { data, footer, onEndReadChy } = props;
-  const [refreshScroll, setrefreshScroll] = useState(false);
-  // const [size, setSize] = useState(6);
+  const { data } = props;
 
   const RenderItemForYou = ({ data }: { data: IProduct }) => {
     return (
@@ -47,20 +42,27 @@ const FlatListProductForYou = (props: Props) => {
           contentContainerStyle={styles.flashList}
           numColumns={2}
           data={data}
-          // scrollEnabled={false}
           renderItem={({ item }) => <RenderItemForYou data={item} />}
-          ListFooterComponent={footer}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshScroll}
-              onRefresh={() => {
-                // console.log('lam moi');
-                setrefreshScroll(true);
-              }}
-              colors={['red']}
-            />
+          ListFooterComponent={
+            <View w={'100%'} alignItems="center" mt={12} flexDirection="row" key={1}>
+              <ItemProductForYou
+                name={''}
+                image={''}
+                price={0}
+                selled={0}
+                onPress={() => {}}
+                key={2}
+              />
+              <ItemProductForYou
+                name={''}
+                image={''}
+                price={0}
+                selled={0}
+                onPress={() => {}}
+                key={3}
+              />
+            </View>
           }
-          onEndReached={() => onEndReadChy()}
           onEndReachedThreshold={0.1}
           nestedScrollEnabled
         />

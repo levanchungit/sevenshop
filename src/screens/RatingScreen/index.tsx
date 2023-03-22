@@ -79,6 +79,7 @@ const RatingScreen = () => {
         titleHeaderScreen={'My rating'}
         iconRightHeaderScreen={false}
         quantityItems={0}
+        iconRightHeaderCart={false}
       />
 
       <TabView

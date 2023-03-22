@@ -14,6 +14,7 @@ const AccountSecurityScreen = () => {
         titleHeaderScreen="Account & Security"
         iconRightHeaderScreen={false}
         quantityItems={12}
+        iconRightHeaderCart={false}
       />
 
       <View h={'70%'} px={3}>

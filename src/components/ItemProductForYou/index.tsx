@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, Pressable } from 'native-base';
+import { Text, View, Image, Pressable, Skeleton } from 'native-base';
 import { formatCurrency } from 'react-native-format-currency';
 import styles from './styles';
 
@@ -15,21 +15,29 @@ const ItemProductForYou = (props: Props) => {
   const { name, image, price, selled, onPress } = props;
   return (
     <Pressable style={styles.itemProductForYou} onPress={() => onPress()}>
-      <Image
-        alt="gsgsdg"
-        style={styles.imageItemForYou}
-        resizeMode="cover"
-        source={{ uri: image ? image + '' : '123' }}
-      />
+      <Skeleton h={150} isLoaded={!!image} mb={2}>
+        <Image
+          alt="gsgsdg"
+          style={styles.imageItemForYou}
+          resizeMode="cover"
+          source={{ uri: image ? image + '' : '123' }}
+        />
+      </Skeleton>
       <View>
-        <Text numberOfLines={1} fontSize={16}>
-          {name}
-        </Text>
-        <View style={styles.coverTextSeller}>
-          <Text color="primary.600" variant={'subtitle1'}>
-            {formatCurrency({ amount: price ? price : 123, code: 'VND' }).slice(0, 1)}
+        <Skeleton isLoaded={!!name} mb={2}>
+          <Text numberOfLines={1} fontSize={16}>
+            {name}
           </Text>
-          <Text fontSize={12}>Đã bán {selled}</Text>
+        </Skeleton>
+        <View style={styles.coverTextSeller}>
+          <Skeleton isLoaded={!!price}>
+            <Text color="primary.600" variant={'subtitle1'}>
+              {formatCurrency({ amount: price ? price : 123, code: 'VND' }).slice(0, 1)}
+            </Text>
+          </Skeleton>
+          <Skeleton isLoaded={!!selled}>
+            <Text fontSize={12}>Đã bán {selled}</Text>
+          </Skeleton>
         </View>
       </View>
     </Pressable>

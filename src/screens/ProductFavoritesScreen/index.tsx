@@ -58,6 +58,7 @@ const ProductFavoritesScreen = () => {
         titleHeaderScreen="Payment Success"
         iconRightHeaderScreen={false}
         quantityItems={12}
+        iconRightHeaderCart={false}
       />
 
       <View px={3}>

@@ -20,6 +20,7 @@ const OrderDetailScreen = (props: Props) => {
           titleHeaderScreen={'Order Detail'}
           iconRightHeaderScreen={true}
           quantityItems={0}
+          iconRightHeaderCart={false}
         />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>

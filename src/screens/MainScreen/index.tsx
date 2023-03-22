@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, FlatList } from 'native-base';
-import { ActivityIndicator, TextInput } from 'react-native';
-import FlatListProductCategory from 'components/FlatListProductCategory';
-import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
+import { TextInput } from 'react-native';
+// import FlatListProductCategory from 'components/FlatListProductCategory';
+// import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import FlatListProductForYou from 'components/FlatListProductForYou';
 import IconCart from 'components/IconCart';
 import SlideShowImage from 'components/SwipeBanner';
@@ -17,22 +17,16 @@ export const MainScreen = () => {
   const [scrollEnable, setScrollEnable] = useState(false);
   let yOffset = '';
 
-  const [limit, setLimit] = useState(2);
+  const limit = 4;
+  const [page, setPage] = useState(0);
   const [product, setProduct] = useState(() => []);
-  const { products, err_products } = useGetProducts(limit);
+  const { products, isReachingEnd } = useGetProducts(page, limit);
+
   const { carts } = useGetCarts();
 
   useEffect(() => {
-    if (products?.data) {
-      setProduct(products.data.results);
-      // setProduct((prevProduct) => {
-      //   if (prevProduct) {
-      //     const set = new Set([...prevProduct, ...products.data.results]);
-      //     return Array.from(set);
-      //   } else {
-      //     return products.data.results;
-      //   }
-      // });
+    if (products) {
+      setProduct(product.concat(products[0].data.results));
     }
   }, [products]);
 
@@ -44,7 +38,9 @@ export const MainScreen = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ marginBottom: 50 }}
         onEndReached={() => {
-          setLimit(limit + 2);
+          if (!isReachingEnd) {
+            setPage(page + 1);
+          }
         }}
         onScroll={(event) => {
           yOffset = event.nativeEvent.contentOffset.y.toString();
@@ -60,32 +56,22 @@ export const MainScreen = () => {
             <View>
               <View>
                 <SlideShowImage style={{}} />
-
+                {/* 
                 <FlatListProductCategory data={product} />
-                <FlatListProductFlashSale data={product} error={err_products} />
+                <FlatListProductFlashSale data={product} error={err_products} /> */}
               </View>
-              <FlatListProductForYou
-                data={product}
-                footer={
-                  <View w={'100%'} alignItems="center" mt={12}>
-                    <ActivityIndicator size={30} />
-                  </View>
-                }
-                onEndReadChy={() => {}}
-              />
+              <FlatListProductForYou data={product} />
             </View>
           );
         }}
       />
-      <View>
-        <View style={scrollEnable ? styles.coverHeaderOnScroll : styles.coverHeader}>
-          {scrollEnable ? <TextInput style={styles.search} placeholder="Search" /> : <View></View>}
-          <IconCart
-            onPressCart={() => navigation.navigate('Cart')}
-            onPressSearch={() => alert('search nè')}
-            quantityItems={carts?.data.length}
-          />
-        </View>
+      <View style={scrollEnable ? styles.coverHeaderOnScroll : styles.coverHeader}>
+        {scrollEnable ? <TextInput style={styles.search} placeholder="Search" /> : <View></View>}
+        <IconCart
+          onPressCart={() => navigation.navigate('Cart')}
+          onPressSearch={() => alert('search nè')}
+          quantityItems={carts?.data.length}
+        />
       </View>
     </View>
   );

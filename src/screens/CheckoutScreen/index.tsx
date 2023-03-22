@@ -19,6 +19,7 @@ const CheckoutScreen = (props: Props) => {
           titleHeaderScreen={'Checkout'}
           iconRightHeaderScreen={false}
           quantityItems={0}
+          iconRightHeaderCart={false}
         />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>

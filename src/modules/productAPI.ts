@@ -1,10 +1,10 @@
-import { API_URL } from 'global/config';
+// import { API_URL } from 'global/config';
 import { API_ROUTES } from 'global/constants';
 import { axiosInstance } from './config/AxiosInstance';
 
 const productAPI = {
-  getProducts(limit: number) {
-    return axiosInstance.get(API_ROUTES.getProducts(limit));
+  getProducts(page: number, limit: number) {
+    return axiosInstance.get(API_ROUTES.getProducts(page, limit));
   },
 
   async getProductID(id: string) {

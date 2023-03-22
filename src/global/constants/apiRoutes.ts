@@ -11,7 +11,7 @@ export const API_ROUTES = {
   me: `/auth/me`,
 
   // product
-  getProducts: (limit: number) => `/products?limit=${limit}`,
+  getProducts: (page: number, limit: number) => `/products?page=${page}&limit=${limit}`,
   getProductDetail: (id: string) => `/products/${id}`,
 
   //categories

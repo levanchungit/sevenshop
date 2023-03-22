@@ -135,6 +135,7 @@ const DetailScreen = (props: DetailScreenProps) => {
         titleHeaderScreen={'Details'}
         iconRightHeaderScreen={true}
         quantityItems={0}
+        iconRightHeaderCart={false}
       />
 
       <Image

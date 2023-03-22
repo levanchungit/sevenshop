@@ -12,6 +12,7 @@ type Props = {
   titleHeaderSearch: string;
   titleHeaderScreen: string;
   iconRightHeaderScreen: boolean;
+  iconRightHeaderCart: boolean;
   quantityItems: number;
 };
 
@@ -25,18 +26,12 @@ const SSHeaderNavigation = (props: Props) => {
     titleHeaderScreen,
     titleHeaderSearch,
     iconRightHeaderScreen,
+    iconRightHeaderCart,
     quantityItems,
   } = props;
 
   return tabHeaderSearchEnabled ? (
-    <View
-      flexDirection={'row'}
-      justifyContent="space-between"
-      // borderBottomWidth={0.5}
-      // borderBottomColor="gray.200"
-      paddingX={3}
-      pb={2}
-    >
+    <View flexDirection={'row'} justifyContent="space-between" paddingX={3} pb={2}>
       {titleHeaderSearchEnabled ? (
         <Text variant="Title" fontWeight={'bold'} fontSize={20}>
           {titleHeaderSearch}
@@ -81,7 +76,11 @@ const SSHeaderNavigation = (props: Props) => {
         </Text>
       </Pressable>
       {iconRightHeaderScreen ? (
-        <Icons.Headphones stroke={'black'} width={24} height={24} />
+        iconRightHeaderCart ? (
+          <Icons.ShoppingCart stroke={'black'} width={24} height={24} />
+        ) : (
+          <Icons.Headphones stroke={'black'} width={24} height={24} />
+        )
       ) : (
         <View></View>
       )}
