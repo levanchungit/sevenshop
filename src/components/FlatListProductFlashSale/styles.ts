@@ -4,7 +4,6 @@ const styles = StyleSheet.create({
   flashListFlashSale: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
   },
   coverHeader: {
     display: 'flex',

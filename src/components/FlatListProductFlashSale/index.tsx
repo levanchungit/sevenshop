@@ -64,11 +64,15 @@ const FlatListProductFlashSale = (props: Props) => {
     return () => clearInterval(myRef.current);
   }, [second]);
 
-  const RenderItemFlashSale = ({ data }: { data: IProduct }) => {
+  const renderItem = ({ item }: { item: IProduct }) => {
     return (
       <ItemProductFlashSale
-        data={data}
-        onPress={() => navigation.navigate('Detail', { id_product: data._id })}
+        data={item}
+        onPress={() =>
+          navigation.navigate('Detail', {
+            _id: item._id,
+          })
+        }
       />
     );
   };

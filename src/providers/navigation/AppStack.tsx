@@ -33,8 +33,7 @@ const { Navigator, Screen } = AppStack;
 
 const StackNavigator = () => {
   return (
-    <Navigator initialRouteName="Detail" screenOptions={{ headerShown: false }}>
-      <Screen name="OrderDetail" component={OrderDetailScreen} />
+    <Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
       <Screen name="MyPurchaseScreen" component={MyPurchaseScreen} />
       <Screen name="CheckoutScreen" component={CheckoutScreen} />
       <Screen name="Login" component={LoginScreen} />
@@ -66,8 +65,6 @@ const StackNavigator = () => {
       <Screen name="AccountSecurity" component={AccountSecurityScreen} />
       <Screen name="PaymentSuccess" component={PaymentSuccess} />
       <Screen name="OrderDetail" component={OrderDetailScreen} />
-      <Screen name="MyPurchaseScreen" component={MyPurchaseScreen} />
-      <Screen name="CheckoutScreen" component={CheckoutScreen} />
     </Navigator>
   );
 };

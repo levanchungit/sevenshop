@@ -1,7 +1,7 @@
 import { IModify } from './Basic';
 
 export interface ISize {
-  _id?: string;
+  _id: string;
   name: string;
   size: string;
   created_at: string;
