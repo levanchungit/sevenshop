@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, FlatList } from 'native-base';
 import ItemProductFlashSale from 'components/ItemProductFlashSale';
 import { IProduct } from 'interfaces/Product';
+import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';
 
 type Props = {
@@ -10,6 +12,7 @@ type Props = {
 };
 
 const FlatListProductFlashSale = (props: Props) => {
+  const navigation = useNavigation<AppNavigationProp>();
   const { data, error } = props;
   const [hour, setHour] = useState(2);
   const [minute, setMinute] = useState(2);
@@ -62,7 +65,12 @@ const FlatListProductFlashSale = (props: Props) => {
   }, [second]);
 
   const RenderItemFlashSale = ({ data }: { data: IProduct }) => {
-    return <ItemProductFlashSale data={data} onPress={() => alert('item nè')} />;
+    return (
+      <ItemProductFlashSale
+        data={data}
+        onPress={() => navigation.navigate('Detail', { id_product: data._id })}
+      />
+    );
   };
 
   return (

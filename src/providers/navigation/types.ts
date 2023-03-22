@@ -10,7 +10,9 @@ export type AppStackNavigatorParamList = {
   SetPassword: undefined;
   SetPasswordForgot: undefined;
   ForgotPassWord: undefined;
-  Detail: undefined;
+  Detail: {
+    id_product?: string;
+  };
   OTPForgot: undefined;
   SearchProduct: undefined;
   SearchKeywordProducts: undefined;
@@ -20,7 +22,6 @@ export type AppStackNavigatorParamList = {
   AccountSettings: undefined;
   AccountSecurity: undefined;
   Cart: undefined;
-  PaymentSuccess: undefined;
   Address: undefined;
   EditAddress: {
     typeEdit: boolean;
@@ -38,7 +39,12 @@ export type AppStackNavigatorParamList = {
   Rating: undefined;
   PaymentMethodScreen: undefined;
   OrderDetail: undefined;
-  CheckoutScreen: undefined;
+  CheckoutScreen?: {
+    address_id?: number;
+  };
+  PaymentSuccess: {
+    id_order: string;
+  };
   MyPurchaseScreen: undefined;
 };
 
@@ -60,6 +66,8 @@ export type AppNavigationProp = NativeStackNavigationProp<AppStackNavigatorParam
 export type DetailRouteProp = RouteProp<AppStackNavigatorParamList, 'Detail'>;
 
 export type EditAddressRouteProp = RouteProp<AppStackNavigatorParamList, 'EditAddress'>;
+
+export type PaymentSuccessRouteProp = RouteProp<AppStackNavigatorParamList, 'PaymentSuccess'>;
 
 export type MainScreenNavigationProp = CompositeNavigationProp<
   NativeStackNavigationProp<AppStackNavigatorParamList>,

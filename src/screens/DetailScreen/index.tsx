@@ -77,7 +77,10 @@ const DetailScreen = (props: DetailScreenProps) => {
         showsHorizontalScrollIndicator={false}
         horizontal
         renderItem={({ item }: { item: IProduct }) => (
-          <ItemProductFlashSale onPress={() => navigation.navigate('Detail')} data={item} />
+          <ItemProductFlashSale
+            onPress={() => navigation.navigate('Detail', { id_product: '' })}
+            data={item}
+          />
         )}
       />
     </ScrollView>
