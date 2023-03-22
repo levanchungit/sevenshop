@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+// const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   coverHeader: {
     width: windowWidth,
     position: 'absolute',
-    top: -windowHeight * 1,
+    top: 0,
     right: 0,
     paddingVertical: 12,
     paddingTop: 50,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   coverHeaderOnScroll: {
     width: windowWidth,
     position: 'absolute',
-    top: -windowHeight * 0.92,
+    top: 0,
     right: 0,
     paddingVertical: 12,
     paddingTop: 42,

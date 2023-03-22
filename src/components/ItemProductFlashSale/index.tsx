@@ -12,7 +12,7 @@ const ItemProductFlashSale = (props: Props) => {
   const { data, onPress } = props;
   return (
     <>
-      <Pressable style={styles.itemProductFlastSale} onPress={() => onPress()}>
+      <Pressable style={styles.itemProductFlashSale} onPress={() => onPress()}>
         <Skeleton h={20} isLoaded={!!data.images[0]}>
           <Image alt="1241" height={20} resizeMode="cover" source={{ uri: data.images[0] }} />
         </Skeleton>

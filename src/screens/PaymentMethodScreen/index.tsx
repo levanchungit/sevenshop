@@ -24,6 +24,7 @@ const PaymentMethodScreen = (onBack: any) => {
         titleHeaderScreen={'Payment method'}
         iconRightHeaderScreen={false}
         quantityItems={0}
+        iconRightHeaderCart={false}
       />
       <Box marginBottom={3} />
 

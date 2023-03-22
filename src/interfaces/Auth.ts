@@ -30,9 +30,18 @@ export type RefreshTokenPayload = {
 };
 
 export type GetMeSuccessData = {
-  message: string;
-  access_token: string;
-  refresh_token: string;
+  _id: string;
+  full_name: string;
+  email: string;
+  avatar: string;
+  address: [];
+  phone: string;
+  gender: string;
+  birthday: string;
+  membership_type: string;
+  language: number;
+  product_favourites: [];
+  recent_products: [];
 };
 
 export type color = {
@@ -89,4 +98,10 @@ export type voucher = {
   time: string;
   image: string;
   condition: string;
+};
+
+export type GetProductData = {
+  name: string;
+  price: number;
+  quantity: number;
 };

@@ -23,6 +23,7 @@ const AccountSettingScreen = () => {
         titleHeaderScreen="Account Settings"
         iconRightHeaderScreen={false}
         quantityItems={12}
+        iconRightHeaderCart={false}
       />
 
       <View h={'100%'} mt={5}>

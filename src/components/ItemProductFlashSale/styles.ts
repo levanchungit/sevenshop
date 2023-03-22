@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-  itemProductFlastSale: {
+  itemProductFlashSale: {
     marginHorizontal: 5,
     width: windowWidth * 0.3,
     marginBottom: 20,

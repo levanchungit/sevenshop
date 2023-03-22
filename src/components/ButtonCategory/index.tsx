@@ -20,7 +20,10 @@ const ButtonCategory = (props: Props) => {
         <Text
           numberOfLines={1}
           fontSize={'md'}
-          style={isSelected === true ? styles.textColorSelected : null}
+          style={[
+            { fontVariant: ['lining-nums'] },
+            isSelected === true ? styles.textColorSelected : null,
+          ]}
         >
           {title}
         </Text>

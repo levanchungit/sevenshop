@@ -37,6 +37,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
         titleHeaderScreen={typeEdit === true ? 'Edit address' : 'Add address'}
         iconRightHeaderScreen={false}
         quantityItems={0}
+        iconRightHeaderCart={false}
       />
 
       <SSTextInput

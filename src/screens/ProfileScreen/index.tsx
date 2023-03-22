@@ -26,6 +26,7 @@ const ProfileScreen = () => {
             titleHeaderScreen="Payment Success"
             iconRightHeaderScreen={false}
             quantityItems={12}
+            iconRightHeaderCart={false}
           />
 
           <View flexDirection={'row'} pb={1}>

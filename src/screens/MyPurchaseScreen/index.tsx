@@ -166,6 +166,7 @@ const MyPurchaseScreen = (props: Props) => {
             titleHeaderScreen={'My Purchases'}
             iconRightHeaderScreen={false}
             quantityItems={0}
+            iconRightHeaderCart={false}
           />
         </View>
         <ScrollView

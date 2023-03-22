@@ -29,6 +29,7 @@ const AddressScreen = (onBack: any) => {
         titleHeaderScreen={'Address'}
         iconRightHeaderScreen={false}
         quantityItems={0}
+        iconRightHeaderCart={false}
       />
       <Box marginY={3} />
       <FlatList

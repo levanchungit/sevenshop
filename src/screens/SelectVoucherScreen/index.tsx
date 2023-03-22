@@ -51,6 +51,7 @@ const SelectVoucherScreen = () => {
         titleHeaderScreen={'Voucher'}
         iconRightHeaderScreen={false}
         quantityItems={0}
+        iconRightHeaderCart={false}
       />
       <SSTextInput
         placeholder={'Voucher code'}
