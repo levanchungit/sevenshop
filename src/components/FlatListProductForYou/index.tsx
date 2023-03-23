@@ -18,9 +18,7 @@ const FlatListProductForYou = (props: Props) => {
     return (
       <ItemProductForYou
         name={data.name}
-        image={
-          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lvse-monogram-degrade-crewneck--HKN44WUSO904_PM2_Front%20view.png?wid=656&hei=656'
-        }
+        image={data.images[0]}
         price={data.price}
         selled={123}
         onPress={() => navigation.navigate('Detail', { _id: data._id })}
