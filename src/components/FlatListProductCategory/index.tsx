@@ -47,7 +47,7 @@ const FlatListProductCategory = (props: Props) => {
   const RenderItemCategory = ({ data }: { data: IProduct }) => {
     return (
       <ItemProductCategory
-        onPress={() => navigation.navigate('Detail')}
+        onPress={() => navigation.navigate('Detail', { _id: data._id })}
         name={data.name}
         image={
           'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656'

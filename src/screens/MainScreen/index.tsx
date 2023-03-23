@@ -17,11 +17,10 @@ export const MainScreen = () => {
   const [scrollEnable, setScrollEnable] = useState(false);
   let yOffset = '';
 
-  const limit = 4;
+  const limit = 6;
   const [page, setPage] = useState(0);
   const [product, setProduct] = useState(() => []);
   const { products, isReachingEnd } = useGetProducts(page, limit);
-
   const { carts } = useGetCarts();
 
   useEffect(() => {
@@ -36,26 +35,42 @@ export const MainScreen = () => {
         data={null}
         renderItem={null}
         showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-      >
-        <View>
-          <View>
-            <SlideShowImage style={{}} />
-
-            <FlatListProductFlashSale />
-          </View>
-        </View>
-      </ScrollView>
-      <View>
-        <View style={scrollEnabled ? styles.coverHeaderOnScroll : styles.coverHeader}>
-          {scrollEnabled ? <TextInput style={styles.search} placeholder="Search" /> : <View></View>}
-          <IconCart
-            onPressCart={() => navigation.navigate('Cart')}
-            onPressSearch={() => alert('search nè')}
-            quantityItems="20"
-          />
-        </View>
+        contentContainerStyle={{ marginBottom: 50 }}
+        onEndReached={() => {
+          if (!isReachingEnd) {
+            setPage(page + 1);
+          }
+        }}
+        onScroll={(event) => {
+          yOffset = event.nativeEvent.contentOffset.y.toString();
+          if (parseFloat(yOffset) > 50) {
+            setScrollEnable(true);
+          } else if (parseFloat(yOffset) === 0) {
+            setScrollEnable(false);
+          }
+        }}
+        onEndReachedThreshold={0.01}
+        ListHeaderComponent={() => {
+          return (
+            <View>
+              <View>
+                <SlideShowImage style={{}} />
+                {/* 
+                <FlatListProductCategory data={product} />
+                <FlatListProductFlashSale data={product} error={err_products} /> */}
+              </View>
+              <FlatListProductForYou data={product} />
+            </View>
+          );
+        }}
+      />
+      <View style={scrollEnable ? styles.coverHeaderOnScroll : styles.coverHeader}>
+        {scrollEnable ? <TextInput style={styles.search} placeholder="Search" /> : <View></View>}
+        <IconCart
+          onPressCart={() => navigation.navigate('Cart')}
+          onPressSearch={() => alert('search nè')}
+          quantityItems={carts?.data.length}
+        />
       </View>
     </View>
   );

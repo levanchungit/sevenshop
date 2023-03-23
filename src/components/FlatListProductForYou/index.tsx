@@ -23,7 +23,7 @@ const FlatListProductForYou = (props: Props) => {
         }
         price={data.price}
         selled={123}
-        onPress={() => navigation.navigate('Detail', { id_product: data._id })}
+        onPress={() => navigation.navigate('Detail', { _id: data._id })}
       />
     );
   };

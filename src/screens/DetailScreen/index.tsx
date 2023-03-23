@@ -35,7 +35,7 @@ type DetailScreenProps = {
 const DetailScreen = (props: DetailScreenProps) => {
   const { _id } = props.route.params;
   const { product, err_product, loading_product } = useGetProductDetail(_id);
-  const { products, err_products } = useGetProducts();
+  const { products, error } = useGetProducts(1, 10);
   const navigation = useNavigation<AppNavigationProp>();
   const [statusLike, setStatusLike] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -72,11 +72,11 @@ const DetailScreen = (props: DetailScreenProps) => {
           <Text variant="button">See all</Text>
         </Pressable>
       </Flex>
-      {err_products ? (
+      {error ? (
         <Text variant="body1">Failed to load</Text>
       ) : (
         <FlatList
-          data={products?.data.results}
+          data={products ? products[0].data.results : null}
           showsHorizontalScrollIndicator={false}
           horizontal
           renderItem={({ item }: { item: IProduct }) => (
@@ -260,6 +260,7 @@ const DetailScreen = (props: DetailScreenProps) => {
           titleHeaderScreen={'Details'}
           iconRightHeaderScreen={true}
           quantityItems={0}
+          iconRightHeaderCart={false}
         />
         {err_product ? null : (
           <Center
