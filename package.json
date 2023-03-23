@@ -37,7 +37,7 @@
     "native-base": "^3.4.25",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-native": "^0.71.3",
+    "react-native": "0.70.5",
     "react-native-axios-jwt": "^1.8.0",
     "react-native-device-info": "^10.4.0",
     "react-native-dotenv": "^3.4.7",

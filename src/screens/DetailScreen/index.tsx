@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
   Text,
@@ -22,6 +22,7 @@ import ItemRating from 'components/ItemRating';
 import ModalPopupCart from 'components/ModalPopupCart';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import useGetCarts from 'hook/product/useGetCarts';
 import useGetProductDetail from 'hook/product/useGetProductDetail';
 import useGetProducts from 'hook/product/useGetProducts';
 import { IProduct } from 'interfaces/Product';
@@ -34,8 +35,22 @@ type DetailScreenProps = {
 
 const DetailScreen = (props: DetailScreenProps) => {
   const { _id } = props.route.params;
+  // const _id = '641a7c581358f1dd563383e9';
+  //api detail
   const { product, err_product, loading_product } = useGetProductDetail(_id);
-  const { products, error } = useGetProducts(1, 10);
+  //api cart
+  const { carts } = useGetCarts();
+  //api products
+  const limit = 8;
+  const [page] = useState(1);
+  const { products, error } = useGetProducts(page, limit);
+  const [listProducts, setListProducts] = useState(() => []);
+  useEffect(() => {
+    if (products) {
+      setListProducts(listProducts.concat(products[0].data.results));
+    }
+  }, [products]);
+
   const navigation = useNavigation<AppNavigationProp>();
   const [statusLike, setStatusLike] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -76,7 +91,7 @@ const DetailScreen = (props: DetailScreenProps) => {
         <Text variant="body1">Failed to load</Text>
       ) : (
         <FlatList
-          data={products ? products[0].data.results : null}
+          data={listProducts}
           showsHorizontalScrollIndicator={false}
           horizontal
           renderItem={({ item }: { item: IProduct }) => (
@@ -129,6 +144,7 @@ const DetailScreen = (props: DetailScreenProps) => {
     <View w="100%" h="100%">
       <SafeAreaView
         style={{
+          width: '100%',
           flex: 1,
           paddingVertical: 8,
           paddingHorizontal: 12,
@@ -259,11 +275,11 @@ const DetailScreen = (props: DetailScreenProps) => {
           titleHeaderSearch={''}
           titleHeaderScreen={'Details'}
           iconRightHeaderScreen={true}
-          quantityItems={0}
-          iconRightHeaderCart={false}
-          quantityHeaderCarts={0}
+          quantityItems={carts?.data.length}
+          iconRightHeaderCart={true}
+          quantityHeaderCarts={carts?.data.length}
         />
-        {err_product ? null : (
+        {err_product ? null : !product && !loading_product ? null : loading_product ? null : (
           <Center
             w={initialWidth}
             h="10%"
@@ -308,7 +324,9 @@ const DetailScreen = (props: DetailScreenProps) => {
           </Center>
         )}
       </SafeAreaView>
-      <ModalPopupCart product={product} showModal={showModal} setShowModal={setShowModal} />
+      {err_product ? null : !product && !loading_product ? null : loading_product ? null : (
+        <ModalPopupCart product={product} showModal={showModal} setShowModal={setShowModal} />
+      )}
     </View>
   );
 };

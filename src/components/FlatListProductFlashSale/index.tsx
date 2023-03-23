@@ -64,19 +64,6 @@ const FlatListProductFlashSale = (props: Props) => {
   //   return () => clearInterval(myRef.current);
   // }, [second]);
 
-  const RenderItem = ({ data }: { data: IProduct }) => {
-    return (
-      <ItemProductFlashSale
-        data={data}
-        onPress={() =>
-          navigation.navigate('Detail', {
-            _id: data._id,
-          })
-        }
-      />
-    );
-  };
-
   return (
     <View style={{}}>
       <View style={styles.coverHeader}>
@@ -106,7 +93,16 @@ const FlatListProductFlashSale = (props: Props) => {
           horizontal
           contentContainerStyle={styles.flashListFlashSale}
           data={data}
-          renderItem={({ item }) => <RenderItem data={item} />}
+          renderItem={({ item }: { item: IProduct }) => (
+            <ItemProductFlashSale
+              data={item}
+              onPress={() =>
+                navigation.navigate('Detail', {
+                  _id: item._id,
+                })
+              }
+            />
+          )}
           keyExtractor={(item, index) => index + ''}
           onEndReached={() => console.log('load ne')}
         />
