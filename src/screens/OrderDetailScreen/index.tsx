@@ -21,6 +21,7 @@ const OrderDetailScreen = (props: Props) => {
           iconRightHeaderScreen={true}
           quantityItems={0}
           iconRightHeaderCart={false}
+          quantityHeaderCarts={0}
         />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>

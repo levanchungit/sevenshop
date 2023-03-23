@@ -38,6 +38,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
         iconRightHeaderScreen={false}
         quantityItems={0}
         iconRightHeaderCart={false}
+        quantityHeaderCarts={0}
       />
 
       <SSTextInput

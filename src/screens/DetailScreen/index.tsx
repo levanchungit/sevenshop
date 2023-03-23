@@ -261,6 +261,7 @@ const DetailScreen = (props: DetailScreenProps) => {
           iconRightHeaderScreen={true}
           quantityItems={0}
           iconRightHeaderCart={false}
+          quantityHeaderCarts={0}
         />
         {err_product ? null : (
           <Center

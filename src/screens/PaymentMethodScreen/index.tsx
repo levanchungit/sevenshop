@@ -122,6 +122,7 @@ const PaymentMethodScreen = () => {
         iconRightHeaderScreen={false}
         quantityItems={0}
         iconRightHeaderCart={false}
+        quantityHeaderCarts={0}
       />
       <Box marginBottom={3} />
 

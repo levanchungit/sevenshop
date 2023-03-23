@@ -79,6 +79,7 @@ const NotificationScreen = (props: Props) => {
         iconRightHeaderScreen={false}
         quantityItems={0}
         iconRightHeaderCart={false}
+        quantityHeaderCarts={0}
       />
       <FlatList
         paddingX={6}

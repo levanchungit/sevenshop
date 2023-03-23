@@ -27,6 +27,7 @@ const ProfileScreen = () => {
             iconRightHeaderScreen={false}
             quantityItems={12}
             iconRightHeaderCart={false}
+            quantityHeaderCarts={0}
           />
 
           <View flexDirection={'row'} pb={1}>

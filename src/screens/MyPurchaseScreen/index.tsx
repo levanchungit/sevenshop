@@ -167,6 +167,7 @@ const MyPurchaseScreen = (props: Props) => {
             iconRightHeaderScreen={false}
             quantityItems={0}
             iconRightHeaderCart={false}
+            quantityHeaderCarts={0}
           />
         </View>
         <ScrollView

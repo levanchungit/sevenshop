@@ -52,6 +52,7 @@ const SelectVoucherScreen = () => {
         iconRightHeaderScreen={false}
         quantityItems={0}
         iconRightHeaderCart={false}
+        quantityHeaderCarts={0}
       />
       <SSTextInput
         placeholder={'Voucher code'}

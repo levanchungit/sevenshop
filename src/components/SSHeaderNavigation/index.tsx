@@ -14,6 +14,7 @@ type Props = {
   iconRightHeaderScreen: boolean;
   iconRightHeaderCart: boolean;
   quantityItems: number;
+  quantityHeaderCarts: number;
 };
 
 const SSHeaderNavigation = (props: Props) => {
@@ -28,6 +29,7 @@ const SSHeaderNavigation = (props: Props) => {
     iconRightHeaderScreen,
     iconRightHeaderCart,
     quantityItems,
+    quantityHeaderCarts,
   } = props;
 
   return tabHeaderSearchEnabled ? (
@@ -68,7 +70,13 @@ const SSHeaderNavigation = (props: Props) => {
       ) : null}
     </View>
   ) : (
-    <View flexDirection={'row'} alignItems="center" justifyContent={'space-between'}>
+    <View
+      flexDirection={'row'}
+      alignItems="center"
+      justifyContent={'space-between'}
+      paddingX={3}
+      pb={2}
+    >
       <Pressable flexDirection={'row'} alignItems="center" onPress={() => navigation.goBack()}>
         <Icons.ChevronLeft stroke={'black'} width={24} height={24} />
         <Text ml={3} variant="Title" fontWeight={'bold'} fontSize={20}>
@@ -84,6 +92,23 @@ const SSHeaderNavigation = (props: Props) => {
       ) : (
         <View></View>
       )}
+      {iconRightHeaderCart ? (
+        <Pressable
+          position={'absolute'}
+          alignItems="center"
+          justifyContent={'center'}
+          backgroundColor="primary.600"
+          w={6}
+          h={6}
+          top={-12}
+          right={1}
+          borderRadius={15}
+        >
+          <Text color="white" fontSize={14} lineHeight={14}>
+            {quantityHeaderCarts}
+          </Text>
+        </Pressable>
+      ) : null}
     </View>
   );
 };

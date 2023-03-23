@@ -24,6 +24,7 @@ const AccountSettingScreen = () => {
         iconRightHeaderScreen={false}
         quantityItems={12}
         iconRightHeaderCart={false}
+        quantityHeaderCarts={0}
       />
 
       <View h={'100%'} mt={5}>

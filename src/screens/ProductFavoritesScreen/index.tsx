@@ -59,6 +59,7 @@ const ProductFavoritesScreen = () => {
         iconRightHeaderScreen={false}
         quantityItems={12}
         iconRightHeaderCart={false}
+        quantityHeaderCarts={0}
       />
 
       <View px={3}>
