@@ -4,9 +4,11 @@ import * as Icon from 'react-native-feather';
 import SSButton from 'components/SSButton';
 import useGetColors from 'hook/colors/useGetColors';
 import useGetSizes from 'hook/sizes/useGetSizes';
+import { IAddCart } from 'interfaces/Cart';
 import { IColor } from 'interfaces/Color';
 import { IProduct } from 'interfaces/Product';
 import { ISize } from 'interfaces/Size';
+import { cartAPI } from 'modules';
 
 type Props = {
   product: IProduct;
@@ -15,31 +17,68 @@ type Props = {
 };
 
 const ModalPopupCart = (props: Props) => {
-  const numberWithCommas = (num?: number) => {
-    return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  };
   const { product, showModal, setShowModal } = props;
   const { colors } = useGetColors();
   const { sizes } = useGetSizes();
-  // const [stockIndex, setStockIndex] = useState<number>();
-  // const [selectedSize, setSelectedSize] = useState('');
-  // const [selectedColor, setSelectedColor] = useState('');
-  const [quantity, setQuantity] = useState<number>(product?.stock[0].quantity);
+  const [stockIndex, setStockIndex] = useState<number>(2);
+  const [selectedSize, setSelectedSize] = useState(product?.stock[stockIndex].size_id);
+  const [selectedColor, setSelectedColor] = useState(product?.stock[stockIndex].color_id);
+  const [quantity, setQuantity] = useState<number>(product?.stock[stockIndex].quantity);
   const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
-  const increaseQuantity = (quantity: number) => {
-    if (selectedQuantity < quantity) {
-      setSelectedQuantity(selectedQuantity + 1);
-      setQuantity(quantity - 1);
-    } else {
+  const numberWithCommas = (num?: number) => {
+    return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+  const data: IAddCart = {
+    size_id: selectedSize,
+    color_id: selectedColor,
+    quantity: selectedQuantity,
+    product_id: product?._id,
+  };
+  const addCart = async () => {
+    console.log('Modal', data);
+    try {
+      if (selectedQuantity === 0)
+        Toast.show({
+          title: 'Please select a quantity',
+          placement: 'top',
+        });
+      else await cartAPI.addCart(data);
+    } catch (error: any) {
+      console.error(error);
       Toast.show({
-        description: 'Cannot increase quantity',
+        title: error,
+        placement: 'top',
       });
     }
   };
-  const decreaseQuantity = (quantity: number) => {
+  const update = (idSize: string, idColor: string) => {
+    setSelectedSize(idSize);
+    setSelectedColor(idColor);
+    setStockIndex(
+      product?.stock.findIndex(function find(stock) {
+        return stock.size_id === selectedSize && stock.color_id === selectedColor;
+      })
+    );
+    setQuantity(product?.stock[stockIndex].quantity);
+    setSelectedQuantity(0);
+  };
+
+  const increaseQuantity = () => {
     if (quantity === 0) {
       Toast.show({
-        description: 'Cannot decrease quantity',
+        title: 'Cannot increase quantity',
+        placement: 'top',
+      });
+    } else {
+      setSelectedQuantity(selectedQuantity + 1);
+      setQuantity(quantity - 1);
+    }
+  };
+  const decreaseQuantity = () => {
+    if (selectedQuantity === 0) {
+      Toast.show({
+        title: 'Cannot decrease quantity',
+        placement: 'top',
       });
     } else {
       setSelectedQuantity(selectedQuantity - 1);
@@ -61,7 +100,7 @@ const ModalPopupCart = (props: Props) => {
             right={8}
             top={55}
           >
-            <Pressable onPress={() => decreaseQuantity(selectedQuantity)}>
+            <Pressable onPress={() => decreaseQuantity()}>
               <Icon.Minus width={18} height={18} stroke="black" />
             </Pressable>
             <Box
@@ -76,7 +115,7 @@ const ModalPopupCart = (props: Props) => {
             >
               <Text variant="body2">{selectedQuantity}</Text>
             </Box>
-            <Pressable onPress={() => increaseQuantity(selectedQuantity)}>
+            <Pressable onPress={() => increaseQuantity()}>
               <Icon.Plus width={18} height={18} stroke="black" />
             </Pressable>
           </Flex>
@@ -134,20 +173,29 @@ const ModalPopupCart = (props: Props) => {
               <Text variant="body1" fontWeight="bold" mb={3}>
                 Colors:
               </Text>
-              <Flex direction="row" justifyContent="space-between" w="30%">
+              <Flex direction="row" w={150} wrap="wrap">
                 {colors?.data.results
                   .filter((c: IColor) => product?.color_ids.includes(c._id))
                   .map((color: IColor) => {
                     return (
                       <Pressable
+                        onPress={() => update(selectedSize, color._id)}
                         w={8}
                         h={8}
                         borderRadius="full"
+                        justifyContent="center"
+                        alignItems="center"
+                        mr={3}
+                        mb={3}
                         key={color._id}
                         borderWidth={1}
                         borderColor={color.code === '#FFFFFF' ? '#C9C9C9' : 'transparent'}
                         backgroundColor={color.code}
-                      />
+                      >
+                        {color._id === selectedColor ? (
+                          <Icon.Check stroke={color.code === '#FFFFFF' ? '#000000' : '#FFFFFF'} />
+                        ) : null}
+                      </Pressable>
                     );
                   })}
               </Flex>
@@ -157,23 +205,29 @@ const ModalPopupCart = (props: Props) => {
               <Text variant="body1" fontWeight="bold" mb={3}>
                 Sizes:
               </Text>
-              <Flex direction="row" justifyContent="space-between" w="30%">
+              <Flex direction="row" w={150} wrap="wrap">
                 {sizes?.data.results
                   .filter((s: ISize) => product?.size_ids.includes(s._id))
                   .map((size: ISize) => {
                     return (
                       <Pressable
+                        onPress={() => update(size._id, selectedColor)}
                         w={8}
                         h={8}
                         justifyContent="center"
+                        mr={3}
+                        mb={3}
                         alignItems="center"
-                        backgroundColor="transparent"
+                        backgroundColor={size._id === selectedSize ? 'primary.600' : 'white'}
                         borderWidth={1}
                         borderColor="primary.600"
                         borderRadius={8}
                         key={size._id}
                       >
-                        <Text variant="button" color="primary.600">
+                        <Text
+                          variant="button"
+                          color={size._id === selectedSize ? 'white' : 'primary.600'}
+                        >
                           {size.size}
                         </Text>
                       </Pressable>
@@ -181,85 +235,10 @@ const ModalPopupCart = (props: Props) => {
                   })}
               </Flex>
             </Box>
-
-            {/* <FlatList
-              data={colors}
-              scrollEnabled={false}
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              numColumns={3}
-              ListHeaderComponent={
-                <Text fontSize={14} fontWeight="bold">
-                  Color
-                </Text>
-              }
-              renderItem={({ item }) => (
-                <Pressable
-                  marginRight="3"
-                  marginBottom="3"
-                  backgroundColor={item.data}
-                  borderWidth="1"
-                  borderColor={item.data === 'white' ? '#C9C9C9' : 'transparent'}
-                  w={41}
-                  h={41}
-                  justifyContent="center"
-                  alignItems="center"
-                  borderRadius="full"
-                  onPress={() => setSelectedColor(item.data)}
-                >
-                  {item.data === selectedColor ? (
-                    <Icon.Check stroke={item.data === 'white' ? 'black' : 'white'} />
-                  ) : null}
-                </Pressable>
-              )}
-              keyExtractor={(item) => item.title}
-            /> */}
-
-            {/* <FlatList
-              data={size}
-              scrollEnabled={false}
-              numColumns={3}
-              ListHeaderComponent={
-                <Text fontSize="14" fontWeight="bold">
-                  Size
-                </Text>
-              }
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <Pressable
-                  onPress={() => setSelectedSize(item.title)}
-                  marginRight="3"
-                  marginBottom="3"
-                  borderWidth="1"
-                  backgroundColor={item.title === selectedSize ? 'primary.600' : 'transparent'}
-                  borderColor="primary.600"
-                  w={[7, 41, 51]}
-                  h={[7, 41, 51]}
-                  borderRadius={[5, 10]}
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <Text
-                    fontSize={[8, 12]}
-                    // color={item.title === selectedSize ? 'white' : 'primary.600'}
-                    fontWeight="bold"
-                  >
-                    {item.title}
-                  </Text>
-                </Pressable>
-              )}
-              keyExtractor={(item) => item.title}
-            /> */}
           </Flex>
         </Modal.Body>
         <Modal.Footer>
-          <SSButton
-            variant={'red'}
-            text={'Submit'}
-            width="100%"
-            onPress={() => console.log('Hello')}
-          />
+          <SSButton variant={'red'} text={'Submit'} width="100%" onPress={() => addCart()} />
         </Modal.Footer>
       </Modal.Content>
     </Modal>
