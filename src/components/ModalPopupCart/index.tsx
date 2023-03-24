@@ -4,7 +4,7 @@ import * as Icon from 'react-native-feather';
 import SSButton from 'components/SSButton';
 import useGetColors from 'hook/colors/useGetColors';
 import useGetSizes from 'hook/sizes/useGetSizes';
-import { IAddCart } from 'interfaces/Cart';
+import { AddCartPayload } from 'interfaces/Cart';
 import { IColor } from 'interfaces/Color';
 import { IProduct } from 'interfaces/Product';
 import { ISize } from 'interfaces/Size';
@@ -28,25 +28,30 @@ const ModalPopupCart = (props: Props) => {
   const numberWithCommas = (num?: number) => {
     return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
-  const data: IAddCart = {
+  const data: AddCartPayload = {
     size_id: selectedSize,
     color_id: selectedColor,
     quantity: selectedQuantity,
     product_id: product?._id,
   };
   const addCart = async () => {
-    console.log('Modal', data);
     try {
       if (selectedQuantity === 0)
         Toast.show({
           title: 'Please select a quantity',
           placement: 'top',
         });
-      else await cartAPI.addCart(data);
+      else {
+        await cartAPI.addCart(data);
+        Toast.show({
+          title: 'Successfully added product to cart',
+          placement: 'top',
+        });
+      }
     } catch (error: any) {
-      console.error(error);
       Toast.show({
-        title: error,
+        title: 'Cannot add product to cart',
+        description: error.message,
         placement: 'top',
       });
     }
