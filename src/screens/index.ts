@@ -1,5 +1,7 @@
+export { default as CheckoutScreen } from './CheckoutScreen';
+export { default as PaymentMethodScreen } from './PaymentMethodScreen';
 export { default as AddressScreen } from './AddressScreen';
-export { default as CartScreen } from './CartScreen';
+export { default as Cart } from './CartScreen';
 export { default as DetailScreen } from './DetailScreen';
 export { default as EditAddressScreen } from './EditAddressScreen';
 export { default as ForgotPasswordScreen } from './ForgotPasswordScreen';
@@ -19,3 +21,5 @@ export { default as SearchProductScreen } from './SearchProductScreen';
 export { default as ProductFavoritesScreen } from './ProductFavoritesScreen';
 export { default as AccountSettingScreen } from './AccountSettingScreen';
 export { default as AccountSecurityScreen } from './Account&SecurityScreen';
+export { default as MyPurchaseScreen } from './MyPurchaseScreen';
+export { default as OrderDetailScreen } from './OrderDetailScreen';

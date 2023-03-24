@@ -20,7 +20,7 @@ const ItemProductForYou = (props: Props) => {
           alt="gsgsdg"
           style={styles.imageItemForYou}
           resizeMode="cover"
-          source={{ uri: image ? image + '' : '123' }}
+          source={{ uri: image ? image : '123' }}
         />
       </Skeleton>
       <View>
