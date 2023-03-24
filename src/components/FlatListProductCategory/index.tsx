@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, View, FlatList } from 'native-base';
-// import { ActivityIndicator } from 'react-native';
-// import * as Icons from 'react-native-feather';
-import * as Progress from 'react-native-progress';
 import ButtonCategory from 'components/ButtonCategory';
 import ItemProductCategory from 'components/ItemProductCategory';
 import useGetCategories from 'hook/product/useGetCategories';
@@ -20,8 +17,6 @@ const FlatListProductCategory = (props: Props) => {
   const { categories } = useGetCategories();
   const [ItemSelected, setItemSelected]: any = useState([]);
   const [progressEnable, setProgressEnable] = useState(true);
-
-  // const [idCate, setIdCate] = useState('');
 
   useEffect(() => {
     if (categories) {
@@ -75,16 +70,7 @@ const FlatListProductCategory = (props: Props) => {
         </ScrollView>
       </View>
       {!progressEnable ? (
-        <View
-          style={{
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '30%',
-          }}
-        >
-          <Progress.Circle size={30} indeterminate={true} />
-        </View>
+        <View></View>
       ) : (
         <FlatList
           showsHorizontalScrollIndicator={false}

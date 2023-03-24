@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, FlatList } from 'native-base';
 import { TextInput } from 'react-native';
-import FlatListProductCategory from 'components/FlatListProductCategory';
+// import FlatListProductCategory from 'components/FlatListProductCategory';
 import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import FlatListProductForYou from 'components/FlatListProductForYou';
 import IconCart from 'components/IconCart';
@@ -61,7 +61,7 @@ export const MainScreen = () => {
               <View>
                 <SlideShowImage />
 
-                <FlatListProductCategory data={product} />
+                {/* <FlatListProductCategory data={product} /> */}
                 <FlatListProductFlashSale data={product} error={error} />
               </View>
               <FlatListProductForYou data={product} />
