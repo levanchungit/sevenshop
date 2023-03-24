@@ -5,8 +5,14 @@ export type IModify = {
   modified_by: number;
 };
 
+export type IProductId = {
+  _id: string;
+  name: string;
+  images: string[];
+};
+
 export type IProductPurchase = {
-  product_id: string;
+  product_id: IProductId;
   quantity: number;
   size_id: string;
   color_id: number;

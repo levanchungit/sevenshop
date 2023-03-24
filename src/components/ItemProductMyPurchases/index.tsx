@@ -15,13 +15,16 @@ const ItemProductMyPurchases = (props: Props) => {
   const { total, quantitiesProduct, name, image, onPressBuyAgain, onPressViewDetail } = props;
 
   return (
-    <View px={3} borderBottomColor={'gray.300'} borderBottomWidth={12}>
+    <View px={3} pt={2} borderBottomColor={'gray.300'} borderBottomWidth={12}>
       <Pressable flexDirection={'column'}>
         <View w={'100%'} borderBottomColor="gray.400" pb={5}>
-          <View flexDirection={'row'} style={{ paddingHorizontal: 12 }} alignItems={'center'}>
+          <View flexDirection={'row'} m={3} alignItems={'center'}>
             <Image
               alt="gsgsdg"
-              style={{ width: 120, height: 120, borderRadius: 12 }}
+              w={120}
+              h={120}
+              borderRadius={12}
+              mr={3}
               resizeMode="cover"
               source={{ uri: image }}
             />
