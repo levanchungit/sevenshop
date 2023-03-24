@@ -1,24 +1,30 @@
 import React from 'react';
 import { Text, View, Pressable, Image, Button } from 'native-base';
+import { formatCurrency } from 'react-native-format-currency';
 
 type Props = {
   total: number;
   quantitiesProduct: number;
   name: string;
   image: string;
+  onPressViewDetail: Function;
+  onPressBuyAgain: Function;
 };
 
 const ItemProductMyPurchases = (props: Props) => {
-  const { total, quantitiesProduct, name, image } = props;
+  const { total, quantitiesProduct, name, image, onPressBuyAgain, onPressViewDetail } = props;
 
   return (
-    <View width={'100%'} px={3} borderBottomColor={'gray.300'} borderBottomWidth={12}>
+    <View px={3} pt={2} borderBottomColor={'gray.300'} borderBottomWidth={12}>
       <Pressable flexDirection={'column'}>
         <View w={'100%'} borderBottomColor="gray.400" pb={5}>
-          <View flexDirection={'row'} style={{ paddingHorizontal: 12 }} alignItems={'center'}>
+          <View flexDirection={'row'} m={3} alignItems={'center'}>
             <Image
               alt="gsgsdg"
-              style={{ width: 120, height: 120, borderRadius: 12 }}
+              w={120}
+              h={120}
+              borderRadius={12}
+              mr={3}
               resizeMode="cover"
               source={{ uri: image }}
             />
@@ -55,7 +61,7 @@ const ItemProductMyPurchases = (props: Props) => {
                   fontFamily="Raleway_500Medium"
                 >
                   {' '}
-                  {total}đ
+                  {formatCurrency({ amount: total, code: 'VND' }).slice(0, 1)}
                 </Text>
               </View>
             </View>
@@ -67,21 +73,16 @@ const ItemProductMyPurchases = (props: Props) => {
               borderColor="primary.500"
               borderRadius={6}
             >
-              <Button borderRadius={10} backgroundColor="white">
+              <Button borderRadius={10} backgroundColor="white" onPress={onPressViewDetail}>
                 <Text color={'primary.500'} fontWeight="bold" fontSize={16}>
-                  Xem chi tiết
+                  View Detail
                 </Text>
               </Button>
             </View>
-            <View
-              style={{ width: '48%' }}
-              borderWidth={1}
-              borderColor="primary.500"
-              borderRadius={6}
-            >
-              <Button borderRadius={10} backgroundColor="white">
-                <Text color={'primary.500'} fontWeight="bold" fontSize={16}>
-                  Mua Thêm
+            <View style={{ width: '48%' }} borderRadius={6} backgroundColor="primary.500">
+              <Button borderRadius={10} onPress={onPressBuyAgain}>
+                <Text color={'white'} fontWeight="bold" fontSize={16}>
+                  Buy Again
                 </Text>
               </Button>
             </View>

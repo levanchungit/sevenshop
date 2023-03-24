@@ -29,6 +29,7 @@ export const API_ROUTES = {
   addToCart: 'order/addToCart/',
 
   // orders
+  getOrders: `/orders/me`,
   getOrderById: (id: string) => `/orders/me/${id}`,
 
   // checkout
