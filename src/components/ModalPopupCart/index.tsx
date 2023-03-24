@@ -4,9 +4,11 @@ import * as Icon from 'react-native-feather';
 import SSButton from 'components/SSButton';
 import useGetColors from 'hook/colors/useGetColors';
 import useGetSizes from 'hook/sizes/useGetSizes';
+import { IAddCart } from 'interfaces/Cart';
 import { IColor } from 'interfaces/Color';
 import { IProduct } from 'interfaces/Product';
 import { ISize } from 'interfaces/Size';
+import { cartAPI } from 'modules';
 
 type Props = {
   product: IProduct;
@@ -15,9 +17,6 @@ type Props = {
 };
 
 const ModalPopupCart = (props: Props) => {
-  const numberWithCommas = (num?: number) => {
-    return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  };
   const { product, showModal, setShowModal } = props;
   const { colors } = useGetColors();
   const { sizes } = useGetSizes();
@@ -26,6 +25,32 @@ const ModalPopupCart = (props: Props) => {
   const [selectedColor, setSelectedColor] = useState(product?.stock[stockIndex].color_id);
   const [quantity, setQuantity] = useState<number>(product?.stock[stockIndex].quantity);
   const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
+  const numberWithCommas = (num?: number) => {
+    return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+  const data: IAddCart = {
+    size_id: selectedSize,
+    color_id: selectedColor,
+    quantity: selectedQuantity,
+    product_id: product?._id,
+  };
+  const addCart = async () => {
+    console.log('Modal', data);
+    try {
+      if (selectedQuantity === 0)
+        Toast.show({
+          title: 'Please select a quantity',
+          placement: 'top',
+        });
+      else await cartAPI.addCart(data);
+    } catch (error: any) {
+      console.error(error);
+      Toast.show({
+        title: error,
+        placement: 'top',
+      });
+    }
+  };
   const update = (idSize: string, idColor: string) => {
     setSelectedSize(idSize);
     setSelectedColor(idColor);
@@ -35,6 +60,7 @@ const ModalPopupCart = (props: Props) => {
       })
     );
     setQuantity(product?.stock[stockIndex].quantity);
+    setSelectedQuantity(0);
   };
 
   const increaseQuantity = () => {
@@ -212,12 +238,7 @@ const ModalPopupCart = (props: Props) => {
           </Flex>
         </Modal.Body>
         <Modal.Footer>
-          <SSButton
-            variant={'red'}
-            text={'Submit'}
-            width="100%"
-            onPress={() => console.log('Hello')}
-          />
+          <SSButton variant={'red'} text={'Submit'} width="100%" onPress={() => addCart()} />
         </Modal.Footer>
       </Modal.Content>
     </Modal>

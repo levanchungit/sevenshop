@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
   Text,
@@ -44,12 +44,6 @@ const DetailScreen = (props: DetailScreenProps) => {
   const limit = 8;
   const [page] = useState(1);
   const { products, error } = useGetProducts(page, limit);
-  const [listProducts, setListProducts] = useState(() => []);
-  useEffect(() => {
-    if (products) {
-      setListProducts(listProducts.concat(products[0].data.results));
-    }
-  }, [products]);
 
   const navigation = useNavigation<AppNavigationProp>();
   const [statusLike, setStatusLike] = useState(false);
@@ -89,9 +83,9 @@ const DetailScreen = (props: DetailScreenProps) => {
       </Flex>
       {error ? (
         <Text variant="body1">Failed to load</Text>
-      ) : (
+      ) : !products ? null : (
         <FlatList
-          data={listProducts}
+          data={products ? products[0].data.results : null}
           showsHorizontalScrollIndicator={false}
           horizontal
           renderItem={({ item }: { item: IProduct }) => (
