@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, FlatList } from 'native-base';
 import { TextInput } from 'react-native';
-// import FlatListProductCategory from 'components/FlatListProductCategory';
-// import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
+import FlatListProductCategory from 'components/FlatListProductCategory';
+import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import FlatListProductForYou from 'components/FlatListProductForYou';
 import IconCart from 'components/IconCart';
 import SlideShowImage from 'components/SwipeBanner';
@@ -20,7 +20,8 @@ export const MainScreen = () => {
   const limit = 6;
   const [page, setPage] = useState(0);
   const [product, setProduct] = useState(() => []);
-  const { products, isReachingEnd } = useGetProducts(page, limit);
+  const { products, isReachingEnd, error } = useGetProducts(page, limit);
+
   const { carts } = useGetCarts();
 
   useEffect(() => {
@@ -28,6 +29,14 @@ export const MainScreen = () => {
       setProduct(product.concat(products[0].data.results));
     }
   }, [products]);
+
+  const onScroll = () => {
+    if (parseFloat(yOffset) > 50) {
+      setScrollEnable(true);
+    } else if (parseFloat(yOffset) === 0) {
+      setScrollEnable(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -43,21 +52,17 @@ export const MainScreen = () => {
         }}
         onScroll={(event) => {
           yOffset = event.nativeEvent.contentOffset.y.toString();
-          if (parseFloat(yOffset) > 50) {
-            setScrollEnable(true);
-          } else if (parseFloat(yOffset) === 0) {
-            setScrollEnable(false);
-          }
+          onScroll();
         }}
         onEndReachedThreshold={0.01}
         ListHeaderComponent={() => {
           return (
             <View>
               <View>
-                <SlideShowImage style={{}} />
-                {/* 
+                <SlideShowImage />
+
                 <FlatListProductCategory data={product} />
-                <FlatListProductFlashSale data={product} error={err_products} /> */}
+                <FlatListProductFlashSale data={product} error={error} />
               </View>
               <FlatListProductForYou data={product} />
             </View>
@@ -68,7 +73,7 @@ export const MainScreen = () => {
         {scrollEnable ? <TextInput style={styles.search} placeholder="Search" /> : <View></View>}
         <IconCart
           onPressCart={() => navigation.navigate('Cart')}
-          onPressSearch={() => alert('search nè')}
+          onPressSearch={() => navigation.navigate('SearchProduct')}
           quantityItems={carts?.data.length}
         />
       </View>

@@ -21,12 +21,12 @@ import {
   SearchProductScreen,
   AccountSettingScreen,
   AccountSecurityScreen,
+  Cart,
+  CheckoutScreen,
+  OrderDetailScreen,
+  MyPurchaseScreen,
+  PaymentMethodScreen,
 } from 'screens';
-import Cart from 'screens/CartScreen';
-import CheckoutScreen from 'screens/CheckoutScreen';
-import MyPurchaseScreen from 'screens/MyPurchaseScreen';
-import OrderDetailScreen from 'screens/OrderDetailScreen';
-import PaymentMethodScreen from 'screens/PaymentMethodScreen';
 import { AppStackNavigatorParamList } from './types';
 const AppStack = createNativeStackNavigator<AppStackNavigatorParamList>();
 const { Navigator, Screen } = AppStack;
