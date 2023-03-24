@@ -1,158 +1,105 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, View, Pressable, FlatList } from 'native-base';
-// eslint-disable-next-line import/no-cycle
+import { useNavigation } from '@react-navigation/native';
+import { Text, View, Pressable, FlatList } from 'native-base';
 import ItemProductMyPurchases from 'components/ItemProductMyPurchases';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import useGetOrders from 'hook/order/useGetOrders';
+import { IMyPurchases } from 'interfaces/Order';
+import { AppNavigationProp } from 'providers/navigation/types';
 
 type Props = object;
 
-export type ItemProduct = {
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-  size_color: string;
-};
-type ItemMyPurchases = {
-  id: string;
-  products: ItemProduct[];
-  total: number;
-  status: number;
-};
-
-const data: ItemMyPurchases[] = [
-  {
-    id: '1',
-    products: [
-      {
-        name: 'Áo sơ mi nam cao cấp',
-        price: 50000,
-        quantity: 2,
-        image:
-          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-        size_color: 'XL_Blue',
-      },
-      {
-        name: 'Áo sơ mi nam cao cấp',
-        price: 50000,
-        quantity: 2,
-        image:
-          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-        size_color: 'XL_Blue',
-      },
-    ],
-    total: 500000,
-    status: 1,
-  },
-  {
-    id: '2',
-    products: [
-      {
-        name: 'Áo sơ mi nam cao cấp',
-        price: 50000,
-        quantity: 2,
-        image:
-          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-        size_color: 'XL_Blue',
-      },
-      {
-        name: 'Áo sơ mi nam cao cấp',
-        price: 50000,
-        quantity: 2,
-        image:
-          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-        size_color: 'XL_Blue',
-      },
-    ],
-    total: 500000,
-    status: 1,
-  },
-
-  {
-    id: '3',
-    products: [
-      {
-        name: 'Áo sơ mi nam cao cấp',
-        price: 50000,
-        quantity: 2,
-        image:
-          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-        size_color: 'XL_Blue',
-      },
-      {
-        name: 'Áo sơ mi nam cao cấp',
-        price: 50000,
-        quantity: 2,
-        image:
-          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-        size_color: 'XL_Blue',
-      },
-    ],
-    total: 500000,
-    status: 1,
-  },
-
-  {
-    id: '4',
-    products: [
-      {
-        name: 'Áo sơ mi nam cao cấp',
-        price: 50000,
-        quantity: 2,
-        image:
-          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-        size_color: 'XL_Blue',
-      },
-      {
-        name: 'Áo sơ mi nam cao cấp',
-        price: 50000,
-        quantity: 2,
-        image:
-          'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-        size_color: 'XL_Blue',
-      },
-    ],
-    total: 500000,
-    status: 1,
-  },
-];
-
 const MyPurchaseScreen = (props: Props) => {
+  const navigation = useNavigation<AppNavigationProp>();
+
   const [itemSelected, setItemSelected] = useState([
     {
-      _id: 1,
+      _id: '1',
       title: 'To Pay',
       isSelected: true,
+      status: 'pending',
     },
     {
-      _id: 2,
+      _id: '2',
       title: 'To Ship',
       isSelected: false,
+      status: 'verified',
     },
     {
-      _id: 3,
+      _id: '3',
       title: 'To Receive',
       isSelected: false,
+      status: 'shipping',
     },
     {
-      _id: 4,
+      _id: '4',
       title: 'Completed',
       isSelected: false,
+      status: 'completed',
     },
     {
-      _id: 5,
+      _id: '5',
       title: 'Cancel',
       isSelected: false,
+      status: 'cancelled',
     },
   ]);
-  const RenderItemProductMyPurchases = ({ data }: { data: ItemMyPurchases }) => (
+  const [idOrders, setIdOrders]: any = useState('pending');
+  const { orders } = useGetOrders();
+
+  const RenderItemProductMyPurchases = ({ data }: { data: IMyPurchases }) => (
     <ItemProductMyPurchases
-      total={data.total}
+      total={data.total_price}
       quantitiesProduct={data.products.length}
-      name={data.products[1].name}
-      image={data.products[1].image}
+      name={'Product'}
+      image={
+        'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656'
+      }
+      onPressViewDetail={() => navigation.navigate('OrderDetail')}
+      onPressBuyAgain={() => navigation.navigate('Cart')}
     />
   );
+
+  const renderItemOrder = ({ item }: any) => {
+    return (
+      <Pressable
+        w={100}
+        marginX={3}
+        h={12}
+        p={2}
+        alignItems="center"
+        justifyContent={'center'}
+        onPress={() => {
+          const itemSelected2 = itemSelected.map((prevItem) =>
+            prevItem._id === item._id
+              ? { ...prevItem, isSelected: true }
+              : { ...prevItem, isSelected: false }
+          );
+          setItemSelected(itemSelected2);
+          itemSelected2.map((item) => {
+            if (item.isSelected) {
+              setIdOrders(item.status);
+            }
+          });
+        }}
+        style={{ borderBottomColor: item.isSelected ? '#AC1506' : 'black' }}
+        borderBottomWidth={item.isSelected ? 2 : 0}
+        key={item._id}
+      >
+        <Text
+          color={item.isSelected ? '#AC1506' : 'black'}
+          textAlign="center"
+          variant={'Body1'}
+          fontSize={16}
+          mb={item.isSelected ? 1 : 0}
+          fontFamily={'Raleway_500Medium'}
+        >
+          {item.title}
+        </Text>
+      </Pressable>
+    );
+  };
+
   return (
     <View flex={1} pt={3} backgroundColor="white">
       <View style={{ marginTop: 20 }}>
@@ -165,59 +112,35 @@ const MyPurchaseScreen = (props: Props) => {
             titleHeaderSearch={''}
             titleHeaderScreen={'My Purchases'}
             iconRightHeaderScreen={false}
-            quantityItems={0}
+            quantityItems={5}
             iconRightHeaderCart={false}
-            quantityHeaderCarts={0}
+            quantityHeaderCarts={3}
           />
         </View>
-        <ScrollView
+
+        <FlatList
           paddingX={3}
           mt={3}
           mr={3}
-          horizontal
           showsHorizontalScrollIndicator={false}
           h={60}
-        >
-          {itemSelected.map((item1) => (
-            // eslint-disable-next-line no-unused-expressions
-            <Pressable
-              w={100}
-              marginX={3}
-              h={12}
-              p={2}
-              alignItems="center"
-              justifyContent={'center'}
-              onPress={() => {
-                const itemSelected2 = itemSelected.map((item2) => {
-                  return { ...item2, isSelected: item1._id === item2._id };
-                });
-                setItemSelected(itemSelected2);
-              }}
-              style={{
-                borderBottomColor: item1.isSelected ? '#AC1506' : 'black',
-              }}
-              borderBottomWidth={item1.isSelected ? 2 : 0}
-              key={item1._id}
-            >
-              <Text
-                color={item1.isSelected ? '#AC1506' : 'black'}
-                textAlign="center"
-                variant={'Body1'}
-                fontSize={16}
-                fontWeight="Regular"
-                fontFamily={'Raleway_500Medium'}
-              >
-                {item1.title}
-              </Text>
-            </Pressable>
-          ))}
-        </ScrollView>
+          horizontal
+          data={itemSelected}
+          renderItem={renderItemOrder}
+          keyExtractor={(item, index) => index + ''}
+        />
         <FlatList
-          data={data}
-          renderItem={({ item }) => <RenderItemProductMyPurchases data={item} />}
-          keyExtractor={(item) => item.id}
+          data={
+            orders
+              ? orders?.data.results.filter((item: { status: string }) => item.status === idOrders)
+              : null
+          }
+          renderItem={({ item }: any) => <RenderItemProductMyPurchases data={item} />}
+          keyExtractor={(item, index) => index + ''}
           marginBottom={110}
           showsVerticalScrollIndicator={false}
+          bounces={false}
+          onEndReachedThreshold={2}
         />
       </View>
     </View>

@@ -18,7 +18,7 @@ const FlatListProductCategory = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
   const { data } = props;
   const { categories } = useGetCategories();
-  const [ItemSelected2, setItemSelected2]: any = useState([]);
+  const [ItemSelected, setItemSelected]: any = useState([]);
   const [progressEnable, setProgressEnable] = useState(true);
 
   // const [idCate, setIdCate] = useState('');
@@ -29,20 +29,20 @@ const FlatListProductCategory = (props: Props) => {
         ...category,
         isSelected: false,
       }));
-      setItemSelected2(newCategories);
+      setItemSelected(newCategories);
     }
     setProgressEnable(true);
   }, [categories]);
 
   // useEffect(() => {
-  //   ItemSelected2.map((item: { isSelected: boolean; _id: React.SetStateAction<string> }) => {
+  //   ItemSelected.map((item: { isSelected: boolean; _id: React.SetStateAction<string> }) => {
   //     if (item.isSelected === true) {
   //       console.warn('Item selected', item._id);
   //       setIdCate(item._id);
   //     }
   //   });
   //   console.warn(idCate);
-  // }, [ItemSelected2]);
+  // }, [ItemSelected]);
 
   const RenderItemCategory = ({ data }: { data: IProduct }) => {
     return (
@@ -59,13 +59,13 @@ const FlatListProductCategory = (props: Props) => {
     <View>
       <View style={styles.coverCategories}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {ItemSelected2.map((item: any) => (
+          {ItemSelected.map((item: any) => (
             <ButtonCategory
               onPress={() => {
-                const ItemSelected3 = ItemSelected2.map((item2: any) => {
+                const ItemSelected3 = ItemSelected.map((item2: any) => {
                   return { ...item2, isSelected: item.name === item2.name };
                 });
-                setItemSelected2(ItemSelected3);
+                setItemSelected(ItemSelected3);
               }}
               title={item.name}
               isSelected={item.isSelected}

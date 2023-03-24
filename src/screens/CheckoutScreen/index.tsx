@@ -95,10 +95,8 @@ const CheckoutScreen = (props: Props) => {
 
   const checkout = async () => {
     try {
-      if (data.address !== undefined) {
-        await checkoutAPI.checkout(data);
-        navigation.replace('PaymentSuccess', { id_order: '641b181583592d4bbdf72e92' });
-      }
+      await checkoutAPI.checkout(data);
+      navigation.replace('PaymentSuccess', { id_order: '641b181583592d4bbdf72e92' });
     } catch (error: any) {
       console.error(error);
       Toast.show({
