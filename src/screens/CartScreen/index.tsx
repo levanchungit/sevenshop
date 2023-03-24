@@ -2,107 +2,13 @@ import React, { useState } from 'react';
 import { Text, View, Pressable, Box, FlatList, Image, Button, Modal, Flex } from 'native-base';
 import * as Icon from 'react-native-feather';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
-
-// import ButtonCategory from 'components/ButtonCategory';
+import useGetColors from 'hook/colors/useGetColors';
+import useGetCarts from 'hook/product/useGetCarts';
+import useGetSizes from 'hook/sizes/useGetSizes';
+import { IData } from 'interfaces/Cart';
+import { IColor } from 'interfaces/Color';
+import { ISize } from 'interfaces/Size';
 const Cart = () => {
-  const data = [
-    {
-      id: '1',
-      Name: 'Áo cardigan nữ siêu đẹp ',
-      Size: '12',
-      Clore: 'White',
-      price1: '500.000',
-      price2: '200.000',
-      amount: '1',
-      avatarUrl: 'https://th.bing.com/th/id/OIP.oUOPI9UXvoNDMrG-0D9KTgHaJL?pid=ImgDet&rs=1',
-    },
-    {
-      id: '2',
-      Name: 'Áo cardigan nữ siêu đẹp',
-      Size: '12',
-      Clore: 'White',
-      price1: '500.000',
-      price2: '300.000',
-      amount: '1',
-      avatarUrl: 'https://th.bing.com/th/id/OIP.oUOPI9UXvoNDMrG-0D9KTgHaJL?pid=ImgDet&rs=1',
-    },
-    {
-      id: '3',
-      Name: 'Áo cardigan nữ siêu đẹp',
-      Size: '12',
-      Clore: 'White',
-      price1: '500.000',
-      price2: '300.000',
-      amount: '1',
-      avatarUrl: 'https://th.bing.com/th/id/OIP.oUOPI9UXvoNDMrG-0D9KTgHaJL?pid=ImgDet&rs=1',
-    },
-    {
-      id: '4',
-      Name: 'Áo cardigan nữ siêu đẹp',
-      Size: '12',
-      Clore: 'White',
-      price1: '500.000',
-      price2: '300.000',
-      amount: '1',
-      avatarUrl: 'https://th.bing.com/th/id/OIP.oUOPI9UXvoNDMrG-0D9KTgHaJL?pid=ImgDet&rs=1',
-    },
-    {
-      id: '5',
-      Name: 'Áo cardigan nữ siêu đẹp',
-      Size: '12',
-      Clore: 'White',
-      price1: '500.000',
-      price2: '300.000',
-      amount: '1',
-      avatarUrl:
-        'https://th.bing.com/th/id/R.00182bf023bee72ae785640353db9521?rik=lSDLYCBRazoeVQ&pid=ImgRaw&r=0',
-    },
-    {
-      id: '6',
-      Name: 'Áo cardigan nữ siêu đẹp',
-      Size: '12',
-      Clore: 'White',
-      price1: '200',
-      price2: '300',
-      amount: '1',
-      avatarUrl:
-        'https://th.bing.com/th/id/R.00182bf023bee72ae785640353db9521?rik=lSDLYCBRazoeVQ&pid=ImgRaw&r=0',
-    },
-    {
-      id: '7',
-      Name: 'Áo cardigan nữ siêu đẹp',
-      Size: '12',
-      Clore: 'White',
-      price1: '200',
-      price2: '300',
-      amount: '1',
-      avatarUrl:
-        'https://th.bing.com/th/id/R.00182bf023bee72ae785640353db9521?rik=lSDLYCBRazoeVQ&pid=ImgRaw&r=0',
-    },
-    {
-      id: '8',
-      Name: 'Áo cardigan nữ siêu đẹp',
-      Size: '12',
-      Clore: 'White',
-      price1: '200',
-      price2: '300',
-      amount: '1',
-      avatarUrl:
-        'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    },
-    {
-      id: '9',
-      Name: 'Áo cardigan nữ siêu đẹp',
-      Size: '12',
-      Clore: 'White',
-      price1: '200',
-      price2: '300',
-      amount: '1',
-      avatarUrl:
-        'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    },
-  ];
-
   const dataColor = [
     {
       title: 'Cyan',
@@ -137,7 +43,6 @@ const Cart = () => {
       data: 'black',
     },
   ];
-
   const dataSize = [
     {
       title: 'Size S',
@@ -164,12 +69,14 @@ const Cart = () => {
       data: 'XXXL',
     },
   ];
-
   const [showModal, setShowModal] = useState(false);
   let [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string>();
-
-  const renderItem1 = ({ item }: any) => {
+  const { carts } = useGetCarts();
+  console.log('cart', carts?.data);
+  const { colors } = useGetColors();
+  const { sizes } = useGetSizes();
+  const renderItem1 = (item: IData, index: number) => {
     return (
       <View flexDirection={'row'} mt={2} w={'100%'} h={110} alignItems={'center'} borderRadius={10}>
         <View w={'6%'}>
@@ -184,7 +91,6 @@ const Cart = () => {
             <Icon.Check stroke="#FFFFFF" width={20} height={20} />
           </Pressable>
         </View>
-
         <View flexDirection={'row'} w={'100%'}>
           <View ml={1} w={'27%'} h={'100%'} borderRadius={10}>
             <Image
@@ -193,7 +99,7 @@ const Cart = () => {
               w={'100%'}
               h={'100%'}
               source={{
-                uri: item.avatarUrl,
+                uri: item.images[0],
               }}
             />
           </View>
@@ -204,8 +110,7 @@ const Cart = () => {
             height={'100%'}
             justifyContent={'space-between'}
           >
-            <Text variant={'subtitle1'}>{item.Name}</Text>
-
+            <Text variant={'subtitle1'}>{item.name}</Text>
             <Pressable
               mt={1}
               borderWidth={0.5}
@@ -217,12 +122,17 @@ const Cart = () => {
               onPress={() => setShowModal(true)}
             >
               <View flexDirection={'row'} ml={2} w={'70%'}>
-                <Text variant={'caption'}>{item.Clore},</Text>
-                <Text ml={1} variant={'caption'}>
-                  {item.Size}
-                </Text>
+                {colors?.data.results
+                  .filter((c: IColor) => carts?.data[index].color_id.includes(c._id))
+                  .map((color: IColor) => {
+                    return <Text variant={'caption'}>{color.name}, </Text>;
+                  })}
+                {sizes?.data.results
+                  .filter((s: ISize) => carts?.data[index].size_id.includes(s._id))
+                  .map((size: ISize) => {
+                    return <Text variant={'caption'}>{size.name}, </Text>;
+                  })}
               </View>
-
               <Icon.ChevronDown stroke="black" width={24} height={24} />
             </Pressable>
             <View w={'100%'} flexDirection={'row'}>
@@ -236,18 +146,16 @@ const Cart = () => {
                   strikeThrough
                   color={'gray.400'}
                 >
-                  {item.price1} đ
+                  {item.price} đ
                 </Text>
-
                 <Text mt={1} color={'primary.600'} variant={'button'}>
-                  {item.price2} đ
+                  {item.price_sale} đ
                 </Text>
               </View>
               <View flexDirection={'row'} alignItems={'center'} mt={4}>
                 <Pressable onPress={() => setQuantity(quantity--)}>
                   <Icon.Minus stroke="black" width={18} height={18} />
                 </Pressable>
-
                 <View
                   w={6}
                   h={6}
@@ -258,7 +166,7 @@ const Cart = () => {
                   mr={2}
                 >
                   <Text fontWeight={'bold'} fontSize={14} textAlign={'center'}>
-                    {quantity}
+                    {item.quantity}
                   </Text>
                 </View>
                 <Pressable onPress={() => setQuantity(quantity++)}>
@@ -299,7 +207,6 @@ const Cart = () => {
             >
               <Icon.Check stroke="#FFFFFF" width={20} height={20} />
             </Pressable>
-
             <Text ml={3} variant={'body2'}>
               Select All
             </Text>
@@ -308,11 +215,15 @@ const Cart = () => {
             <Icon.Trash2 stroke="#ac1506" width={24} height={24} />
           </View>
         </View>
-
         <View h={'72%'} mt={1}>
-          <FlatList keyExtractor={(item) => item.id} data={data} renderItem={renderItem1} />
+          <FlatList
+            keyExtractor={(item) => item.product_id}
+            data={carts?.data}
+            renderItem={({ item, index }: { item: IData; index: number }) =>
+              renderItem1(item, index)
+            }
+          />
         </View>
-
         <View flex={1} flexDirection={'row'} w={'100%'} alignItems={'flex-end'}>
           <Text flex={1} fontSize={20} fontWeight={'bold'}>
             Total
@@ -332,7 +243,6 @@ const Cart = () => {
         <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
           <Modal.Content width={'100%'} style={{ marginBottom: 0, marginTop: 'auto' }}>
             <Modal.CloseButton />
-
             <Modal.Body height="auto" w="full">
               <Flex direction="row" marginBottom="3">
                 <Image
