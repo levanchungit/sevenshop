@@ -6,7 +6,7 @@ import { Provider } from 'providers';
 import { StackNavigator } from 'providers/navigation';
 SplashScreen.preventAutoHideAsync();
 
-export default function App() {
+const App = React.memo(() => {
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
@@ -41,4 +41,6 @@ export default function App() {
       <StackNavigator />
     </Provider>
   );
-}
+});
+
+export default App;

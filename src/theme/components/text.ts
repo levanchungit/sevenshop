@@ -34,6 +34,7 @@ const baseStyle = (props: Record<string, any>) => {
         : variant === 'subtitle2'
         ? 'Raleway_500Medium'
         : 'Raleway_400Regular',
+    letterSpacing: 0.25,
     ...props,
   };
 };
