@@ -68,19 +68,6 @@ const authAPI = {
     }
     return response;
   },
-  // async changePassword(payload: ChangePasswordPayload) {
-  //   //header token
-  //   const response = await axios.post(API_URL + API_ROUTES.changePassword, payload);
-  //   try {
-  //     await setAuthTokens({
-  //       accessToken: response.data.access_token,
-  //       refreshToken: response.data.refresh_token,
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  //   return response;
-  // },
 
   logout() {
     return axiosInstance.get(API_ROUTES.logout);

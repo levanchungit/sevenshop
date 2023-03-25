@@ -12,8 +12,6 @@ const requestRefresh: TokenRefreshRequest = async (refreshToken: string): Promis
     refresh_token: refreshToken,
   });
 
-  //post failed catch -> change screen default
-
   return response.data.access_token;
 };
 

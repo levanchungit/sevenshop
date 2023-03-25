@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Pressable, Image, Button } from 'native-base';
-import { formatCurrency } from 'react-native-format-currency';
+import { formatNumberCurrencyVN } from 'utils/common';
 
 type Props = {
   total: number;
@@ -61,7 +61,7 @@ const ItemProductMyPurchases = (props: Props) => {
                   fontFamily="Raleway_500Medium"
                 >
                   {' '}
-                  {formatCurrency({ amount: total, code: 'VND' }).slice(0, 1)}
+                  {formatNumberCurrencyVN(total)}
                 </Text>
               </View>
             </View>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image, Pressable, Skeleton } from 'native-base';
-import { formatCurrency } from 'react-native-format-currency';
+import { formatNumberCurrencyVN } from 'utils/common';
 import styles from './styles';
 
 type Props = {
@@ -32,7 +32,7 @@ const ItemProductForYou = (props: Props) => {
         <View style={styles.coverTextSeller}>
           <Skeleton isLoaded={!!price}>
             <Text color="primary.600" variant={'subtitle1'}>
-              {formatCurrency({ amount: price ? price : 123, code: 'VND' }).slice(0, 1)}
+              {formatNumberCurrencyVN(price)}
             </Text>
           </Skeleton>
           <Skeleton isLoaded={!!selled}>
