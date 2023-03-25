@@ -20,6 +20,7 @@ export const API_ROUTES = {
   //cart
   getCarts: `/carts`,
 
+  changeQuantity: `/carts`,
   //colors
   getColors: '/colors',
 
