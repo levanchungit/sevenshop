@@ -12,9 +12,16 @@ export type IData = {
   name: string;
   price: number;
   price_sale: number;
-  images: string;
+  images: string[];
 };
 
 export interface ICart {
   data: IData[];
+}
+
+export interface ChangeQuantityCart {
+  product_id: string;
+  quantity: number;
+  size_id: string;
+  color_id: string;
 }

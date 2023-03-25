@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Text, View, Pressable, Box, FlatList, Image, Button, Modal, Flex } from 'native-base';
 import * as Icon from 'react-native-feather';
+import ItemCart from 'components/ItemCart';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
-import useGetColors from 'hook/colors/useGetColors';
 import useGetCarts from 'hook/product/useGetCarts';
-import useGetSizes from 'hook/sizes/useGetSizes';
 import { IData } from 'interfaces/Cart';
-import { IColor } from 'interfaces/Color';
-import { ISize } from 'interfaces/Size';
+import { cartAPI } from 'modules';
 const Cart = () => {
   const dataColor = [
     {
@@ -69,116 +67,127 @@ const Cart = () => {
       data: 'XXXL',
     },
   ];
+  const { carts } = useGetCarts();
   const [showModal, setShowModal] = useState(false);
   let [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string>();
-  const { carts } = useGetCarts();
-  console.log('cart', carts?.data);
-  const { colors } = useGetColors();
-  const { sizes } = useGetSizes();
-  const renderItem1 = (item: IData, index: number) => {
-    return (
-      <View flexDirection={'row'} mt={2} w={'100%'} h={110} alignItems={'center'} borderRadius={10}>
-        <View w={'6%'}>
-          <Pressable
-            justifyContent={'center'}
-            alignItems={'center'}
-            w={6}
-            h={6}
-            backgroundColor={'primary.600'}
-            borderRadius={20}
-          >
-            <Icon.Check stroke="#FFFFFF" width={20} height={20} />
-          </Pressable>
-        </View>
-        <View flexDirection={'row'} w={'100%'}>
-          <View ml={1} w={'27%'} h={'100%'} borderRadius={10}>
-            <Image
-              alt="Image nè"
-              borderRadius={10}
-              w={'100%'}
-              h={'100%'}
-              source={{
-                uri: item.images[0],
-              }}
-            />
-          </View>
-          <View
-            flexDirection={'column'}
-            ml={2}
-            w={'72%'}
-            height={'100%'}
-            justifyContent={'space-between'}
-          >
-            <Text variant={'subtitle1'}>{item.name}</Text>
-            <Pressable
-              mt={1}
-              borderWidth={0.5}
-              borderColor={'coolGray.400'}
-              w={'40%'}
-              borderRadius={4}
-              flexDirection={'row'}
-              alignItems={'center'}
-              onPress={() => setShowModal(true)}
-            >
-              <View flexDirection={'row'} ml={2} w={'70%'}>
-                {colors?.data.results
-                  .filter((c: IColor) => carts?.data[index].color_id.includes(c._id))
-                  .map((color: IColor) => {
-                    return <Text variant={'caption'}>{color.name}, </Text>;
-                  })}
-                {sizes?.data.results
-                  .filter((s: ISize) => carts?.data[index].size_id.includes(s._id))
-                  .map((size: ISize) => {
-                    return <Text variant={'caption'}>{size.name}, </Text>;
-                  })}
-              </View>
-              <Icon.ChevronDown stroke="black" width={24} height={24} />
-            </Pressable>
-            <View w={'100%'} flexDirection={'row'}>
-              <View w={'60%'}>
-                <Text
-                  mt={1}
-                  variant={'overline'}
-                  style={{
-                    fontVariant: ['lining-nums'],
-                  }}
-                  strikeThrough
-                  color={'gray.400'}
-                >
-                  {item.price} đ
-                </Text>
-                <Text mt={1} color={'primary.600'} variant={'button'}>
-                  {item.price_sale} đ
-                </Text>
-              </View>
-              <View flexDirection={'row'} alignItems={'center'} mt={4}>
-                <Pressable onPress={() => setQuantity(quantity--)}>
-                  <Icon.Minus stroke="black" width={18} height={18} />
-                </Pressable>
-                <View
-                  w={6}
-                  h={6}
-                  borderRadius={4}
-                  borderWidth={0.5}
-                  borderColor={'coolGray.400'}
-                  ml={2}
-                  mr={2}
-                >
-                  <Text fontWeight={'bold'} fontSize={14} textAlign={'center'}>
-                    {item.quantity}
-                  </Text>
-                </View>
-                <Pressable onPress={() => setQuantity(quantity++)}>
-                  <Icon.Plus stroke="black" width={18} height={18} />
-                </Pressable>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
-    );
+
+  const ChangQuantity = async (
+    product_id: string,
+    quantity: number,
+    size_id: string,
+    color_id: string
+  ) => {
+    try {
+      await cartAPI.ChangeQuantity(product_id, quantity, size_id, color_id);
+    } catch (error: any) {
+      console.error(error.message);
+    }
   };
+
+  // const renderItem1 = (item: IData, index: number) => {
+  //   return (
+  //     <View flexDirection={'row'} mt={2} w={'100%'} h={110} alignItems={'center'} borderRadius={10}>
+  //       <View w={'6%'}>
+  //         <Pressable
+  //           justifyContent={'center'}
+  //           alignItems={'center'}
+  //           w={6}
+  //           h={6}
+  //           backgroundColor={'primary.600'}
+  //           borderRadius={20}
+  //         >
+  //           <Icon.Check stroke="#FFFFFF" width={20} height={20} />
+  //         </Pressable>
+  //       </View>
+  //       <View flexDirection={'row'} w={'100%'}>
+  //         <View ml={1} w={'27%'} h={'100%'} borderRadius={10}>
+  //           <Image
+  //             alt="Image nè"
+  //             borderRadius={10}
+  //             w={'100%'}
+  //             h={'100%'}
+  //             source={{
+  //               uri: item.images[0],
+  //             }}
+  //           />
+  //         </View>
+  //         <View
+  //           flexDirection={'column'}
+  //           ml={2}
+  //           w={'72%'}
+  //           height={'100%'}
+  //           justifyContent={'space-between'}
+  //         >
+  //           <Text variant={'subtitle1'}>{item.name}</Text>
+  //           <Pressable
+  //             mt={1}
+  //             borderWidth={0.5}
+  //             borderColor={'coolGray.400'}
+  //             w={'40%'}
+  //             borderRadius={4}
+  //             flexDirection={'row'}
+  //             alignItems={'center'}
+  //             onPress={() => setShowModal(true)}
+  //           >
+  //             <View flexDirection={'row'} ml={2} w={'70%'}>
+  //               {colors?.data.results
+  //                 .filter((c: IColor) => carts?.data[index].color_id.includes(c._id))
+  //                 .map((color: IColor) => {
+  //                   return <Text variant={'caption'} w={'50%'}>{color.name}, </Text>;
+  //                 })}
+  //               {sizes?.data.results
+  //                 .filter((s: ISize) => carts?.data[index].size_id.includes(s._id))
+  //                 .map((size: ISize) => {
+  //                   return <Text variant={'caption'}>{size.size}, </Text>;
+  //                 })}
+  //             </View>
+  //             <Icon.ChevronDown stroke="black" width={24} height={24} />
+  //           </Pressable>
+  //           <View w={'100%'} flexDirection={'row'}>
+  //             <View w={'60%'}>
+  //               <Text
+  //                 mt={1}
+  //                 variant={'overline'}
+  //                 style={{
+  //                   fontVariant: ['lining-nums'],
+  //                 }}
+  //                 strikeThrough
+  //                 color={'gray.400'}
+  //               >
+  //                 {item.price} đ
+  //               </Text>
+  //               <Text mt={1} color={'primary.600'} variant={'button'}>
+  //                 {item.price_sale} đ
+  //               </Text>
+  //             </View>
+  //             <View flexDirection={'row'} alignItems={'center'} mt={4}>
+  //               <Pressable onPress={() => setQuantity(quantity--)}>
+  //                 <Icon.Minus stroke="black" width={18} height={18} />
+  //               </Pressable>
+  //               <View
+  //                 w={6}
+  //                 h={6}
+  //                 borderRadius={4}
+  //                 borderWidth={0.5}
+  //                 borderColor={'coolGray.400'}
+  //                 ml={2}
+  //                 mr={2}
+  //               >
+  //                 <Text fontWeight={'bold'} fontSize={14} textAlign={'center'}>
+  //                   {item.quantity}
+  //                 </Text>
+  //               </View>
+  //               <Pressable onPress={() => setQuantity(quantity++)}>
+  //                 <Icon.Plus stroke="black" width={18} height={18} />
+  //               </Pressable>
+  //             </View>
+  //           </View>
+  //         </View>
+  //       </View>
+  //     </View>
+  //   );
+  // };
 
   return (
     <View w={'100%'} h={'100%'} flex={1} py={5}>
@@ -217,12 +226,21 @@ const Cart = () => {
         </View>
         <View h={'72%'} mt={1}>
           <FlatList
-            keyExtractor={(item) => item.product_id}
+            keyExtractor={(item, index) => index + ''}
             data={carts?.data}
-            renderItem={({ item, index }: { item: IData; index: number }) =>
-              renderItem1(item, index)
-            }
-          />
+            renderItem={({ item }: { item: IData }) => (
+              <ItemCart
+                cart={item}
+                setShowModal={setShowModal}
+                increaseQuantity={() =>
+                  ChangQuantity(item.product_id, item.quantity + 1, item.size_id, item.color_id)
+                }
+                decreaseQuantity={() =>
+                  ChangQuantity(item.product_id, item.quantity - 1, item.size_id, item.color_id)
+                }
+              ></ItemCart>
+            )}
+          ></FlatList>
         </View>
         <View flex={1} flexDirection={'row'} w={'100%'} alignItems={'flex-end'}>
           <Text flex={1} fontSize={20} fontWeight={'bold'}>
