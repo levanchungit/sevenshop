@@ -48,7 +48,9 @@ const SSHeaderNavigation = (props: Props) => {
         {!iconOther ? (
           <Icons.ShoppingCart width={24} height={24} stroke={'black'} />
         ) : (
-          <Icons.Settings width={24} height={24} stroke={'black'} />
+          <Pressable onPress={() => navigation.navigate('AccountSettings')}>
+            <Icons.Settings width={24} height={24} stroke={'black'} />
+          </Pressable>
         )}
       </View>
       {!iconOther ? (
