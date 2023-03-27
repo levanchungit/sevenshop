@@ -21,8 +21,8 @@ import { AppNavigationProp } from 'providers/navigation/types';
 const LoginScreen = React.memo(() => {
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [email, setEmail] = useState('quyentran.02062000@gmail.com');
-  const [password, setPassword] = useState('123456');
+  const [email, setEmail] = useState('khoattdps19321@fpt.edu.vn');
+  const [password, setPassword] = useState('321');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = useCallback(async () => {
