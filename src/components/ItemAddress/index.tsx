@@ -43,7 +43,7 @@ const ItemAdrress = (props: Props) => {
             fontVariant: ['lining-nums'],
           }}
         >
-          {address.full_name} | {address.phone}
+          {address.results.full_name} | {address.results.phone}
         </Text>
         <Text
           numberOfLines={2}
@@ -52,7 +52,7 @@ const ItemAdrress = (props: Props) => {
             fontVariant: ['lining-nums'],
           }}
         >
-          {address.address}
+          {address.results.address}
         </Text>
         {elementVisible ? (
           <Box
