@@ -3,8 +3,8 @@ import { AddCartPayload } from 'interfaces/Cart';
 import { axiosInstance } from './config/AxiosInstance';
 
 const cartAPI = {
-  addCart(data: AddCartPayload) {
-    return axiosInstance.post(API_ROUTES.getCarts, data);
+  async addCart(data: AddCartPayload) {
+    return await axiosInstance.post(API_ROUTES.getCarts, data);
   },
   async getCarts() {
     const response = await axiosInstance.get(API_ROUTES.getCarts);

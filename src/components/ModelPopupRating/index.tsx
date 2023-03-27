@@ -9,7 +9,6 @@ import { IStock } from 'interfaces/Product';
 
 const initialWidth = Dimensions.get('window').width;
 
-//Tạo 4 hook cho color, size, quantity và showModal
 type Props = {
   showModal: boolean;
   setShowModal: Function;

@@ -26,12 +26,12 @@ export type AppStackNavigatorParamList = {
   EditAddress: {
     typeEdit: boolean;
     address?: {
-      id: number;
-      full_name: string;
-      phone: number;
       address: string;
-      type: string;
-      isDefault: boolean;
+      full_name: string;
+      phone: string;
+      // type: string;
+      default_address: boolean;
+      _id: string;
     };
   };
   Voucher: undefined;
@@ -40,7 +40,7 @@ export type AppStackNavigatorParamList = {
   PaymentMethodScreen: undefined;
   OrderDetail: undefined;
   CheckoutScreen?: {
-    address_id?: number;
+    address_id?: string;
   };
   PaymentSuccess: {
     id_order: string;
