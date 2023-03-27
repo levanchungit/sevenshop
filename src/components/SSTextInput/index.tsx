@@ -7,17 +7,27 @@ type Props = {
   inputLeftElement?: JSX.Element;
   inputRightElement?: JSX.Element;
   value: string;
+  width?: any;
+  keyboardType?: any;
   changeValue: Function;
 };
 
 const SSTextInput = (props: Props) => {
   const [showPass, setShowPass] = useState(true);
-  const { placeholder, value, changeValue, inputLeftElement, inputRightElement, typePassword } =
-    props;
+  const {
+    placeholder,
+    value,
+    changeValue,
+    inputLeftElement,
+    inputRightElement,
+    typePassword,
+    keyboardType,
+    width,
+  } = props;
   return (
     <View
       flexDirection="row"
-      w="80%"
+      w={width ? width : '80%'}
       alignItems="center"
       alignSelf="center"
       borderBottomWidth={1}
@@ -28,6 +38,7 @@ const SSTextInput = (props: Props) => {
         style={{
           fontVariant: ['lining-nums'],
         }}
+        keyboardType={keyboardType ? keyboardType : 'default'}
         autoCapitalize="none"
         fontSize={16}
         fontFamily="heading"

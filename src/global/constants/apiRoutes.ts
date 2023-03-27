@@ -10,6 +10,10 @@ export const API_ROUTES = {
   changePassword: `/auth/changePassword`,
   me: `/auth/me`,
 
+  //users
+  getAddresses: `/users/addresses`,
+  getAddressesId: (id: string) => `/users/addresses/${id}`,
+
   // product
   getProducts: (page: number, limit: number) => `/products?page=${page}&limit=${limit}`,
   getProductDetail: (id: string) => `/products/${id}`,
@@ -19,8 +23,8 @@ export const API_ROUTES = {
 
   //cart
   getCarts: `/carts`,
-
   changeQuantity: `/carts`,
+
   //colors
   getColors: '/colors',
 
