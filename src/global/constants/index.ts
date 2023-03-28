@@ -19,6 +19,9 @@ export const APP_ROUTES = {
   SetPasswordForgot: 'SetPasswordForgot',
 };
 
+export const URL_IMG_AUTH =
+  'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1679739864/Image/Frame_207_ljt2hf.png';
+
 export enum STATUS_PRODUCT {
   active = 'active',
   inactive = 'inactive',

@@ -56,8 +56,20 @@ const authAPI = {
   },
 
   async set_password(payload: SetPasswordPayload) {
-    //header token
     const response = await axiosInstance.post(API_ROUTES.set_password, payload);
+    try {
+      await setAuthTokens({
+        accessToken: response.data.access_token,
+        refreshToken: response.data.refresh_token,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    return response;
+  },
+
+  async set_password_forgot(payload: SetPasswordPayload) {
+    const response = await axiosInstance.post(API_ROUTES.set_password_forgot, payload);
     try {
       await setAuthTokens({
         accessToken: response.data.access_token,

@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, Button, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
+import { URL_IMG_AUTH } from 'global/constants';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
@@ -11,23 +12,27 @@ type Props = object;
 const ForgotPasswordScreen = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [email, setEmail] = useState('khuyenpv0509@gmail.com');
+  const [email, setEmail] = useState('');
+  const [disableButton, setDisable] = useState(false);
 
   const onSubmit = async () => {
+    setDisable(true);
+
     try {
       const response = await authAPI.forgot_password({ email });
       Toast.show({
         title: response.data.message,
         duration: 3000,
       });
-      navigation.navigate('OTPForgot', response.data.result);
+      navigation.replace('OTPForgot', response.data.result);
     } catch (e: any) {
-      console.log(e.response);
+      console.log(e.response.status, e.response.data);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
       });
     }
+    setDisable(false);
   };
   return (
     <View w={'100%'} h={'100%'} flex={1}>
@@ -38,7 +43,7 @@ const ForgotPasswordScreen = (props: Props) => {
         borderBottomLeftRadius={12}
         borderBottomRightRadius={12}
         source={{
-          uri: 'https://th.bing.com/th/id/OIP.cH80uEpp8kXrYliDjpuk2AHaFh?pid=ImgDet&rs=1',
+          uri: URL_IMG_AUTH,
         }}
       />
       <Text
@@ -71,7 +76,14 @@ const ForgotPasswordScreen = (props: Props) => {
           value={email}
           changeValue={setEmail}
         ></SSTextInput>
-        <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="6" borderRadius={6}>
+        <Button
+          onPress={onSubmit}
+          w={{ base: '50%' }}
+          mb="1"
+          mt="6"
+          borderRadius={6}
+          disabled={disableButton}
+        >
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
             Send
           </Text>
