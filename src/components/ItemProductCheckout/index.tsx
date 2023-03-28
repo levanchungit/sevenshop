@@ -16,11 +16,14 @@ const ItemProductCheckout = (props: Props) => {
       <Pressable flexDirection={'row'} style={{ padding: 12 }} alignItems={'center'}>
         <Image
           alt="gsgsdg"
-          style={{ width: 120, height: 120, borderRadius: 12 }}
+          w={120}
+          h={120}
+          borderRadius={12}
+          mr={3}
           resizeMode="cover"
           source={{ uri: image ? image + '' : '123' }}
         />
-        <View flexDirection={'column'} justifyContent={'space-between'}>
+        <View flexDirection={'column'} justifyContent={'space-between'} w="65%">
           <Text
             numberOfLines={1}
             fontSize={16}
