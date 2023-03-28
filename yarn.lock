@@ -3195,6 +3195,9 @@
   version "17.0.24"
   resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-17.0.24.tgz#b3ef8d50ad4aa6aecf6ddc97c580a00f5aa11902"
   integrity sha512-6i0aC7jV6QzQB8ne1joVZ0eSFIstHsCrobmOtghM11yGlH0j43FKL2UhWdELkyps0zuf7qVTUVCCR+tgSlyLLw==
+  version "17.0.23"
+  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-17.0.23.tgz#a7db3a2062c95ca1a5e0d5d5ddb6521cbc649e35"
+  integrity sha512-yuogunc04OnzGQCrfHx+Kk883Q4X0aSwmYZhKjI21m+SVYzjIbrWl8dOOwSv5hf2Um2pdCOXWo9isteZTNXUZQ==
   dependencies:
     "@types/yargs-parser" "*"
 
@@ -6723,6 +6726,9 @@ flow-parser@0.*:
   version "0.203.0"
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.203.0.tgz#bd34370c76312522761fccc06daea8ee1e1d0621"
   integrity sha512-VLEWgXfvDr6q0PkXuIsbQRmZQIr/LRq+ozZlAA7SoJp7Gvkjl4Znsq6LTdYqqqQ9FVRWaI76wYaL8tRVCJ+T1Q==
+  version "0.202.1"
+  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.202.1.tgz#3f87222e6910f6790bb2ce4648c20e1b87d6f9d7"
+  integrity sha512-IA8mhyNEUtzAKh+lj1yNDLFiUr1NSwPC+exQgghQNARFU/DeWGpoNmuYYzMDFIYsOdVdDoTJTxRc+/cS9CVvNg==
 
 flow-parser@^0.121.0:
   version "0.121.0"

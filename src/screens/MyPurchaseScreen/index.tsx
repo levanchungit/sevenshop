@@ -44,14 +44,19 @@ const MyPurchaseScreen = () => {
   ]);
   const [idOrders, setIdOrders]: any = useState('pending');
   const { orders } = useGetOrders();
+  // console.log('orders', orders?.data.results[3].products[0].product_id);
 
   const RenderItemProductMyPurchases = ({ data }: { data: IMyPurchases }) => (
     <ItemProductMyPurchases
       total={data.total_price}
       quantitiesProduct={data.products.length}
-      name={data.products[0].product_id.name}
-      image={data.products[0].product_id.images[0]}
-      onPressViewDetail={() => navigation.navigate('OrderDetail')}
+      name={data.products[0].product_id !== null ? data.products[0].product_id.name : 'Product'}
+      image={
+        data.products[0].product_id !== null
+          ? data.products[0].product_id.images[0]
+          : 'https://youlookfab.com/upload/products/fa2cbebc3781bd50eb4dee391f3eddfb921-mini.jpg'
+      }
+      onPressViewDetail={() => navigation.navigate('OrderDetail', { id_order: data._id })}
       onPressBuyAgain={() => navigation.navigate('Cart')}
     />
   );
