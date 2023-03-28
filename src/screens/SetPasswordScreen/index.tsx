@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Text, View, Image, Button, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
+import { URL_IMG_AUTH } from 'global/constants';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
@@ -11,21 +12,26 @@ const SetPassWordScreen = () => {
 
   const [password, setPassword] = useState('');
   const [password_new, setPassword_new] = useState('');
+  const [disableButton, setDisable] = useState(false);
 
   const onSubmit = async () => {
+    setDisable(true);
+
     try {
       const response = await authAPI.set_password({ password });
       Toast.show({
         title: response.data.message,
         duration: 3000,
       });
-      navigation.navigate('Login');
+      navigation.replace('Main');
     } catch (e: any) {
+      console.log(e.response.status, e.response.data);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
       });
     }
+    setDisable(false);
   };
 
   return (
@@ -38,7 +44,7 @@ const SetPassWordScreen = () => {
         borderBottomRightRadius={12}
         shadow={1}
         source={{
-          uri: 'https://th.bing.com/th/id/OIP.cH80uEpp8kXrYliDjpuk2AHaFh?pid=ImgDet&rs=1',
+          uri: URL_IMG_AUTH,
         }}
       />
       <Text
@@ -69,7 +75,7 @@ const SetPassWordScreen = () => {
           changeValue={setPassword_new}
         ></SSTextInput>
 
-        <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="6">
+        <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="6" disabled={disableButton}>
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
             Set
           </Text>

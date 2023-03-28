@@ -5,9 +5,10 @@ export const API_ROUTES = {
   register: `/auth/register`,
   check_otp: `/auth/check_otp`,
   set_password: `/auth/set_password`,
+  set_password_forgot: `/auth/set_password_forgot`,
   refresh_token: `/auth/refresh_token`,
-  forgotPassword: `/auth/forgotPassword`,
-  changePassword: `/auth/changePassword`,
+  forgotPassword: `/auth/forgot_password`,
+  changePassword: `/auth/change_password`,
   me: `/auth/me`,
 
   // product

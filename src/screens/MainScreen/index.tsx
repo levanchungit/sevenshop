@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, FlatList } from 'native-base';
-import { TextInput } from 'react-native';
+import { View, FlatList, Toast } from 'native-base';
+import { BackHandler, TextInput } from 'react-native';
 // import FlatListProductCategory from 'components/FlatListProductCategory';
-import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
-import FlatListProductForYou from 'components/FlatListProductForYou';
+// import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
+// import FlatListProductForYou from 'components/FlatListProductForYou';
 import IconCart from 'components/IconCart';
 import SlideShowImage from 'components/SwipeBanner';
 import useGetCarts from 'hook/product/useGetCarts';
 import useGetProducts from 'hook/product/useGetProducts';
+import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';
 
@@ -20,7 +21,7 @@ export const MainScreen = () => {
   const limit = 6;
   const [page, setPage] = useState(0);
   const [product, setProduct] = useState(() => []);
-  const { products, isReachingEnd, error } = useGetProducts(page, limit);
+  const { products, isReachingEnd } = useGetProducts(page, limit);
 
   const { carts } = useGetCarts();
 
@@ -37,6 +38,43 @@ export const MainScreen = () => {
       setScrollEnable(false);
     }
   };
+
+  const [lastBackPressed, setLastBackPressed] = useState(0);
+
+  const logOut = async () => {
+    try {
+      const response = await authAPI.logout();
+      Toast.show({
+        title: response.data.message,
+        duration: 3000,
+      });
+      navigation.navigate('Login');
+    } catch (e: any) {
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
+
+  const handleBackPress = () => {
+    const currentTime = new Date().getTime();
+
+    if (currentTime - lastBackPressed < 2000) {
+      logOut();
+      return true;
+    }
+
+    Toast.show({ title: 'Press back again to exit', duration: 2000 });
+    setLastBackPressed(currentTime);
+    return true;
+  };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    return () => backHandler.remove();
+  }, [handleBackPress]);
 
   return (
     <View style={styles.container}>
@@ -62,9 +100,9 @@ export const MainScreen = () => {
                 <SlideShowImage />
 
                 {/* <FlatListProductCategory data={product} /> */}
-                <FlatListProductFlashSale data={product} error={error} />
+                {/* <FlatListProductFlashSale data={product} error={error} /> */}
               </View>
-              <FlatListProductForYou data={product} />
+              {/* <FlatListProductForYou data={product} /> */}
             </View>
           );
         }}

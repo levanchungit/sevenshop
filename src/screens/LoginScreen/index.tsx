@@ -14,6 +14,7 @@ import {
 } from 'native-base';
 import * as Icons from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
+import { URL_IMG_AUTH } from 'global/constants';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
@@ -34,6 +35,7 @@ const LoginScreen = React.memo(() => {
       });
       navigation.navigate('Main');
     } catch (e: any) {
+      console.log(e.response.status, e.response.data);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
@@ -59,7 +61,7 @@ const LoginScreen = React.memo(() => {
           borderBottomLeftRadius={12}
           borderBottomRightRadius={12}
           source={{
-            uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1679739864/Image/Frame_207_ljt2hf.png',
+            uri: URL_IMG_AUTH,
           }}
         />
 

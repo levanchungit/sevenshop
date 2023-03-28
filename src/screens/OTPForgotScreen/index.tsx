@@ -4,6 +4,7 @@ import { View, Text, Image, Toast, Button } from 'native-base';
 import * as Icon from 'react-native-feather';
 // import { CheckOTPPayload } from 'interfaces/Auth';
 import SSTextInput from 'components/SSTextInput';
+import { URL_IMG_AUTH } from 'global/constants';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
@@ -11,9 +12,12 @@ const OTPForgotScreen = (props: any) => {
   const navigation = useNavigation<AppNavigationProp>();
 
   const [id] = useState(props.route.params.user_id);
-  console.log(id);
   const [otp, setOtp] = useState('');
+  const [disableButton, setDisable] = useState(false);
+
   const onSubmit = async () => {
+    setDisable(true);
+
     try {
       const response = await authAPI.check_otp({ id, otp });
       Toast.show({
@@ -21,13 +25,15 @@ const OTPForgotScreen = (props: any) => {
         duration: 3000,
       });
 
-      navigation.navigate('SetPasswordForgot');
+      navigation.replace('SetPasswordForgot');
     } catch (e: any) {
+      console.log(e.response.status, e.response.data);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
       });
     }
+    setDisable(false);
   };
 
   return (
@@ -39,7 +45,7 @@ const OTPForgotScreen = (props: any) => {
         borderBottomLeftRadius={12}
         borderBottomRightRadius={12}
         source={{
-          uri: 'https://th.bing.com/th/id/OIP.cH80uEpp8kXrYliDjpuk2AHaFh?pid=ImgDet&rs=1',
+          uri: URL_IMG_AUTH,
         }}
       />
       <Text
@@ -73,7 +79,14 @@ const OTPForgotScreen = (props: any) => {
           changeValue={setOtp}
         ></SSTextInput>
 
-        <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="6" borderRadius={6}>
+        <Button
+          onPress={onSubmit}
+          w={{ base: '50%' }}
+          mb="1"
+          mt="6"
+          borderRadius={6}
+          disabled={disableButton}
+        >
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
             Verify
           </Text>

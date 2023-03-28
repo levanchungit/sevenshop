@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, Button, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
+import { URL_IMG_AUTH } from 'global/constants';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 type Props = object;
@@ -11,8 +12,10 @@ const RegisterScreen = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
 
   const [email, setEmail] = useState('');
+  const [disableButton, setDisable] = useState(false);
 
   const onSubmit = async () => {
+    setDisable(true);
     try {
       const response = await authAPI.register({ email });
       Toast.show({
@@ -21,12 +24,13 @@ const RegisterScreen = (props: Props) => {
       });
       navigation.replace('OTP', response.data.result);
     } catch (e: any) {
-      console.error(e.response);
+      console.log(e.response.status, e.response.data);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,
       });
     }
+    setDisable(false);
   };
 
   return (
@@ -38,7 +42,7 @@ const RegisterScreen = (props: Props) => {
         borderBottomLeftRadius={12}
         borderBottomRightRadius={12}
         source={{
-          uri: 'https://th.bing.com/th/id/OIP.cH80uEpp8kXrYliDjpuk2AHaFh?pid=ImgDet&rs=1',
+          uri: URL_IMG_AUTH,
         }}
       />
       <Text
@@ -68,6 +72,7 @@ const RegisterScreen = (props: Props) => {
           w={{ base: '50%' }}
           mb="1"
           mt="8"
+          disabled={disableButton}
         >
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
             Register
