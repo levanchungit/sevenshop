@@ -130,7 +130,7 @@ const CheckoutScreen = (props: Props) => {
             <View mt={1}>
               <Pressable
                 style={{ padding: 12 }}
-                onPress={() => navigation.navigate('Address')}
+                onPress={() => navigation.navigate('Address', { typeUser: false })}
                 borderBottomColor={'gray.400'}
                 borderBottomWidth={0.5}
               >

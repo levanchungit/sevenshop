@@ -3,25 +3,25 @@ import { useNavigation } from '@react-navigation/native';
 import { Box, HStack, Pressable, Text } from 'native-base';
 import * as Icon from 'react-native-feather';
 import IconCheck from 'components/IconCheck';
-import { IAddresses } from 'interfaces/Address';
+import { AddressesResult } from 'interfaces/Address';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 type Props = {
-  address: IAddresses;
+  address: AddressesResult;
   check: string;
   setCheck: Function;
+  mutate: Function;
 };
 
 const ItemAdrress = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
-  const { address, check, setCheck } = props;
-  const [elementVisible] = useState<boolean>(address.results.default_address);
-
+  const { address, check, setCheck, mutate } = props;
+  const [elementVisible] = useState<boolean>(address.default_address);
   return (
     <HStack
       justifyContent="center"
       alignItems="center"
-      h={150}
+      minH={100}
       marginBottom={2}
       borderWidth={1}
       borderColor="#C9C9C9"
@@ -30,15 +30,10 @@ const ItemAdrress = (props: Props) => {
       <Pressable
         justifyContent="center"
         alignItems="center"
-        h="100%"
         w="10%"
-        onPress={() => setCheck(address.results._id)}
+        onPress={() => setCheck(address._id)}
       >
-        {address.results._id === check ? (
-          <IconCheck isChecked={true} />
-        ) : (
-          <IconCheck isChecked={false} />
-        )}
+        {address._id === check ? <IconCheck isChecked={true} /> : <IconCheck isChecked={false} />}
       </Pressable>
       <Box w="80%">
         <Text
@@ -48,7 +43,7 @@ const ItemAdrress = (props: Props) => {
             fontVariant: ['lining-nums'],
           }}
         >
-          {address.results.full_name} | {address.results.phone}
+          {address.full_name} | {address.phone}
         </Text>
         <Text
           numberOfLines={2}
@@ -57,7 +52,7 @@ const ItemAdrress = (props: Props) => {
             fontVariant: ['lining-nums'],
           }}
         >
-          {address.results.address}
+          {address.address}
         </Text>
         {elementVisible ? (
           <Box
@@ -79,11 +74,8 @@ const ItemAdrress = (props: Props) => {
       <Pressable
         justifyContent="center"
         alignItems="center"
-        h="100%"
         w="10%"
-        onPress={() =>
-          navigation.navigate('EditAddress', { typeEdit: true, address: address.results })
-        }
+        onPress={() => navigation.navigate('EditAddress', { typeEdit: true, address, mutate })}
       >
         <Icon.Edit2 stroke="#AC1506" width={26} height={26} />
       </Pressable>
