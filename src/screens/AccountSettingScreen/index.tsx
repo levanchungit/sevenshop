@@ -58,7 +58,7 @@ const AccountSettingScreen = () => {
           borderColor={'gray.400'}
           alignItems={'center'}
           h={'6%'}
-          onPress={() => navigation.navigate('Address')}
+          onPress={() => navigation.navigate('Address', { typeUser: true })}
           px={3}
         >
           <Text variant={'body1'}>Addresses</Text>
