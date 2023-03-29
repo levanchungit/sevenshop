@@ -12,6 +12,9 @@ const addressAPI = {
   async editAddress(data: AddressesPayload, id: string) {
     return await axiosInstance.put(API_ROUTES.getAddressesId(id), data);
   },
+  async deleteAddress(id: string) {
+    return await axiosInstance.delete(API_ROUTES.getAddressesId(id));
+  },
 };
 
 export default addressAPI;

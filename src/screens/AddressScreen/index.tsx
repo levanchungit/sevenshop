@@ -1,20 +1,30 @@
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { Box, Center, FlatList, Text, VStack } from 'native-base';
-import ItemAdrress from 'components/ItemAddress';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { Box, Center, Text, VStack } from 'native-base';
+import { Dimensions } from 'react-native';
+import FlatListUserAddress from 'components/FlatListUserAddress';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetAddresses from 'hook/addresses/useGetAddresses';
-import { IAddresses } from 'interfaces/Address';
-import { AppNavigationProp } from 'providers/navigation/types';
+import { AddressRouteProp, AppNavigationProp } from 'providers/navigation/types';
 
-const AddressScreen = (onBack: any) => {
+type AddressScreenProps = {
+  route: AddressRouteProp;
+};
+
+const AddressScreen = (props: AddressScreenProps) => {
+  const { typeUser } = props.route.params;
+  const initialWidth = Dimensions.get('window').width;
   const navigation = useNavigation<AppNavigationProp>();
-  const { addresses, err_addresses, loading_addresses } = useGetAddresses();
-  if (!loading_addresses) {
-    console.log(addresses?.data);
+  const { addresses, err_addresses, loading_addresses, mutate_addresses } = useGetAddresses();
+  const isFocused = useIsFocused();
+  if (isFocused) {
+    mutate_addresses;
+    if (!loading_addresses) {
+      console.log(addresses?.data.results);
+    }
   }
-  const [isChecked, setIsChecked] = useState('');
+  const [checkedId, setCheckedId] = useState('');
   return (
     <Box flex={1} paddingY={2} paddingX={3} backgroundColor="#FFFFFF" safeArea>
       <SSHeaderNavigation
@@ -56,33 +66,37 @@ const AddressScreen = (onBack: any) => {
             width="100%"
             variant={'white'}
             text={'Add address'}
-            onPress={() => navigation.navigate('EditAddress', { typeEdit: false })}
+            onPress={() =>
+              navigation.navigate('EditAddress', { typeEdit: false, mutate: mutate_addresses })
+            }
           />
         </Center>
       ) : (
-        <VStack>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={addresses?.data.results}
-            renderItem={({ item }: { item: IAddresses }) => (
-              <ItemAdrress address={item} check={isChecked} setCheck={setIsChecked} />
-            )}
-            keyExtractor={(item) => item.results.full_name}
-          />
-          <Box marginBottom={3} />
-          <SSButton
-            variant={'white'}
-            text={'Add address'}
-            onPress={() => navigation.navigate('EditAddress', { typeEdit: false })}
-          />
-          <Box marginBottom={3} />
+        <FlatListUserAddress
+          address={addresses?.data.results}
+          isLoading={loading_addresses}
+          checkId={checkedId}
+          setCheckId={setCheckedId}
+          mutate={mutate_addresses}
+        />
+      )}
+      <VStack position="absolute" bottom={0} w={initialWidth} paddingY={2} paddingX={3}>
+        <SSButton
+          variant={'white'}
+          text={'Add address'}
+          onPress={() =>
+            navigation.navigate('EditAddress', { typeEdit: false, mutate: mutate_addresses })
+          }
+        />
+        <Box marginBottom={3} />
+        {typeUser ? null : (
           <SSButton
             variant={'red'}
             text={'Select address'}
-            onPress={() => navigation.navigate('CheckoutScreen', { address_id: isChecked })}
+            onPress={() => navigation.navigate('CheckoutScreen', { address_id: checkedId })}
           />
-        </VStack>
-      )}
+        )}
+      </VStack>
     </Box>
   );
 };
