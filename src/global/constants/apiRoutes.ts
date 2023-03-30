@@ -11,7 +11,7 @@ export const API_ROUTES = {
   changePassword: `/auth/change_password`,
   me: `/auth/me`,
 
-  //users
+  //address
   getAddresses: `/users/addresses`,
   getAddressesId: (id: string) => `/users/addresses/${id}`,
 
@@ -39,7 +39,15 @@ export const API_ROUTES = {
   getOrders: `/orders/me`,
   getOrderById: (id: string) => `/orders/me/${id}`,
 
-  // checkout
+  //rating
+  getRatingByProductId: (id: string, page: number, limit: number) =>
+    `/ratings/${id}?page=${page}&limit=${limit}`,
+
+  //user
+  getUsers: (page: number, limit: number) => `/users?page=${page}&limit=${limit}`,
+  getUserById: (id: string) => `/users/get/${id}`,
+
+  //checkout
   checkout: '/pay',
 
   // notifications

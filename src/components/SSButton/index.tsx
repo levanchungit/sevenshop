@@ -19,7 +19,7 @@ const SSButton = (props: Props) => {
       onPress={() => onPress()}
       fontFamily={'Raleway_700Bold'}
       borderRadius={10}
-      width={width}
+      width={width ? width : 'auto'}
       height={height}
       justifyContent={'center'}
       alignItems={'center'}
@@ -41,7 +41,7 @@ const SSButton = (props: Props) => {
       justifyContent={'center'}
       alignItems={'center'}
       borderColor={'primary.600'}
-      width={width}
+      width={width ? width : 'auto'}
       height={height}
       borderWidth={2}
     >
