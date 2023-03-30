@@ -1,37 +1,18 @@
 import { Box, Flex, Image, Text, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
-import { STATUS_PRODUCT } from 'global/constants';
-import { review } from 'interfaces/Auth';
-import { IModify } from 'interfaces/Basic';
-import { IStock } from 'interfaces/Product';
+import useGetUserById from 'hook/users/useGetUserById';
+import { IProduct } from 'interfaces/Product';
+import { IRating } from 'interfaces/Rating';
 
 type Props = {
-  name: string;
-  time: string;
-  comment: string;
-  rating: number;
-  product?: {
-    _id?: string;
-    name: string;
-    price: number;
-    price_sale: number;
-    description: string;
-    images: string[];
-    stock: IStock[];
-    status: STATUS_PRODUCT;
-    category_ids: string[];
-    color_ids: string[];
-    size_ids: string[];
-    created_at: string;
-    created_by: string;
-    modify: IModify[];
-    reviews: review[];
-  };
+  rating: IRating;
+  product?: IProduct;
 };
 
 const ItemRating = (props: Props) => {
-  const { name, time, comment, rating, product } = props;
+  const { rating, product } = props;
+  const { user } = useGetUserById(rating?.user_id);
   return (
     <Box paddingY="5" w="100%" borderTopWidth="1" borderTopColor="#C9C9C9">
       <Flex direction="row">
@@ -50,12 +31,14 @@ const ItemRating = (props: Props) => {
         <Flex direction="column" w="80%">
           <Flex direction="row" justifyContent="space-between">
             <Text
+              w="50%"
+              numberOfLines={2}
               variant="title"
               style={{
                 fontVariant: ['lining-nums'],
               }}
             >
-              {name}
+              {user?.data.email}
             </Text>
             <Text
               variant="caption"
@@ -63,11 +46,11 @@ const ItemRating = (props: Props) => {
                 fontVariant: ['lining-nums'],
               }}
             >
-              {time}
+              {rating.modify.date}
             </Text>
           </Flex>
           <Rating
-            startingValue={rating}
+            startingValue={rating.rating}
             imageSize={15}
             readonly={true}
             style={{
@@ -83,7 +66,7 @@ const ItemRating = (props: Props) => {
               fontVariant: ['lining-nums'],
             }}
           >
-            {comment}
+            {rating.content}
           </Text>
           {product ? (
             <Pressable onPress={() => console.log(product.name)}>

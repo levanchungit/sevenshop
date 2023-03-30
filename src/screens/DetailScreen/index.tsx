@@ -25,9 +25,10 @@ import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetCarts from 'hook/product/useGetCarts';
 import useGetProductDetail from 'hook/product/useGetProductDetail';
 import useGetProducts from 'hook/product/useGetProducts';
+import useGetRatings from 'hook/ratings/useGetRatings';
 import { IProduct } from 'interfaces/Product';
+import { IRating } from 'interfaces/Rating';
 import { AppNavigationProp, DetailRouteProp } from 'providers/navigation/types';
-import { DATA3 } from '../../mocks';
 
 type DetailScreenProps = {
   route: DetailRouteProp;
@@ -36,14 +37,19 @@ type DetailScreenProps = {
 const DetailScreen = (props: DetailScreenProps) => {
   const { _id } = props.route.params;
   // const _id = '641a7c581358f1dd563383e9';
+
   //api detail
   const { product, err_product, loading_product } = useGetProductDetail(_id);
   //api cart
   const { carts } = useGetCarts();
   //api products
-  const limit = 8;
-  const [page] = useState(1);
-  const { products, error } = useGetProducts(page, limit);
+  const limitProducts = 8;
+  const [productPage] = useState(1);
+  const { products, errorProducts } = useGetProducts(productPage, limitProducts);
+  //api ratings
+  const limitRatings = 5;
+  const [ratingPage] = useState(1);
+  const { ratings, errorRatings } = useGetRatings(_id, ratingPage, limitRatings);
 
   const navigation = useNavigation<AppNavigationProp>();
   const [statusLike, setStatusLike] = useState(false);
@@ -81,7 +87,7 @@ const DetailScreen = (props: DetailScreenProps) => {
           <Text variant="button">See all</Text>
         </Pressable>
       </Flex>
-      {error ? (
+      {errorProducts ? (
         <Text variant="body1">Failed to load</Text>
       ) : !products ? null : (
         <FlatList
@@ -102,18 +108,17 @@ const DetailScreen = (props: DetailScreenProps) => {
   const ReviewRoute = () => (
     <View style={{ flex: 1, backgroundColor: 'transparent' }}>
       <Rating readonly={true} imageSize={24} style={{ paddingVertical: 12, width: '30%' }} />
-      <FlatList
-        data={DATA3}
-        renderItem={({ item }) => (
-          <ItemRating
-            name={item.name}
-            time={item.time}
-            comment={item.comment}
-            rating={item.rating}
-          />
-        )}
-        keyExtractor={(item) => item.name}
-      />
+      {errorRatings ? (
+        <Text variant="body1">Failed to load</Text>
+      ) : !ratings ? (
+        <Text variant="body1">No comment yet</Text>
+      ) : (
+        <FlatList
+          data={ratings ? ratings[0]?.data.results.ratings : null}
+          renderItem={({ item }: { item: IRating }) => <ItemRating rating={item} />}
+          keyExtractor={(item) => item._id}
+        />
+      )}
     </View>
   );
 

@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { View, FlatList, Toast } from 'native-base';
 import { BackHandler, TextInput } from 'react-native';
 // import FlatListProductCategory from 'components/FlatListProductCategory';
-// import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
+import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 // import FlatListProductForYou from 'components/FlatListProductForYou';
 import IconCart from 'components/IconCart';
 import SlideShowImage from 'components/SwipeBanner';
@@ -21,7 +21,7 @@ export const MainScreen = () => {
   const limit = 6;
   const [page, setPage] = useState(0);
   const [product, setProduct] = useState(() => []);
-  const { products, isReachingEnd } = useGetProducts(page, limit);
+  const { products, isReachingEnd, errorProducts } = useGetProducts(page, limit);
 
   const { carts } = useGetCarts();
 
@@ -100,7 +100,7 @@ export const MainScreen = () => {
                 <SlideShowImage />
 
                 {/* <FlatListProductCategory data={product} /> */}
-                {/* <FlatListProductFlashSale data={product} error={error} /> */}
+                <FlatListProductFlashSale data={product} error={errorProducts} />
               </View>
               {/* <FlatListProductForYou data={product} /> */}
             </View>
