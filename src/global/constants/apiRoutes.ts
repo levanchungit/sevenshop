@@ -37,5 +37,8 @@ export const API_ROUTES = {
 
   // checkout
   checkout: '/pay',
+
+  // notifications
+  getNotifications: (id: string) => `/notification/get/${id}`,
 };
 export default API_ROUTES;

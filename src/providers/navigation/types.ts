@@ -56,7 +56,7 @@ export type BottomTabNavigatorParamList = {
   MyPurchase: undefined;
   OrderDetail: undefined;
   Notification?: {
-    itemId?: number;
+    itemId?: string;
   };
   Profile: undefined;
 };
@@ -68,6 +68,8 @@ export type DetailRouteProp = RouteProp<AppStackNavigatorParamList, 'Detail'>;
 export type EditAddressRouteProp = RouteProp<AppStackNavigatorParamList, 'EditAddress'>;
 
 export type PaymentSuccessRouteProp = RouteProp<AppStackNavigatorParamList, 'PaymentSuccess'>;
+
+export type MainRouteProp = RouteProp<AppStackNavigatorParamList, 'Main'>;
 
 export type MainScreenNavigationProp = CompositeNavigationProp<
   NativeStackNavigationProp<AppStackNavigatorParamList>,

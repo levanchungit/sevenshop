@@ -1,74 +1,29 @@
 import React from 'react';
-import { View, FlatList } from 'native-base';
+import { View, FlatList } from 'react-native';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SSItemNotification from 'components/SSItemNotifications';
+import useGetMe from 'hook/auth/useGetMe';
+import useGetNotifications from 'hook/notification/useGetNotifications';
+import useGetCarts from 'hook/product/useGetCarts';
 
-type Props = object;
-type Item = {
-  id: string;
-  title: string;
-  details: string;
-  date: string;
-};
+const NotificationScreen = () => {
+  const { me } = useGetMe();
+  const { notifications } = useGetNotifications(me?.data.result._id);
+  const { carts } = useGetCarts();
 
-const data: Item[] = [
-  {
-    id: '1',
-    title: 'Gift for new member 👋',
-    details:
-      '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
-    date: '02-06-2000',
-  },
-  {
-    id: '2',
-    title: 'Gift for new member 👋',
-    details:
-      '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
-    date: '02-06-2000',
-  },
-  {
-    id: '3',
-    title: 'Gift for new member 👋',
-    details:
-      '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
-    date: '02-06-2000',
-  },
-  {
-    id: '4',
-    title: 'Gift for new member 👋',
-    details:
-      '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
-    date: '02-06-2000',
-  },
-  {
-    id: '5',
-    title: 'Gift for new member 👋',
-    details:
-      '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
-    date: '02-06-2000',
-  },
-  {
-    id: '6',
-    title: 'Gift for new member 👋',
-    details:
-      '🌈Mã giảm giá 8% tối đa 20.000 VNĐ🔥 - Đơn hàng từ 100.000 VNĐ🎁. Hàng chính hãng 💯% - Giảm sốc đến 50%',
-    date: '02-06-2000',
-  },
-];
-const NotificationScreen = (props: Props) => {
-  const RenderItemNotification = ({ data }: { data: Item }) => {
+  const RenderItemNotification = ({ data }: { data: any }) => {
     return (
       <SSItemNotification
         onPress={() => null}
-        title={data.title}
-        details={data.details}
-        date={data.date}
+        title={data.title + '👋'}
+        details={data.body}
+        date={data.modify[0].date}
       />
     );
   };
 
   return (
-    <View pt={8} flex={1} backgroundColor="white">
+    <View style={{ paddingTop: 32, flex: 1, backgroundColor: 'white' }}>
       <SSHeaderNavigation
         tabHeaderSearchEnabled={true}
         titleHeaderSearchEnabled={true}
@@ -77,18 +32,25 @@ const NotificationScreen = (props: Props) => {
         titleHeaderSearch={'Notification'}
         titleHeaderScreen={''}
         iconRightHeaderScreen={false}
-        quantityItems={0}
+        quantityItems={carts?.data.length}
         iconRightHeaderCart={false}
-        quantityHeaderCarts={0}
+        quantityHeaderCarts={3}
       />
-      <FlatList
-        paddingX={6}
-        pb={4}
-        // mt={2}
-        data={data}
-        renderItem={({ item }) => <RenderItemNotification data={item} />}
-        keyExtractor={(item) => item.id}
-      />
+      {notifications?.data.results ? (
+        <FlatList
+          style={{ paddingHorizontal: 24, paddingBottom: 12 }}
+          data={notifications?.data.results}
+          renderItem={({ item }) => <RenderItemNotification data={item} />}
+          keyExtractor={(item, index) => index + ''}
+        />
+      ) : (
+        <View>
+          <SSItemNotification title={''} details={''} date={''} onPress={() => null} />
+          <SSItemNotification title={''} details={''} date={''} onPress={() => null} />
+          <SSItemNotification title={''} details={''} date={''} onPress={() => null} />
+          <SSItemNotification title={''} details={''} date={''} onPress={() => null} />
+        </View>
+      )}
     </View>
   );
 };

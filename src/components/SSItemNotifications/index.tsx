@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Image, Pressable } from 'native-base';
+import Moment from 'moment';
+import { View, Text, Image, Pressable, Skeleton } from 'native-base';
 
 type Props = {
   title: string;
@@ -41,36 +42,42 @@ const SSItemNotification = (props: Props) => {
           />
         </View>
         <View w={'80%'}>
-          <Text fontSize={18} variant={'Subtitle1'} fontFamily="Raleway_700Bold" mb={2.5}>
-            {title}
-          </Text>
+          <Skeleton h={8} borderRadius={6} isLoaded={!!title} mb={3}>
+            <Text fontSize={18} variant={'Subtitle1'} fontFamily="Raleway_700Bold" mb={2.5}>
+              {title}
+            </Text>
+          </Skeleton>
+          <Skeleton h={8} borderRadius={6} isLoaded={!!details} mb={3}>
+            <Text
+              style={{
+                fontVariant: ['lining-nums'],
+              }}
+              numberOfLines={2}
+              textAlign="justify"
+              fontSize={14}
+              fontFamily="Raleway_500Medium"
+              mb={2.5}
+            >
+              {details}
+            </Text>
+          </Skeleton>
+        </View>
+      </View>
+      <View w={'100%'} alignItems="flex-end">
+        <Skeleton h={8} borderRadius={6} isLoaded={!!date} w="30%" mr={2}>
           <Text
             style={{
               fontVariant: ['lining-nums'],
             }}
-            numberOfLines={2}
-            textAlign="justify"
+            w={'100%'}
+            textAlign={'right'}
             fontSize={14}
+            variant={'Body2'}
             fontFamily="Raleway_500Medium"
-            mb={2.5}
           >
-            {details}
+            {Moment(date.slice(0, 10)).format('DD-MM-YYYY')}
           </Text>
-        </View>
-      </View>
-      <View w={'100%'}>
-        <Text
-          style={{
-            fontVariant: ['lining-nums'],
-          }}
-          w={'100%'}
-          textAlign={'right'}
-          fontSize={14}
-          variant={'Body2'}
-          fontFamily="Raleway_500Medium"
-        >
-          {date}
-        </Text>
+        </Skeleton>
       </View>
     </Pressable>
   );
