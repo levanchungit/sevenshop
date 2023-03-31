@@ -2,7 +2,7 @@
 import Constants from 'expo-constants';
 
 //HOST BUILD || TEST LOCAL
-export const API_URL = Constants.expoConfig?.extra?.apiUrl || 'http://10.0.2.2:3000';
+export const API_URL = Constants.expoConfig?.extra?.apiUrl || 'https://sevenshop.herokuapp.com';
 
 //HOST MAIN
 // export const API_URL = API_URL_ENV;

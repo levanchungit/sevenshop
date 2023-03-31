@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 10,
+    backGroundColor: 'gray',
   },
   imageItemCategory: {
     width: '100%',
