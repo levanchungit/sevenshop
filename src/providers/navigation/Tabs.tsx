@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as Icons from 'react-native-feather';
-import FavoriteScreen from 'screens/FavoriteScreen';
+import { ProductFavoritesScreen } from 'screens/';
 import { MainScreen } from 'screens/MainScreen';
 import NotificationScreen from 'screens/NotificationScreen';
 import ProfileScreen from 'screens/ProfileScreen';
@@ -43,7 +43,7 @@ const BottomTabs = (props: Props) => {
       })}
     >
       <Screen name="Home" options={{ tabBarLabel: '' }} component={MainScreen} />
-      <Screen name="Favorites" options={{ tabBarLabel: '' }} component={FavoriteScreen} />
+      <Screen name="Favorites" options={{ tabBarLabel: '' }} component={ProductFavoritesScreen} />
       <Screen
         name="Notification"
         options={{

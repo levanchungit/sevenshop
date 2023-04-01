@@ -18,6 +18,7 @@ export const API_ROUTES = {
   // product
   getProducts: (page: number, limit: number) => `/products?page=${page}&limit=${limit}`,
   getProductDetail: (id: string) => `/products/${id}`,
+  getFavoritesProduct: (page: number, limit: number) => `/products/favorites/get?page=1&limit=5`,
 
   //categories
   getCategories: `/categories`,

@@ -26,3 +26,10 @@ export interface IProduct {
   modify: IModify[];
   reviews: review[];
 }
+
+export interface IProductFavorites {
+  _id: string;
+  name: string;
+  price: number;
+  images: string[];
+}
