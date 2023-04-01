@@ -89,8 +89,8 @@ const authAPI = {
     return axios.post(API_URL + API_ROUTES.refresh_token, payload);
   },
 
-  me() {
-    return axiosInstance.get(API_ROUTES.me);
+  async me() {
+    return await axiosInstance.get(API_ROUTES.me);
   },
 };
 

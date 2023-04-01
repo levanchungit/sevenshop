@@ -35,7 +35,6 @@ const LoginScreen = React.memo(() => {
       });
       navigation.navigate('Main');
     } catch (e: any) {
-      console.log(e.response.status, e.response.data);
       Toast.show({
         title: e.response?.data?.message,
         duration: 3000,

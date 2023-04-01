@@ -6,3 +6,4 @@ export { default as colorAPI } from './colorAPI';
 export { default as sizeAPI } from './sizeAPI';
 export { default as checkoutAPI } from './checkoutAPI';
 export { default as orderAPI } from './orderAPI';
+export { default as notificationAPI } from './notificationAPI';
