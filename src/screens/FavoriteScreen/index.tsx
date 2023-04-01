@@ -1,4 +1,4 @@
-import { Text, View } from 'native-base';
+import { Text, View } from 'react-native';
 
 const FavoriteScreen = () => {
   return (

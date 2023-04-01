@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView, View, Text, FlatList } from 'native-base';
+import { ScrollView, View, Text, FlatList } from 'react-native';
 import ItemProductForYou from 'components/ItemProductForYou';
 import { IProduct } from 'interfaces/Product';
 import { AppNavigationProp } from 'providers/navigation/types';
@@ -8,10 +8,11 @@ import styles from './styles';
 
 type Props = {
   data: IProduct[];
+  onEndReached: Function;
 };
 
 const FlatListProductForYou = (props: Props) => {
-  const { data } = props;
+  const { data, onEndReached } = props;
   const navigation = useNavigation<AppNavigationProp>();
 
   const RenderItemForYou = ({ data }: { data: IProduct }) => {
@@ -36,16 +37,14 @@ const FlatListProductForYou = (props: Props) => {
       nestedScrollEnabled
     >
       <View>
-        <Text fontWeight={'bold'} style={styles.headerForYou}>
-          FOR YOU
-        </Text>
+        <Text style={styles.headerForYou}>FOR YOU</Text>
         <FlatList
           contentContainerStyle={styles.flashList}
           numColumns={2}
           data={data}
           renderItem={({ item }) => <RenderItemForYou data={item} />}
           ListFooterComponent={
-            <View w={'100%'} alignItems="center" mt={12} flexDirection="row" key={1}>
+            <View style={styles.listFooter} key={1}>
               <ItemProductForYou
                 name={''}
                 image={''}
@@ -65,6 +64,7 @@ const FlatListProductForYou = (props: Props) => {
             </View>
           }
           onEndReachedThreshold={0.1}
+          onEndReached={() => onEndReached()}
         />
       </View>
     </ScrollView>

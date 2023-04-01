@@ -25,6 +25,10 @@ const styles = StyleSheet.create({
     width: 100,
     height: 30,
     lineHeight: 21,
+    color: 'primary.600',
+    borderColor: 'primary.600',
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
 export default styles;

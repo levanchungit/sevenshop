@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, FlatList, Toast } from 'native-base';
-import { BackHandler, TextInput } from 'react-native';
-// import FlatListProductCategory from 'components/FlatListProductCategory';
+import { Toast } from 'native-base';
+import { BackHandler, TextInput, FlatList, View } from 'react-native';
+import FlatListProductCategory from 'components/FlatListProductCategory';
 // import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
-// import FlatListProductForYou from 'components/FlatListProductForYou';
+import FlatListProductForYou from 'components/FlatListProductForYou';
 import IconCart from 'components/IconCart';
 import SlideShowImage from 'components/SwipeBanner';
 import useGetCarts from 'hook/product/useGetCarts';
@@ -19,10 +19,9 @@ export const MainScreen = () => {
   let yOffset = '';
 
   const limit = 6;
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [product, setProduct] = useState(() => []);
   const { products, isReachingEnd } = useGetProducts(page, limit);
-
   const { carts } = useGetCarts();
 
   useEffect(() => {
@@ -82,12 +81,7 @@ export const MainScreen = () => {
         data={null}
         renderItem={null}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ marginBottom: 50 }}
-        onEndReached={() => {
-          if (!isReachingEnd) {
-            setPage(page + 1);
-          }
-        }}
+        contentContainerStyle={{ paddingBottom: 50 }}
         onScroll={(event) => {
           yOffset = event.nativeEvent.contentOffset.y.toString();
           onScroll();
@@ -99,10 +93,19 @@ export const MainScreen = () => {
               <View>
                 <SlideShowImage />
 
-                {/* <FlatListProductCategory data={product} /> */}
+                <FlatListProductCategory data={product} />
                 {/* <FlatListProductFlashSale data={product} error={error} /> */}
               </View>
-              {/* <FlatListProductForYou data={product} /> */}
+              <FlatListProductForYou
+                data={product}
+                onEndReached={() => {
+                  if (!isReachingEnd) {
+                    setPage(page + 1);
+                    // eslint-disable-next-line no-console
+                    console.log('page', page);
+                  }
+                }}
+              />
             </View>
           );
         }}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView, View, FlatList } from 'native-base';
+import { View, FlatList } from 'react-native';
 import ButtonCategory from 'components/ButtonCategory';
 import ItemProductCategory from 'components/ItemProductCategory';
 import useGetCategories from 'hook/product/useGetCategories';
@@ -53,8 +53,11 @@ const FlatListProductCategory = (props: Props) => {
   return (
     <View>
       <View style={styles.coverCategories}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {ItemSelected.map((item: any) => (
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={ItemSelected}
+          renderItem={({ item }: any) => (
             <ButtonCategory
               onPress={() => {
                 const ItemSelected3 = ItemSelected.map((item2: any) => {
@@ -66,8 +69,8 @@ const FlatListProductCategory = (props: Props) => {
               isSelected={item.isSelected}
               key={item._id}
             />
-          ))}
-        </ScrollView>
+          )}
+        />
       </View>
       {!progressEnable ? (
         <View></View>
