@@ -24,13 +24,16 @@ export const API_ROUTES = {
 
   //cart
   getCarts: `/carts`,
+  getQuantityCart: `/carts/quantity_cart`,
   changeQuantity: `/carts`,
 
   //colors
   getColors: '/colors',
+  getColorById: (id: string) => `/colors/${id}`,
 
   //sizes
   getSizes: '/sizes',
+  getSizeById: (id: string) => `/sizes/${id}`,
 
   //order
   addToCart: 'order/addToCart/',
@@ -42,6 +45,8 @@ export const API_ROUTES = {
   //rating
   getRatingByProductId: (id: string, page: number, limit: number) =>
     `/ratings/${id}?page=${page}&limit=${limit}`,
+  getRated: `/ratings/rated`,
+  getNotYetRated: `/ratings/not_yet_rated`,
 
   //user
   getUsers: (page: number, limit: number) => `/users?page=${page}&limit=${limit}`,

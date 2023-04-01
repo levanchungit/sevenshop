@@ -6,7 +6,7 @@ import useGetColors from 'hook/colors/useGetColors';
 import useGetSizes from 'hook/sizes/useGetSizes';
 import { AddCartPayload } from 'interfaces/Cart';
 import { IColor } from 'interfaces/Color';
-import { IProduct } from 'interfaces/Product';
+import { IProduct, IStock } from 'interfaces/Product';
 import { ISize } from 'interfaces/Size';
 import { cartAPI } from 'modules';
 
@@ -20,10 +20,9 @@ const ModalPopupCart = (props: Props) => {
   const { product, showModal, setShowModal } = props;
   const { colors } = useGetColors();
   const { sizes } = useGetSizes();
-  const [stockIndex, setStockIndex] = useState<number>(2);
-  const [selectedSize, setSelectedSize] = useState(product?.stock[stockIndex].size_id);
-  const [selectedColor, setSelectedColor] = useState(product?.stock[stockIndex].color_id);
-  const [quantity, setQuantity] = useState<number>(product?.stock[stockIndex].quantity);
+  const [selectedSize, setSelectedSize] = useState<string>(product?.stock[0].size_id);
+  const [selectedColor, setSelectedColor] = useState<string>(product?.stock[0].color_id);
+  const [quantity, setQuantity] = useState<number>(product?.stock[0].quantity);
   const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
   const numberWithCommas = (num?: number) => {
     return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -34,6 +33,7 @@ const ModalPopupCart = (props: Props) => {
     quantity: selectedQuantity,
     product_id: product?._id,
   };
+
   const addCart = async () => {
     try {
       if (selectedQuantity === 0)
@@ -47,6 +47,7 @@ const ModalPopupCart = (props: Props) => {
           title: 'Successfully added product to cart',
           placement: 'top',
         });
+        setShowModal(false);
       }
     } catch (error: any) {
       Toast.show({
@@ -56,18 +57,19 @@ const ModalPopupCart = (props: Props) => {
       });
     }
   };
-  const update = (idSize: string, idColor: string) => {
-    setSelectedSize(idSize);
-    setSelectedColor(idColor);
-    setStockIndex(
-      product?.stock.findIndex(function find(stock) {
-        return stock.size_id === selectedSize && stock.color_id === selectedColor;
-      })
+
+  const update = async (data: { idSize?: string; idColor?: string }) => {
+    if (data.idSize) setSelectedSize(data.idSize);
+    if (data.idColor) setSelectedColor(data.idColor);
+
+    const filterStock = product.stock.filter(
+      (stock: IStock) =>
+        stock.color_id === (data.idColor ? data.idColor : selectedColor) &&
+        stock.size_id === (data.idSize ? data.idSize : selectedSize)
     );
-    setQuantity(product?.stock[stockIndex].quantity);
+    setQuantity(filterStock[0].quantity);
     setSelectedQuantity(0);
   };
-
   const increaseQuantity = () => {
     if (quantity === 0) {
       Toast.show({
@@ -184,7 +186,7 @@ const ModalPopupCart = (props: Props) => {
                   .map((color: IColor) => {
                     return (
                       <Pressable
-                        onPress={() => update(selectedSize, color._id)}
+                        onPress={() => update({ idColor: color._id })}
                         w={8}
                         h={8}
                         borderRadius="full"
@@ -216,7 +218,7 @@ const ModalPopupCart = (props: Props) => {
                   .map((size: ISize) => {
                     return (
                       <Pressable
-                        onPress={() => update(size._id, selectedColor)}
+                        onPress={() => update({ idSize: size._id })}
                         w={8}
                         h={8}
                         justifyContent="center"
@@ -243,7 +245,7 @@ const ModalPopupCart = (props: Props) => {
           </Flex>
         </Modal.Body>
         <Modal.Footer>
-          <SSButton variant={'red'} text={'Submit'} width="100%" onPress={() => addCart()} />
+          <SSButton variant={'red'} text={'Submit'} width="100%" onPress={addCart} />
         </Modal.Footer>
       </Modal.Content>
     </Modal>

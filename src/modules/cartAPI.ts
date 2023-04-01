@@ -10,6 +10,10 @@ const cartAPI = {
     const response = await axiosInstance.get(API_ROUTES.getCarts);
     return response;
   },
+  async getQuantityCart() {
+    const response = await axiosInstance.get(API_ROUTES.getQuantityCart);
+    return response;
+  },
 
   async ChangeQuantity(product_id: string, quantity: number, size_id: string, color_id: string) {
     const response = await axiosInstance.put(API_ROUTES.changeQuantity, {

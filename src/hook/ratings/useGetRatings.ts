@@ -7,12 +7,12 @@ const fetcher = async (id: string, page: number, limit: number) => {
 };
 
 export default function useGetRatings(id: string, page: number, limit: number) {
-  const { data, error, size, setSize } = useSWRInfinite(
+  const { data, error, size, setSize, isLoading } = useSWRInfinite(
     (index, previousPageData) => {
       if (previousPageData && !previousPageData.length) {
         return null;
       }
-      return `products?page=${page}&limit=${limit}`;
+      return `ratings/${id}?page=${page}&limit=${limit}`;
     },
     (url) => fetcher(id, page, limit)
   );
@@ -21,7 +21,8 @@ export default function useGetRatings(id: string, page: number, limit: number) {
 
   return {
     ratings: data,
-    errorRatings: error,
+    err_ratings: error,
+    loading_ratings: isLoading,
     isReachingEnd,
     size,
     setSize,

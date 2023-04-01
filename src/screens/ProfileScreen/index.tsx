@@ -1,7 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import { Image, Pressable, Text, View } from 'native-base';
 import * as Icon from 'react-native-feather';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import { AppNavigationProp } from 'providers/navigation/types';
 const ProfileScreen = () => {
+  const navigation = useNavigation<AppNavigationProp>();
   return (
     <View flex={1}>
       <View
@@ -134,7 +137,7 @@ const ProfileScreen = () => {
             <Text variant={'body2'}>To Receive</Text>
           </View>
 
-          <View>
+          <Pressable onPress={() => navigation.navigate('Rating')}>
             <View flexDirection={'row'} ml={2} mb={1}>
               <View mt={2}>
                 <Icon.Star stroke="black" width={24} height={24} />
@@ -142,7 +145,7 @@ const ProfileScreen = () => {
             </View>
 
             <Text variant={'body2'}>Rating</Text>
-          </View>
+          </Pressable>
         </View>
         <View px={3} mt={5} h={'35%'} justifyContent={'space-between'}>
           <View flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>

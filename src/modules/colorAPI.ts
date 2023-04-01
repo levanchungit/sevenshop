@@ -6,6 +6,10 @@ const colorAPI = {
     const response = axiosInstance.get(API_ROUTES.getColors);
     return response;
   },
+  getColorById(id: string) {
+    const response = axiosInstance.get(API_ROUTES.getColorById(id));
+    return response;
+  },
 };
 
 export default colorAPI;
