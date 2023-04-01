@@ -1,35 +1,27 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Box, Flex, Pressable, Text } from 'native-base';
+import { Box, HStack, Pressable, Text } from 'native-base';
 import * as Icon from 'react-native-feather';
 import IconCheck from 'components/IconCheck';
+import { AddressesResult } from 'interfaces/Address';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 type Props = {
-  address: {
-    id: number;
-    full_name: string;
-    phone: number;
-    address: string;
-    type: string;
-    isDefault: boolean;
-  };
-  check: number;
+  address: AddressesResult;
+  check: string;
   setCheck: Function;
+  mutate: Function;
 };
 
 const ItemAdrress = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
-  const { address, check, setCheck } = props;
-  const [elementVisible] = useState(address.isDefault);
-
+  const { address, check, setCheck, mutate } = props;
+  const [elementVisible] = useState<boolean>(address.default_address);
   return (
-    <Flex
-      direction="row"
+    <HStack
       justifyContent="center"
       alignItems="center"
-      h={150}
-      w="100%"
+      minH={100}
       marginBottom={2}
       borderWidth={1}
       borderColor="#C9C9C9"
@@ -38,14 +30,14 @@ const ItemAdrress = (props: Props) => {
       <Pressable
         justifyContent="center"
         alignItems="center"
-        h="100%"
         w="10%"
-        onPress={() => setCheck(address.id)}
+        onPress={() => setCheck(address._id)}
       >
-        {address.id === check ? <IconCheck isChecked={true} /> : <IconCheck isChecked={false} />}
+        {address._id === check ? <IconCheck isChecked={true} /> : <IconCheck isChecked={false} />}
       </Pressable>
       <Box w="80%">
         <Text
+          numberOfLines={1}
           variant={'body1'}
           style={{
             fontVariant: ['lining-nums'],
@@ -54,6 +46,7 @@ const ItemAdrress = (props: Props) => {
           {address.full_name} | {address.phone}
         </Text>
         <Text
+          numberOfLines={2}
           variant={'body1'}
           style={{
             fontVariant: ['lining-nums'],
@@ -81,13 +74,12 @@ const ItemAdrress = (props: Props) => {
       <Pressable
         justifyContent="center"
         alignItems="center"
-        h="100%"
         w="10%"
-        onPress={() => navigation.navigate('EditAddress', { typeEdit: true, address })}
+        onPress={() => navigation.navigate('EditAddress', { typeEdit: true, address, mutate })}
       >
         <Icon.Edit2 stroke="#AC1506" width={26} height={26} />
       </Pressable>
-    </Flex>
+    </HStack>
   );
 };
 

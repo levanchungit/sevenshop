@@ -1,6 +1,7 @@
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AddressesResult } from 'interfaces/Address';
 
 export type AppStackNavigatorParamList = {
   Main: undefined;
@@ -22,17 +23,13 @@ export type AppStackNavigatorParamList = {
   AccountSettings: undefined;
   AccountSecurity: undefined;
   Cart: undefined;
-  Address: undefined;
+  Address: {
+    typeUser: boolean;
+  };
   EditAddress: {
     typeEdit: boolean;
-    address?: {
-      id: number;
-      full_name: string;
-      phone: number;
-      address: string;
-      type: string;
-      isDefault: boolean;
-    };
+    address?: AddressesResult;
+    mutate: Function;
   };
   Voucher: undefined;
   SelectVoucher: undefined;
@@ -40,7 +37,7 @@ export type AppStackNavigatorParamList = {
   PaymentMethodScreen: undefined;
   OrderDetail: undefined;
   CheckoutScreen?: {
-    address_id?: number;
+    address_id?: string;
   };
   PaymentSuccess: {
     id_order: string;
@@ -64,6 +61,8 @@ export type BottomTabNavigatorParamList = {
 export type AppNavigationProp = NativeStackNavigationProp<AppStackNavigatorParamList>;
 
 export type DetailRouteProp = RouteProp<AppStackNavigatorParamList, 'Detail'>;
+
+export type AddressRouteProp = RouteProp<AppStackNavigatorParamList, 'Address'>;
 
 export type EditAddressRouteProp = RouteProp<AppStackNavigatorParamList, 'EditAddress'>;
 

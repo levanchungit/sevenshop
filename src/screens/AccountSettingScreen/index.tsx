@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Pressable, Text, View, Button, Modal, Switch } from 'native-base';
 import * as Icon from 'react-native-feather';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import { AppNavigationProp } from 'providers/navigation/types';
 import SSInputPopupPass from '../../components/SSInputPopupPass';
 
 const AccountSettingScreen = () => {
+  const navigation = useNavigation<AppNavigationProp>();
   const [showModalLanguege, setShowModalLanguege] = useState(false);
   const [showModalChangePass, setShowModalChangePass] = useState(false);
   const [password, setPassword] = useState('123');
@@ -55,6 +58,7 @@ const AccountSettingScreen = () => {
           borderColor={'gray.400'}
           alignItems={'center'}
           h={'6%'}
+          onPress={() => navigation.navigate('Address', { typeUser: true })}
           px={3}
         >
           <Text variant={'body1'}>Addresses</Text>
