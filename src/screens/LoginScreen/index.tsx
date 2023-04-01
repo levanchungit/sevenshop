@@ -33,7 +33,7 @@ const LoginScreen = React.memo(() => {
         title: response.data.message,
         duration: 3000,
       });
-      navigation.navigate('Main');
+      navigation.navigate('MyPurchaseScreen');
     } catch (e: any) {
       Toast.show({
         title: e.response?.data?.message,

@@ -35,7 +35,9 @@ export type AppStackNavigatorParamList = {
   SelectVoucher: undefined;
   Rating: undefined;
   PaymentMethodScreen: undefined;
-  OrderDetail: undefined;
+  OrderDetail: {
+    id_order: string;
+  };
   CheckoutScreen?: {
     address_id?: string;
   };
@@ -69,6 +71,7 @@ export type EditAddressRouteProp = RouteProp<AppStackNavigatorParamList, 'EditAd
 export type PaymentSuccessRouteProp = RouteProp<AppStackNavigatorParamList, 'PaymentSuccess'>;
 
 export type MainRouteProp = RouteProp<AppStackNavigatorParamList, 'Main'>;
+export type OrderDetailRouteProp = RouteProp<AppStackNavigatorParamList, 'OrderDetail'>;
 
 export type MainScreenNavigationProp = CompositeNavigationProp<
   NativeStackNavigationProp<AppStackNavigatorParamList>,
