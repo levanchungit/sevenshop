@@ -20,12 +20,16 @@ const ItemRating = (props: Props) => {
         <Skeleton rounded="full" size={50} marginX={3} isLoaded={!loading_user}>
           <Image
             source={{
-              uri: 'https://wallpaperaccess.com/full/317501.jpg',
+              uri: user?.data.avatar
+                ? user?.data.avatar
+                : 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1680444107/Image/Logo_Typography_Larger_cbpx8o.png',
             }}
             alt="Undefinded img"
             size="full"
             alignSelf="flex-start"
             borderRadius="full"
+            borderWidth={1}
+            borderColor="#C9C9C9"
             w={50}
             h={50}
             marginX={3}
