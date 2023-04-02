@@ -1,73 +1,80 @@
-import { Box, Flex, Image, Text, Pressable } from 'native-base';
-import * as Icon from 'react-native-feather';
+import { Box, Flex, HStack, Image, Skeleton, Text } from 'native-base';
 import { Rating } from 'react-native-ratings';
-import { STATUS_PRODUCT } from 'global/constants';
-import { review } from 'interfaces/Auth';
-import { IModify } from 'interfaces/Basic';
-import { IStock } from 'interfaces/Product';
+import useGetColorById from 'hook/colors/useGetColorById';
+import useGetSizeById from 'hook/sizes/useGetSizeById';
+import useGetUserById from 'hook/users/useGetUserById';
+import { IRating } from 'interfaces/Rating';
 
 type Props = {
-  name: string;
-  time: string;
-  comment: string;
-  rating: number;
-  product?: {
-    _id?: string;
-    name: string;
-    price: number;
-    price_sale: number;
-    description: string;
-    images: string[];
-    stock: IStock[];
-    status: STATUS_PRODUCT;
-    category_ids: string[];
-    color_ids: string[];
-    size_ids: string[];
-    created_at: string;
-    created_by: string;
-    modify: IModify[];
-    reviews: review[];
-  };
+  rating: IRating;
 };
 
 const ItemRating = (props: Props) => {
-  const { name, time, comment, rating, product } = props;
+  const { rating } = props;
+  const { user, err_user, loading_user } = useGetUserById(rating?.user_id);
+  const { color, err_color, loading_color } = useGetColorById(rating?.color_id);
+  const { size, err_size, loading_size } = useGetSizeById(rating?.size_id);
   return (
     <Box paddingY="5" w="100%" borderTopWidth="1" borderTopColor="#C9C9C9">
       <Flex direction="row">
-        <Image
-          source={{
-            uri: 'https://wallpaperaccess.com/full/317501.jpg',
-          }}
-          alt="Alternate Text"
-          size="full"
-          alignSelf="flex-start"
-          borderRadius="full"
-          w={[51, 71, 91]}
-          h={[51, 71, 91]}
-          marginX={3}
-        />
+        <Skeleton rounded="full" size={50} marginX={3} isLoaded={!loading_user}>
+          <Image
+            source={{
+              uri: 'https://wallpaperaccess.com/full/317501.jpg',
+            }}
+            alt="Undefinded img"
+            size="full"
+            alignSelf="flex-start"
+            borderRadius="full"
+            w={50}
+            h={50}
+            marginX={3}
+          />
+        </Skeleton>
+
         <Flex direction="column" w="80%">
           <Flex direction="row" justifyContent="space-between">
-            <Text
-              variant="title"
-              style={{
-                fontVariant: ['lining-nums'],
-              }}
-            >
-              {name}
-            </Text>
-            <Text
-              variant="caption"
-              style={{
-                fontVariant: ['lining-nums'],
-              }}
-            >
-              {time}
-            </Text>
+            <Skeleton.Text lines={2} w="40%" isLoaded={!loading_user}>
+              <Text
+                w="40%"
+                numberOfLines={2}
+                variant="title"
+                style={{
+                  fontVariant: ['lining-nums'],
+                }}
+              >
+                {err_user
+                  ? 'Error'
+                  : user?.data.full_name
+                  ? user?.data.full_name
+                  : user?.data.email}
+              </Text>
+            </Skeleton.Text>
+
+            <Flex direction="column">
+              <Text
+                variant="caption"
+                style={{
+                  fontVariant: ['lining-nums'],
+                }}
+              >
+                {rating.modify.date ? rating.modify.date : 'Null'}
+              </Text>
+              <Skeleton.Text lines={1} isLoaded={!!(!loading_color && !loading_size)}>
+                <Text
+                  variant="caption"
+                  style={{
+                    fontVariant: ['lining-nums'],
+                  }}
+                >
+                  Color: {err_color ? 'Error' : color ? color?.data.name : 'Null'} | Size:{' '}
+                  {err_size ? 'Error' : size ? size?.data.name : 'Null'}
+                </Text>
+              </Skeleton.Text>
+            </Flex>
           </Flex>
           <Rating
-            startingValue={rating}
+            startingValue={rating.rating}
             imageSize={15}
             readonly={true}
             style={{
@@ -82,41 +89,26 @@ const ItemRating = (props: Props) => {
             style={{
               fontVariant: ['lining-nums'],
             }}
+            mb={3}
           >
-            {comment}
+            {rating.content}
           </Text>
-          {product ? (
-            <Pressable onPress={() => console.log(product.name)}>
-              <Flex
-                direction="row"
-                backgroundColor="gray.200"
-                w="100%"
-                marginTop={3}
-                minH={60}
-                alignItems="center"
-                justifyContent="center"
-              >
+          <HStack>
+            {rating?.images.map((data: string) => {
+              return (
                 <Image
                   source={{
-                    uri: product?.images[0],
+                    uri: data,
                   }}
-                  alt="Product img"
+                  alt="Undefinded img"
                   size="full"
-                  alignSelf="flex-start"
-                  borderRadius="full"
-                  w="15%"
-                  marginX={3}
+                  w={100}
+                  h={100}
+                  mr={3}
                 />
-                <Flex direction="column" width="65%" padding={3}>
-                  <Text variant="body2">{product.name}</Text>
-                  <Text variant="body2">
-                    Size: {product.size_ids} | Color: {product.color_ids}
-                  </Text>
-                </Flex>
-                <Icon.ChevronRight strokeWidth={1} width="10%" stroke="black" />
-              </Flex>
-            </Pressable>
-          ) : null}
+              );
+            })}
+          </HStack>
         </Flex>
       </Flex>
     </Box>

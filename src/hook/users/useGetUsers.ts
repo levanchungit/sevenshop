@@ -1,13 +1,12 @@
-// import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
-import { productAPI } from 'modules';
+import userAPI from 'modules/userAPI';
 
 const fetcher = async (page: number, limit: number) => {
-  const response = await productAPI.getProducts(page, limit);
+  const response = await userAPI.getUsers(page, limit);
   return response;
 };
 
-export default function useGetProducts(page: number, limit: number) {
+export default function useGetUsers(page: number, limit: number) {
   const { data, error, size, setSize } = useSWRInfinite(
     (index, previousPageData) => {
       if (previousPageData && !previousPageData.length) {
@@ -21,8 +20,8 @@ export default function useGetProducts(page: number, limit: number) {
   const isReachingEnd = data ? data[0].data.results.length < 1 : null;
 
   return {
-    products: data,
-    error,
+    users: data,
+    errorUsers: error,
     isReachingEnd,
     size,
     setSize,

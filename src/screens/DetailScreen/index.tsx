@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
+  Box,
   Text,
-  View,
   Flex,
   Pressable,
   Image,
@@ -10,24 +10,22 @@ import {
   FlatList,
   ScrollView,
   Skeleton,
-  // useToast,
 } from 'native-base';
 import { Dimensions } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import FlatListRating from 'components/FlatListRating';
 import ItemProductFlashSale from 'components/ItemProductFlashSale';
-import ItemRating from 'components/ItemRating';
 import ModalPopupCart from 'components/ModalPopupCart';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
-import useGetCarts from 'hook/product/useGetCarts';
 import useGetProductDetail from 'hook/product/useGetProductDetail';
 import useGetProducts from 'hook/product/useGetProducts';
+import useGetQuantityCart from 'hook/product/useGetQuantityCart';
+import useGetRatings from 'hook/ratings/useGetRatings';
 import { IProduct } from 'interfaces/Product';
 import { AppNavigationProp, DetailRouteProp } from 'providers/navigation/types';
-import { DATA3 } from '../../mocks';
 
 type DetailScreenProps = {
   route: DetailRouteProp;
@@ -36,14 +34,23 @@ type DetailScreenProps = {
 const DetailScreen = (props: DetailScreenProps) => {
   const { _id } = props.route.params;
   // const _id = '641a7c581358f1dd563383e9';
+
   //api detail
   const { product, err_product, loading_product } = useGetProductDetail(_id);
   //api cart
-  const { carts } = useGetCarts();
+  const { quantity } = useGetQuantityCart();
   //api products
-  const limit = 8;
-  const [page] = useState(1);
-  const { products, error } = useGetProducts(page, limit);
+  const limitProducts = 8;
+  const [productPage] = useState(1);
+  const { products, errorProducts } = useGetProducts(productPage, limitProducts);
+  //api ratings
+  const limitRatings = 5;
+  const [ratingPage] = useState(1);
+  const { ratings, err_ratings, loading_ratings } = useGetRatings(_id, ratingPage, limitRatings);
+
+  // const handleSelected = (color: string, size: string, quantity: number) => {
+  //   console.log(color, size, quantity);
+  // };
 
   const navigation = useNavigation<AppNavigationProp>();
   const [statusLike, setStatusLike] = useState(false);
@@ -81,7 +88,7 @@ const DetailScreen = (props: DetailScreenProps) => {
           <Text variant="button">See all</Text>
         </Pressable>
       </Flex>
-      {error ? (
+      {errorProducts ? (
         <Text variant="body1">Failed to load</Text>
       ) : !products ? null : (
         <FlatList
@@ -100,21 +107,19 @@ const DetailScreen = (props: DetailScreenProps) => {
     </ScrollView>
   );
   const ReviewRoute = () => (
-    <View style={{ flex: 1, backgroundColor: 'transparent' }}>
+    <Box style={{ flex: 1, backgroundColor: 'transparent' }}>
       <Rating readonly={true} imageSize={24} style={{ paddingVertical: 12, width: '30%' }} />
-      <FlatList
-        data={DATA3}
-        renderItem={({ item }) => (
-          <ItemRating
-            name={item.name}
-            time={item.time}
-            comment={item.comment}
-            rating={item.rating}
-          />
-        )}
-        keyExtractor={(item) => item.name}
-      />
-    </View>
+      {err_ratings ? (
+        <Text variant="body1" alignSelf="center">
+          No comment yet
+        </Text>
+      ) : (
+        <FlatListRating
+          ratings={ratings ? ratings[0]?.data.results : null}
+          isLoading={loading_ratings}
+        />
+      )}
+    </Box>
   );
 
   const [index, setIndex] = useState(0);
@@ -135,16 +140,8 @@ const DetailScreen = (props: DetailScreenProps) => {
   });
 
   return (
-    <View w="100%" h="100%">
-      <SafeAreaView
-        style={{
-          width: '100%',
-          flex: 1,
-          paddingVertical: 8,
-          paddingHorizontal: 12,
-          backgroundColor: 'white',
-        }}
-      >
+    <Box w="100%" h="100%">
+      <Box w="100%" safeArea paddingY={2} paddingX={3} backgroundColor="white" flex={1}>
         {err_product ? (
           <Center
             h="100%"
@@ -168,7 +165,7 @@ const DetailScreen = (props: DetailScreenProps) => {
             <Text variant="title">Cannot find product</Text>
           </Center>
         ) : (
-          <View h="90%" position="absolute" top={8} left={3} right={3}>
+          <Box h="90%" position="absolute" top={8} left={3} right={3}>
             <Skeleton w="100%" h="50%" mb="3" isLoaded={!loading_product}>
               <Image
                 source={
@@ -258,7 +255,7 @@ const DetailScreen = (props: DetailScreenProps) => {
               )}
               initialLayout={{ width: initialWidth, height: 0 }}
             />
-          </View>
+          </Box>
         )}
 
         <SSHeaderNavigation
@@ -269,9 +266,9 @@ const DetailScreen = (props: DetailScreenProps) => {
           titleHeaderSearch={''}
           titleHeaderScreen={'Details'}
           iconRightHeaderScreen={true}
-          quantityItems={carts?.data.length}
+          quantityItems={quantity?.data.quantity}
           iconRightHeaderCart={true}
-          quantityHeaderCarts={carts?.data.length}
+          quantityHeaderCarts={quantity?.data.quantity}
         />
         {err_product ? null : !product && !loading_product ? null : loading_product ? null : (
           <Center
@@ -317,11 +314,16 @@ const DetailScreen = (props: DetailScreenProps) => {
             </Flex>
           </Center>
         )}
-      </SafeAreaView>
+      </Box>
       {err_product ? null : !product && !loading_product ? null : loading_product ? null : (
-        <ModalPopupCart product={product} showModal={showModal} setShowModal={setShowModal} />
+        <ModalPopupCart
+          product={product}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          // handle={handleSelected}
+        />
       )}
-    </View>
+    </Box>
   );
 };
 

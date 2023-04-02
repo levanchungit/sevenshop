@@ -1,39 +1,45 @@
 import { useState } from 'react';
-import { View, Text, FlatList } from 'native-base';
+import { Text, FlatList, Flex } from 'native-base';
 import { Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import FlatListRating from 'components/FlatListRating';
 import ItemNotYetRated from 'components/ItemNotYetRated';
-import ItemRating from 'components/ItemRating';
 import ModelPopupRating from 'components/ModelPopupRating';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import useGetNotYetRated from 'hook/ratings/useGetNotYetRated';
+import useGetRated from 'hook/ratings/useGetRated';
 import { IProduct } from 'interfaces/Product';
-import { DATA3, DATA } from 'mocks';
+import { DATA } from 'mocks';
 
 const RatingScreen = () => {
   const initialWidth = Dimensions.get('window').width;
   const [showModal, setShowModal] = useState(false);
+  const { rated, err_rated, loading_rated } = useGetRated();
+  const { not_yet_rated, loading_not_yet_rated } = useGetNotYetRated();
+
+  if (!loading_rated) {
+    console.log('Rated: ', rated?.data.results);
+  }
+
+  if (!loading_not_yet_rated) {
+    console.log('Not yet rated: ', not_yet_rated?.data.results);
+  }
 
   const Rated = () => (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <FlatList
-        data={DATA3}
-        renderItem={({ item }) => (
-          <ItemRating
-            product={DATA[0]}
-            name={item.name}
-            time={item.time}
-            comment={item.comment}
-            rating={item.rating}
-          />
-        )}
-        keyExtractor={(item) => item.name}
-      />
-    </View>
+    <Flex backgroundColor="white">
+      {err_rated ? (
+        <Text variant="body1" alignSelf="center">
+          No comment yet
+        </Text>
+      ) : (
+        <FlatListRating ratings={rated?.data} isLoading={loading_rated} />
+      )}
+    </Flex>
   );
 
   const NotYetRated = () => (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <Flex backgroundColor="white">
       {/* <SSButton variant={'red'} text={'Hi'} onPress={() => setShowModal(!showModal)} /> */}
       <FlatList
         columnWrapperStyle={{ justifyContent: 'space-between' }}
@@ -41,7 +47,7 @@ const RatingScreen = () => {
         numColumns={2}
         renderItem={({ item }: { item: IProduct }) => <ItemNotYetRated product={item} />}
       />
-    </View>
+    </Flex>
   );
 
   const [index, setIndex] = useState(0);
