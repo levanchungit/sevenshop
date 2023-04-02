@@ -70,7 +70,6 @@ const Cart = () => {
   //     data: 'XXXL',
   //   },
   // ];
-
   const navigation = useNavigation<AppNavigationProp>();
   const { carts } = useGetCarts();
   const [showModal, setShowModal] = useState(false);
