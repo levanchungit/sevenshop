@@ -105,9 +105,9 @@ const RatingScreen = () => {
             renderLabel={({ route, focused }) => (
               <Text
                 padding={4}
-                variant="body2"
-                fontWeight={focused ? 'bold' : 'normal'}
-                color={focused ? 'black' : 'gray'}
+                variant="body1"
+                color={focused ? 'black' : '#C9C9C9'}
+                borderBottomColor={focused ? 'black' : 'green'}
                 borderBottomWidth={focused ? 1 : 0}
               >
                 {route.title}
