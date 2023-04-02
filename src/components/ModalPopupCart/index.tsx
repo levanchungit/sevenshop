@@ -14,10 +14,11 @@ type Props = {
   product: IProduct;
   showModal: boolean;
   setShowModal: Function;
+  functionButton: string;
 };
 
 const ModalPopupCart = (props: Props) => {
-  const { product, showModal, setShowModal } = props;
+  const { product, showModal, setShowModal, functionButton } = props;
   const { colors } = useGetColors();
   const { sizes } = useGetSizes();
   const [selectedSize, setSelectedSize] = useState<string>(product?.stock[0].size_id);
@@ -52,7 +53,7 @@ const ModalPopupCart = (props: Props) => {
     } catch (error: any) {
       Toast.show({
         title: 'Cannot add product to cart',
-        description: error.message,
+        description: error.response.data.message ? error.response.data.message : error.message,
         placement: 'top',
       });
     }
@@ -245,7 +246,23 @@ const ModalPopupCart = (props: Props) => {
           </Flex>
         </Modal.Body>
         <Modal.Footer>
-          <SSButton variant={'red'} text={'Submit'} width="100%" onPress={addCart} />
+          {functionButton === 'buyNow' ? (
+            <SSButton
+              variant={'red'}
+              text={'Buy now'}
+              width="100%"
+              onPress={() => console.log('Buy now')}
+            />
+          ) : functionButton === 'updateQuantity' ? (
+            <SSButton
+              variant={'red'}
+              text={'Update'}
+              width="100%"
+              onPress={() => console.log('Update quantity')}
+            />
+          ) : functionButton === 'addCart' ? (
+            <SSButton variant={'white'} text={'Add to cart'} width="100%" onPress={addCart} />
+          ) : null}
         </Modal.Footer>
       </Modal.Content>
     </Modal>

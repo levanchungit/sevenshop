@@ -11,7 +11,7 @@ import {
   ScrollView,
   Skeleton,
 } from 'native-base';
-import { Dimensions } from 'react-native';
+import { Dimensions, LogBox } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
@@ -32,6 +32,7 @@ type DetailScreenProps = {
 };
 
 const DetailScreen = (props: DetailScreenProps) => {
+  LogBox.ignoreLogs(['Warning: ...']);
   const { _id } = props.route.params;
   // const _id = '641a7c581358f1dd563383e9';
 
@@ -55,6 +56,7 @@ const DetailScreen = (props: DetailScreenProps) => {
   const navigation = useNavigation<AppNavigationProp>();
   const [statusLike, setStatusLike] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [typeModal, setTypeModal] = useState<string>('');
   const initialWidth = Dimensions.get('window').width;
 
   const numberWithCommas = (num?: number) => {
@@ -108,7 +110,12 @@ const DetailScreen = (props: DetailScreenProps) => {
   );
   const ReviewRoute = () => (
     <Box style={{ flex: 1, backgroundColor: 'transparent' }}>
-      <Rating readonly={true} imageSize={24} style={{ paddingVertical: 12, width: '30%' }} />
+      <Rating
+        readonly={true}
+        startingValue={ratings ? ratings[0]?.data.results.average_rating : 0}
+        imageSize={24}
+        style={{ paddingVertical: 12, width: '30%' }}
+      />
       {err_ratings ? (
         <Text variant="body1" alignSelf="center">
           No comment yet
@@ -301,14 +308,20 @@ const DetailScreen = (props: DetailScreenProps) => {
                 }
                 variant={'white'}
                 text={'Add to cart'}
-                onPress={() => setShowModal(!showModal)}
+                onPress={() => {
+                  setShowModal(!showModal);
+                  setTypeModal('addCart');
+                }}
                 width="40%"
               />
               <SSButton
                 height="full"
                 variant={'red'}
                 text={'Buy now'}
-                onPress={() => setShowModal(!showModal)}
+                onPress={() => {
+                  setShowModal(!showModal);
+                  setTypeModal('buyNow');
+                }}
                 width="40%"
               />
             </Flex>
@@ -320,7 +333,7 @@ const DetailScreen = (props: DetailScreenProps) => {
           product={product}
           showModal={showModal}
           setShowModal={setShowModal}
-          // handle={handleSelected}
+          functionButton={typeModal}
         />
       )}
     </Box>
