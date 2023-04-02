@@ -1,6 +1,6 @@
 // import { API_URL } from 'global/config';
 import { API_ROUTES } from 'global/constants';
-import { Checkout } from 'interfaces/Checkout';
+import { Checkout, getInvoice } from 'interfaces/Checkout';
 import { axiosInstance } from './config/AxiosInstance';
 
 const checkoutAPI = {
@@ -8,6 +8,10 @@ const checkoutAPI = {
     const response = await axiosInstance.post(API_ROUTES.checkout, data);
     return response;
   },
-};
 
+  async getInvoice(data: getInvoice) {
+    const response = await axiosInstance.post(API_ROUTES.getInvoice, data);
+    return response;
+  },
+};
 export default checkoutAPI;

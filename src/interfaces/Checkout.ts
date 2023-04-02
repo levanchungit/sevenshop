@@ -29,3 +29,18 @@ export interface Checkout {
   note: string;
   voucher_id: string;
 }
+
+export type ProductInvoice = {
+  product_id: string;
+  quantity: number;
+  size_id: string;
+  color_id: string;
+  name: string;
+  price: number;
+  price_sale: number;
+  images: string[];
+};
+
+export interface getInvoice {
+  products: ProductInvoice[];
+}

@@ -5,97 +5,20 @@ import * as Icons from 'react-native-feather';
 import ItemProductCheckout from 'components/ItemProductCheckout';
 import SelectOptions from 'components/SelectOptions';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
-// import { IProduct } from 'interfaces/Product';
-import { Checkout } from 'interfaces/Checkout';
 import { checkoutAPI } from 'modules';
-import { AppNavigationProp } from 'providers/navigation/types';
-type Props = object;
-
-export const data: Checkout = {
-  products: [
-    {
-      product_id: '6417c2e460ae79c2843c79cc',
-      name: 'Áo sơ mi nam phối màu cực chất',
-      price: 123,
-      price_sale: 100,
-      images: [
-        'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-      ],
-      size_id: '641017d86d6e461901c6bb60',
-      color_id: '6410176f6d6e461901c6bb15',
-      quantity: 2,
-      total_before_discount: 246,
-      total_discount: 0,
-      total: 246,
-    },
-    {
-      product_id: '6417c31860ae79c2843c7abb',
-      name: 'Áo sơ mi nam phối màu cực chất',
-      price: 123,
-      price_sale: 100,
-      images: [
-        'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-      ],
-      size_id: '641017d86d6e461901c6bb60',
-      color_id: '6410176f6d6e461901c6bb15',
-      quantity: 2,
-      total_before_discount: 246,
-      total_discount: 0,
-      total: 246,
-    },
-    {
-      product_id: '64190e67643d7a0486e24da1',
-      name: 'Áo sơ mi nam phối màu cực chất',
-      price: 123,
-      price_sale: 100,
-      images: [
-        'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-      ],
-      size_id: '641017d86d6e461901c6bb60',
-      color_id: '6410176f6d6e461901c6bb15',
-      quantity: 2,
-      total_before_discount: 246,
-      total_discount: 0,
-      total: 246,
-    },
-    {
-      product_id: '641805d7534e452c74954386',
-      name: 'Áo sơ mi nam phối màu cực chất',
-      price: 123,
-      price_sale: 100,
-      images: [
-        'https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656',
-      ],
-      size_id: '641017d86d6e461901c6bb60',
-      color_id: '6410176f6d6e461901c6bb15',
-      quantity: 2,
-      total_before_discount: 246,
-      total_discount: 0,
-      total: 246,
-    },
-  ],
-  total_invoice_before_discount: 122,
-  total_invoice_discount: 10,
-  total_invoice: 32,
-  address: {
-    address: 'Kiến Đức-Đăk RLấp-Đăk Nông',
-    full_name: 'Trần Quyền',
-    phone: '0834196884',
-    default_address: true,
-    _id: '641922930c2832125fed9ae7',
-  },
-  payment_type: 'cod',
-  note: 'SYS test',
-  voucher_id: '',
+import { AppNavigationProp, CheckoutRouteProp } from 'providers/navigation/types';
+type Props = {
+  route: CheckoutRouteProp;
 };
-
-const CheckoutScreen = (props: Props) => {
-  // const { data } = props;
+const CheckoutScreen = ({ route }: Props) => {
+  const { data } = route.params;
+  console.log('ee', data);
   const navigation = useNavigation<AppNavigationProp>();
+  const data2 = Object.assign(data, { payment_type: 'cod', note: 'SYS test', voucher_id: '' });
 
   const checkout = async () => {
     try {
-      await checkoutAPI.checkout(data);
+      await checkoutAPI.checkout(data2);
       navigation.replace('PaymentSuccess', { id_order: '641b181583592d4bbdf72e92' });
     } catch (error: any) {
       console.error(error);
@@ -130,7 +53,7 @@ const CheckoutScreen = (props: Props) => {
             <View mt={1}>
               <Pressable
                 style={{ padding: 12 }}
-                onPress={() => navigation.navigate('Address', { typeUser: false })}
+                // onPress={() => navigation.navigate('Address')}
                 borderBottomColor={'gray.400'}
                 borderBottomWidth={0.5}
               >

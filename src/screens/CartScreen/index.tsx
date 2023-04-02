@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Pressable, FlatList, Button, Modal } from 'native-base';
+import { Text, View, Pressable, FlatList, Button, Modal, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
 import ItemCart from 'components/ItemCart';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetCarts from 'hook/product/useGetCarts';
 import { IData } from 'interfaces/Cart';
-import { cartAPI } from 'modules';
+import { cartAPI, checkoutAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 const Cart = () => {
@@ -70,11 +70,29 @@ const Cart = () => {
   //     data: 'XXXL',
   //   },
   // ];
+
   const navigation = useNavigation<AppNavigationProp>();
   const { carts } = useGetCarts();
   const [showModal, setShowModal] = useState(false);
   // let [quantity, setQuantity] = useState(1);
   // const [selectedSize, setSelectedSize] = useState<string>();
+
+  const onGetInvoice = async () => {
+    try {
+      const response = await checkoutAPI.getInvoice({ products: carts?.data });
+
+      Toast.show({
+        title: response.data.message,
+        duration: 3000,
+      });
+      navigation.navigate('CheckoutScreen', { data: response.data });
+    } catch (e: any) {
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
 
   const ChangQuantity = async (
     product_id: string,
@@ -124,7 +142,7 @@ const Cart = () => {
             <Icon.Trash2 stroke="#ac1506" width={24} height={24} />
           </View>
         </View>
-        <View h={'72%'} mt={1}>
+        <View h={'70%'} mt={1}>
           <FlatList
             keyExtractor={(item, index) => index + ''}
             data={carts?.data}
@@ -151,12 +169,7 @@ const Cart = () => {
           </Text>
         </View>
         <View width={'100%'}>
-          <Button
-            onPress={() => {
-              navigation.navigate('CheckoutScreen');
-            }}
-            width={'100%'}
-          >
+          <Button onPress={() => onGetInvoice()} width={'100%'}>
             <Text fontSize={14} color="light.100" fontWeight={'bold'}>
               Buy Now
             </Text>

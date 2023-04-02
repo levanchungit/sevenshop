@@ -11,8 +11,8 @@ const productAPI = {
   //   return axiosInstance.get(API_ROUTES.getFavoritesProduct(page, limit));
   // },
 
-  getFavoritesProduct(page: number, limit: number) {
-    return axiosInstance.get(API_ROUTES.getFavoritesProduct(page, limit));
+  getFavoritesProduct() {
+    return axiosInstance.get(API_ROUTES.getFavoritesProduct);
   },
 
   async getProductID(id: string) {

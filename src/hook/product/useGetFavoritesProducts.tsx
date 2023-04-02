@@ -1,30 +1,37 @@
 // import useSWR from 'swr';
-import useSWRInfinite from 'swr/infinite';
+import useSWR from 'swr';
+import { API_ROUTES } from 'global/constants';
 import { productAPI } from 'modules';
 
-const fetcher = async (page: number, limit: number) => {
-  const response = await productAPI.getFavoritesProduct(page, limit);
+const fetcher = async () => {
+  const response = await productAPI.getFavoritesProduct();
   return response;
 };
 
-export default function useGetFavoritesProducts(page: number, limit: number) {
-  const { data, error, size, setSize } = useSWRInfinite(
-    (index, previousPageData) => {
-      if (previousPageData && !previousPageData.length) {
-        return null;
-      }
-      return `products/favorites/get?page=1&limit=5`;
-    },
-    (url) => fetcher(page, limit)
-  );
+// export default function useGetFavoritesProducts(page: number, limit: number) {
+//   const { data, error, size, setSize } = useSWRInfinite(
+//     (index, previousPageData) => {
+//       if (previousPageData && !previousPageData.length) {
+//         return null;
+//       }
+//       return `products/favorites/get?page=1&limit=5`;
+//     },
+//     (url) => fetcher(page, limit)
+//   );
 
-  const isReachingEnd = data ? data[0].data.results.length < 1 : null;
+//   const isReachingEnd = data ? data[0].data.results.length < 1 : null;
+
+export default function useGetFavoritesProducts() {
+  const SWR_KEY = API_ROUTES.getFavoritesProduct;
+  const swr = useSWR(SWR_KEY, fetcher);
+  const { data, error, isLoading, mutate, ...others } = swr;
 
   return {
     products: data,
     error,
-    isReachingEnd,
-    size,
-    setSize,
+    others,
+    // isReachingEnd,
+    // size,
+    // setSize,
   };
 }

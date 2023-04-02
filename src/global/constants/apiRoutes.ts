@@ -18,7 +18,7 @@ export const API_ROUTES = {
   // product
   getProducts: (page: number, limit: number) => `/products?page=${page}&limit=${limit}`,
   getProductDetail: (id: string) => `/products/${id}`,
-  getFavoritesProduct: (page: number, limit: number) => `/products/favorites/get?page=1&limit=5`,
+  getFavoritesProduct: `/products/favorites/get`,
 
   //categories
   getCategories: `/categories`,
@@ -53,8 +53,9 @@ export const API_ROUTES = {
   getUsers: (page: number, limit: number) => `/users?page=${page}&limit=${limit}`,
   getUserById: (id: string) => `/users/get/${id}`,
 
-  //checkout
-  checkout: '/pay',
+  // checkout
+  checkout: `/pay`,
+  getInvoice: `/pay/get_invoice`,
 
   // notifications
   getNotifications: (id: string) => `/notification/get/${id}`,
