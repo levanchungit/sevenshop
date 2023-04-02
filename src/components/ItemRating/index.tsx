@@ -97,6 +97,7 @@ const ItemRating = (props: Props) => {
             {rating?.images.map((data: string) => {
               return (
                 <Image
+                  key={data}
                   source={{
                     uri: data,
                   }}

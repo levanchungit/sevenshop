@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Pressable } from 'native-base';
+import { View, Text, Pressable, Box } from 'native-base';
 import * as Icons from 'react-native-feather';
 import { AppNavigationProp } from 'providers/navigation/types';
 
@@ -46,7 +46,9 @@ const SSHeaderNavigation = (props: Props) => {
           <Icons.Search style={{ marginRight: 12 }} width={24} height={24} stroke={'black'} />
         ) : null}
         {!iconOther ? (
-          <Icons.ShoppingCart width={24} height={24} stroke={'black'} />
+          <Pressable onPress={() => navigation.navigate('Cart')}>
+            <Icons.ShoppingCart width={24} height={24} stroke={'black'} />
+          </Pressable>
         ) : (
           <Pressable onPress={() => navigation.navigate('AccountSettings')}>
             <Icons.Settings width={24} height={24} stroke={'black'} />
@@ -54,7 +56,7 @@ const SSHeaderNavigation = (props: Props) => {
         )}
       </View>
       {!iconOther ? (
-        <Pressable
+        <Box
           position={'absolute'}
           alignItems="center"
           justifyContent={'center'}
@@ -68,7 +70,7 @@ const SSHeaderNavigation = (props: Props) => {
           <Text color="white" fontSize={14} lineHeight={14}>
             {quantityItems}
           </Text>
-        </Pressable>
+        </Box>
       ) : null}
     </View>
   ) : (
@@ -87,7 +89,9 @@ const SSHeaderNavigation = (props: Props) => {
       </Pressable>
       {iconRightHeaderScreen ? (
         iconRightHeaderCart ? (
-          <Icons.ShoppingCart stroke={'black'} width={24} height={24} />
+          <Pressable onPress={() => navigation.navigate('Cart')}>
+            <Icons.ShoppingCart width={24} height={24} stroke={'black'} />
+          </Pressable>
         ) : (
           <Icons.Headphones stroke={'black'} width={24} height={24} />
         )
@@ -95,7 +99,7 @@ const SSHeaderNavigation = (props: Props) => {
         <View></View>
       )}
       {iconRightHeaderCart ? (
-        <Pressable
+        <Box
           position={'absolute'}
           alignItems="center"
           justifyContent={'center'}
@@ -109,7 +113,7 @@ const SSHeaderNavigation = (props: Props) => {
           <Text color="white" fontSize={14} lineHeight={14}>
             {quantityHeaderCarts}
           </Text>
-        </Pressable>
+        </Box>
       ) : null}
     </View>
   );
