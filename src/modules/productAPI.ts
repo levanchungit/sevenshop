@@ -7,6 +7,14 @@ const productAPI = {
     return axiosInstance.get(API_ROUTES.getProducts(page, limit));
   },
 
+  // getFavoritesProduct(page: number, limit: number) {
+  //   return axiosInstance.get(API_ROUTES.getFavoritesProduct(page, limit));
+  // },
+
+  getFavoritesProduct() {
+    return axiosInstance.get(API_ROUTES.getFavoritesProduct);
+  },
+
   async getProductID(id: string) {
     const response = await axiosInstance.get(API_ROUTES.getProductDetail(id));
     return response.data;

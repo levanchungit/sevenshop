@@ -2,6 +2,7 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AddressesResult } from 'interfaces/Address';
+import { Checkout } from 'interfaces/Checkout';
 
 export type AppStackNavigatorParamList = {
   Main: undefined;
@@ -38,8 +39,9 @@ export type AppStackNavigatorParamList = {
   OrderDetail: {
     id_order: string;
   };
-  CheckoutScreen?: {
+  CheckoutScreen: {
     address_id?: string;
+    data: Checkout;
   };
   PaymentSuccess: {
     id_order: string;
@@ -72,6 +74,8 @@ export type PaymentSuccessRouteProp = RouteProp<AppStackNavigatorParamList, 'Pay
 
 export type MainRouteProp = RouteProp<AppStackNavigatorParamList, 'Main'>;
 export type OrderDetailRouteProp = RouteProp<AppStackNavigatorParamList, 'OrderDetail'>;
+
+export type CheckoutRouteProp = RouteProp<AppStackNavigatorParamList, 'CheckoutScreen'>;
 
 export type MainScreenNavigationProp = CompositeNavigationProp<
   NativeStackNavigationProp<AppStackNavigatorParamList>,

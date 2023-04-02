@@ -1,76 +1,97 @@
 import React, { useState } from 'react';
-import { Text, View, Pressable, Box, FlatList, Image, Button, Modal, Flex } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
+import { Text, View, Pressable, FlatList, Button, Modal, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
 import ItemCart from 'components/ItemCart';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetCarts from 'hook/product/useGetCarts';
 import { IData } from 'interfaces/Cart';
-import { cartAPI } from 'modules';
+import { cartAPI, checkoutAPI } from 'modules';
+import { AppNavigationProp } from 'providers/navigation/types';
+
 const Cart = () => {
-  const dataColor = [
-    {
-      title: 'Cyan',
-      data: 'cyan.500',
-    },
-    {
-      title: 'Yellow',
-      data: 'yellow.100',
-    },
-    {
-      title: 'Violet',
-      data: 'violet.200',
-    },
-    {
-      title: 'red',
-      data: 'red.200',
-    },
-    {
-      title: 'blue',
-      data: 'blue.200',
-    },
-    {
-      title: 'white',
-      data: 'white',
-    },
-    {
-      title: 'green',
-      data: 'green.300',
-    },
-    {
-      title: 'black',
-      data: 'black',
-    },
-  ];
-  const dataSize = [
-    {
-      title: 'Size S',
-      data: 'S',
-    },
-    {
-      title: 'Size M',
-      data: 'M',
-    },
-    {
-      title: 'Size L',
-      data: 'L',
-    },
-    {
-      title: 'Size XL',
-      data: 'XL',
-    },
-    {
-      title: 'Size XXL',
-      data: 'XXL',
-    },
-    {
-      title: 'Size XXXL',
-      data: 'XXXL',
-    },
-  ];
+  // const dataColor = [
+  //   {
+  //     title: 'Cyan',
+  //     data: 'cyan.500',
+  //   },
+  //   {
+  //     title: 'Yellow',
+  //     data: 'yellow.100',
+  //   },
+  //   {
+  //     title: 'Violet',
+  //     data: 'violet.200',
+  //   },
+  //   {
+  //     title: 'red',
+  //     data: 'red.200',
+  //   },
+  //   {
+  //     title: 'blue',
+  //     data: 'blue.200',
+  //   },
+  //   {
+  //     title: 'white',
+  //     data: 'white',
+  //   },
+  //   {
+  //     title: 'green',
+  //     data: 'green.300',
+  //   },
+  //   {
+  //     title: 'black',
+  //     data: 'black',
+  //   },
+  // ];
+  // const dataSize = [
+  //   {
+  //     title: 'Size S',
+  //     data: 'S',
+  //   },
+  //   {
+  //     title: 'Size M',
+  //     data: 'M',
+  //   },
+  //   {
+  //     title: 'Size L',
+  //     data: 'L',
+  //   },
+  //   {
+  //     title: 'Size XL',
+  //     data: 'XL',
+  //   },
+  //   {
+  //     title: 'Size XXL',
+  //     data: 'XXL',
+  //   },
+  //   {
+  //     title: 'Size XXXL',
+  //     data: 'XXXL',
+  //   },
+  // ];
+  const navigation = useNavigation<AppNavigationProp>();
   const { carts } = useGetCarts();
   const [showModal, setShowModal] = useState(false);
-  let [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState<string>();
+  // let [quantity, setQuantity] = useState(1);
+  // const [selectedSize, setSelectedSize] = useState<string>();
+
+  const onGetInvoice = async () => {
+    try {
+      const response = await checkoutAPI.getInvoice({ products: carts?.data });
+
+      Toast.show({
+        title: response.data.message,
+        duration: 3000,
+      });
+      navigation.navigate('CheckoutScreen', { data: response.data });
+    } catch (e: any) {
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
 
   const ChangQuantity = async (
     product_id: string,
@@ -84,110 +105,6 @@ const Cart = () => {
       console.error(error.message);
     }
   };
-
-  // const renderItem1 = (item: IData, index: number) => {
-  //   return (
-  //     <View flexDirection={'row'} mt={2} w={'100%'} h={110} alignItems={'center'} borderRadius={10}>
-  //       <View w={'6%'}>
-  //         <Pressable
-  //           justifyContent={'center'}
-  //           alignItems={'center'}
-  //           w={6}
-  //           h={6}
-  //           backgroundColor={'primary.600'}
-  //           borderRadius={20}
-  //         >
-  //           <Icon.Check stroke="#FFFFFF" width={20} height={20} />
-  //         </Pressable>
-  //       </View>
-  //       <View flexDirection={'row'} w={'100%'}>
-  //         <View ml={1} w={'27%'} h={'100%'} borderRadius={10}>
-  //           <Image
-  //             alt="Image nè"
-  //             borderRadius={10}
-  //             w={'100%'}
-  //             h={'100%'}
-  //             source={{
-  //               uri: item.images[0],
-  //             }}
-  //           />
-  //         </View>
-  //         <View
-  //           flexDirection={'column'}
-  //           ml={2}
-  //           w={'72%'}
-  //           height={'100%'}
-  //           justifyContent={'space-between'}
-  //         >
-  //           <Text variant={'subtitle1'}>{item.name}</Text>
-  //           <Pressable
-  //             mt={1}
-  //             borderWidth={0.5}
-  //             borderColor={'coolGray.400'}
-  //             w={'40%'}
-  //             borderRadius={4}
-  //             flexDirection={'row'}
-  //             alignItems={'center'}
-  //             onPress={() => setShowModal(true)}
-  //           >
-  //             <View flexDirection={'row'} ml={2} w={'70%'}>
-  //               {colors?.data.results
-  //                 .filter((c: IColor) => carts?.data[index].color_id.includes(c._id))
-  //                 .map((color: IColor) => {
-  //                   return <Text variant={'caption'} w={'50%'}>{color.name}, </Text>;
-  //                 })}
-  //               {sizes?.data.results
-  //                 .filter((s: ISize) => carts?.data[index].size_id.includes(s._id))
-  //                 .map((size: ISize) => {
-  //                   return <Text variant={'caption'}>{size.size}, </Text>;
-  //                 })}
-  //             </View>
-  //             <Icon.ChevronDown stroke="black" width={24} height={24} />
-  //           </Pressable>
-  //           <View w={'100%'} flexDirection={'row'}>
-  //             <View w={'60%'}>
-  //               <Text
-  //                 mt={1}
-  //                 variant={'overline'}
-  //                 style={{
-  //                   fontVariant: ['lining-nums'],
-  //                 }}
-  //                 strikeThrough
-  //                 color={'gray.400'}
-  //               >
-  //                 {item.price} đ
-  //               </Text>
-  //               <Text mt={1} color={'primary.600'} variant={'button'}>
-  //                 {item.price_sale} đ
-  //               </Text>
-  //             </View>
-  //             <View flexDirection={'row'} alignItems={'center'} mt={4}>
-  //               <Pressable onPress={() => setQuantity(quantity--)}>
-  //                 <Icon.Minus stroke="black" width={18} height={18} />
-  //               </Pressable>
-  //               <View
-  //                 w={6}
-  //                 h={6}
-  //                 borderRadius={4}
-  //                 borderWidth={0.5}
-  //                 borderColor={'coolGray.400'}
-  //                 ml={2}
-  //                 mr={2}
-  //               >
-  //                 <Text fontWeight={'bold'} fontSize={14} textAlign={'center'}>
-  //                   {item.quantity}
-  //                 </Text>
-  //               </View>
-  //               <Pressable onPress={() => setQuantity(quantity++)}>
-  //                 <Icon.Plus stroke="black" width={18} height={18} />
-  //               </Pressable>
-  //             </View>
-  //           </View>
-  //         </View>
-  //       </View>
-  //     </View>
-  //   );
-  // };
 
   return (
     <View w={'100%'} h={'100%'} flex={1} py={5}>
@@ -224,7 +141,7 @@ const Cart = () => {
             <Icon.Trash2 stroke="#ac1506" width={24} height={24} />
           </View>
         </View>
-        <View h={'72%'} mt={1}>
+        <View h={'70%'} mt={1}>
           <FlatList
             keyExtractor={(item, index) => index + ''}
             data={carts?.data}
@@ -251,7 +168,7 @@ const Cart = () => {
           </Text>
         </View>
         <View width={'100%'}>
-          <Button width={'100%'}>
+          <Button onPress={() => onGetInvoice()} width={'100%'}>
             <Text fontSize={14} color="light.100" fontWeight={'bold'}>
               Buy Now
             </Text>
@@ -259,7 +176,7 @@ const Cart = () => {
         </View>
 
         <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-          <Modal.Content width={'100%'} style={{ marginBottom: 0, marginTop: 'auto' }}>
+          {/* <Modal.Content width={'100%'} style={{ marginBottom: 0, marginTop: 'auto' }}>
             <Modal.CloseButton />
             <Modal.Body height="auto" w="full">
               <Flex direction="row" marginBottom="3">
@@ -402,7 +319,7 @@ const Cart = () => {
                 </Text>
               </Pressable>
             </Modal.Body>
-          </Modal.Content>
+          </Modal.Content> */}
         </Modal>
       </View>
     </View>

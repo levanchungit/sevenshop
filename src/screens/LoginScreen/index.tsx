@@ -21,8 +21,8 @@ import { AppNavigationProp } from 'providers/navigation/types';
 const LoginScreen = React.memo(() => {
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [email, setEmail] = useState('khoattdps19321@fpt.edu.vn');
-  const [password, setPassword] = useState('321');
+  const [email, setEmail] = useState('khuyenpv0509@gmail.com');
+  const [password, setPassword] = useState('123456');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = useCallback(async () => {
@@ -33,7 +33,7 @@ const LoginScreen = React.memo(() => {
         title: response.data.message,
         duration: 3000,
       });
-      navigation.navigate('MyPurchaseScreen');
+      navigation.navigate('Main');
     } catch (e: any) {
       Toast.show({
         title: e.response?.data?.message,

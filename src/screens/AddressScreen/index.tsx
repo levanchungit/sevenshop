@@ -93,7 +93,7 @@ const AddressScreen = (props: AddressScreenProps) => {
           <SSButton
             variant={'red'}
             text={'Select address'}
-            onPress={() => navigation.navigate('CheckoutScreen', { address_id: checkedId })}
+            onPress={() => console.log('CheckoutScreen', { address_id: checkedId })}
           />
         )}
       </VStack>
