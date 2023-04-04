@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { Box, Flex, Image, Modal, Pressable, Text, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
 import SSButton from 'components/SSButton';
-import useGetColors from 'hook/colors/useGetColors';
-import useGetSizes from 'hook/sizes/useGetSizes';
 import { AddCartPayload } from 'interfaces/Cart';
 import { IColor } from 'interfaces/Color';
 import { IProduct, IStock } from 'interfaces/Product';
@@ -19,10 +17,8 @@ type Props = {
 
 const ModalPopupCart = (props: Props) => {
   const { product, showModal, setShowModal, functionButton } = props;
-  const { colors } = useGetColors();
-  const { sizes } = useGetSizes();
-  const [selectedSize, setSelectedSize] = useState<string>(product?.stock[0].size_id);
-  const [selectedColor, setSelectedColor] = useState<string>(product?.stock[0].color_id);
+  const [selectedSize, setSelectedSize] = useState<string>(product?.stock[0].size_id._id);
+  const [selectedColor, setSelectedColor] = useState<string>(product?.stock[0].color_id._id);
   const [quantity, setQuantity] = useState<number>(product?.stock[0].quantity);
   const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
   const numberWithCommas = (num?: number) => {
@@ -65,8 +61,8 @@ const ModalPopupCart = (props: Props) => {
 
     const filterStock = product.stock.filter(
       (stock: IStock) =>
-        stock.color_id === (data.idColor ? data.idColor : selectedColor) &&
-        stock.size_id === (data.idSize ? data.idSize : selectedSize)
+        stock.color_id._id === (data.idColor ? data.idColor : selectedColor) &&
+        stock.size_id._id === (data.idSize ? data.idSize : selectedSize)
     );
     setQuantity(filterStock[0].quantity);
     setSelectedQuantity(0);
@@ -182,30 +178,28 @@ const ModalPopupCart = (props: Props) => {
                 Colors:
               </Text>
               <Flex direction="row" w={150} wrap="wrap">
-                {colors?.data.results
-                  .filter((c: IColor) => product?.color_ids.includes(c._id))
-                  .map((color: IColor) => {
-                    return (
-                      <Pressable
-                        onPress={() => update({ idColor: color._id })}
-                        w={8}
-                        h={8}
-                        borderRadius="full"
-                        justifyContent="center"
-                        alignItems="center"
-                        mr={3}
-                        mb={3}
-                        key={color._id}
-                        borderWidth={1}
-                        borderColor={color.code === '#FFFFFF' ? '#C9C9C9' : 'transparent'}
-                        backgroundColor={color.code}
-                      >
-                        {color._id === selectedColor ? (
-                          <Icon.Check stroke={color.code === '#FFFFFF' ? '#000000' : '#FFFFFF'} />
-                        ) : null}
-                      </Pressable>
-                    );
-                  })}
+                {product.color_ids.map((color: IColor) => {
+                  return (
+                    <Pressable
+                      onPress={() => update({ idColor: color._id })}
+                      w={8}
+                      h={8}
+                      borderRadius="full"
+                      justifyContent="center"
+                      alignItems="center"
+                      mr={3}
+                      mb={3}
+                      key={color._id}
+                      borderWidth={1}
+                      borderColor={color.code === '#FFFFFF' ? '#C9C9C9' : 'transparent'}
+                      backgroundColor={color.code}
+                    >
+                      {color._id === selectedColor ? (
+                        <Icon.Check stroke={color.code === '#FFFFFF' ? '#000000' : '#FFFFFF'} />
+                      ) : null}
+                    </Pressable>
+                  );
+                })}
               </Flex>
             </Box>
 
@@ -214,33 +208,31 @@ const ModalPopupCart = (props: Props) => {
                 Sizes:
               </Text>
               <Flex direction="row" w={150} wrap="wrap">
-                {sizes?.data.results
-                  .filter((s: ISize) => product?.size_ids.includes(s._id))
-                  .map((size: ISize) => {
-                    return (
-                      <Pressable
-                        onPress={() => update({ idSize: size._id })}
-                        w={8}
-                        h={8}
-                        justifyContent="center"
-                        mr={3}
-                        mb={3}
-                        alignItems="center"
-                        backgroundColor={size._id === selectedSize ? 'primary.600' : 'white'}
-                        borderWidth={1}
-                        borderColor="primary.600"
-                        borderRadius={8}
-                        key={size._id}
+                {product.size_ids.map((size: ISize) => {
+                  return (
+                    <Pressable
+                      onPress={() => update({ idSize: size._id })}
+                      w={8}
+                      h={8}
+                      justifyContent="center"
+                      mr={3}
+                      mb={3}
+                      alignItems="center"
+                      backgroundColor={size._id === selectedSize ? 'primary.600' : 'white'}
+                      borderWidth={1}
+                      borderColor="primary.600"
+                      borderRadius={8}
+                      key={size._id}
+                    >
+                      <Text
+                        variant="button"
+                        color={size._id === selectedSize ? 'white' : 'primary.600'}
                       >
-                        <Text
-                          variant="button"
-                          color={size._id === selectedSize ? 'white' : 'primary.600'}
-                        >
-                          {size.size}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
+                        {size.size}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
               </Flex>
             </Box>
           </Flex>

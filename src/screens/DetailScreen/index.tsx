@@ -24,9 +24,9 @@ import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetProductDetail from 'hook/product/useGetProductDetail';
 import useGetProducts from 'hook/product/useGetProducts';
 import useGetQuantityCart from 'hook/product/useGetQuantityCart';
-import useGetRatings from 'hook/ratings/useGetRatings';
 import { IProduct } from 'interfaces/Product';
 import { AppNavigationProp, DetailRouteProp } from 'providers/navigation/types';
+import { formatNumberCurrencyVN } from 'utils/common';
 
 type DetailScreenProps = {
   route: DetailRouteProp;
@@ -36,7 +36,6 @@ const DetailScreen = (props: DetailScreenProps) => {
   LogBox.ignoreLogs(['Warning: ...']);
   const { t } = useTranslation();
   const { _id } = props.route.params;
-  // const _id = '641a7c581358f1dd563383e9';
 
   //api detail
   const { product, err_product, loading_product } = useGetProductDetail(_id);
@@ -46,10 +45,6 @@ const DetailScreen = (props: DetailScreenProps) => {
   const limitProducts = 8;
   const [productPage] = useState(1);
   const { products, errorProducts } = useGetProducts(productPage, limitProducts);
-  //api ratings
-  const limitRatings = 5;
-  const [ratingPage] = useState(1);
-  const { ratings, err_ratings, loading_ratings } = useGetRatings(_id, ratingPage, limitRatings);
 
   // const handleSelected = (color: string, size: string, quantity: number) => {
   //   console.log(color, size, quantity);
@@ -60,10 +55,6 @@ const DetailScreen = (props: DetailScreenProps) => {
   const [showModal, setShowModal] = useState(false);
   const [typeModal, setTypeModal] = useState<string>('');
   const initialWidth = Dimensions.get('window').width;
-
-  const numberWithCommas = (num?: number) => {
-    return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  };
 
   const DescriptionRoute = () => (
     <ScrollView
@@ -111,22 +102,19 @@ const DetailScreen = (props: DetailScreenProps) => {
     </ScrollView>
   );
   const ReviewRoute = () => (
-    <Box style={{ flex: 1, backgroundColor: 'transparent' }}>
+    <Box backgroundColor="transparent">
       <Rating
         readonly={true}
-        startingValue={ratings ? ratings[0]?.data.results.average_rating : 0}
+        startingValue={product.ratings ? product.average_rating : 0}
         imageSize={24}
         style={{ paddingVertical: 12, width: '30%' }}
       />
-      {err_ratings ? (
-        <Text variant="body1" alignSelf="center">
+      {product.ratings.length === 0 ? (
+        <Text variant="title" alignSelf="center">
           No comment yet
         </Text>
       ) : (
-        <FlatListRating
-          ratings={ratings ? ratings[0]?.data.results : null}
-          isLoading={loading_ratings}
-        />
+        <FlatListRating ratings={product ? product.ratings : null} isLoading={loading_product} />
       )}
     </Box>
   );
@@ -212,10 +200,11 @@ const DetailScreen = (props: DetailScreenProps) => {
                   fontVariant: ['lining-nums'],
                 }}
               >
-                {product?.price_sale
-                  ? numberWithCommas(product?.price_sale)
-                  : numberWithCommas(product?.price)}
-                vnđ
+                {!product
+                  ? 0
+                  : product?.price_sale
+                  ? formatNumberCurrencyVN(product.price_sale)
+                  : formatNumberCurrencyVN(product.price)}
               </Text>
 
               {product?.price_sale ? (
@@ -227,7 +216,7 @@ const DetailScreen = (props: DetailScreenProps) => {
                     fontVariant: ['lining-nums'],
                   }}
                 >
-                  {numberWithCommas(product?.price)}vnđ
+                  {!product ? 0 : formatNumberCurrencyVN(product.price)}
                 </Text>
               ) : null}
             </Skeleton.Text>
@@ -296,7 +285,11 @@ const DetailScreen = (props: DetailScreenProps) => {
               <SSButton
                 variant={'red'}
                 leftIcon={
-                  <Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />
+                  <Icon.Heart
+                    width={24}
+                    stroke="white"
+                    fill={product.isFavorite ? 'white' : 'none'}
+                  />
                 }
                 onPress={() => setStatusLike(!statusLike)}
                 text={''}

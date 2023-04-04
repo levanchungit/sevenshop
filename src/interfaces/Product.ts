@@ -1,10 +1,12 @@
 import { STATUS_PRODUCT } from 'global/constants';
-import { review } from './Auth';
 import { IModify } from './Basic';
+import { IColor } from './Color';
+import { IRating } from './Rating';
+import { ISize } from './Size';
 
 export type IStock = {
-  size_id: string;
-  color_id: string;
+  size_id: { _id: string; size: string };
+  color_id: { _id: string; code: string };
   quantity: number;
   _id: string;
 };
@@ -19,12 +21,14 @@ export interface IProduct {
   stock: IStock[];
   status: STATUS_PRODUCT;
   category_ids: string[];
-  color_ids: string[];
-  size_ids: string[];
+  color_ids: IColor[];
+  size_ids: ISize[];
   created_at: string;
   created_by: string;
   modify: IModify[];
-  reviews: review[];
+  ratings: IRating[];
+  average_rating: 4;
+  isFavorite: boolean;
 }
 
 export interface IProductFavorites {

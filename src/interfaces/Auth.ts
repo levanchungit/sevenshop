@@ -44,29 +44,6 @@ export type GetMeSuccessData = {
   recent_products: [];
 };
 
-export type color = {
-  title: string;
-  data: string;
-};
-
-export type size = {
-  title: string;
-};
-
-export type Item = {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-  type: {
-    size: size;
-    color: color;
-  };
-  selled: number;
-  categories: number;
-};
-
 export type AddToCart = {
   product_id: string;
   color: number;
