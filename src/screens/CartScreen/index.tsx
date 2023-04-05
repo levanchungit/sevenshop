@@ -71,7 +71,7 @@ const Cart = () => {
   //   },
   // ];
   const navigation = useNavigation<AppNavigationProp>();
-  const { carts } = useGetCarts();
+  const { carts, mutate_carts } = useGetCarts();
   const [showModal, setShowModal] = useState(false);
   // let [quantity, setQuantity] = useState(1);
   // const [selectedSize, setSelectedSize] = useState<string>();
@@ -101,6 +101,7 @@ const Cart = () => {
   ) => {
     try {
       await cartAPI.ChangeQuantity(product_id, quantity, size_id, color_id);
+      mutate_carts();
     } catch (error: any) {
       console.error(error.message);
     }
@@ -150,10 +151,10 @@ const Cart = () => {
                 cart={item}
                 setShowModal={setShowModal}
                 increaseQuantity={() =>
-                  ChangQuantity(item.product_id, item.quantity + 1, item.size_id, item.color_id)
+                  ChangQuantity(item.product_id, item.quantity + 1, item.size._id, item.color._id)
                 }
                 decreaseQuantity={() =>
-                  ChangQuantity(item.product_id, item.quantity - 1, item.size_id, item.color_id)
+                  ChangQuantity(item.product_id, item.quantity - 1, item.size._id, item.color._id)
                 }
               ></ItemCart>
             )}

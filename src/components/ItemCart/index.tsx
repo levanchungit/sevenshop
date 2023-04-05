@@ -1,12 +1,11 @@
 import React from 'react';
 import { Text, View, Image, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
-import useGetColors from 'hook/colors/useGetColors';
-import useGetSizes from 'hook/sizes/useGetSizes';
+// import useGetColors from 'hook/colors/useGetColors';
+// import useGetSizes from 'hook/sizes/useGetSizes';
 import { IData } from 'interfaces/Cart';
-import { IColor } from 'interfaces/Color';
-import { ISize } from 'interfaces/Size';
-
+// import { IColor } from 'interfaces/Color';
+// import { ISize } from 'interfaces/Size';
 type Props = {
   cart: IData;
   increaseQuantity: Function;
@@ -16,8 +15,8 @@ type Props = {
 
 const ItemCart = (props: Props) => {
   const { cart, setShowModal, increaseQuantity, decreaseQuantity } = props;
-  const { colors } = useGetColors();
-  const { sizes } = useGetSizes();
+  // const { colors } = useGetColors();
+  // const { sizes } = useGetSizes();
   return (
     <View flexDirection={'row'} mt={2} w={'100%'} h={110} alignItems={'center'} borderRadius={10}>
       <View w={'6%'}>
@@ -59,26 +58,17 @@ const ItemCart = (props: Props) => {
             borderWidth={0.5}
             borderColor={'coolGray.400'}
             w={'40%'}
+            h={'25%'}
             borderRadius={4}
             flexDirection={'row'}
             alignItems={'center'}
             onPress={() => setShowModal(true)}
           >
             <View flexDirection={'row'} ml={2} w={'70%'}>
-              {colors?.data.results
-                .filter((c: IColor) => cart?.color_id.includes(c._id))
-                .map((color: IColor) => {
-                  return (
-                    <Text variant={'caption'} w={'50%'}>
-                      {color.name},{' '}
-                    </Text>
-                  );
-                })}
-              {sizes?.data.results
-                .filter((s: ISize) => cart?.size_id.includes(s._id))
-                .map((size: ISize) => {
-                  return <Text variant={'caption'}>{size.size}, </Text>;
-                })}
+              <Text variant={'caption'} w={'60%'}>
+                {cart?.color.name}
+              </Text>
+              <Text variant={'caption'}> {cart?.size.size}</Text>
             </View>
             <Icon.ChevronDown stroke="black" width={24} height={24} />
           </Pressable>
@@ -113,7 +103,7 @@ const ItemCart = (props: Props) => {
                 mr={2}
               >
                 <Text fontWeight={'bold'} fontSize={14} textAlign={'center'}>
-                  1
+                  {cart?.quantity}
                 </Text>
               </View>
               <Pressable onPress={() => increaseQuantity()}>
