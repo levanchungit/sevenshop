@@ -1,20 +1,35 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useStripe } from '@stripe/stripe-react-native';
 import { Button, FlatList, Pressable, Text, Toast, View } from 'native-base';
 import * as Icons from 'react-native-feather';
 import ItemProductCheckout from 'components/ItemProductCheckout';
 import SelectOptions from 'components/SelectOptions';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import { PAYMENT_TYPE } from 'global/constants';
 import { checkoutAPI } from 'modules';
 import { AppNavigationProp, CheckoutRouteProp } from 'providers/navigation/types';
+
 type Props = {
   route: CheckoutRouteProp;
 };
+
 const CheckoutScreen = ({ route }: Props) => {
   const { data } = route.params;
-  console.log('ee', data);
   const navigation = useNavigation<AppNavigationProp>();
-  const data2 = Object.assign(data, { payment_type: 'cod', note: 'SYS test', voucher_id: '' });
+
+  //select payment type
+  const paymentType = PAYMENT_TYPE.bank;
+
+  const data2 = Object.assign(data, {
+    payment_type: paymentType,
+    note: 'SYS test',
+    voucher_id: '',
+  });
+
+  console.log(data2);
+
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
 
   const checkout = async () => {
     try {
@@ -28,6 +43,50 @@ const CheckoutScreen = ({ route }: Props) => {
       });
     }
   };
+
+  const onCheckout = async () => {
+    //check payment_type: bank
+    if (data.payment_type === PAYMENT_TYPE.bank) {
+      //total order
+      const _data = {
+        amount: Math.floor(1314 * 100),
+      };
+      console.log(_data);
+      const response = await checkoutAPI.stripe(_data);
+
+      if (response.error) {
+        Toast.show({
+          title: response.error,
+          duration: 3000,
+        });
+        return;
+      }
+
+      const initResponse = await initPaymentSheet({
+        merchantDisplayName: 'SevenShop',
+        paymentIntentClientSecret: response.paymentIntent,
+      });
+
+      if (initResponse.error) {
+        Toast.show({
+          title: 'Payment sheet failed to initialize',
+          duration: 3000,
+        });
+        return;
+      }
+
+      await presentPaymentSheet();
+    } else if (data.payment_type === PAYMENT_TYPE.momo) {
+      Toast.show({
+        title: 'Coming soon',
+        duration: 3000,
+      });
+      return;
+    }
+
+    await checkout();
+  };
+
   return (
     <View flex={1} pt={3} backgroundColor="white">
       <View mt={3}>
@@ -206,7 +265,7 @@ const CheckoutScreen = ({ route }: Props) => {
             }
           />
           <View alignItems={'center'} px={'3'}>
-            <Button onPress={checkout} borderRadius={6} w={{ base: '100%' }} mb="3" mt="3">
+            <Button onPress={onCheckout} borderRadius={6} w={{ base: '100%' }} mb="3" mt="3">
               <Text
                 fontSize={14}
                 color="light.100"
