@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, View, Image, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
-import useGetColors from 'hook/colors/useGetColors';
-import useGetSizes from 'hook/sizes/useGetSizes';
+// import useGetColors from 'hook/colors/useGetColors';
+// import useGetSizes from 'hook/sizes/useGetSizes';
 import { IData } from 'interfaces/Cart';
-import { IColor } from 'interfaces/Color';
-import { ISize } from 'interfaces/Size';
+// import { IColor } from 'interfaces/Color';
+// import { ISize } from 'interfaces/Size';
 type Props = {
   cart: IData;
   increaseQuantity: Function;
@@ -15,8 +15,8 @@ type Props = {
 
 const ItemCart = (props: Props) => {
   const { cart, setShowModal, increaseQuantity, decreaseQuantity } = props;
-  const { colors } = useGetColors();
-  const { sizes } = useGetSizes();
+  // const { colors } = useGetColors();
+  // const { sizes } = useGetSizes();
   return (
     <View flexDirection={'row'} mt={2} w={'100%'} h={110} alignItems={'center'} borderRadius={10}>
       <View w={'6%'}>
@@ -65,24 +65,10 @@ const ItemCart = (props: Props) => {
             onPress={() => setShowModal(true)}
           >
             <View flexDirection={'row'} ml={2} w={'70%'}>
-              {cart?.color._id
-                ? colors?.data.results
-                    .filter((c: IColor) => cart?.color._id.includes(c._id))
-                    .map((color: IColor) => {
-                      return (
-                        <Text variant={'caption'} w={'50%'}>
-                          {color.name},{' '}
-                        </Text>
-                      );
-                    })
-                : null}
-              {cart?.size._id
-                ? sizes?.data.results
-                    .filter((s: ISize) => cart?.size._id.includes(s._id))
-                    .map((size: ISize) => {
-                      return <Text variant={'caption'}>{size.size}, </Text>;
-                    })
-                : null}
+              <Text variant={'caption'} w={'60%'}>
+                {cart?.color.name}
+              </Text>
+              <Text variant={'caption'}> {cart?.size.size}</Text>
             </View>
             <Icon.ChevronDown stroke="black" width={24} height={24} />
           </Pressable>
