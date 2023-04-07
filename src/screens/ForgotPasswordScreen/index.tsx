@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, Button, Toast } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
 import { URL_IMG_AUTH } from 'global/constants';
@@ -10,6 +11,7 @@ import { AppNavigationProp } from 'providers/navigation/types';
 type Props = object;
 
 const ForgotPasswordScreen = (props: Props) => {
+  const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
 
   const [email, setEmail] = useState('');
@@ -54,7 +56,7 @@ const ForgotPasswordScreen = (props: Props) => {
         fontSize={36}
         textAlign={'center'}
       >
-        Forgot Password
+        {t('ForgotPassword.title')}
       </Text>
 
       <View h={200} alignItems={'center'}>
@@ -66,11 +68,11 @@ const ForgotPasswordScreen = (props: Props) => {
           fontFamily={'heading'}
           fontStyle={'normal'}
         >
-          Please enter your email or phone number:
+          {t('ForgotPassword.detail')}
         </Text>
 
         <SSTextInput
-          placeholder={'Enter your email/phone number'}
+          placeholder={t('ForgotPassword.email')}
           typePassword={false}
           inputLeftElement={<Icon.Phone stroke="black" width={24} height={24} />}
           value={email}
@@ -85,7 +87,7 @@ const ForgotPasswordScreen = (props: Props) => {
           disabled={disableButton}
         >
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
-            Send
+            {t('ForgotPassword.send')}
           </Text>
         </Button>
       </View>

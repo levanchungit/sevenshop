@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Box, FlatList, Pressable } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ItemVoucher from 'components/ItemVoucher';
@@ -8,6 +9,7 @@ import SSTextInput from 'components/SSTextInput';
 import { DATA6 } from 'mocks';
 
 const VoucherScreen = () => {
+  const { t } = useTranslation();
   const [voucher, setVoucher] = useState('');
   return (
     <SafeAreaView
@@ -31,7 +33,7 @@ const VoucherScreen = () => {
         quantityHeaderCarts={0}
       />
       <SSTextInput
-        placeholder={'Voucher code'}
+        placeholder={t('SelectVoucher.title')}
         typePassword={false}
         inputLeftElement={<Icon.Gift strokeWidth={1} stroke={'black'} />}
         inputRightElement={

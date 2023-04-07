@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { View, Text, FlatList } from 'react-native';
 import ItemProductFlashSale from 'components/ItemProductFlashSale';
 import { IProduct } from 'interfaces/Product';
@@ -13,6 +14,7 @@ type Props = {
 
 const FlatListProductFlashSale = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
+  const { t } = useTranslation();
   const { data, error } = props;
   const [hour, setHour] = useState(2);
   const [minute, setMinute] = useState(2);
@@ -76,11 +78,11 @@ const FlatListProductFlashSale = (props: Props) => {
               marginRight: 14,
             }}
           >
-            Flash sale
+            {t('Home.flashSale')}
           </Text>
           <Text style={styles.textTime}>{timeBar()}</Text>
         </View>
-        <Text style={{ fontWeight: 'bold' }}>See All</Text>
+        <Text style={{ fontWeight: 'bold' }}>{t('Home.seeAll')}</Text>
       </View>
 
       {error && <Text>Failed to load</Text>}

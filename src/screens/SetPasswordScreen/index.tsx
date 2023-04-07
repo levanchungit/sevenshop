@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, Image, Button, Toast } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
 import { URL_IMG_AUTH } from 'global/constants';
@@ -8,6 +9,7 @@ import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 const SetPassWordScreen = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
 
   const [password, setPassword] = useState('');
@@ -55,12 +57,12 @@ const SetPassWordScreen = () => {
         fontSize={36}
         textAlign="center"
       >
-        Set Password
+        {t('SetPassWord.title')}
       </Text>
 
       <View h={200} alignItems="center">
         <SSTextInput
-          placeholder={'Enter confirm your password...'}
+          placeholder={t('SetPassWord.password')}
           typePassword={true}
           inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
           value={password}
@@ -68,7 +70,7 @@ const SetPassWordScreen = () => {
         ></SSTextInput>
 
         <SSTextInput
-          placeholder={'Enter confirm your password...'}
+          placeholder={t('SetPassWord.confirmPassword')}
           typePassword={true}
           inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
           value={password_new}

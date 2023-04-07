@@ -1,8 +1,10 @@
 import React from 'react';
 import { Text, View, Button, Image } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 
 const AccountSecurityScreen = () => {
+  const { t } = useTranslation();
   return (
     <View py={10} backgroundColor={'white'} h={'100%'}>
       <SSHeaderNavigation
@@ -11,7 +13,7 @@ const AccountSecurityScreen = () => {
         titleHeaderSearch="Your Favorites"
         iconSearchEnabled={true}
         iconOther={false}
-        titleHeaderScreen="Account & Security"
+        titleHeaderScreen={t('Settings.accountSecurity')}
         iconRightHeaderScreen={false}
         quantityItems={12}
         iconRightHeaderCart={false}
@@ -38,7 +40,7 @@ const AccountSecurityScreen = () => {
               justifyContent={'space-between'}
               alignItems={'center'}
             >
-              <Text variant={'body1'}>Username</Text>
+              <Text variant={'body1'}>{t('Settings.fullName')}</Text>
               <Text variant={'body1'}>sevenshop</Text>
             </View>
           </View>
@@ -50,7 +52,7 @@ const AccountSecurityScreen = () => {
               justifyContent={'space-between'}
               alignItems={'center'}
             >
-              <Text variant={'body1'}>Phone</Text>
+              <Text variant={'body1'}>{t('Settings.phone')}</Text>
               <Text variant={'body1'}>0378484047</Text>
             </View>
           </View>
@@ -74,7 +76,7 @@ const AccountSecurityScreen = () => {
               justifyContent={'space-between'}
               alignItems={'center'}
             >
-              <Text variant={'body1'}>Birthday</Text>
+              <Text variant={'body1'}>{t('Settings.birthday')}</Text>
               <Text variant={'body1'}>08-08-2003</Text>
             </View>
           </View>

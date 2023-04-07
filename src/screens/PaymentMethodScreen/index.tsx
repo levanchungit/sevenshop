@@ -1,11 +1,13 @@
 import React from 'react';
 import { Box, Flex, Text, Image } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import IconCheck from 'components/IconCheck';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 
 const PaymentMethodScreen = () => {
+  const { t } = useTranslation();
   // const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -23,7 +25,7 @@ const PaymentMethodScreen = () => {
         iconSearchEnabled={false}
         iconOther={false}
         titleHeaderSearch={''}
-        titleHeaderScreen={'Payment method'}
+        titleHeaderScreen={t('PaymentMethod.title')}
         iconRightHeaderScreen={false}
         quantityItems={0}
         iconRightHeaderCart={false}
@@ -50,7 +52,7 @@ const PaymentMethodScreen = () => {
           width="80%"
           marginLeft={3}
         >
-          Cash on delivery
+          {t('PaymentMethod.cashOnDelivery')}
         </Text>
         <IconCheck isChecked={false} />
       </Flex>
@@ -73,9 +75,7 @@ const PaymentMethodScreen = () => {
           }}
           width="80%"
           marginLeft={3}
-        >
-          Credit card
-        </Text>
+        ></Text>
         <Icon.ChevronRight stroke="black" />
       </Flex>
 

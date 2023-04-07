@@ -1,5 +1,7 @@
 import React from 'react';
 import { FlatList, Text, View } from 'native-base';
+// import { ScrollView, Text, View } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icons from 'react-native-feather';
 import ItemProductCheckout from 'components/ItemProductCheckout';
 import SelectOptions from 'components/SelectOptions';
@@ -18,6 +20,8 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
   const { order } = useGetOrderById(id_order);
 
   console.log('order', order?.data.products);
+const OrderDetailScreen = (props: Props) => {
+  const { t } = useTranslation();
   return (
     <View flex={1} pt={3} backgroundColor="white">
       <View mt={4}>
@@ -27,7 +31,7 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
           iconSearchEnabled={false}
           iconOther={false}
           titleHeaderSearch={''}
-          titleHeaderScreen={'Order Detail'}
+          titleHeaderScreen={t('OrderDetail.title')}
           iconRightHeaderScreen={true}
           quantityItems={0}
           iconRightHeaderCart={false}
@@ -151,7 +155,7 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
         <View w="100%" position={'absolute'} bottom={0} left={0}>
           <View borderBottomColor={'gray.400'} borderBottomWidth={0.5} pb={3}>
             <View px={3} flexDirection={'row'} justifyContent="space-between" alignItems={'center'}>
-              <Text fontFamily={'Raleway_700Bold'}>Order ID</Text>
+              <Text fontFamily={'Raleway_700Bold'}>{t('OrderDetail.oderCode')}</Text>
               <View flexDirection={'row'} alignItems="center">
                 <Text
                   style={{
@@ -163,7 +167,7 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
                   {id_order}
                 </Text>
                 <Text fontFamily={'Raleway_500Medium'} color="#075AFA">
-                  Copy
+                  {t('OrderDetail.copy')}
                 </Text>
               </View>
             </View>
@@ -171,7 +175,12 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
             <SSItemFeeOrderDetail
               style={{}}
               title={'Paid by'}
-              detail={order ? (order?.data.payment_type === 'cod' ? 'Cash' : '...') : '......'}
+              detail={order ? (order?.data.payment_type === 'cod' ? 'Cash' : '...') : '......'} />
+            <SSItemFeeOrderDetail style={{}} title={'Payment status'} detail={'Waiting'} />
+            <SSItemFeeOrderDetail
+              style={{}}
+              title={t('OrderDetail.paidBy')}
+              detail={'MoMo E-Wallet'}
             />
           </View>
           <SSItemFeeOrderDetail
@@ -188,11 +197,23 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
             title={'Shipping fee'}
             detail={formatNumberCurrencyVN(parseFloat(order?.data.total_price))}
           />
-          <SSItemFeeOrderDetail
+          {/* <SSItemFeeOrderDetail
             style={{ color: '#DD1609', fontSize: 16 }}
             title={'Voucher'}
             detail={formatNumberCurrencyVN(parseFloat(order?.data.total_price))}
+            title={t('OrderDetail.subTotal' + 3 + t('OrderDetail.item'))}
+            detail={'400.000đ'}
           />
+          <SSItemFeeOrderDetail
+            style={{ fontSize: 16 }}
+            title={t('OrderDetail.shippingFee')}
+            detail={'130.000đ'}
+          />
+          <SSItemFeeOrderDetail
+            style={{ color: '#DD1609', fontSize: 16 }}
+            title={t('OrderDetail.voucher')}
+            detail={'-10.000đ'}
+          /> */}
 
           <SelectOptions
             style={{ marginTop: -10 }}
@@ -204,7 +225,7 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
                 fontSize="2xl"
                 fontFamily={'Raleway_500Medium'}
               >
-                Total
+                {t('OrderDetail.total')}
               </Text>
             }
             iconRight={

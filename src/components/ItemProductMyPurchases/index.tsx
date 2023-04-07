@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Pressable, Image, Button } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import { formatNumberCurrencyVN } from 'utils/common';
 
 type Props = {
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const ItemProductMyPurchases = (props: Props) => {
+  const { t } = useTranslation();
   const { total, quantitiesProduct, name, image, onPressBuyAgain, onPressViewDetail } = props;
 
   return (
@@ -75,14 +77,14 @@ const ItemProductMyPurchases = (props: Props) => {
             >
               <Button borderRadius={10} backgroundColor="white" onPress={onPressViewDetail}>
                 <Text color={'primary.500'} fontWeight="bold" fontSize={16}>
-                  View Detail
+                  {t('MyPurchases.viewDetail')}
                 </Text>
               </Button>
             </View>
             <View style={{ width: '48%' }} borderRadius={6} backgroundColor="primary.500">
               <Button borderRadius={10} onPress={onPressBuyAgain}>
                 <Text color={'white'} fontWeight="bold" fontSize={16}>
-                  Buy Again
+                  {t('MyPurchases.buyAgain')}
                 </Text>
               </Button>
             </View>

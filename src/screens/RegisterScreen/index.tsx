@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, Button, Toast } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
 import { URL_IMG_AUTH } from 'global/constants';
@@ -9,6 +10,7 @@ import { AppNavigationProp } from 'providers/navigation/types';
 type Props = object;
 
 const RegisterScreen = (props: Props) => {
+  const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
 
   const [email, setEmail] = useState('');
@@ -53,12 +55,12 @@ const RegisterScreen = (props: Props) => {
         fontSize={36}
         textAlign={'center'}
       >
-        Register
+        {t('Register.title')}
       </Text>
 
       <View h={200} alignItems={'center'}>
         <SSTextInput
-          placeholder={'Enter your email/phone number'}
+          placeholder={t('Register.email')}
           typePassword={false}
           inputLeftElement={<Icon.Phone stroke="black" width={24} height={24} />}
           value={email}
@@ -75,16 +77,16 @@ const RegisterScreen = (props: Props) => {
           disabled={disableButton}
         >
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
-            Register
+            {t('Register.title')}
           </Text>
         </Button>
 
         <Text mt={5} fontSize={14} fontWeight={500} fontStyle={'normal'} fontFamily={'heading'}>
-          Or login with
+          {t('Register.loginWith')}
         </Text>
         <View flexDirection={'row'} alignItems={'center'} mt={5}>
           <Text fontSize={16} fontWeight={500}>
-            Don’t you have an account?
+            {t('Register.haveAccount')}
           </Text>
           <Text
             onPress={() => {
@@ -95,7 +97,7 @@ const RegisterScreen = (props: Props) => {
             fontWeight={'bold'}
             color={'primary.600'}
           >
-            Login
+            {t('Register.login')}
           </Text>
         </View>
       </View>

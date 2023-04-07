@@ -1,18 +1,39 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import i18n from 'i18next';
 import { Pressable, Text, View, Button, Modal, Switch } from 'native-base';
+import { initReactI18next, useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { AppNavigationProp } from 'providers/navigation/types';
 import SSInputPopupPass from '../../components/SSInputPopupPass';
+import en from '../../translate/en.json';
+import vn from '../../translate/vn.json';
 
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  lng: 'en',
+  fallbackLng: 'en',
+  resources: {
+    en: { translation: en },
+    vn: { translation: vn },
+  },
+});
 const AccountSettingScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
-  const [showModalLanguege, setShowModalLanguege] = useState(false);
+  const { t } = useTranslation();
+  const [showModalLanguage, setShowModalLanguage] = useState(false);
   const [showModalChangePass, setShowModalChangePass] = useState(false);
+  const [isVN, setIsVN] = useState(false);
+  const [isEN, setIsEN] = useState(true);
   const [password, setPassword] = useState('123');
 
   const [isEnabled, setIsEnabled] = useState(false);
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    setShowModalLanguage(false);
+  };
 
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   return (
@@ -23,7 +44,7 @@ const AccountSettingScreen = () => {
         titleHeaderSearch="Your Favorites"
         iconSearchEnabled={true}
         iconOther={false}
-        titleHeaderScreen="Account Settings"
+        titleHeaderScreen={t('Settings.title')}
         iconRightHeaderScreen={false}
         quantityItems={12}
         iconRightHeaderCart={false}
@@ -34,7 +55,7 @@ const AccountSettingScreen = () => {
         <View flexDirection={'row'} px={3} alignItems={'center'}>
           <Icon.User stroke="black" width={24} height={24} />
           <Text variant={'subtitle1'} ml={2}>
-            Account
+            {t('Settings.account')}
           </Text>
         </View>
 
@@ -47,7 +68,7 @@ const AccountSettingScreen = () => {
           h={'6%'}
           px={3}
         >
-          <Text variant={'body1'}>Account & Security</Text>
+          <Text variant={'body1'}>{t('Settings.accountSecurity')}</Text>
           <Icon.ChevronRight stroke="black" width={24} height={24} />
         </Pressable>
 
@@ -61,7 +82,7 @@ const AccountSettingScreen = () => {
           onPress={() => navigation.navigate('Address', { typeUser: true })}
           px={3}
         >
-          <Text variant={'body1'}>Addresses</Text>
+          <Text variant={'body1'}>{t('Settings.address')}</Text>
           <Icon.ChevronRight stroke="black" width={24} height={24} />
         </Pressable>
 
@@ -74,7 +95,7 @@ const AccountSettingScreen = () => {
           h={'6%'}
           px={3}
         >
-          <Text variant={'body1'}>Payment method</Text>
+          <Text variant={'body1'}>{t('Settings.PaymentMethod')}</Text>
           <Icon.ChevronRight stroke="black" width={24} height={24} />
         </Pressable>
 
@@ -88,7 +109,7 @@ const AccountSettingScreen = () => {
           px={3}
           onPress={() => setShowModalChangePass(true)}
         >
-          <Text variant={'body1'}>Change Password</Text>
+          <Text variant={'body1'}>{t('Settings.changePassword')}</Text>
           <Icon.ChevronRight stroke="black" width={24} height={24} />
         </Pressable>
 
@@ -102,11 +123,11 @@ const AccountSettingScreen = () => {
           <Pressable flexDirection={'row'} justifyItems={'center'} mt={2}>
             <Icon.Settings stroke="black" width={24} height={24} />
             <Text ml={2} variant={'subtitle1'}>
-              Settings
+              {t('Settings.settings')}
             </Text>
           </Pressable>
           <View flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
-            <Text variant={'body1'}>Notification Settings</Text>
+            <Text variant={'body1'}>{t('Settings.notificationSettings')}</Text>
             <Switch
               size="md"
               trackColor={{ false: '#767577', true: '#f62822' }}
@@ -127,9 +148,9 @@ const AccountSettingScreen = () => {
           alignItems={'center'}
           h={'6%'}
           px={3}
-          onPress={() => setShowModalLanguege(true)}
+          onPress={() => setShowModalLanguage(true)}
         >
-          <Text variant={'subtitle1'}>Language</Text>
+          <Text variant={'subtitle1'}>{t('Settings.language')}</Text>
           <Icon.ChevronRight stroke="black" width={24} height={24} />
         </Pressable>
 
@@ -143,11 +164,11 @@ const AccountSettingScreen = () => {
           <Pressable flexDirection={'row'} justifyItems={'center'}>
             <Icon.Headphones stroke="black" width={24} height={24} />
             <Text variant={'subtitle1'} ml={2}>
-              Support
+              {t('Settings.support')}
             </Text>
           </Pressable>
           <View flexDirection={'row'} justifyContent={'space-between'}>
-            <Text variant={'body1'}>Help Centre</Text>
+            <Text variant={'body1'}>{t('Settings.helpCenter')}</Text>
             <Icon.ChevronRight stroke="black" width={24} height={24} />
           </View>
         </View>
@@ -160,7 +181,7 @@ const AccountSettingScreen = () => {
           h={'6%'}
           px={3}
         >
-          <Text variant={'subtitle1'}>About</Text>
+          <Text variant={'subtitle1'}>{t('Settings.about')}</Text>
           <Icon.ChevronRight stroke="black" width={24} height={24} />
         </Pressable>
 
@@ -172,12 +193,12 @@ const AccountSettingScreen = () => {
             borderColor={'primary.600'}
           >
             <Text variant={'button'} color="primary.600">
-              Log out
+              {t('Settings.logout')}
             </Text>
           </Button>
         </View>
       </View>
-      <Modal isOpen={showModalLanguege} onClose={() => setShowModalLanguege(false)}>
+      <Modal isOpen={showModalLanguage} onClose={() => setShowModalLanguage(false)}>
         <Modal.Content width={'100%'} style={{ marginBottom: 0, marginTop: 'auto' }}>
           {/* <Modal.CloseButton /> */}
 
@@ -190,7 +211,7 @@ const AccountSettingScreen = () => {
             alignItems={'center'}
           >
             <Text variant={'title'} color="white">
-              Language
+              {t('Settings.language')}
             </Text>
             <Icon.X stroke="white" strokeWidth={2} width={18} height={18} />
           </View>
@@ -199,31 +220,44 @@ const AccountSettingScreen = () => {
             <Pressable
               h={10}
               borderRadius={5}
-              backgroundColor={'white'}
+              backgroundColor={isVN ? 'primary.600' : 'white'}
               borderWidth={1}
               alignItems={'center'}
+              onPress={() => {
+                setIsVN(true);
+                setIsEN(false);
+              }}
+              justifyContent={'center'}
             >
-              <Text variant={'title'}>Việt Nam</Text>
-            </Pressable>
-            <Pressable
-              h={10}
-              borderRadius={5}
-              backgroundColor={'primary.600'}
-              alignItems={'center'}
-            >
-              <Text variant={'title'} color="white">
-                EngLish
+              <Text variant={'title'} color={isVN ? 'white' : 'black'}>
+                {t('Settings.vietNamese')}
               </Text>
             </Pressable>
             <Pressable
               h={10}
               borderRadius={5}
+              borderWidth={1}
+              backgroundColor={isEN ? 'primary.600' : 'white'}
+              alignItems={'center'}
+              onPress={() => {
+                setIsEN(true);
+                setIsVN(false);
+              }}
+              justifyContent={'center'}
+            >
+              <Text variant={'title'} color={isEN ? 'white' : 'black'}>
+                {t('Settings.english')}
+              </Text>
+            </Pressable>
+            {/* <Pressable
+              h={10}
+              borderRadius={5}
               backgroundColor={'white'}
               borderWidth={1}
               alignItems={'center'}
             >
-              <Text variant={'title'}>Korea</Text>
-            </Pressable>
+              <Text variant={'title'}>{t('Settings.korea')}</Text>
+            </Pressable> */}
 
             <View flexDirection={'row'} justifyContent={'space-between'} mt={3}>
               <Pressable
@@ -237,12 +271,12 @@ const AccountSettingScreen = () => {
                 alignItems="center"
                 justifyContent="center"
                 onPress={() => {
-                  setShowModalLanguege(false);
+                  setShowModalLanguage(false);
                 }}
               >
                 <Icon.X stroke="#ac1506" strokeWidth={2} width={18} height={18} />
                 <Text color="primary.600" variant={'button'} ml={2}>
-                  Close
+                  {t('Settings.close')}
                 </Text>
               </Pressable>
               <Pressable
@@ -253,10 +287,13 @@ const AccountSettingScreen = () => {
                 alignItems="center"
                 flexDirection={'row'}
                 justifyContent="center"
+                onPress={() => {
+                  changeLanguage(isEN ? 'en' : 'vn');
+                }}
               >
                 <Icon.Check stroke="white" strokeWidth={2} width={18} height={18} />
                 <Text ml={2} color="white" fontWeight="bold" fontSize="14">
-                  Confirm
+                  {t('Settings.confirm')}
                 </Text>
               </Pressable>
             </View>
@@ -277,7 +314,7 @@ const AccountSettingScreen = () => {
             alignItems={'center'}
           >
             <Text variant={'title'} color="white">
-              ChangePassWord
+              {t('Settings.changePassword')}
             </Text>
             <Icon.X stroke="white" strokeWidth={2} width={18} height={18} />
           </View>
@@ -301,7 +338,7 @@ const AccountSettingScreen = () => {
               changeValue={setPassword}
             ></SSInputPopupPass>
             <SSInputPopupPass
-              placeholder={'Enter Password old'}
+              placeholder={t('Settings.passwordOld')}
               type={'password'}
               inputLeftElement={<Icon.Lock stroke="#1C1C1C" width={24} height={24} />}
               setEyes={true}
@@ -328,12 +365,12 @@ const AccountSettingScreen = () => {
                 alignItems="center"
                 justifyContent="center"
                 onPress={() => {
-                  setShowModalLanguege(false);
+                  setShowModalLanguage(false);
                 }}
               >
                 <Icon.X stroke="#ac1506" strokeWidth={2} width={18} height={18} />
                 <Text color="primary.600" variant={'button'} ml={2}>
-                  Close
+                  {t('Settings.close')}
                 </Text>
               </Pressable>
               <Pressable
@@ -347,7 +384,7 @@ const AccountSettingScreen = () => {
               >
                 <Icon.Check stroke="white" strokeWidth={2} width={18} height={18} />
                 <Text ml={2} color="white" fontWeight="bold" fontSize="14">
-                  Confirm
+                  {t('Settings.confirm')}
                 </Text>
               </Pressable>
             </View>

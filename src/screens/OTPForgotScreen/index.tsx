@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, Toast, Button } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
-// import { CheckOTPPayload } from 'interfaces/Auth';
 import SSTextInput from 'components/SSTextInput';
 import { URL_IMG_AUTH } from 'global/constants';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 const OTPForgotScreen = (props: any) => {
+  const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
 
   const [id] = useState(props.route.params.user_id);
@@ -56,7 +57,7 @@ const OTPForgotScreen = (props: any) => {
         fontSize={36}
         textAlign={'center'}
       >
-        OTP Verification
+        {t('OTP.title')}
       </Text>
 
       <View h={200} alignItems={'center'}>
@@ -68,11 +69,11 @@ const OTPForgotScreen = (props: any) => {
           fontFamily={'heading'}
           fontStyle={'normal'}
         >
-          We have sent OTP to the phone number. The expiry date is 5 minutes
+          {t('OTP.detail')}
         </Text>
 
         <SSTextInput
-          placeholder={'Enter your OTP...'}
+          placeholder={t('OTP.enterOTP')}
           typePassword={false}
           inputLeftElement={<Icon.Mail stroke="black" width={24} height={24} />}
           value={otp}
@@ -88,7 +89,7 @@ const OTPForgotScreen = (props: any) => {
           disabled={disableButton}
         >
           <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
-            Verify
+            {t('OTP.verify')}
           </Text>
         </Button>
       </View>

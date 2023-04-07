@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, FlatList, Pressable, Text } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ItemSelectVoucher from 'components/ItemSelectVoucher';
@@ -9,6 +10,7 @@ import SSTextInput from 'components/SSTextInput';
 import { DATA6 } from 'mocks';
 
 const SelectVoucherScreen = () => {
+  const { t } = useTranslation();
   const [selected, setSelected] = React.useState(new Map());
 
   const onSelect = React.useCallback(
@@ -48,14 +50,14 @@ const SelectVoucherScreen = () => {
         iconSearchEnabled={false}
         iconOther={false}
         titleHeaderSearch={''}
-        titleHeaderScreen={'Voucher'}
+        titleHeaderScreen={t('SelectVoucher.title')}
         iconRightHeaderScreen={false}
         quantityItems={0}
         iconRightHeaderCart={false}
         quantityHeaderCarts={0}
       />
       <SSTextInput
-        placeholder={'Voucher code'}
+        placeholder={t('SelectVoucher.voucherCode')}
         typePassword={false}
         inputLeftElement={<Icon.Gift strokeWidth={1} stroke={'black'} />}
         inputRightElement={
@@ -67,8 +69,10 @@ const SelectVoucherScreen = () => {
         changeValue={setVoucher}
       />
       <Box marginY={3}>
-        <Text variant="subtitle1">Shipping voucher</Text>
-        <Text variant="subtitle2">{1} more voucher can be selected</Text>
+        <Text variant="subtitle1">{t('SelectVoucher.shippingVoucher')}</Text>
+        <Text variant="subtitle2">
+          {1} {t('SelectVoucher.voucherCanSelected')}
+        </Text>
       </Box>
       <FlatList
         data={DATA6}
@@ -82,8 +86,10 @@ const SelectVoucherScreen = () => {
         keyExtractor={(item) => item.name}
       />
       <Box marginY={3}>
-        <Text variant="subtitle1">Discount voucher</Text>
-        <Text variant="subtitle2">{1} more voucher can be selected</Text>
+        <Text variant="subtitle1">{t('SelectVoucher.discount')}</Text>
+        <Text variant="subtitle2">
+          {1} {t('SelectVoucher.voucherCanSelected')}
+        </Text>
       </Box>
       <FlatList
         data={DATA6}
@@ -97,10 +103,12 @@ const SelectVoucherScreen = () => {
         keyExtractor={(item) => item.name}
       />
       <Box height="auto" width="100%" paddingTop={3}>
-        <Text variant="button">{0} voucher selected</Text>
+        <Text variant="button">
+          {0} {t('SelectVoucher.voucherSelected')}
+        </Text>
         <SSButton
           variant={'red'}
-          text={'Select voucher'}
+          text={t('SelectVoucher.title')}
           width="100%"
           onPress={() => console.log('Hello')}
         />

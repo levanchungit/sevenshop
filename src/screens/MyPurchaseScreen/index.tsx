@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, Pressable, FlatList } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import ItemProductMyPurchases from 'components/ItemProductMyPurchases';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetOrders from 'hook/order/useGetOrders';
@@ -8,6 +9,7 @@ import { IMyPurchases } from 'interfaces/Order';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 const MyPurchaseScreen = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
 
   const [itemSelected, setItemSelected] = useState([
@@ -111,7 +113,7 @@ const MyPurchaseScreen = () => {
             iconSearchEnabled={false}
             iconOther={false}
             titleHeaderSearch={''}
-            titleHeaderScreen={'My Purchases'}
+            titleHeaderScreen={t('MyPurchases.title')}
             iconRightHeaderScreen={false}
             quantityItems={5}
             iconRightHeaderCart={false}
