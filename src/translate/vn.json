@@ -1,0 +1,241 @@
+{
+  "key": "ngon ngu",
+  "hello": "Xin chao, world!",
+  "goodbye": {
+    "farewell": "Tạm biệt, world!",
+    "farewell2": "Tạm biệt 2, world!"
+  },
+  "Login": {
+    "title": "Đăng nhập",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu",
+    "loginWith": "Hoặc đăng nhập với",
+    "notHaveAccount": "Bạn chưa có tài khoản?",
+    "register": "Đăng kí"
+  },
+  "Register": {
+    "title": "Đăng kí",
+    "email": "Nhập email/số điện thoại",
+    "loginWith": "Hoặc đăng nhập với",
+    "haveAccount": "Bạn đã có tài khoản",
+    "login": "Đăng nhập"
+  },
+  "ForgotPassword": {
+    "title": "Quên mật khẩu",
+    "detail": "Hẫy nhập email/số điện thoại để nhận mật khẩu mới",
+    "email": "Nhập email/số điện thoại",
+    "send": "Gửi"
+  },
+  "OTP": {
+    "title": "Xác mình OTP",
+    "detail": "Chúng tôi đã gửi mã OTP đến số điện thoại của bạn, hạn sử dụng là 5 phút",
+    "enterOTP": "Nhập mã OTP",
+    "Verify": "Xác nhận"
+  },
+  "SetPassWord": {
+    "title": "Đặt mật khẩu",
+    "password": "Nhập mật khẩu",
+    "confirmPassword": "Xác nhận lại mật khẩu",
+    "set": "Đặt"
+  },
+  "Home": {
+    "title": "Trang chủ",
+    "flashSale": "Flash Sale",
+    "seeAll": "Xem tất cả",
+    "forYou": "Dành cho bạn"
+  },
+  "Details": {
+    "title": "Chi tiết sản phẩm",
+    "addToCart": "Thêm giỏ hàng",
+    "buyNow": "Mua ngay",
+    "description": "Miêu tả",
+    "reviews": "Nhận xet",
+    "relatedProducts": "Sản phẩm tương tự",
+    "seeAll": "Xem tất cả",
+    "rating": "Đánh giá"
+  },
+  "Cart": {
+    "title": "Giỏ hàng",
+    "selectedAll": "Chọn tất cả",
+    "total": "Tổng tiền",
+    "buyNow": "Mua ngay",
+    "wareHouse": "Kho",
+    "size": "Kích cỡ",
+    "color": "Màu sắc",
+    "confirm": "Xác nhận"
+  },
+  "Checkout": {
+    "title": "Thanh toán",
+    "deliveryAddress": "Địa chỉ giao hàng",
+    "paymentOption": "Phương thức thanh toán",
+    "cashOnDelivery": "Thanh toán khi nhận hàng",
+    "myVoucher": "Voucher của tôi",
+    "chooseVoucher": "Chọn voucher",
+    "shippingFee": "Phí vận chuyển",
+    "total": "Tổng tiền"
+  },
+  "PaymentSuccess": {
+    "title": "Thanh toán thành công",
+    "paymentTime": "Thời gian thanh toán",
+    "tradingCode": "Mã giao dịch",
+    "paidBy": "Thanh toán bằng",
+    "details": "Để biết thêm chi tiết về trạng thái đơn hàng của bạn, vui lòng chọn Hồ sơ hoặc nhấp để Xem đơn hàng",
+    "viewOrder": "Xem đơn hàng",
+    "thankYou": "SevenShop cảm ơn bạn đã lựa chọn chúng tôi. Hi vọng bạn sẽ có những trải nghiệm tuyệt vời khi sử dụng sản phẩm/dịch vụ của chúng tôi. Rất mong tiếp tục nhận được sự ủng hộ của quý khách trong thời gian tới",
+    "keepShopping": "Tiếp tục mua sắm"
+  },
+  "myPurchases": {
+    "title": "Đơn hàng của tôi",
+    "toShip": "Giao hàng",
+    "toReceive": "Nhận hàng",
+    "toPay": "Thanh toán",
+    "completed": "Hoàn thành",
+    "Canceled": "Đã hủy",
+    "viewDetail": "Xem chi tiết",
+    "buyAgain": "Mua lại"
+  },
+  "OrderDetail": {
+    "title": "Chi tiết đơn hàng",
+    "packed": "Đã đóng gói",
+    "detailPacked": "Kiện hàng của bạn đã được đóng gói và sẽ được bàn giao cho đối tác hậu cần của chúng tôi",
+    "time": "Nhận hàng từ",
+    "deliveryAddress": "Địa chỉ giao hàng",
+    "oderCode": "Mã đơn hàng",
+    "copy": "Sao chép",
+    "paidBy": "Thanh toán bằng",
+    "subTotal": "Tổng sản phẩm",
+    "item": "Sản phẩm",
+    "shippingFee": "Phí vận chuyển",
+    "voucher": "Mã giảm giá",
+    "total": "Tổng tiền"
+  },
+  "Address": {
+    "title": "Địa chỉ",
+    "default": "Mặc định",
+    "addAddress": "Thêm địa chỉ",
+    "newEditAddress": "Thêm/Sửa địa chỉ",
+    "name": "Tên người nhận",
+    "phone": "Số điện thoại",
+    "address": "Địa chỉ",
+    "addressType": "Loại địa chỉ",
+    "home": "Nhà riêng",
+    "company": "Công ty",
+    "setDefault": "Đặt làm địa chỉ mặc định",
+    "delete": "Xóa địa chỉ",
+    "submit": "Xác nhận"
+  },
+  "PaymentMethod": {
+    "title": "Phương thức thanh toán",
+    "cashOnDelivery": "Thanh toán khi nhận hàng",
+    "banking": "Chuyển khoản ngân hàng",
+    "agree": "Đồng ý",
+    "addNewCard": "Thêm thẻ mới",
+    "cartNumber": "Số thẻ",
+    "cartHolderName": "Tên chủ thẻ",
+    "expiryDate": "Ngày hết hạn",
+    "save": "Lưu"
+  },
+  "SelectVoucher": {
+    "title": "Chọn mã giảm giá",
+    "voucherCode": "Mã giảm giá",
+    "shippingVoucher": "Mã giảm phí vận chuyển",
+    "voucherCanSelected": "Mã giảm giá có thể chọn",
+    "effective": "Hiệu lực từ",
+    "condition": "Điều kiện",
+    "discount": "Giảm giá",
+    "voucherSelected": "Mã giảm giá đã chọn"
+  },
+  "MyRating": {
+    "title": "Đánh giá của tôi",
+    "rated": "Đã đánh giá",
+    "notRated": "Chưa đánh giá",
+    "happy": "Hài lòng",
+    "comment": "Hãy chia sẻ cảm nhận và đánh giá của bạn về sản phẩm này.",
+    "submit": "Xác nhận"
+  },
+  "Settings": {
+    "title": "Cài đặt",
+    "account": "Tài khoản",
+    "accountSecurity": "Tài khoản và bảo mật",
+    "fullName": "Họ và tên",
+    "phone": "Số điện thoại",
+    "email": "Email",
+    "birthday": "Ngày sinh",
+    "address": "Địa chỉ",
+    "PaymentMethod": "Phương thức thanh toán",
+    "changePassword": "Đổi mật khẩu",
+    "passwordOld": "Nhập mật khẩu cũ",
+    "passwordNew": "Nhập mật khẩu mới",
+    "passwordConfirm": "Nhập lại mật khẩu mới",
+    "close": "Đóng",
+    "confirm": "Xác nhận",
+    "settings": "Cài đặt",
+    "notificationSettings": "Cài đặt thông báo",
+    "language": "Ngôn ngữ",
+    "vietNamese": "Tiếng Việt",
+    "english": "Tiếng Anh",
+    "korean": "Tiếng Hàn",
+    "support": "Hỗ trợ",
+    "helpCenter": "Trung tâm trợ giúp",
+    "about": "Giới thiệu",
+    "logout": "Đăng xuất"
+  },
+  "Notification": {
+    "title": "Thông báo"
+  },
+  "Favorite": {
+    "title": "Yêu thích"
+  },
+  "Profile": {
+    "title": "Thông tin cá nhân",
+    "myPurchase": "Đơn hàng của tôi",
+    "purchaseHistory": "Lịch sử mua hàng",
+    "toPay": "Chờ thanh toán",
+    "toShip": "Đợi vận chuyển",
+    "toReceive": "Đang giao hàng",
+    "rating": "Đánh giá",
+    "memberShip": "Thành viên",
+    "recentlyViewed": "Đã xem gần đây",
+    "myVoucher": "Mã giảm giá của tôi",
+    "memberSliver": "Thành viên Bạc",
+    "memberGold": "Thành viên Vàng",
+    "memberDiamond": "Thành viên Kim cương"
+  },
+  "SearchProducts": {
+    "title": "Tìm kiếm sản phẩm",
+    "search": "Tìm kiếm",
+    "clearAll": "Xóa tất cả"
+  },
+  "Products": {
+    "title": "Sản phẩm",
+    "search": "Tìm kiếm",
+    "reset": "Làm mới",
+    "filter": {
+      "title": "Lọc",
+      "category": {
+        "title": "Danh mục",
+        "newest": "Mới nhất"
+      },
+      "price": {
+        "title": "Giá",
+        "min": "Thấp nhất",
+        "max": "Cao nhất"
+      },
+      "color": {
+        "title": "Màu sắc",
+        "black": "Đen",
+        "white": "Trắng",
+        "red": "Đỏ",
+        "blue": "Xanh da trời",
+        "yellow": "Vàng"
+      },
+      "size": "Kích cỡ",
+      "customerReview": "Đánh giá khách hàng"
+    },
+    "newest": "Mới nhất",
+    "bestSell": "Bán chạy nhất",
+    "related": "Sản phẩm liên quan",
+    "price": "Giá"
+  }
+}

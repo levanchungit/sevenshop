@@ -3,6 +3,10 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Box, Center, Text, VStack } from 'native-base';
 import { Dimensions } from 'react-native';
 import FlatListUserAddress from 'components/FlatListUserAddress';
+import { Box, FlatList } from 'native-base';
+import { useTranslation } from 'react-i18next';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import ItemAdrress from 'components/ItemAddress';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetAddresses from 'hook/addresses/useGetAddresses';
@@ -15,6 +19,7 @@ type AddressScreenProps = {
 const AddressScreen = (props: AddressScreenProps) => {
   const { typeUser } = props.route.params;
   const initialWidth = Dimensions.get('window').width;
+  const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
   const { addresses, err_addresses, loading_addresses, mutate_addresses } = useGetAddresses();
   const isFocused = useIsFocused();
@@ -33,7 +38,7 @@ const AddressScreen = (props: AddressScreenProps) => {
         iconSearchEnabled={false}
         iconOther={false}
         titleHeaderSearch={''}
-        titleHeaderScreen={'Address'}
+        titleHeaderScreen={t('Address.title')}
         iconRightHeaderScreen={false}
         quantityItems={0}
         iconRightHeaderCart={false}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Text, FlatList, Flex } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import { Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
@@ -13,6 +14,7 @@ import { IProduct } from 'interfaces/Product';
 import { DATA } from 'mocks';
 
 const RatingScreen = () => {
+  const { t } = useTranslation();
   const initialWidth = Dimensions.get('window').width;
   const [showModal, setShowModal] = useState(false);
   const { rated, err_rated, loading_rated } = useGetRated();
@@ -54,11 +56,11 @@ const RatingScreen = () => {
   const [routes] = useState([
     {
       key: 'first',
-      title: 'Not yet rated',
+      title: t('MyRating.notRated'),
     },
     {
       key: 'second',
-      title: 'Rated',
+      title: t('MyRating.rated'),
     },
   ]);
 
@@ -82,7 +84,7 @@ const RatingScreen = () => {
         iconSearchEnabled={false}
         iconOther={false}
         titleHeaderSearch={''}
-        titleHeaderScreen={'My rating'}
+        titleHeaderScreen={t('MyRating.title')}
         iconRightHeaderScreen={false}
         quantityItems={0}
         iconRightHeaderCart={false}

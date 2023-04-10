@@ -12,6 +12,7 @@ import {
   Skeleton,
 } from 'native-base';
 import { Dimensions, LogBox } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
@@ -33,6 +34,7 @@ type DetailScreenProps = {
 
 const DetailScreen = (props: DetailScreenProps) => {
   LogBox.ignoreLogs(['Warning: ...']);
+  const { t } = useTranslation();
   const { _id } = props.route.params;
   // const _id = '641a7c581358f1dd563383e9';
 
@@ -85,9 +87,9 @@ const DetailScreen = (props: DetailScreenProps) => {
       </Skeleton.Text>
 
       <Flex direction="row" justifyContent="space-between" mt={3}>
-        <Text variant="button">Recommend for you</Text>
+        <Text variant="button">{t('Details.relatedProducts')}</Text>
         <Pressable>
-          <Text variant="button">See all</Text>
+          <Text variant="button">{t('Details.seeAll')}</Text>
         </Pressable>
       </Flex>
       {errorProducts ? (
@@ -271,7 +273,7 @@ const DetailScreen = (props: DetailScreenProps) => {
           iconSearchEnabled={true}
           iconOther={true}
           titleHeaderSearch={''}
-          titleHeaderScreen={'Details'}
+          titleHeaderScreen={t('Details.title')}
           iconRightHeaderScreen={true}
           quantityItems={quantity?.data.quantity}
           iconRightHeaderCart={true}
@@ -297,6 +299,7 @@ const DetailScreen = (props: DetailScreenProps) => {
                   <Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />
                 }
                 onPress={() => setStatusLike(!statusLike)}
+                text={''}
               />
               <SSButton
                 leftIcon={

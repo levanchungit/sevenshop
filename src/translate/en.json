@@ -1,0 +1,246 @@
+{
+  "key": "translation",
+  "hello": "Hello, world!",
+  "goodbye": {
+    "farewell": "Goodbye, world!",
+    "farewell2": "Goodbye, world!"
+  },
+  "Login": {
+    "title": "Login",
+    "email": "Enter your email/phone number",
+    "password": "'Enter your password'",
+    "forgotPassword": "Forgot Password?",
+    "loginWith": "Or login with",
+    "notHaveAccount": "Don't you have an account?",
+    "register": "Register"
+  },
+  "Register": {
+    "title": "Register",
+    "email": "Enter your email/phone number",
+    "loginWith": "Or login with",
+    "haveAccount": "Don't you have an account?",
+    "login": "Login"
+  },
+  "ForgotPassword": {
+    "title": "Forgot Password",
+    "detail": "Please enter your email or phone number:",
+    "email": "Enter your email/phone number",
+    "send": "Send"
+  },
+  "OTP": {
+    "title": "OTP Verification",
+    "detail": "We have sent OTP to the phone number. The expiry date is 5 minutes",
+    "enterOTP": "Enter your OTP",
+    "verify": "Verify"
+  },
+  "SetPassWord": {
+    "title": "Set Password",
+    "password": "Enter your password",
+    "confirmPassword": "Enter Confirm your password",
+    "set": "Set"
+  },
+  "Home": {
+    "title": "Home",
+    "flashSale": "Flash Sale",
+    "seeAll": "See All",
+    "forYou": "For You"
+  },
+  "Details": {
+    "title": "Details",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "description": "Description",
+    "reviews": "Reviews",
+    "relatedProducts": "Recommend for you",
+    "seeAll": "See All",
+    "rating": "Rating"
+  },
+  "Cart": {
+    "title": "Cart",
+    "selectedAll": "Selected All",
+    "total": "Total",
+    "buyNow": "Buy Now",
+    "wareHouse": "WareHouse",
+    "size": "Size",
+    "color": "Color",
+    "confirm": "Confirm"
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "deliveryAddress": "Delivery Address",
+    "paymentOption": "Payment Options",
+    "cashOnDelivery": "Cash on Delivery",
+    "myVoucher": "My Voucher",
+    "chooseVoucher": "Choose Voucher",
+    "shippingFee": "Shipping Fee",
+    "total": "Total"
+  },
+  "PaymentSuccess": {
+    "title": "Success Payment",
+    "paymentTime": "Payment time",
+    "tradingCode": "Trading code",
+    "paidBy": "Paid by",
+    "details1": "For more details on the status of your order please select",
+    "details2": "or click to",
+    "profile": "Profile",
+    "viewOrder": "View Order",
+    "thankYou1": "SevenShop thank you for choosing us.",
+    "thankYou2": "Hope you will have a great experience when using our products/services.",
+    "thankYou3": "We look forward to your continued support in the future",
+    "keepShopping": "Keep Shopping"
+  },
+  "myPurchases": {
+    "title": "My Purchase",
+    "toShip": "To Ship",
+    "toReceive": "To Receive",
+    "toPay": "To Pay",
+    "completed": "Completed",
+    "Canceled": "Canceled",
+    "viewDetail": "View Detail",
+    "buyAgain": "Buy Again"
+  },
+  "OrderDetail": {
+    "title": "Order Detail",
+    "packed": "Packed",
+    "detailPacked": "Your parcel is packed and will be handed over to our logistics partner",
+    "time": "Get by",
+    "deliveryAddress": "Delivery Address",
+    "oderCode": "Order Code",
+    "copy": "Copy",
+    "paidBy": "Paid by",
+    "subTotal": "Subtotal",
+    "item": "Item(s)",
+    "shippingFee": "Shipping Fee",
+    "voucher": "Voucher",
+    "total": "Total"
+  },
+  "Address": {
+    "title": "Address",
+    "default": "Default",
+    "addAddress": "Add new address",
+    "editAddress": "Edit Address",
+    "newAddress": "New Address",
+    "name": "Enter the recipient's name",
+    "phone": "Enter the recipient's phone number",
+    "address": "Enter the recipient's address",
+    "addressType": "Address type",
+    "home": "Home",
+    "company": "Company",
+    "setDefault": "Set Address Default",
+    "delete": "Delete Address",
+    "submit": "Submit"
+  },
+  "PaymentMethod": {
+    "title": "Payment Method",
+    "cashOnDelivery": "Cash on Delivery",
+    "banking": "Banking",
+    "agree": "Agree",
+    "addNewCard": "Add new card",
+    "cartNumber": "Cart Number",
+    "cartHolderName": "Cart Holder Name",
+    "expiryDate": "Expiry Date",
+    "save": "Save my card"
+  },
+  "SelectVoucher": {
+    "title": "Select Voucher",
+    "voucherCode": "Voucher Code",
+    "shippingVoucher": "Shipping Voucher",
+    "voucherCanSelected": "Voucher can be selected",
+    "effective": "Effective from",
+    "condition": "Condition",
+    "discount": "Discount",
+    "voucherSelected": "voucher selected"
+  },
+  "MyRating": {
+    "title": "My Rating",
+    "rated": "Rated",
+    "notRated": "Not yet rated",
+    "happy": "What makes your happy?",
+    "comment": "Please share your comments and reviews about this product.",
+    "submit": "Submit"
+  },
+  "Settings": {
+    "title": "Account Settings",
+    "account": "Account",
+    "accountSecurity": "Account & Security",
+    "fullName": "Full Name",
+    "phone": "Phone Number",
+    "email": "Email",
+    "birthday": "Birthday",
+    "address": "Addresses",
+    "PaymentMethod": "Payment Method",
+    "changePassword": "Change Password",
+    "passwordOld": "Enter your old password",
+    "passwordNew": "Enter your new password",
+    "passwordConfirm": "Enter your confirm password",
+    "close": "Close",
+    "confirm": "Confirm",
+    "settings": "Settings",
+    "notificationSettings": "Notification Settings",
+    "language": "Language",
+    "vietNamese": "VietNamese",
+    "english": "English",
+    "korean": "Korean",
+    "support": "Support",
+    "helpCenter": "Help Center",
+    "about": "About",
+    "logout": "Logout"
+  },
+  "Notification": {
+    "title": "Notification"
+  },
+  "Favorite": {
+    "title": "Your Favorite"
+  },
+  "Profile": {
+    "title": "Profile",
+    "myPurchase": "My Purchase",
+    "purchaseHistory": "Purchase History",
+    "toPay": "To Pay",
+    "toShip": "To Ship",
+    "toReceive": "To Receive",
+    "rating": "Rating",
+    "memberShip": "MemberShip",
+    "recentlyViewed": "Recently Viewed",
+    "myVoucher": "My Voucher",
+    "memberSliver": "Member Sliver",
+    "memberGold": "Member Gold",
+    "memberDiamond": "Member Diamond"
+  },
+  "SearchProducts": {
+    "title": "Search Products",
+    "search": "Search",
+    "clearAll": "Clear All"
+  },
+  "Products": {
+    "title": "Products",
+    "search": "Search",
+    "reset": "Reset",
+    "filter": {
+      "title": "Filter",
+      "category": {
+        "title": "Category",
+        "newest": "Newest"
+      },
+      "price": {
+        "title": "Price",
+        "min": "MIN",
+        "max": "MAX"
+      },
+      "color": {
+        "title": "Size",
+        "black": "Black",
+        "white": "White",
+        "red": "Red",
+        "blue": "Blue",
+        "yellow": "Yellow"
+      },
+      "size": "Size",
+      "customerReview": "Customer Review"
+    },
+    "newest": "Newest",
+    "bestSell": "Best Sell",
+    "related": "Related",
+    "price": "Price"
+  }
+}

@@ -1,5 +1,5 @@
-// import { useState } from 'react';
-import { View, FlatList } from 'native-base';
+import { Text, View, FlatList, Pressable, Image } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import ItemFavoritesProduct from 'components/ItemFavoritesProduct';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetFavoritesProducts from 'hook/product/useGetFavoritesProducts';
@@ -9,6 +9,7 @@ const ProductFavoritesScreen = () => {
   // const limit = 5;
   // const [page] = useState(1);
   const { products } = useGetFavoritesProducts();
+  const { t } = useTranslation();
   return (
     <View flex={1} py={9} backgroundColor={'white'}>
       <SSHeaderNavigation
@@ -23,6 +24,10 @@ const ProductFavoritesScreen = () => {
         iconRightHeaderCart={false}
         quantityHeaderCarts={0}
       />
+
+      <Text color={'primary.500'} fontSize={25}>
+        {t('hello')}
+      </Text>
 
       <View px={3}>
         <FlatList

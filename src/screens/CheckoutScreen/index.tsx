@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Button, FlatList, Pressable, Text, Toast, View } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icons from 'react-native-feather';
 import ItemProductCheckout from 'components/ItemProductCheckout';
 import SelectOptions from 'components/SelectOptions';
@@ -13,6 +14,7 @@ type Props = {
 const CheckoutScreen = ({ route }: Props) => {
   const { data } = route.params;
   console.log('ee', data);
+  const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
   const data2 = Object.assign(data, { payment_type: 'cod', note: 'SYS test', voucher_id: '' });
 
@@ -37,7 +39,7 @@ const CheckoutScreen = ({ route }: Props) => {
           iconSearchEnabled={false}
           iconOther={false}
           titleHeaderSearch={''}
-          titleHeaderScreen={'Checkout'}
+          titleHeaderScreen={t('Checkout.title')}
           iconRightHeaderScreen={false}
           quantityItems={0}
           iconRightHeaderCart={false}
@@ -64,7 +66,7 @@ const CheckoutScreen = ({ route }: Props) => {
                     style={{ marginLeft: 12 }}
                     fontFamily={'Raleway_500Medium'}
                   >
-                    Delivery Address
+                    {t('Checkout.deliveryAddress')}
                   </Text>
                 </View>
                 <View flexDirection={'row'} justifyContent={'space-between'} alignItems="center">
@@ -117,7 +119,7 @@ const CheckoutScreen = ({ route }: Props) => {
         <View w="100%" position={'absolute'} bottom={0} left={0}>
           <SelectOptions
             style={{}}
-            title="Payment Options"
+            title={t('Checkout.paymentMethod')}
             iconLeft={<Icons.CreditCard stroke={'black'} width={24} height={24} />}
             iconRight={
               <Pressable
@@ -129,7 +131,7 @@ const CheckoutScreen = ({ route }: Props) => {
                   variant="Body2"
                   fontFamily={'Raleway_500Medium'}
                 >
-                  Cash on delivery
+                  {t('Checkout.cashOnDelivery')}
                 </Text>
                 <Icons.ChevronRight stroke={'black'} width={24} height={24} />
               </Pressable>
@@ -138,7 +140,7 @@ const CheckoutScreen = ({ route }: Props) => {
 
           <SelectOptions
             style={{}}
-            title="My Voucher"
+            title={t('Checkout.myVoucher')}
             iconLeft={<Icons.Gift stroke={'black'} width={24} height={24} />}
             iconRight={
               <Pressable
@@ -150,7 +152,7 @@ const CheckoutScreen = ({ route }: Props) => {
                   variant="Body2"
                   fontFamily={'Raleway_500Medium'}
                 >
-                  Reduce 20%
+                  t{'Checkout.chooseVoucher'}
                 </Text>
                 <Icons.ChevronRight stroke={'black'} width={24} height={24} />
               </Pressable>
@@ -162,7 +164,7 @@ const CheckoutScreen = ({ route }: Props) => {
             title=""
             iconLeft={
               <Text variant={'Body1'} fontFamily={'Raleway_500Medium'}>
-                Shipping fee
+                {t('Checkout.shippingFee')}
               </Text>
             }
             iconRight={
@@ -187,7 +189,7 @@ const CheckoutScreen = ({ route }: Props) => {
                 fontSize="2xl"
                 fontFamily={'Raleway_500Medium'}
               >
-                Total
+                {t('Checkout.total')}
               </Text>
             }
             iconRight={
@@ -213,7 +215,7 @@ const CheckoutScreen = ({ route }: Props) => {
                 fontWeight={'bold'}
                 fontFamily={'Raleway_700Bold'}
               >
-                Checkout
+                {t('Checkout.title')}
               </Text>
             </Button>
           </View>
