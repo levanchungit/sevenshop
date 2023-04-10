@@ -19,6 +19,9 @@ const productAPI = {
     const response = await axiosInstance.get(API_ROUTES.getProductDetail(id));
     return response.data;
   },
+  updateFavorite(id: string) {
+    return axiosInstance.post(API_ROUTES.updateFavorite(id));
+  },
 };
 
 export default productAPI;

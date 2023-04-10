@@ -7,23 +7,22 @@ import { IColor } from 'interfaces/Color';
 import { IProduct, IStock } from 'interfaces/Product';
 import { ISize } from 'interfaces/Size';
 import { cartAPI } from 'modules';
+import { formatNumberCurrencyVN } from 'utils/common';
 
 type Props = {
   product: IProduct;
   showModal: boolean;
   setShowModal: Function;
   functionButton: string;
+  mutate: Function;
 };
 
 const ModalPopupCart = (props: Props) => {
-  const { product, showModal, setShowModal, functionButton } = props;
+  const { product, showModal, setShowModal, functionButton, mutate } = props;
   const [selectedSize, setSelectedSize] = useState<string>(product?.stock[0].size_id._id);
   const [selectedColor, setSelectedColor] = useState<string>(product?.stock[0].color_id._id);
   const [quantity, setQuantity] = useState<number>(product?.stock[0].quantity);
   const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
-  const numberWithCommas = (num?: number) => {
-    return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  };
   const data: AddCartPayload = {
     size_id: selectedSize,
     color_id: selectedColor,
@@ -33,7 +32,12 @@ const ModalPopupCart = (props: Props) => {
 
   const addCart = async () => {
     try {
-      if (selectedQuantity === 0)
+      if (selectedSize === '' || selectedColor === '')
+        Toast.show({
+          title: 'Please select type of color & size',
+          placement: 'top',
+        });
+      else if (selectedQuantity === 0)
         Toast.show({
           title: 'Please select a quantity',
           placement: 'top',
@@ -44,6 +48,7 @@ const ModalPopupCart = (props: Props) => {
           title: 'Successfully added product to cart',
           placement: 'top',
         });
+        mutate();
         setShowModal(false);
       }
     } catch (error: any) {
@@ -67,15 +72,15 @@ const ModalPopupCart = (props: Props) => {
     setQuantity(filterStock[0].quantity);
     setSelectedQuantity(0);
   };
+
   const increaseQuantity = () => {
-    if (quantity === 0) {
+    if (selectedQuantity >= quantity) {
       Toast.show({
-        title: 'Cannot increase quantity',
+        title: 'You have selected maximum quantity',
         placement: 'top',
       });
     } else {
       setSelectedQuantity(selectedQuantity + 1);
-      setQuantity(quantity - 1);
     }
   };
   const decreaseQuantity = () => {
@@ -86,7 +91,6 @@ const ModalPopupCart = (props: Props) => {
       });
     } else {
       setSelectedQuantity(selectedQuantity - 1);
-      setQuantity(quantity + 1);
     }
   };
 
@@ -145,9 +149,8 @@ const ModalPopupCart = (props: Props) => {
                   }}
                 >
                   {product?.price_sale
-                    ? numberWithCommas(product?.price_sale)
-                    : numberWithCommas(product?.price)}
-                  đ
+                    ? formatNumberCurrencyVN(product?.price_sale)
+                    : formatNumberCurrencyVN(product?.price)}
                 </Text>
                 {product?.price_sale ? (
                   <Text
@@ -158,7 +161,7 @@ const ModalPopupCart = (props: Props) => {
                       fontVariant: ['lining-nums'],
                     }}
                   >
-                    {numberWithCommas(product?.price)}đ
+                    {formatNumberCurrencyVN(product?.price)}
                   </Text>
                 ) : null}
               </Box>
@@ -178,7 +181,7 @@ const ModalPopupCart = (props: Props) => {
                 Colors:
               </Text>
               <Flex direction="row" w={150} wrap="wrap">
-                {product.color_ids.map((color: IColor) => {
+                {product?.color_ids.map((color: IColor) => {
                   return (
                     <Pressable
                       onPress={() => update({ idColor: color._id })}
@@ -208,7 +211,7 @@ const ModalPopupCart = (props: Props) => {
                 Sizes:
               </Text>
               <Flex direction="row" w={150} wrap="wrap">
-                {product.size_ids.map((size: ISize) => {
+                {product?.size_ids.map((size: ISize) => {
                   return (
                     <Pressable
                       onPress={() => update({ idSize: size._id })}

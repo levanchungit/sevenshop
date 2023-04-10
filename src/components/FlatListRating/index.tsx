@@ -1,4 +1,4 @@
-import { Box, FlatList, HStack, Skeleton, VStack } from 'native-base';
+import { Box, FlatList, HStack, Skeleton, VStack, Text } from 'native-base';
 import ItemRating from 'components/ItemRating';
 import { IRating } from 'interfaces/Rating';
 
@@ -19,21 +19,13 @@ const FlatListRating = (props: Props) => {
           </HStack>
           <Skeleton.Text lines={4} mb={3} />
         </Box>
-        <Box p={3} marginBottom={2}>
-          <HStack mb={3}>
-            <Skeleton rounded="full" size={50} mr={3} />
-            <Skeleton borderRadius={10} w="50%" h={6} />
-          </HStack>
-          <Skeleton.Text lines={4} mb={3} />
-        </Box>
-        <Box p={3} marginBottom={2}>
-          <HStack mb={3}>
-            <Skeleton rounded="full" size={50} mr={3} />
-            <Skeleton borderRadius={10} w="50%" h={6} />
-          </HStack>
-          <Skeleton.Text lines={4} mb={3} />
-        </Box>
       </VStack>
+    );
+  } else if (ratings.length === 0) {
+    return (
+      <Text variant="title" alignSelf="center">
+        No comment yet
+      </Text>
     );
   } else {
     return (
