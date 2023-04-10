@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Box, Center, Text, VStack } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import { Dimensions } from 'react-native';
 import FlatListUserAddress from 'components/FlatListUserAddress';
-import { Box, FlatList } from 'native-base';
-import { useTranslation } from 'react-i18next';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import ItemAdrress from 'components/ItemAddress';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetAddresses from 'hook/addresses/useGetAddresses';

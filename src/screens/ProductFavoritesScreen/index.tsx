@@ -1,4 +1,4 @@
-import { Text, View, FlatList, Pressable, Image } from 'native-base';
+import { Text, View, FlatList } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import ItemFavoritesProduct from 'components/ItemFavoritesProduct';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';

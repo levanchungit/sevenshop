@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Pressable, Box, FlatList, Image, Button, Modal, Flex } from 'native-base';
+import { Text, View, Pressable, FlatList, Button, Modal, Toast } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import ItemCart from 'components/ItemCart';

@@ -18,10 +18,9 @@ type orderDetail = {
 const OrderDetailScreen = ({ route }: orderDetail) => {
   const { id_order } = route.params;
   const { order } = useGetOrderById(id_order);
+  const { t } = useTranslation();
 
   console.log('order', order?.data.products);
-const OrderDetailScreen = (props: Props) => {
-  const { t } = useTranslation();
   return (
     <View flex={1} pt={3} backgroundColor="white">
       <View mt={4}>
@@ -175,7 +174,8 @@ const OrderDetailScreen = (props: Props) => {
             <SSItemFeeOrderDetail
               style={{}}
               title={'Paid by'}
-              detail={order ? (order?.data.payment_type === 'cod' ? 'Cash' : '...') : '......'} />
+              detail={order ? (order?.data.payment_type === 'cod' ? 'Cash' : '...') : '......'}
+            />
             <SSItemFeeOrderDetail style={{}} title={'Payment status'} detail={'Waiting'} />
             <SSItemFeeOrderDetail
               style={{}}
