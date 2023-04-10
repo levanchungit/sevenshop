@@ -12,17 +12,15 @@ type Success = {
 const PaymentSuccess = ({ route }: Success) => {
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
-  const { id_order } = route.params;
-  const { order } = useGetOrderById(id_order);
+  const { data_detail } = route.params;
+  // console.log('data_detail', data_detail);
   let date = '';
-  if (order) {
+  if (data_detail) {
     date =
-      (order?.data.created_at).slice(11, 16) +
+      data_detail.results.created_at.slice(11, 16) +
       '-' +
-      Moment((order?.data.created_at).slice(0, 10)).format('DD/MM/YYYY');
+      Moment(data_detail.results.created_at).format('DD/MM/YYYY');
   }
-
-  // console.log('PaymentSuccess', order?.data);
 
   return (
     <View bgColor={'white'} flex={1}>
@@ -76,7 +74,7 @@ const PaymentSuccess = ({ route }: Success) => {
                 fontSize={16}
                 color={'primary.600'}
               >
-                {order ? '#' + order?.data._id : '...............'}
+                {data_detail ? '#' + data_detail.results._id : '...............'}
               </Text>
             </View>
             <View flexDirection={'row'} justifyContent="space-between" color={'black'} mb={3}>
@@ -89,7 +87,13 @@ const PaymentSuccess = ({ route }: Success) => {
                 {t('PaymentSuccess.paidBy')}
               </Text>
               <Text variant={'Body1'} fontSize={16} color={'black'} fontFamily="Raleway_500Medium">
-                {order ? (order?.data.payment_type === 'cod' ? 'Cash' : '...') : '......'}
+                {data_detail
+                  ? data_detail?.results.payment_type === 'cod'
+                    ? 'Cash'
+                    : data_detail?.results.payment_type === 'bank'
+                    ? 'bank'
+                    : 'momo'
+                  : '......'}
               </Text>
             </View>
             <View flexDirection={'row'} justifyContent="space-between" color={'black'}>

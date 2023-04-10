@@ -15,12 +15,21 @@ const Cart = () => {
   const { t } = useTranslation();
   const { carts, mutate_carts } = useGetCarts();
   const [showModal, setShowModal] = useState(false);
-  // let [quantity, setQuantity] = useState(1);
   // const [selectedSize, setSelectedSize] = useState<string>();
+
+  const newData = carts?.data
+    ? carts?.data.map(
+        (item: { size_id: any; size: { _id: any }; color_id: any; color: { _id: any } }) => {
+          item.size_id = item.size._id;
+          item.color_id = item.color._id;
+          return item;
+        }
+      )
+    : [];
 
   const onGetInvoice = async () => {
     try {
-      const response = await checkoutAPI.getInvoice({ products: carts?.data });
+      const response = await checkoutAPI.getInvoice({ products: newData });
       Toast.show({
         title: response.data.message,
         duration: 3000,
