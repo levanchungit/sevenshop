@@ -21,7 +21,6 @@ const Cart = () => {
   const onGetInvoice = async () => {
     try {
       const response = await checkoutAPI.getInvoice({ products: carts?.data });
-
       Toast.show({
         title: response.data.message,
         duration: 3000,

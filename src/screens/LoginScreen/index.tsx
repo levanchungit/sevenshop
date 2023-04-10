@@ -23,8 +23,8 @@ const LoginScreen = React.memo(() => {
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('levanchung.it@gmail.com');
+  const [password, setPassword] = useState('123456');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = useCallback(async () => {
