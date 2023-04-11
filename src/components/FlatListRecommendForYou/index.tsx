@@ -15,19 +15,19 @@ const FlatListRecommendForYou = (props: Props) => {
   if (isLoading) {
     return (
       <HStack>
-        <VStack w={100}>
+        <VStack mr={3} w={100}>
           <Skeleton h={100} mb={3} />
           <Skeleton.Text lines={2} />
         </VStack>
-        <VStack w={100}>
+        <VStack mr={3} w={100}>
           <Skeleton h={100} mb={3} />
           <Skeleton.Text lines={2} />
         </VStack>
-        <VStack w={100}>
+        <VStack mr={3} w={100}>
           <Skeleton h={100} mb={3} />
           <Skeleton.Text lines={2} />
         </VStack>
-        <VStack w={100}>
+        <VStack mr={3} w={100}>
           <Skeleton h={100} mb={3} />
           <Skeleton.Text lines={2} />
         </VStack>

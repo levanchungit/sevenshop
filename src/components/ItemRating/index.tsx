@@ -32,7 +32,7 @@ const ItemRating = (props: Props) => {
         <Flex direction="column" w="80%">
           <Flex direction="row" justifyContent="space-between">
             <Text
-              w="40%"
+              w="60%"
               numberOfLines={2}
               variant="title"
               style={{
@@ -42,7 +42,7 @@ const ItemRating = (props: Props) => {
               {rating.user_id.full_name ? rating.user_id.full_name : rating.user_id.email}
             </Text>
 
-            <Flex direction="column" alignItems="flex-end">
+            <Flex w="40%" direction="column" alignItems="flex-end">
               <Text
                 variant="caption"
                 style={{
@@ -57,7 +57,7 @@ const ItemRating = (props: Props) => {
                   fontVariant: ['lining-nums'],
                 }}
               >
-                Color: {rating.color_id.name} | Size: {rating.size_id.size}
+                Color: {rating.color_id.name} | Size: {rating.size_id.name}
               </Text>
             </Flex>
           </Flex>

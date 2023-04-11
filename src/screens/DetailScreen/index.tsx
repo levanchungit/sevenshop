@@ -10,8 +10,8 @@ import {
   Skeleton,
   Toast,
 } from 'native-base';
-import { Dimensions, LogBox } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Dimensions, LogBox } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
@@ -46,7 +46,6 @@ const DetailScreen = (props: DetailScreenProps) => {
   const [productPage] = useState(1);
   const { products, error_products, loading_products } = useGetProducts(productPage, limitProducts);
 
-  const [statusLike, setStatusLike] = useState<boolean>(product?.isFavorite);
   const [showModal, setShowModal] = useState(false);
   const [typeModal, setTypeModal] = useState<string>('');
   const initialWidth = Dimensions.get('window').width;
@@ -61,7 +60,6 @@ const DetailScreen = (props: DetailScreenProps) => {
           placement: 'top',
         });
         mutate_product();
-        setStatusLike(false);
       }
       if (!product?.isFavorite) {
         Toast.show({
@@ -69,7 +67,6 @@ const DetailScreen = (props: DetailScreenProps) => {
           placement: 'top',
         });
         mutate_product();
-        setStatusLike(true);
       }
     } catch (error: any) {
       Toast.show({
@@ -303,18 +300,16 @@ const DetailScreen = (props: DetailScreenProps) => {
               <SSButton
                 variant={'red'}
                 leftIcon={
-                  <Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />
+                  <Icon.Heart
+                    width={24}
+                    stroke="white"
+                    fill={product?.isFavorite ? 'white' : 'none'}
+                  />
                 }
                 onPress={() => handleUpdateFavorite()}
               />
               <SSButton
-                leftIcon={
-                  <Icon.ShoppingCart
-                    width={24}
-                    stroke="#AC1506"
-                    fill={statusLike ? 'white' : 'none'}
-                  />
-                }
+                leftIcon={<Icon.ShoppingCart width={24} stroke="#AC1506" />}
                 variant={'white'}
                 text={'Add to cart'}
                 onPress={() => {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text, FlatList, Flex } from 'native-base';
+import { Text, Flex } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import { Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -34,7 +34,7 @@ const RatingScreen = () => {
           No comment yet
         </Text>
       ) : (
-        <FlatListRating ratings={rated?.data} isLoading={loading_rated} />
+        <FlatListRating ratings={rated?.data.results} isLoading={loading_rated} />
       )}
     </Flex>
   );

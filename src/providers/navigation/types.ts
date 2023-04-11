@@ -30,7 +30,6 @@ export type AppStackNavigatorParamList = {
   EditAddress: {
     typeEdit: boolean;
     address?: AddressesResult;
-    mutate: Function;
   };
   Voucher: undefined;
   SelectVoucher: undefined;

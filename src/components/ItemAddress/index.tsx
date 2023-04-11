@@ -10,12 +10,11 @@ type Props = {
   address: AddressesResult;
   check: string;
   setCheck: Function;
-  mutate: Function;
 };
 
 const ItemAdrress = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
-  const { address, check, setCheck, mutate } = props;
+  const { address, check, setCheck } = props;
   const [elementVisible] = useState<boolean>(address.default_address);
   return (
     <HStack
@@ -55,27 +54,26 @@ const ItemAdrress = (props: Props) => {
           {address.address}
         </Text>
         {elementVisible ? (
-          <Box
+          <Text
             borderColor="red.600"
             borderRadius={5}
             borderWidth={1}
             marginY={2}
-            justifyContent="center"
-            alignItems="center"
-            w="20%"
+            textAlign="center"
+            w={100}
             padding={1}
+            color="red.600"
+            variant="subtitle2"
           >
-            <Text color="red.600" variant="subtitle2">
-              Default
-            </Text>
-          </Box>
+            Default
+          </Text>
         ) : null}
       </Box>
       <Pressable
         justifyContent="center"
         alignItems="center"
         w="10%"
-        onPress={() => navigation.navigate('EditAddress', { typeEdit: true, address, mutate })}
+        onPress={() => navigation.navigate('EditAddress', { typeEdit: true, address })}
       >
         <Icon.Edit2 stroke="#AC1506" width={26} height={26} />
       </Pressable>
