@@ -305,7 +305,8 @@ const DetailScreen = (props: DetailScreenProps) => {
                 leftIcon={
                   <Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />
                 }
-                onPress={() => handleUpdateFavorite()}
+                onPress={() => setStatusLike(!statusLike)}
+                text={''}
               />
               <SSButton
                 leftIcon={

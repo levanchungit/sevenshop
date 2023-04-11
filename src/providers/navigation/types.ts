@@ -43,6 +43,7 @@ export type AppStackNavigatorParamList = {
   CheckoutScreen: {
     address_id?: string;
     data: Checkout;
+    payment_type?: string;
   };
   PaymentSuccess: {
     data_detail: response_checkout;

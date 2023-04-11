@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { initPaymentSheet, presentPaymentSheet, useStripe } from '@stripe/stripe-react-native';
 import { Button, FlatList, Pressable, Text, Toast, View } from 'native-base';
@@ -9,6 +9,8 @@ import SelectOptions from 'components/SelectOptions';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { checkoutAPI } from 'modules';
 import { AppNavigationProp, CheckoutRouteProp } from 'providers/navigation/types';
+import { CheckoutContext } from './CheckoutContext';
+
 type Props = {
   route: CheckoutRouteProp;
 };
@@ -18,7 +20,8 @@ const CheckoutScreen = ({ route }: Props) => {
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
   const data2 = Object.assign(data, { payment_type: 'cod', note: 'SYS test', voucher_id: '' });
-  // console.log('data2', data2);
+  const { paymentType } = useContext(CheckoutContext);
+  console.log('payment_type', paymentType);
 
   const checkout = async () => {
     try {
@@ -191,7 +194,7 @@ const CheckoutScreen = ({ route }: Props) => {
             iconRight={
               <Pressable
                 style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
-                onPress={() => navigation.navigate('SelectVoucher')}
+                onPress={() => console.log('payment_type2', paymentType)}
               >
                 <Text
                   style={{ marginBottom: 4, marginRight: 8, fontVariant: ['lining-nums'] }}
