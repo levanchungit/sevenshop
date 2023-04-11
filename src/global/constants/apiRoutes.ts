@@ -19,6 +19,7 @@ export const API_ROUTES = {
   getProducts: (page: number, limit: number) => `/products?page=${page}&limit=${limit}`,
   getProductDetail: (id: string) => `/products/${id}`,
   getFavoritesProduct: `/products/favorites/get`,
+  updateFavorite: (id: string) => `/products/favorites/${id}`,
 
   //categories
   getCategories: `/categories`,
@@ -44,8 +45,6 @@ export const API_ROUTES = {
   getOrderById: (id: string) => `/orders/me/${id}`,
 
   //rating
-  getRatingByProductId: (id: string, page: number, limit: number) =>
-    `/ratings/${id}?page=${page}&limit=${limit}`,
   getRated: `/ratings/rated`,
   getNotYetRated: `/ratings/not_yet_rated`,
 

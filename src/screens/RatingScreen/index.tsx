@@ -5,18 +5,17 @@ import { Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import FlatListRating from 'components/FlatListRating';
-import ItemNotYetRated from 'components/ItemNotYetRated';
-import ModelPopupRating from 'components/ModelPopupRating';
+// import ItemNotYetRated from 'components/ItemNotYetRated';
+// import ModelPopupRating from 'components/ModelPopupRating';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetNotYetRated from 'hook/ratings/useGetNotYetRated';
 import useGetRated from 'hook/ratings/useGetRated';
-import { IProduct } from 'interfaces/Product';
-import { DATA } from 'mocks';
+// import { IProduct } from 'interfaces/Product';
 
 const RatingScreen = () => {
   const { t } = useTranslation();
   const initialWidth = Dimensions.get('window').width;
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const { rated, err_rated, loading_rated } = useGetRated();
   const { not_yet_rated, loading_not_yet_rated } = useGetNotYetRated();
 
@@ -43,12 +42,12 @@ const RatingScreen = () => {
   const NotYetRated = () => (
     <Flex backgroundColor="white">
       {/* <SSButton variant={'red'} text={'Hi'} onPress={() => setShowModal(!showModal)} /> */}
-      <FlatList
+      {/* <FlatList
         columnWrapperStyle={{ justifyContent: 'space-between' }}
         data={DATA}
         numColumns={2}
         renderItem={({ item }: { item: IProduct }) => <ItemNotYetRated product={item} />}
-      />
+      /> */}
     </Flex>
   );
 
@@ -122,12 +121,12 @@ const RatingScreen = () => {
         )}
         initialLayout={{ width: initialWidth, height: 0 }}
       />
-      <ModelPopupRating
+      {/* <ModelPopupRating
         showModal={showModal}
         setShowModal={setShowModal}
         rating={4}
         product={DATA[0]}
-      />
+      /> */}
     </SafeAreaView>
   );
 };
