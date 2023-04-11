@@ -73,12 +73,12 @@ const ProfileScreen = () => {
               {t('Profile.myPurchase')}
             </Text>
           </View>
-          <View flexDirection={'row'}>
+          <Pressable flexDirection={'row'} onPress={() => navigation.navigate('MyPurchaseScreen')}>
             <Text mr={2} variant={'body2'}>
               {t('Profile.purchaseHistory')}
             </Text>
             <Icon.ChevronRight stroke="black" width={24} height={24} />
-          </View>
+          </Pressable>
         </View>
 
         <View flexDirection={'row'} mt={2} px={7} justifyContent={'space-between'}>

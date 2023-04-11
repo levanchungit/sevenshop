@@ -85,8 +85,8 @@
     "thankYou": "SevenShop cảm ơn bạn đã lựa chọn chúng tôi. Hi vọng bạn sẽ có những trải nghiệm tuyệt vời khi sử dụng sản phẩm/dịch vụ của chúng tôi. Rất mong tiếp tục nhận được sự ủng hộ của quý khách trong thời gian tới",
     "keepShopping": "Tiếp tục mua sắm"
   },
-  "myPurchases": {
-    "title": "Đơn hàng của tôi",
+  "MyPurchases": {
+    "title": "Đơn hàng",
     "toShip": "Giao hàng",
     "toReceive": "Nhận hàng",
     "toPay": "Thanh toán",
@@ -114,7 +114,7 @@
     "title": "Địa chỉ",
     "default": "Mặc định",
     "addAddress": "Thêm địa chỉ",
-    "newEditAddress": "Thêm/Sửa địa chỉ",
+    "editAddress": "Sửa địa chỉ",
     "name": "Tên người nhận",
     "phone": "Số điện thoại",
     "address": "Địa chỉ",

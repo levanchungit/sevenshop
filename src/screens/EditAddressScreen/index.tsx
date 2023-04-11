@@ -175,13 +175,13 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
       <SSButton
         variant={'white'}
         onPress={() => (typeEdit === true ? deleteAddress() : goBackNav())}
-        text={typeEdit === true ? t('Address.Delete') : 'Cancle'}
+        text={typeEdit === true ? t('Address.delete') : 'Cancle'}
       />
       <Box width={'100%'} margin={3} />
       <SSButton
         variant={'red'}
         onPress={() => (typeEdit === true ? editAddress() : addAddress())}
-        text={typeEdit === true ? t('Address.Submit') : 'Add'}
+        text={typeEdit === true ? t('Address.submit') : 'Add'}
       />
     </SafeAreaView>
   );

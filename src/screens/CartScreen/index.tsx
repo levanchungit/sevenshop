@@ -110,7 +110,7 @@ const Cart = () => {
             500.000đ
           </Text>
         </View>
-        <View width={'100%'}>
+        <View width={'100%'} mb={3} mt={3}>
           <Button onPress={() => onGetInvoice()} width={'100%'}>
             <Text fontSize={14} color="light.100" fontWeight={'bold'}>
               {t('Cart.buyNow')}

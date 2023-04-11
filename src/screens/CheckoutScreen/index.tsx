@@ -119,7 +119,7 @@ const CheckoutScreen = ({ route }: Props) => {
         <View w="100%" position={'absolute'} bottom={0} left={0}>
           <SelectOptions
             style={{}}
-            title={t('Checkout.paymentMethod')}
+            title={t('Checkout.paymentOption')}
             iconLeft={<Icons.CreditCard stroke={'black'} width={24} height={24} />}
             iconRight={
               <Pressable
@@ -152,7 +152,7 @@ const CheckoutScreen = ({ route }: Props) => {
                   variant="Body2"
                   fontFamily={'Raleway_500Medium'}
                 >
-                  t{'Checkout.chooseVoucher'}
+                  {t('Checkout.chooseVoucher')}
                 </Text>
                 <Icons.ChevronRight stroke={'black'} width={24} height={24} />
               </Pressable>

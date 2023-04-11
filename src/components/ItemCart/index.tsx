@@ -65,20 +65,24 @@ const ItemCart = (props: Props) => {
             onPress={() => setShowModal(true)}
           >
             <View flexDirection={'row'} ml={2} w={'70%'}>
-              {colors?.data.results
-                .filter((c: IColor) => cart?.color_id.includes(c._id))
-                .map((color: IColor) => {
-                  return (
-                    <Text variant={'caption'} w={'50%'}>
-                      {color.name},{' '}
-                    </Text>
-                  );
-                })}
-              {sizes?.data.results
-                .filter((s: ISize) => cart?.size_id.includes(s._id))
-                .map((size: ISize) => {
-                  return <Text variant={'caption'}>{size.size}, </Text>;
-                })}
+              {cart?.color_id
+                ? colors?.data.results
+                    .filter((c: IColor) => cart?.color_id.includes(c._id))
+                    .map((color: IColor) => {
+                      return (
+                        <Text variant={'caption'} w={'50%'}>
+                          {color.name},{' '}
+                        </Text>
+                      );
+                    })
+                : null}
+              {cart?.size_id
+                ? sizes?.data.results
+                    .filter((s: ISize) => cart?.size_id.includes(s._id))
+                    .map((size: ISize) => {
+                      return <Text variant={'caption'}>{size.size}, </Text>;
+                    })
+                : null}
             </View>
             <Icon.ChevronDown stroke="black" width={24} height={24} />
           </Pressable>

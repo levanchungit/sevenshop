@@ -10,8 +10,8 @@ import {
   Skeleton,
   Toast,
 } from 'native-base';
-import { Dimensions, LogBox } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Dimensions, LogBox } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';

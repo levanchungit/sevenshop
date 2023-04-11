@@ -66,7 +66,7 @@ const MyPurchaseScreen = () => {
   const renderItemOrder = ({ item }: any) => {
     return (
       <Pressable
-        w={100}
+        w={105}
         marginX={3}
         h={12}
         p={2}
@@ -126,7 +126,7 @@ const MyPurchaseScreen = () => {
           mt={3}
           mr={3}
           showsHorizontalScrollIndicator={false}
-          h={52}
+          h={55}
           horizontal
           data={itemSelected}
           renderItem={renderItemOrder}
