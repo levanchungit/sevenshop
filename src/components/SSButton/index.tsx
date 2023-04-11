@@ -2,7 +2,7 @@ import { Button, Text } from 'native-base';
 
 type Props = {
   variant: string;
-  text?: any;
+  text: string;
   width?: any;
   height?: any;
   onPress: Function;

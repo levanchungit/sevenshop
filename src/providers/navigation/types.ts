@@ -3,6 +3,7 @@ import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AddressesResult } from 'interfaces/Address';
 import { Checkout } from 'interfaces/Checkout';
+import { response_checkout } from 'interfaces/checkout_response';
 
 export type AppStackNavigatorParamList = {
   Main: undefined;
@@ -42,9 +43,10 @@ export type AppStackNavigatorParamList = {
   CheckoutScreen: {
     address_id?: string;
     data: Checkout;
+    payment_type?: string;
   };
   PaymentSuccess: {
-    id_order: string;
+    data_detail: response_checkout;
   };
   MyPurchaseScreen: undefined;
 };

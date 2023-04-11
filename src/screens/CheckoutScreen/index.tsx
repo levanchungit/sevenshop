@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { initPaymentSheet, presentPaymentSheet } from '@stripe/stripe-react-native';
 import { Button, FlatList, Pressable, Text, Toast, View } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icons from 'react-native-feather';
 import ItemProductCheckout from 'components/ItemProductCheckout';
 import SelectOptions from 'components/SelectOptions';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import { PAYMENT_TYPE } from 'global/constants';
 import { checkoutAPI } from 'modules';
 import { AppNavigationProp, CheckoutRouteProp } from 'providers/navigation/types';
+import { CheckoutContext } from './CheckoutContext';
+
 type Props = {
   route: CheckoutRouteProp;
 };
@@ -17,11 +21,13 @@ const CheckoutScreen = ({ route }: Props) => {
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
   const data2 = Object.assign(data, { payment_type: 'cod', note: 'SYS test', voucher_id: '' });
+  const { paymentType } = useContext(CheckoutContext);
+  console.log('payment_type', paymentType);
 
   const checkout = async () => {
     try {
-      await checkoutAPI.checkout(data2);
-      navigation.replace('PaymentSuccess', { id_order: '641b181583592d4bbdf72e92' });
+      const response = await checkoutAPI.checkout(data2);
+      navigation.replace('PaymentSuccess', { data_detail: response.data });
     } catch (error: any) {
       console.error(error);
       Toast.show({
@@ -30,6 +36,50 @@ const CheckoutScreen = ({ route }: Props) => {
       });
     }
   };
+
+  const onCheckout = async () => {
+    //check payment_type: bank
+    if (data.payment_type === PAYMENT_TYPE.bank) {
+      //total order
+      const _data = {
+        amount: Math.floor(1314 * 100),
+      };
+      console.log(_data);
+      const response = await checkoutAPI.stripe(_data);
+
+      if (response.error) {
+        Toast.show({
+          title: response.error,
+          duration: 3000,
+        });
+        return;
+      }
+
+      const initResponse = await initPaymentSheet({
+        merchantDisplayName: 'SevenShop',
+        paymentIntentClientSecret: response.paymentIntent,
+      });
+
+      if (initResponse.error) {
+        Toast.show({
+          title: 'Payment sheet failed to initialize',
+          duration: 3000,
+        });
+        return;
+      }
+
+      await presentPaymentSheet();
+    } else if (data.payment_type === PAYMENT_TYPE.momo) {
+      Toast.show({
+        title: 'Coming soon',
+        duration: 3000,
+      });
+      return;
+    }
+
+    await checkout();
+  };
+
   return (
     <View flex={1} pt={3} backgroundColor="white">
       <View mt={3}>
@@ -145,7 +195,7 @@ const CheckoutScreen = ({ route }: Props) => {
             iconRight={
               <Pressable
                 style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
-                onPress={() => navigation.navigate('SelectVoucher')}
+                onPress={() => console.log('payment_type2', paymentType)}
               >
                 <Text
                   style={{ marginBottom: 4, marginRight: 8, fontVariant: ['lining-nums'] }}
@@ -208,7 +258,7 @@ const CheckoutScreen = ({ route }: Props) => {
             }
           />
           <View alignItems={'center'} px={'3'}>
-            <Button onPress={checkout} borderRadius={6} w={{ base: '100%' }} mb="3" mt="3">
+            <Button onPress={onCheckout} borderRadius={6} w={{ base: '100%' }} mb="3" mt="3">
               <Text
                 fontSize={14}
                 color="light.100"

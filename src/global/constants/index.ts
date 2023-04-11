@@ -26,3 +26,9 @@ export enum STATUS_PRODUCT {
   active = 'active',
   inactive = 'inactive',
 }
+
+export enum PAYMENT_TYPE {
+  cod = 'cod',
+  momo = 'momo',
+  bank = 'bank',
+}

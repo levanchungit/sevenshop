@@ -6,7 +6,6 @@ import useGetSizes from 'hook/sizes/useGetSizes';
 import { IData } from 'interfaces/Cart';
 import { IColor } from 'interfaces/Color';
 import { ISize } from 'interfaces/Size';
-
 type Props = {
   cart: IData;
   increaseQuantity: Function;
@@ -59,15 +58,16 @@ const ItemCart = (props: Props) => {
             borderWidth={0.5}
             borderColor={'coolGray.400'}
             w={'40%'}
+            h={'25%'}
             borderRadius={4}
             flexDirection={'row'}
             alignItems={'center'}
             onPress={() => setShowModal(true)}
           >
             <View flexDirection={'row'} ml={2} w={'70%'}>
-              {cart?.color_id
+              {cart?.color._id
                 ? colors?.data.results
-                    .filter((c: IColor) => cart?.color_id.includes(c._id))
+                    .filter((c: IColor) => cart?.color._id.includes(c._id))
                     .map((color: IColor) => {
                       return (
                         <Text variant={'caption'} w={'50%'}>
@@ -76,9 +76,9 @@ const ItemCart = (props: Props) => {
                       );
                     })
                 : null}
-              {cart?.size_id
+              {cart?.size._id
                 ? sizes?.data.results
-                    .filter((s: ISize) => cart?.size_id.includes(s._id))
+                    .filter((s: ISize) => cart?.size._id.includes(s._id))
                     .map((size: ISize) => {
                       return <Text variant={'caption'}>{size.size}, </Text>;
                     })
@@ -117,7 +117,7 @@ const ItemCart = (props: Props) => {
                 mr={2}
               >
                 <Text fontWeight={'bold'} fontSize={14} textAlign={'center'}>
-                  1
+                  {cart?.quantity}
                 </Text>
               </View>
               <Pressable onPress={() => increaseQuantity()}>

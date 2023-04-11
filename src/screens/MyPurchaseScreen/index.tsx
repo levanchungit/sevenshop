@@ -133,6 +133,7 @@ const MyPurchaseScreen = () => {
           keyExtractor={(item, index) => index + ''}
         />
         <FlatList
+          mt={1}
           data={
             orders
               ? orders?.data.results.filter((item: { status: string }) => item.status === idOrders)
