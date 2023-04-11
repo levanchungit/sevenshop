@@ -146,7 +146,7 @@ const ProfileScreen = () => {
               </View>
             </View>
 
-            <Text variant={'body2'}>{t('rating')}</Text>
+            <Text variant={'body2'}>{t('Rating')}</Text>
           </Pressable>
         </View>
         <View px={3} mt={5} h={'35%'} justifyContent={'space-between'}>

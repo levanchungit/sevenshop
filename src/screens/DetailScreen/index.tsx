@@ -46,39 +46,36 @@ const DetailScreen = (props: DetailScreenProps) => {
   const [productPage] = useState(1);
   const { products, error_products, loading_products } = useGetProducts(productPage, limitProducts);
 
-  const [statusLike, setStatusLike] = useState<boolean>(product?.isFavorite);
   const [showModal, setShowModal] = useState(false);
   const [typeModal, setTypeModal] = useState<string>('');
   const initialWidth = Dimensions.get('window').width;
 
   //api favorite
-  // const handleUpdateFavorite = async () => {
-  //   try {
-  //     await productAPI.updateFavorite(_id);
-  //     if (product?.isFavorite) {
-  //       Toast.show({
-  //         title: 'Successfully removed from favorite',
-  //         placement: 'top',
-  //       });
-  //       mutate_product();
-  //       setStatusLike(false);
-  //     }
-  //     if (!product?.isFavorite) {
-  //       Toast.show({
-  //         title: 'Successfully add to favorite',
-  //         placement: 'top',
-  //       });
-  //       mutate_product();
-  //       setStatusLike(true);
-  //     }
-  //   } catch (error: any) {
-  //     Toast.show({
-  //       title: 'Cannot update favorite product',
-  //       description: error.response.data.message ? error.response.data.message : error.message,
-  //       placement: 'top',
-  //     });
-  //   }
-  // };
+  const handleUpdateFavorite = async () => {
+    try {
+      await productAPI.updateFavorite(_id);
+      if (product?.isFavorite) {
+        Toast.show({
+          title: 'Successfully removed from favorite',
+          placement: 'top',
+        });
+        mutate_product();
+      }
+      if (!product?.isFavorite) {
+        Toast.show({
+          title: 'Successfully add to favorite',
+          placement: 'top',
+        });
+        mutate_product();
+      }
+    } catch (error: any) {
+      Toast.show({
+        title: 'Cannot update favorite product',
+        description: error.response.data.message ? error.response.data.message : error.message,
+        placement: 'top',
+      });
+    }
+  };
   const DescriptionRoute = () => (
     <ScrollView
       flex={1}
@@ -303,19 +300,17 @@ const DetailScreen = (props: DetailScreenProps) => {
               <SSButton
                 variant={'red'}
                 leftIcon={
-                  <Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />
+                  <Icon.Heart
+                    width={24}
+                    stroke="white"
+                    fill={product?.isFavorite ? 'white' : 'none'}
+                  />
                 }
                 onPress={() => setStatusLike(!statusLike)}
                 text={''}
               />
               <SSButton
-                leftIcon={
-                  <Icon.ShoppingCart
-                    width={24}
-                    stroke="#AC1506"
-                    fill={statusLike ? 'white' : 'none'}
-                  />
-                }
+                leftIcon={<Icon.ShoppingCart width={24} stroke="#AC1506" />}
                 variant={'white'}
                 text={'Add to cart'}
                 onPress={() => {
