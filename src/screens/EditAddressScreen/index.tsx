@@ -88,7 +88,6 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
     }
   };
 
-
   return (
     <SafeAreaView
       style={{
@@ -176,7 +175,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
       <SSButton
         variant={'white'}
         onPress={() => (typeEdit === true ? deleteAddress() : goBackNav())}
-        text={typeEdit === true ? t('Address.delete') : 'Cancle'}
+        text={typeEdit === true ? t('Address.Delete') : 'Cancle'}
       />
       <Box width={'100%'} margin={3} />
       <SSButton
