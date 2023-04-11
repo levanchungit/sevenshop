@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native';
 import Moment from 'moment';
 import { Image, Text, View, Pressable } from 'native-base';
 import { useTranslation } from 'react-i18next';
-import useGetOrderById from 'hook/order/useGetOrderById';
 import { PaymentSuccessRouteProp, AppNavigationProp } from 'providers/navigation/types';
 
 type Success = {

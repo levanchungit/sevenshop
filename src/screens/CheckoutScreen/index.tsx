@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { initPaymentSheet, presentPaymentSheet, useStripe } from '@stripe/stripe-react-native';
+import { initPaymentSheet, presentPaymentSheet } from '@stripe/stripe-react-native';
 import { Button, FlatList, Pressable, Text, Toast, View } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icons from 'react-native-feather';
 import ItemProductCheckout from 'components/ItemProductCheckout';
 import SelectOptions from 'components/SelectOptions';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import { PAYMENT_TYPE } from 'global/constants';
 import { checkoutAPI } from 'modules';
 import { AppNavigationProp, CheckoutRouteProp } from 'providers/navigation/types';
 import { CheckoutContext } from './CheckoutContext';
