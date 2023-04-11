@@ -1,14 +1,35 @@
-import React from 'react';
-import { Box, Flex, Text, Image } from 'native-base';
+import React, { useContext, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Box, Flex, Text, Image, Pressable } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import IconCheck from 'components/IconCheck';
+import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import { PAYMENT_TYPE } from 'global/constants';
+import { AppNavigationProp } from 'providers/navigation/types';
+import { CheckoutContext } from 'screens/CheckoutScreen/CheckoutContext';
 
 const PaymentMethodScreen = () => {
   const { t } = useTranslation();
   // const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation<AppNavigationProp>();
+  const [isCod, setIsCod] = useState(true);
+  const [isBank, setIsBank] = useState(false);
+  const [isMomo, setIsMomo] = useState(false);
+  const { setPaymentType } = useContext(CheckoutContext);
+
+  const onSetPaymentType = () => {
+    if (isCod) {
+      setPaymentType(PAYMENT_TYPE.cod);
+    } else if (isBank) {
+      setPaymentType(PAYMENT_TYPE.bank);
+    } else if (isMomo) {
+      setPaymentType(PAYMENT_TYPE.momo);
+    }
+    navigation.goBack();
+  };
 
   return (
     <SafeAreaView
@@ -33,83 +54,108 @@ const PaymentMethodScreen = () => {
       />
       <Box marginBottom={3} />
 
-      <Flex
-        w="100%"
-        direction="row"
-        padding={3}
-        borderBottomWidth={1}
-        borderBottomColor="#C9C9C9"
-        marginBottom={3}
-        justifyContent="space-between"
-        alignItems="center"
+      <Pressable
+        onPress={() => {
+          setIsCod(true);
+          setIsBank(false);
+          setIsMomo(false);
+        }}
       >
-        <Icon.DollarSign stroke="black" width={24} />
-        <Text
-          variant={'body1'}
-          style={{
-            fontVariant: ['lining-nums'],
-          }}
-          width="80%"
-          marginLeft={3}
+        <Flex
+          w="100%"
+          direction="row"
+          padding={3}
+          borderBottomWidth={1}
+          borderBottomColor="#C9C9C9"
+          marginBottom={3}
+          justifyContent="space-between"
+          alignItems="center"
         >
           {t('PaymentMethod.cashOnDelivery')}
-        </Text>
-        <IconCheck isChecked={false} />
-      </Flex>
+          <IconCheck isChecked={isCod} />
+        </Flex>
+      </Pressable>
 
-      <Flex
-        w="100%"
-        direction="row"
-        padding={3}
-        borderBottomWidth={1}
-        borderBottomColor="#C9C9C9"
-        marginBottom={3}
-        justifyContent="space-between"
-        alignItems="center"
+      <Pressable
+        onPress={() => {
+          setIsCod(false);
+          setIsBank(true);
+          setIsMomo(false);
+        }}
       >
-        <Icon.CreditCard stroke="black" width={24} />
-        <Text
-          variant={'body1'}
-          style={{
-            fontVariant: ['lining-nums'],
-          }}
-          width="80%"
-          marginLeft={3}
-        ></Text>
-        <Icon.ChevronRight stroke="black" />
-      </Flex>
-
-      <Flex
-        w="100%"
-        direction="row"
-        padding={3}
-        borderBottomWidth={1}
-        borderBottomColor="#C9C9C9"
-        marginBottom={3}
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Image
-          source={{
-            uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1678542086/MoMo_Logo_mlifmt.png',
-          }}
-          alt="Icon"
-          size="full"
-          w={6}
-          h={6}
-        />
-        <Text
-          variant={'body1'}
-          style={{
-            fontVariant: ['lining-nums'],
-          }}
-          width="80%"
-          marginLeft={5}
+        <Flex
+          w="100%"
+          direction="row"
+          padding={3}
+          borderBottomWidth={1}
+          borderBottomColor="#C9C9C9"
+          marginBottom={3}
+          justifyContent="space-between"
+          alignItems="center"
         >
-          MoMo E-Wallet
-        </Text>
-        <Icon.ChevronRight stroke="black" width="10%" />
-      </Flex>
+          <Icon.CreditCard stroke="black" width={24} />
+          <Text
+            variant={'body1'}
+            style={{
+              fontVariant: ['lining-nums'],
+            }}
+            width="80%"
+            marginLeft={3}
+          >
+            Credit card
+          </Text>
+          <IconCheck isChecked={isBank} />
+        </Flex>
+      </Pressable>
+
+      <Pressable
+        onPress={() => {
+          setIsCod(false);
+          setIsBank(false);
+          setIsMomo(true);
+        }}
+      >
+        <Flex
+          w="100%"
+          direction="row"
+          padding={3}
+          borderBottomWidth={1}
+          borderBottomColor="#C9C9C9"
+          marginBottom={3}
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Image
+            source={{
+              uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1680442639/Image/MoMo_Logo_ejfll5.png',
+            }}
+            alt="Icon"
+            size="full"
+            w={6}
+            h={6}
+          />
+          <Text
+            variant={'body1'}
+            style={{
+              fontVariant: ['lining-nums'],
+            }}
+            width="80%"
+            marginLeft={5}
+          >
+            MoMo E-Wallet
+          </Text>
+          <IconCheck isChecked={isMomo} />
+        </Flex>
+      </Pressable>
+      <Box position={'absolute'} bottom={0} mb={1} w="100%" ml={3}>
+        <SSButton
+          variant={'red'}
+          text={'Agree'}
+          onPress={() => {
+            onSetPaymentType();
+          }}
+        />
+      </Box>
     </SafeAreaView>
   );
 };

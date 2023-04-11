@@ -8,10 +8,10 @@ import {
   Center,
   ScrollView,
   Skeleton,
-  Toast,
+  // Toast,
 } from 'native-base';
-import { Dimensions, LogBox } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Dimensions, LogBox } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
@@ -23,7 +23,7 @@ import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetProductDetail from 'hook/product/useGetProductDetail';
 import useGetProducts from 'hook/product/useGetProducts';
 import useGetQuantityCart from 'hook/product/useGetQuantityCart';
-import { productAPI } from 'modules';
+// import { productAPI } from 'modules';
 import { DetailRouteProp } from 'providers/navigation/types';
 import { formatNumberCurrencyVN } from 'utils/common';
 
@@ -37,7 +37,7 @@ const DetailScreen = (props: DetailScreenProps) => {
   LogBox.ignoreAllLogs();
 
   //api detail
-  const { product, err_product, loading_product, mutate_product } = useGetProductDetail(_id);
+  const { product, err_product, loading_product } = useGetProductDetail(_id);
   //api cart
   const { quantity, mutate_quantity } = useGetQuantityCart();
 
@@ -52,33 +52,33 @@ const DetailScreen = (props: DetailScreenProps) => {
   const initialWidth = Dimensions.get('window').width;
 
   //api favorite
-  const handleUpdateFavorite = async () => {
-    try {
-      await productAPI.updateFavorite(_id);
-      if (product?.isFavorite) {
-        Toast.show({
-          title: 'Successfully removed from favorite',
-          placement: 'top',
-        });
-        mutate_product();
-        setStatusLike(false);
-      }
-      if (!product?.isFavorite) {
-        Toast.show({
-          title: 'Successfully add to favorite',
-          placement: 'top',
-        });
-        mutate_product();
-        setStatusLike(true);
-      }
-    } catch (error: any) {
-      Toast.show({
-        title: 'Cannot update favorite product',
-        description: error.response.data.message ? error.response.data.message : error.message,
-        placement: 'top',
-      });
-    }
-  };
+  // const handleUpdateFavorite = async () => {
+  //   try {
+  //     await productAPI.updateFavorite(_id);
+  //     if (product?.isFavorite) {
+  //       Toast.show({
+  //         title: 'Successfully removed from favorite',
+  //         placement: 'top',
+  //       });
+  //       mutate_product();
+  //       setStatusLike(false);
+  //     }
+  //     if (!product?.isFavorite) {
+  //       Toast.show({
+  //         title: 'Successfully add to favorite',
+  //         placement: 'top',
+  //       });
+  //       mutate_product();
+  //       setStatusLike(true);
+  //     }
+  //   } catch (error: any) {
+  //     Toast.show({
+  //       title: 'Cannot update favorite product',
+  //       description: error.response.data.message ? error.response.data.message : error.message,
+  //       placement: 'top',
+  //     });
+  //   }
+  // };
   const DescriptionRoute = () => (
     <ScrollView
       flex={1}
@@ -305,7 +305,8 @@ const DetailScreen = (props: DetailScreenProps) => {
                 leftIcon={
                   <Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />
                 }
-                onPress={() => handleUpdateFavorite()}
+                onPress={() => setStatusLike(!statusLike)}
+                text={''}
               />
               <SSButton
                 leftIcon={

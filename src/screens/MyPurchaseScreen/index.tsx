@@ -126,13 +126,14 @@ const MyPurchaseScreen = () => {
           mt={3}
           mr={3}
           showsHorizontalScrollIndicator={false}
-          h={52}
+          h={55}
           horizontal
           data={itemSelected}
           renderItem={renderItemOrder}
           keyExtractor={(item, index) => index + ''}
         />
         <FlatList
+          mt={1}
           data={
             orders
               ? orders?.data.results.filter((item: { status: string }) => item.status === idOrders)

@@ -4,6 +4,7 @@ import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { Provider } from 'providers';
 import { StackNavigator } from 'providers/navigation';
+import { CheckoutProvider } from 'screens/CheckoutScreen/CheckoutContext';
 SplashScreen.preventAutoHideAsync();
 
 const App = React.memo(() => {
@@ -38,7 +39,9 @@ const App = React.memo(() => {
 
   return (
     <Provider onLayout={onLayoutRootView}>
-      <StackNavigator />
+      <CheckoutProvider>
+        <StackNavigator />
+      </CheckoutProvider>
     </Provider>
   );
 });
