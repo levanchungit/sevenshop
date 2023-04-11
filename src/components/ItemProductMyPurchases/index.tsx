@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, View, Pressable, Image, Button } from 'native-base';
+import { Text, View, Pressable, Image } from 'native-base';
 import { useTranslation } from 'react-i18next';
+import SSButton from 'components/SSButton';
 import { formatNumberCurrencyVN } from 'utils/common';
 
 type Props = {
@@ -17,7 +18,7 @@ const ItemProductMyPurchases = (props: Props) => {
   const { total, quantitiesProduct, name, image, onPressBuyAgain, onPressViewDetail } = props;
 
   return (
-    <View px={3} pt={2} borderBottomColor={'gray.300'} borderBottomWidth={12}>
+    <View px={3} pt={2} borderBottomColor={'gray.300'} borderBottomWidth={3}>
       <Pressable flexDirection={'column'}>
         <View w={'100%'} borderBottomColor="gray.400" pb={5}>
           <View flexDirection={'row'} m={3} alignItems={'center'}>
@@ -68,26 +69,19 @@ const ItemProductMyPurchases = (props: Props) => {
               </View>
             </View>
           </View>
-          <View flexDirection={'row'} alignItems="center" justifyContent={'space-between'}>
-            <View
-              style={{ width: '48%' }}
-              borderWidth={1}
-              borderColor="primary.500"
-              borderRadius={6}
-            >
-              <Button borderRadius={10} backgroundColor="white" onPress={onPressViewDetail}>
-                <Text color={'primary.500'} fontWeight="bold" fontSize={16}>
-                  {t('MyPurchases.viewDetail')}
-                </Text>
-              </Button>
-            </View>
-            <View style={{ width: '48%' }} borderRadius={6} backgroundColor="primary.500">
-              <Button borderRadius={10} onPress={onPressBuyAgain}>
-                <Text color={'white'} fontWeight="bold" fontSize={16}>
-                  {t('MyPurchases.buyAgain')}
-                </Text>
-              </Button>
-            </View>
+          <View flexDirection={'row'} alignItems="center" justifyContent={'space-evenly'}>
+            <SSButton
+              width={'48%'}
+              variant={'white'}
+              text={t('MyPurchases.viewDetail')}
+              onPress={onPressViewDetail}
+            />
+            <SSButton
+              width={'48%'}
+              variant={'red'}
+              text={t('MyPurchases.buyAgain')}
+              onPress={onPressBuyAgain}
+            />
           </View>
         </View>
       </Pressable>
