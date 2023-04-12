@@ -1,14 +1,16 @@
-import { Box, Flex, HStack, Image, Text } from 'native-base';
+import { Box, Flex, HStack, Image, Text, VStack } from 'native-base';
 import { Rating } from 'react-native-ratings';
 import { IRating } from 'interfaces/Rating';
 import { formatDate } from 'utils/common';
 
 type Props = {
   rating: IRating;
+  showProduct: boolean;
+  smallImage: boolean;
 };
 
 const ItemRating = (props: Props) => {
-  const { rating } = props;
+  const { rating, showProduct, smallImage } = props;
   return (
     <Box paddingY="5" w="100%" borderTopWidth="1" borderTopColor="#C9C9C9">
       <Flex direction="row">
@@ -51,14 +53,26 @@ const ItemRating = (props: Props) => {
               >
                 {formatDate(rating.modify.date)}
               </Text>
-              <Text
-                variant="caption"
-                style={{
-                  fontVariant: ['lining-nums'],
-                }}
-              >
-                Color: {rating.color_id.name} | Size: {rating.size_id.name}
-              </Text>
+              {showProduct ? null : (
+                <VStack>
+                  <Text
+                    variant="caption"
+                    style={{
+                      fontVariant: ['lining-nums'],
+                    }}
+                  >
+                    Color: {rating.color_id.name}
+                  </Text>
+                  <Text
+                    variant="caption"
+                    style={{
+                      fontVariant: ['lining-nums'],
+                    }}
+                  >
+                    Size: {rating.size_id.name}
+                  </Text>
+                </VStack>
+              )}
             </Flex>
           </Flex>
           <Rating
@@ -91,8 +105,8 @@ const ItemRating = (props: Props) => {
                   }}
                   alt="Undefinded img"
                   size="full"
-                  w={100}
-                  h={100}
+                  w={smallImage ? 50 : 100}
+                  h={smallImage ? 50 : 100}
                   mr={3}
                 />
               );
