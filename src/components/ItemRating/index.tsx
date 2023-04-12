@@ -1,14 +1,16 @@
-import { Box, Flex, HStack, Image, Text } from 'native-base';
+import { Box, Flex, HStack, Image, Text, VStack } from 'native-base';
 import { Rating } from 'react-native-ratings';
 import { IRating } from 'interfaces/Rating';
 import { formatDate } from 'utils/common';
 
 type Props = {
   rating: IRating;
+  showProduct: boolean;
+  smallImage: boolean;
 };
 
 const ItemRating = (props: Props) => {
-  const { rating } = props;
+  const { rating, showProduct, smallImage } = props;
   return (
     <Box paddingY="5" w="100%" borderTopWidth="1" borderTopColor="#C9C9C9">
       <Flex direction="row">
@@ -32,7 +34,7 @@ const ItemRating = (props: Props) => {
         <Flex direction="column" w="80%">
           <Flex direction="row" justifyContent="space-between">
             <Text
-              w="40%"
+              w="60%"
               numberOfLines={2}
               variant="title"
               style={{
@@ -42,7 +44,7 @@ const ItemRating = (props: Props) => {
               {rating.user_id.full_name ? rating.user_id.full_name : rating.user_id.email}
             </Text>
 
-            <Flex direction="column" alignItems="flex-end">
+            <Flex w="40%" direction="column" alignItems="flex-end">
               <Text
                 variant="caption"
                 style={{
@@ -51,14 +53,26 @@ const ItemRating = (props: Props) => {
               >
                 {formatDate(rating.modify.date)}
               </Text>
-              <Text
-                variant="caption"
-                style={{
-                  fontVariant: ['lining-nums'],
-                }}
-              >
-                Color: {rating.color_id.name} | Size: {rating.size_id.size}
-              </Text>
+              {showProduct ? null : (
+                <VStack>
+                  <Text
+                    variant="caption"
+                    style={{
+                      fontVariant: ['lining-nums'],
+                    }}
+                  >
+                    Color: {rating.color_id.name}
+                  </Text>
+                  <Text
+                    variant="caption"
+                    style={{
+                      fontVariant: ['lining-nums'],
+                    }}
+                  >
+                    Size: {rating.size_id.name}
+                  </Text>
+                </VStack>
+              )}
             </Flex>
           </Flex>
           <Rating
@@ -91,8 +105,8 @@ const ItemRating = (props: Props) => {
                   }}
                   alt="Undefinded img"
                   size="full"
-                  w={100}
-                  h={100}
+                  w={smallImage ? 50 : 100}
+                  h={smallImage ? 50 : 100}
                   mr={3}
                 />
               );

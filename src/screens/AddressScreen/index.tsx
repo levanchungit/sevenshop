@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Box, Center, Text, VStack } from 'native-base';
 import { useTranslation } from 'react-i18next';
-import { Dimensions } from 'react-native';
 import FlatListUserAddress from 'components/FlatListUserAddress';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
@@ -15,18 +14,17 @@ type AddressScreenProps = {
 
 const AddressScreen = (props: AddressScreenProps) => {
   const { typeUser } = props.route.params;
-  const initialWidth = Dimensions.get('window').width;
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
   const { addresses, err_addresses, loading_addresses, mutate_addresses } = useGetAddresses();
-  const isFocused = useIsFocused();
-  if (isFocused) {
-    mutate_addresses;
-    if (!loading_addresses) {
-      console.log(addresses?.data.results);
-    }
-  }
   const [checkedId, setCheckedId] = useState('');
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      mutate_addresses();
+    }
+  }, [isFocused]);
   return (
     <Box flex={1} paddingY={2} paddingX={3} backgroundColor="#FFFFFF" safeArea>
       <SSHeaderNavigation
@@ -68,9 +66,7 @@ const AddressScreen = (props: AddressScreenProps) => {
             width="100%"
             variant={'white'}
             text={'Add address'}
-            onPress={() =>
-              navigation.navigate('EditAddress', { typeEdit: false, mutate: mutate_addresses })
-            }
+            onPress={() => navigation.navigate('EditAddress', { typeEdit: false })}
           />
         </Center>
       ) : (
@@ -79,16 +75,13 @@ const AddressScreen = (props: AddressScreenProps) => {
           isLoading={loading_addresses}
           checkId={checkedId}
           setCheckId={setCheckedId}
-          mutate={mutate_addresses}
         />
       )}
-      <VStack position="absolute" bottom={0} w={initialWidth} paddingY={2} paddingX={3}>
+      <VStack w="100%">
         <SSButton
           variant={'white'}
           text={'Add address'}
-          onPress={() =>
-            navigation.navigate('EditAddress', { typeEdit: false, mutate: mutate_addresses })
-          }
+          onPress={() => navigation.navigate('EditAddress', { typeEdit: false })}
         />
         <Box marginBottom={3} />
         {typeUser ? null : (
