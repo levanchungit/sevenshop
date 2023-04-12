@@ -8,6 +8,7 @@ import {
   Center,
   ScrollView,
   Skeleton,
+  Toast,
   // Toast,
 } from 'native-base';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +25,7 @@ import useGetProductDetail from 'hook/product/useGetProductDetail';
 import useGetProducts from 'hook/product/useGetProducts';
 import useGetQuantityCart from 'hook/product/useGetQuantityCart';
 // import { productAPI } from 'modules';
+import { productAPI } from 'modules';
 import { DetailRouteProp } from 'providers/navigation/types';
 import { formatNumberCurrencyVN } from 'utils/common';
 
@@ -37,7 +39,7 @@ const DetailScreen = (props: DetailScreenProps) => {
   LogBox.ignoreAllLogs();
 
   //api detail
-  const { product, err_product, loading_product } = useGetProductDetail(_id);
+  const { product, err_product, loading_product, mutate_product } = useGetProductDetail(_id);
   //api cart
   const { quantity, mutate_quantity } = useGetQuantityCart();
 
@@ -311,8 +313,7 @@ const DetailScreen = (props: DetailScreenProps) => {
                     fill={product?.isFavorite ? 'white' : 'none'}
                   />
                 }
-                onPress={() => setStatusLike(!statusLike)}
-                text={''}
+                onPress={() => handleUpdateFavorite()}
               />
               <SSButton
                 leftIcon={<Icon.ShoppingCart width={24} stroke="#AC1506" />}
