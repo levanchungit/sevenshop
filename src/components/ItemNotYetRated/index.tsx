@@ -2,36 +2,16 @@ import { useState } from 'react';
 import { Box, Flex, Image, Text } from 'native-base';
 import { Rating } from 'react-native-ratings';
 import ModelPopupRating from 'components/ModelPopupRating';
-import { STATUS_PRODUCT } from 'global/constants';
-import { review } from 'interfaces/Auth';
-import { IModify } from 'interfaces/Basic';
-import { IStock } from 'interfaces/Product';
+import { INotYetRated } from 'interfaces/Rating';
 
 type Props = {
-  product?: {
-    _id?: string;
-    name: string;
-    price: number;
-    price_sale: number;
-    description: string;
-    images: string[];
-    stock: IStock[];
-    status: STATUS_PRODUCT;
-    category_ids: string[];
-    color_ids: string[];
-    size_ids: string[];
-    created_at: string;
-    created_by: string;
-    modify: IModify[];
-    reviews: review[];
-  };
+  product: INotYetRated;
 };
 
 const ItemNotYetRated = (props: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [ratingScore, setRatingScore] = useState(0);
   const ratingCompleted = (rating: number) => {
-    console.log('Rating is: ' + rating);
     setRatingScore(rating);
     setShowModal(!showModal);
   };
@@ -48,7 +28,7 @@ const ItemNotYetRated = (props: Props) => {
       <Flex direction="column" alignItems="center" justifyContent="space-between">
         <Image
           source={{
-            uri: product?.images[0],
+            uri: product?.product_image,
           }}
           alt="Product img"
           size="full"
@@ -63,7 +43,7 @@ const ItemNotYetRated = (props: Props) => {
               fontVariant: ['lining-nums'],
             }}
           >
-            {product?.name}
+            {product?.product_name}
           </Text>
           <Text
             variant={'body2'}
@@ -71,7 +51,7 @@ const ItemNotYetRated = (props: Props) => {
               fontVariant: ['lining-nums'],
             }}
           >
-            Size: {product?.size_ids}
+            Size: {product?.size_name}
           </Text>
           <Text
             variant={'body2'}
@@ -79,7 +59,7 @@ const ItemNotYetRated = (props: Props) => {
               fontVariant: ['lining-nums'],
             }}
           >
-            Color: {product?.color_ids}
+            Color: {product?.color_name}
           </Text>
         </Flex>
       </Flex>

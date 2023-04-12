@@ -4,9 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import FlatListNotYetRated from 'components/FlatListNotYetRated';
 import FlatListRating from 'components/FlatListRating';
-// import ItemNotYetRated from 'components/ItemNotYetRated';
-// import ModelPopupRating from 'components/ModelPopupRating';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetNotYetRated from 'hook/ratings/useGetNotYetRated';
 import useGetRated from 'hook/ratings/useGetRated';
@@ -15,7 +14,6 @@ import useGetRated from 'hook/ratings/useGetRated';
 const RatingScreen = () => {
   const { t } = useTranslation();
   const initialWidth = Dimensions.get('window').width;
-  // const [showModal, setShowModal] = useState(false);
   const { rated, err_rated, loading_rated } = useGetRated();
   const { not_yet_rated, loading_not_yet_rated } = useGetNotYetRated();
 
@@ -34,20 +32,22 @@ const RatingScreen = () => {
           No comment yet
         </Text>
       ) : (
-        <FlatListRating ratings={rated?.data.results} isLoading={loading_rated} />
+        <FlatListRating
+          ratings={rated?.data.results}
+          isLoading={loading_rated}
+          showProduct={false}
+          smallImage={false}
+        />
       )}
     </Flex>
   );
 
   const NotYetRated = () => (
     <Flex backgroundColor="white">
-      {/* <SSButton variant={'red'} text={'Hi'} onPress={() => setShowModal(!showModal)} /> */}
-      {/* <FlatList
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
-        data={DATA}
-        numColumns={2}
-        renderItem={({ item }: { item: IProduct }) => <ItemNotYetRated product={item} />}
-      /> */}
+      <FlatListNotYetRated
+        ratings={not_yet_rated?.data.results}
+        isLoading={loading_not_yet_rated}
+      />
     </Flex>
   );
 
@@ -121,12 +121,6 @@ const RatingScreen = () => {
         )}
         initialLayout={{ width: initialWidth, height: 0 }}
       />
-      {/* <ModelPopupRating
-        showModal={showModal}
-        setShowModal={setShowModal}
-        rating={4}
-        product={DATA[0]}
-      /> */}
     </SafeAreaView>
   );
 };

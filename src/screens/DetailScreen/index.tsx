@@ -128,7 +128,12 @@ const DetailScreen = (props: DetailScreenProps) => {
           Failed to load: {err_product.response.data.message}
         </Text>
       ) : (
-        <FlatListRating ratings={product ? product?.ratings : null} isLoading={loading_product} />
+        <FlatListRating
+          ratings={product ? product?.ratings : null}
+          isLoading={loading_product}
+          showProduct={false}
+          smallImage={true}
+        />
       )}
     </Box>
   );

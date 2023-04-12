@@ -1,16 +1,14 @@
 import { Box, FlatList, HStack, Skeleton, VStack, Text } from 'native-base';
-import ItemRating from 'components/ItemRating';
-import { IRating } from 'interfaces/Rating';
+import ItemNotYetRated from 'components/ItemNotYetRated';
+import { INotYetRated } from 'interfaces/Rating';
 
 type Props = {
-  ratings: IRating[];
+  ratings: INotYetRated[];
   isLoading: boolean;
-  showProduct: boolean;
-  smallImage: boolean;
 };
 
-const FlatListRating = (props: Props) => {
-  const { ratings, isLoading, showProduct, smallImage } = props;
+const FlatListNotYetRated = (props: Props) => {
+  const { ratings, isLoading } = props;
   if (isLoading) {
     return (
       <VStack>
@@ -32,13 +30,13 @@ const FlatListRating = (props: Props) => {
   } else {
     return (
       <FlatList
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
         data={ratings}
-        renderItem={({ item }: { item: IRating }) => (
-          <ItemRating rating={item} showProduct={showProduct} smallImage={smallImage} />
-        )}
+        numColumns={2}
+        renderItem={({ item }: { item: INotYetRated }) => <ItemNotYetRated product={item} />}
       />
     );
   }
 };
 
-export default FlatListRating;
+export default FlatListNotYetRated;

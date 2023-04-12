@@ -47,6 +47,7 @@ export const API_ROUTES = {
   //rating
   getRated: `/ratings/rated`,
   getNotYetRated: `/ratings/not_yet_rated`,
+  addRating: `/ratings`,
 
   //user
   getUsers: (page: number, limit: number) => `/users?page=${page}&limit=${limit}`,
