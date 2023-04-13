@@ -38,7 +38,7 @@ const authAPI = {
   },
 
   async changePassword(payload: ChangePasswordPayload) {
-    const response = await axios.post(API_URL + API_ROUTES.changePassword, payload);
+    const response = await axiosInstance.post(API_ROUTES.changePassword, payload);
     return response;
   },
 
@@ -81,8 +81,8 @@ const authAPI = {
     return response;
   },
 
-  logout() {
-    return axiosInstance.get(API_ROUTES.logout);
+  async logout() {
+    return await axiosInstance.get(API_ROUTES.logout);
   },
 
   refresh_token(payload: RefreshTokenPayload) {

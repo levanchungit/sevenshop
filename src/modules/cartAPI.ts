@@ -1,5 +1,6 @@
 import { API_ROUTES } from 'global/constants';
 import { AddCartPayload } from 'interfaces/Cart';
+import { ChangeColorSize } from 'interfaces/ChangeColorSIze';
 import { axiosInstance } from './config/AxiosInstance';
 
 const cartAPI = {
@@ -22,6 +23,19 @@ const cartAPI = {
       size_id,
       color_id,
     });
+    return response;
+  },
+
+  async updateColorSize(
+    data: ChangeColorSize,
+    product_id: string,
+    size_id: string,
+    color_id: string
+  ) {
+    const response = await axiosInstance.put(
+      API_ROUTES.updateColorSize(product_id, size_id, color_id),
+      data
+    );
     return response;
   },
 

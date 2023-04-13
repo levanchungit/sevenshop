@@ -3,10 +3,19 @@ import { Image, Pressable, Text, View } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import useGetOrders from 'hook/order/useGetOrders';
 import { AppNavigationProp } from 'providers/navigation/types';
+
 const ProfileScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const { t } = useTranslation();
+  const { orders } = useGetOrders();
+  console.log(
+    orders?.data.results
+      ? orders?.data.results.filter((item: any) => item.status === 'pending').length
+      : 'undefined'
+  );
+
   return (
     <View flex={1}>
       <View
@@ -87,9 +96,17 @@ const ProfileScreen = () => {
               <View mt={2}>
                 <Icon.Box stroke="black" width={24} height={24} />
               </View>
-              <View w={5} h={5} borderRadius={'full'} backgroundColor={'primary.600'}>
-                <Text fontSize={11} color={'white'} textAlign={'center'}>
-                  1
+              <View
+                w={5}
+                h={5}
+                borderRadius={'full'}
+                backgroundColor={'primary.600'}
+                alignItems={'center'}
+              >
+                <Text fontSize={11} color={'white'} textAlign={'center'} lineHeight={15}>
+                  {orders?.data.results
+                    ? orders?.data.results.filter((item: any) => item.status === 'pending').length
+                    : 0}
                 </Text>
               </View>
             </View>
@@ -109,8 +126,10 @@ const ProfileScreen = () => {
                 backgroundColor={'primary.600'}
                 alignItems={'center'}
               >
-                <Text fontSize={11} color={'white'}>
-                  1
+                <Text fontSize={11} color={'white'} lineHeight={15}>
+                  {orders?.data.results
+                    ? orders?.data.results.filter((item: any) => item.status === 'shipping').length
+                    : 0}
                 </Text>
               </View>
             </View>
@@ -130,8 +149,10 @@ const ProfileScreen = () => {
                 backgroundColor={'primary.600'}
                 alignItems={'center'}
               >
-                <Text fontSize={11} color={'white'}>
-                  1
+                <Text fontSize={11} color={'white'} lineHeight={15}>
+                  {orders?.data.results
+                    ? orders?.data.results.filter((item: any) => item.status === 'completed').length
+                    : 0}
                 </Text>
               </View>
             </View>
@@ -170,7 +191,12 @@ const ProfileScreen = () => {
             <Icon.ChevronRight stroke="black" width={24} height={24} />
           </View>
 
-          <View flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+          <Pressable
+            onPress={() => navigation.navigate('VoucherScreen')}
+            flexDirection={'row'}
+            justifyContent={'space-between'}
+            alignItems={'center'}
+          >
             <View flexDirection={'row'}>
               <Icon.Gift stroke="black" width={24} height={24} />
               <Text ml={2} variant={'body1'}>
@@ -178,7 +204,7 @@ const ProfileScreen = () => {
               </Text>
             </View>
             <Icon.ChevronRight stroke="black" width={24} height={24} />
-          </View>
+          </Pressable>
         </View>
       </View>
     </View>

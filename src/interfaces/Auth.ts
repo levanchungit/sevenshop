@@ -22,7 +22,7 @@ export type SetPasswordPayload = {
 
 export type ChangePasswordPayload = {
   password: string;
-  password_new: string;
+  new_password: string;
 };
 
 export type RefreshTokenPayload = {

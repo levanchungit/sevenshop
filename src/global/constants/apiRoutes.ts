@@ -28,6 +28,8 @@ export const API_ROUTES = {
   getCarts: `/carts`,
   getQuantityCart: `/carts/quantity_cart`,
   changeQuantity: `/carts`,
+  updateColorSize: (product_id: string, color_id: string, size_id: string) =>
+    `/carts/change_size_color?product_id=${product_id}&color_id=${color_id}&size_id=${size_id}`,
 
   //colors
   getColors: '/colors',

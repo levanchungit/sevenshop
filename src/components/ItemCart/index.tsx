@@ -1,34 +1,27 @@
 import React from 'react';
 import { Text, View, Image, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
-import useGetColors from 'hook/colors/useGetColors';
-import useGetSizes from 'hook/sizes/useGetSizes';
+import IconCheck from 'components/IconCheck';
 import { IData } from 'interfaces/Cart';
-import { IColor } from 'interfaces/Color';
-import { ISize } from 'interfaces/Size';
+import { formatNumberCurrencyVN } from 'utils/common';
+
 type Props = {
   cart: IData;
   increaseQuantity: Function;
   decreaseQuantity: Function;
-  setShowModal: Function;
+  setShowModal: any;
+  isChecked: boolean;
+  onPressChecked: Function;
 };
 
 const ItemCart = (props: Props) => {
-  const { cart, setShowModal, increaseQuantity, decreaseQuantity } = props;
-  const { colors } = useGetColors();
-  const { sizes } = useGetSizes();
+  const { cart, setShowModal, increaseQuantity, decreaseQuantity, isChecked, onPressChecked } =
+    props;
   return (
     <View flexDirection={'row'} mt={2} w={'100%'} h={110} alignItems={'center'} borderRadius={10}>
       <View w={'6%'}>
-        <Pressable
-          justifyContent={'center'}
-          alignItems={'center'}
-          w={6}
-          h={6}
-          backgroundColor={'primary.600'}
-          borderRadius={20}
-        >
-          <Icon.Check stroke="#FFFFFF" width={20} height={20} />
+        <Pressable onPress={() => onPressChecked()}>
+          <IconCheck isChecked={isChecked} />
         </Pressable>
       </View>
       <View flexDirection={'row'} w={'100%'}>
@@ -39,9 +32,9 @@ const ItemCart = (props: Props) => {
             w={'100%'}
             h={'100%'}
             source={
-              cart?.images[0] === undefined
-                ? require('../../assets/images/logo_sevenshop_image_default.png')
-                : { uri: cart?.images[0] }
+              cart?.images[0]
+                ? { uri: cart?.images[0] }
+                : require('../../assets/images/logo_sevenshop_image_default.png')
             }
           />
         </View>
@@ -57,32 +50,17 @@ const ItemCart = (props: Props) => {
             mt={1}
             borderWidth={0.5}
             borderColor={'coolGray.400'}
-            w={'40%'}
+            w={'60%'}
             h={'25%'}
             borderRadius={4}
             flexDirection={'row'}
             alignItems={'center'}
-            onPress={() => setShowModal(true)}
+            onPress={setShowModal}
           >
             <View flexDirection={'row'} ml={2} w={'70%'}>
-              {cart?.color._id
-                ? colors?.data.results
-                    .filter((c: IColor) => cart?.color._id.includes(c._id))
-                    .map((color: IColor) => {
-                      return (
-                        <Text variant={'caption'} w={'50%'}>
-                          {color.name},{' '}
-                        </Text>
-                      );
-                    })
-                : null}
-              {cart?.size._id
-                ? sizes?.data.results
-                    .filter((s: ISize) => cart?.size._id.includes(s._id))
-                    .map((size: ISize) => {
-                      return <Text variant={'caption'}>{size.size}, </Text>;
-                    })
-                : null}
+              <Text variant={'caption'} w={'100%'} color={'black'}>
+                {cart.color.name} | {cart.size.size}
+              </Text>
             </View>
             <Icon.ChevronDown stroke="black" width={24} height={24} />
           </Pressable>
@@ -95,12 +73,12 @@ const ItemCart = (props: Props) => {
                   fontVariant: ['lining-nums'],
                 }}
                 strikeThrough
-                color={'gray.400'}
+                color={'gray.500'}
               >
-                {cart?.price} đ
+                {formatNumberCurrencyVN(cart?.price)}
               </Text>
               <Text mt={1} color={'primary.600'} variant={'button'}>
-                {cart?.price_sale} đ
+                {formatNumberCurrencyVN(cart?.price_sale)}
               </Text>
             </View>
             <View flexDirection={'row'} alignItems={'center'} mt={4}>

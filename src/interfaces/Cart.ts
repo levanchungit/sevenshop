@@ -23,6 +23,7 @@ export type IData = {
   price: number;
   price_sale: number;
   images: string[];
+  isChecked: boolean;
 };
 
 export interface ICart {

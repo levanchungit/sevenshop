@@ -2,9 +2,12 @@ import React from 'react';
 import { Text, View, Button, Image } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import useGetMe from 'hook/auth/useGetMe';
 
 const AccountSecurityScreen = () => {
   const { t } = useTranslation();
+  const { me } = useGetMe();
+  console.log(me?.data.result.phone);
   return (
     <View py={10} backgroundColor={'white'} h={'100%'}>
       <SSHeaderNavigation
@@ -41,7 +44,7 @@ const AccountSecurityScreen = () => {
               alignItems={'center'}
             >
               <Text variant={'body1'}>{t('Settings.fullName')}</Text>
-              <Text variant={'body1'}>sevenshop</Text>
+              <Text variant={'body1'}>{me?.data.result.full_name}</Text>
             </View>
           </View>
 
@@ -53,7 +56,14 @@ const AccountSecurityScreen = () => {
               alignItems={'center'}
             >
               <Text variant={'body1'}>{t('Settings.phone')}</Text>
-              <Text variant={'body1'}>0378484047</Text>
+              <Text
+                variant={'body1'}
+                style={{
+                  fontVariant: ['lining-nums'],
+                }}
+              >
+                {me?.data.result.phone}
+              </Text>
             </View>
           </View>
 
@@ -65,7 +75,14 @@ const AccountSecurityScreen = () => {
               alignItems={'center'}
             >
               <Text variant={'body1'}>Email</Text>
-              <Text variant={'body1'}>sevenshop@gmail.com</Text>
+              <Text
+                variant={'body1'}
+                style={{
+                  fontVariant: ['lining-nums'],
+                }}
+              >
+                {me?.data.result.email}
+              </Text>
             </View>
           </View>
 
@@ -77,14 +94,21 @@ const AccountSecurityScreen = () => {
               alignItems={'center'}
             >
               <Text variant={'body1'}>{t('Settings.birthday')}</Text>
-              <Text variant={'body1'}>08-08-2003</Text>
+              <Text
+                variant={'body1'}
+                style={{
+                  fontVariant: ['lining-nums'],
+                }}
+              >
+                {me?.data.result.birthday}
+              </Text>
             </View>
           </View>
         </View>
         <View mt={5}>
           <Button width={'100%'}>
             <Text fontSize={14} color="light.100" fontWeight={'bold'}>
-              Confirm
+              {t('Settings.confirm')}
             </Text>
           </Button>
         </View>
