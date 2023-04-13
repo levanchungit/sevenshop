@@ -71,5 +71,8 @@ export const API_ROUTES = {
   //voucher
   getVouchersUser: `/voucher/get_vouchers`,
   addVoucherUser: (code: string) => `/voucher/add_voucher/${code}`,
+  //Search
+  addKeywordSearch: `/users/add_keyword_search`,
+  getKeywordsearch: `/users/get_keyword_search`,
 };
 export default API_ROUTES;
