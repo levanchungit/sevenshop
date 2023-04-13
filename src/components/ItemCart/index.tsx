@@ -1,34 +1,35 @@
 import React from 'react';
 import { Text, View, Image, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
-// import useGetColors from 'hook/colors/useGetColors';
-// import useGetSizes from 'hook/sizes/useGetSizes';
+import IconCheck from 'components/IconCheck';
 import { IData } from 'interfaces/Cart';
-// import { IColor } from 'interfaces/Color';
-// import { ISize } from 'interfaces/Size';
+
 type Props = {
   cart: IData;
   increaseQuantity: Function;
   decreaseQuantity: Function;
   setShowModal: Function;
+  selectedItems: number[];
+  onPressCheck: Function;
+  index: number;
 };
 
 const ItemCart = (props: Props) => {
-  const { cart, setShowModal, increaseQuantity, decreaseQuantity } = props;
-  // const { colors } = useGetColors();
-  // const { sizes } = useGetSizes();
+  const {
+    cart,
+    setShowModal,
+    selectedItems,
+    increaseQuantity,
+    index,
+    decreaseQuantity,
+    onPressCheck,
+  } = props;
+
   return (
     <View flexDirection={'row'} mt={2} w={'100%'} h={110} alignItems={'center'} borderRadius={10}>
       <View w={'6%'}>
-        <Pressable
-          justifyContent={'center'}
-          alignItems={'center'}
-          w={6}
-          h={6}
-          backgroundColor={'primary.600'}
-          borderRadius={20}
-        >
-          <Icon.Check stroke="#FFFFFF" width={20} height={20} />
+        <Pressable onPress={onPressCheck()}>
+          <IconCheck isChecked={index === selectedItems.find((i) => i === index)} />
         </Pressable>
       </View>
       <View flexDirection={'row'} w={'100%'}>

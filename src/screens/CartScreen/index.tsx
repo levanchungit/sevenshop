@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, Pressable, FlatList, Button, Modal, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
+import IconCheck from 'components/IconCheck';
+// eslint-disable-next-line import/namespace
 import ItemCart from 'components/ItemCart';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetCarts from 'hook/product/useGetCarts';
@@ -73,6 +75,19 @@ const Cart = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const { carts, mutate_carts } = useGetCarts();
   const [showModal, setShowModal] = useState(false);
+  const [check, setCheck] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
+  const handleItemPress = (index: number) => {
+    const i = selectedItems.indexOf(index);
+    if (i === -1) {
+      setSelectedItems([...selectedItems, index]);
+    } else {
+      const newSelectedItems = [...selectedItems];
+      newSelectedItems.splice(index, 1);
+      setSelectedItems(newSelectedItems);
+    }
+  };
   // let [quantity, setQuantity] = useState(1);
   // const [selectedSize, setSelectedSize] = useState<string>();
 
@@ -124,16 +139,10 @@ const Cart = () => {
       <View w={'100%'} h={'100%'} p={3}>
         <View w={'100%'} flexDirection={'row'} justifyItems={'center'}>
           <View w={'95%'} flexDirection={'row'}>
-            <Pressable
-              justifyContent={'center'}
-              alignItems={'center'}
-              w={6}
-              h={6}
-              backgroundColor={'primary.600'}
-              borderRadius={20}
-            >
-              <Icon.Check stroke="#FFFFFF" width={20} height={20} />
+            <Pressable onPress={() => setCheck(!check)}>
+              <IconCheck isChecked={check} />
             </Pressable>
+
             <Text ml={3} variant={'body2'}>
               Select All
             </Text>
@@ -146,7 +155,7 @@ const Cart = () => {
           <FlatList
             keyExtractor={(item, index) => index + ''}
             data={carts?.data}
-            renderItem={({ item }: { item: IData }) => (
+            renderItem={({ item, index }: { item: IData; index: number }) => (
               <ItemCart
                 cart={item}
                 setShowModal={setShowModal}
@@ -156,6 +165,9 @@ const Cart = () => {
                 decreaseQuantity={() =>
                   ChangQuantity(item.product_id, item.quantity - 1, item.size._id, item.color._id)
                 }
+                onPressCheck={() => handleItemPress(index)}
+                selectedItems={selectedItems}
+                index={index}
               ></ItemCart>
             )}
           ></FlatList>
