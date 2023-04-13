@@ -44,3 +44,6 @@ export type ProductInvoice = {
 export interface getInvoice {
   products: ProductInvoice[];
 }
+export type StripeCheckout = {
+  amount: number;
+};

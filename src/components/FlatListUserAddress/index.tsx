@@ -4,14 +4,13 @@ import { AddressesResult } from 'interfaces/Address';
 
 type Props = {
   address: AddressesResult[];
-  mutate: Function;
   isLoading: boolean;
   checkId: string;
   setCheckId: Function;
 };
 
 const FlatListUserAddress = (props: Props) => {
-  const { address, isLoading, checkId, setCheckId, mutate } = props;
+  const { address, isLoading, checkId, setCheckId } = props;
   if (isLoading) {
     return (
       <VStack>
@@ -52,7 +51,7 @@ const FlatListUserAddress = (props: Props) => {
         showsVerticalScrollIndicator={false}
         data={address}
         renderItem={({ item }: { item: AddressesResult }) => (
-          <ItemAdrress address={item} check={checkId} setCheck={setCheckId} mutate={mutate} />
+          <ItemAdrress address={item} check={checkId} setCheck={setCheckId} />
         )}
         keyExtractor={(item) => item._id}
       />

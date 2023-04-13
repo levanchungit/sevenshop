@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import {
   Box,
   Text,
@@ -7,62 +6,78 @@ import {
   Pressable,
   Image,
   Center,
-  FlatList,
   ScrollView,
   Skeleton,
+  Toast,
+  // Toast,
 } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import { Dimensions, LogBox } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { Rating } from 'react-native-ratings';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import FlatListRating from 'components/FlatListRating';
-import ItemProductFlashSale from 'components/ItemProductFlashSale';
+import FlatListRecommendForYou from 'components/FlatListRecommendForYou';
 import ModalPopupCart from 'components/ModalPopupCart';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetProductDetail from 'hook/product/useGetProductDetail';
 import useGetProducts from 'hook/product/useGetProducts';
 import useGetQuantityCart from 'hook/product/useGetQuantityCart';
-import useGetRatings from 'hook/ratings/useGetRatings';
-import { IProduct } from 'interfaces/Product';
-import { AppNavigationProp, DetailRouteProp } from 'providers/navigation/types';
+// import { productAPI } from 'modules';
+import { productAPI } from 'modules';
+import { DetailRouteProp } from 'providers/navigation/types';
+import { formatNumberCurrencyVN } from 'utils/common';
 
 type DetailScreenProps = {
   route: DetailRouteProp;
 };
 
 const DetailScreen = (props: DetailScreenProps) => {
-  LogBox.ignoreLogs(['Warning: ...']);
+  const { t } = useTranslation();
   const { _id } = props.route.params;
-  // const _id = '641a7c581358f1dd563383e9';
+  LogBox.ignoreAllLogs();
 
   //api detail
-  const { product, err_product, loading_product } = useGetProductDetail(_id);
+  const { product, err_product, loading_product, mutate_product } = useGetProductDetail(_id);
   //api cart
-  const { quantity } = useGetQuantityCart();
+  const { quantity, mutate_quantity } = useGetQuantityCart();
+
   //api products
   const limitProducts = 8;
   const [productPage] = useState(1);
-  const { products, errorProducts } = useGetProducts(productPage, limitProducts);
-  //api ratings
-  const limitRatings = 5;
-  const [ratingPage] = useState(1);
-  const { ratings, err_ratings, loading_ratings } = useGetRatings(_id, ratingPage, limitRatings);
+  const { products, error_products, loading_products } = useGetProducts(productPage, limitProducts);
 
-  // const handleSelected = (color: string, size: string, quantity: number) => {
-  //   console.log(color, size, quantity);
-  // };
-
-  const navigation = useNavigation<AppNavigationProp>();
-  const [statusLike, setStatusLike] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [typeModal, setTypeModal] = useState<string>('');
   const initialWidth = Dimensions.get('window').width;
 
-  const numberWithCommas = (num?: number) => {
-    return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  //api favorite
+  const handleUpdateFavorite = async () => {
+    try {
+      await productAPI.updateFavorite(_id);
+      if (product?.isFavorite) {
+        Toast.show({
+          title: 'Successfully removed from favorite',
+          placement: 'top',
+        });
+        mutate_product();
+      }
+      if (!product?.isFavorite) {
+        Toast.show({
+          title: 'Successfully add to favorite',
+          placement: 'top',
+        });
+        mutate_product();
+      }
+    } catch (error: any) {
+      Toast.show({
+        title: 'Cannot update favorite product',
+        description: error.response.data.message ? error.response.data.message : error.message,
+        placement: 'top',
+      });
+    }
   };
-
   const DescriptionRoute = () => (
     <ScrollView
       flex={1}
@@ -85,45 +100,41 @@ const DetailScreen = (props: DetailScreenProps) => {
       </Skeleton.Text>
 
       <Flex direction="row" justifyContent="space-between" mt={3}>
-        <Text variant="button">Recommend for you</Text>
+        <Text variant="button">{t('Details.relatedProducts')}</Text>
         <Pressable>
-          <Text variant="button">See all</Text>
+          <Text variant="button">{t('Details.seeAll')}</Text>
         </Pressable>
       </Flex>
-      {errorProducts ? (
-        <Text variant="body1">Failed to load</Text>
-      ) : !products ? null : (
-        <FlatList
-          data={products ? products[0].data.results : null}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          renderItem={({ item }: { item: IProduct }) => (
-            <ItemProductFlashSale
-              onPress={() => navigation.navigate('Detail', { _id: item._id })}
-              data={item}
-            />
-          )}
-          keyExtractor={(item) => item._id}
+      {error_products ? (
+        <Text variant="title" alignSelf="center">
+          Failed to load
+        </Text>
+      ) : (
+        <FlatListRecommendForYou
+          products={products ? products[0].data.results : null}
+          isLoading={loading_products}
         />
       )}
     </ScrollView>
   );
   const ReviewRoute = () => (
-    <Box style={{ flex: 1, backgroundColor: 'transparent' }}>
+    <Box backgroundColor="transparent">
       <Rating
         readonly={true}
-        startingValue={ratings ? ratings[0]?.data.results.average_rating : 0}
-        imageSize={24}
-        style={{ paddingVertical: 12, width: '30%' }}
+        startingValue={product ? product?.average_rating : 0}
+        imageSize={40}
+        style={{ paddingVertical: 12 }}
       />
-      {err_ratings ? (
-        <Text variant="body1" alignSelf="center">
-          No comment yet
+      {err_product ? (
+        <Text variant="title" alignSelf="center">
+          Failed to load: {err_product.response.data.message}
         </Text>
       ) : (
         <FlatListRating
-          ratings={ratings ? ratings[0]?.data.results : null}
-          isLoading={loading_ratings}
+          ratings={product ? product?.ratings : null}
+          isLoading={loading_product}
+          showProduct={false}
+          smallImage={true}
         />
       )}
     </Box>
@@ -210,10 +221,11 @@ const DetailScreen = (props: DetailScreenProps) => {
                   fontVariant: ['lining-nums'],
                 }}
               >
-                {product?.price_sale
-                  ? numberWithCommas(product?.price_sale)
-                  : numberWithCommas(product?.price)}
-                vnđ
+                {!product
+                  ? 0
+                  : product?.price_sale
+                  ? formatNumberCurrencyVN(product.price_sale)
+                  : formatNumberCurrencyVN(product.price)}
               </Text>
 
               {product?.price_sale ? (
@@ -225,7 +237,7 @@ const DetailScreen = (props: DetailScreenProps) => {
                     fontVariant: ['lining-nums'],
                   }}
                 >
-                  {numberWithCommas(product?.price)}vnđ
+                  {!product ? 0 : formatNumberCurrencyVN(product.price)}
                 </Text>
               ) : null}
             </Skeleton.Text>
@@ -234,6 +246,7 @@ const DetailScreen = (props: DetailScreenProps) => {
                 index,
                 routes,
               }}
+              swipeEnabled={false}
               renderScene={renderScene}
               onIndexChange={setIndex}
               renderTabBar={(prop) => (
@@ -271,7 +284,7 @@ const DetailScreen = (props: DetailScreenProps) => {
           iconSearchEnabled={true}
           iconOther={true}
           titleHeaderSearch={''}
-          titleHeaderScreen={'Details'}
+          titleHeaderScreen={t('Details.title')}
           iconRightHeaderScreen={true}
           quantityItems={quantity?.data.quantity}
           iconRightHeaderCart={true}
@@ -294,18 +307,16 @@ const DetailScreen = (props: DetailScreenProps) => {
               <SSButton
                 variant={'red'}
                 leftIcon={
-                  <Icon.Heart width={24} stroke="white" fill={statusLike ? 'white' : 'none'} />
-                }
-                onPress={() => setStatusLike(!statusLike)}
-              />
-              <SSButton
-                leftIcon={
-                  <Icon.ShoppingCart
+                  <Icon.Heart
                     width={24}
-                    stroke="#AC1506"
-                    fill={statusLike ? 'white' : 'none'}
+                    stroke="white"
+                    fill={product?.isFavorite ? 'white' : 'none'}
                   />
                 }
+                onPress={() => handleUpdateFavorite()}
+              />
+              <SSButton
+                leftIcon={<Icon.ShoppingCart width={24} stroke="#AC1506" />}
                 variant={'white'}
                 text={'Add to cart'}
                 onPress={() => {
@@ -330,10 +341,11 @@ const DetailScreen = (props: DetailScreenProps) => {
       </Box>
       {err_product ? null : !product && !loading_product ? null : loading_product ? null : (
         <ModalPopupCart
-          product={product}
+          product={product ? product : null}
           showModal={showModal}
           setShowModal={setShowModal}
           functionButton={typeModal}
+          mutate={mutate_quantity}
         />
       )}
     </Box>

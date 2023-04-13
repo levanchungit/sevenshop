@@ -2,25 +2,24 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Moment from 'moment';
 import { Image, Text, View, Pressable } from 'native-base';
-import useGetOrderById from 'hook/order/useGetOrderById';
+import { useTranslation } from 'react-i18next';
 import { PaymentSuccessRouteProp, AppNavigationProp } from 'providers/navigation/types';
 
 type Success = {
   route: PaymentSuccessRouteProp;
 };
 const PaymentSuccess = ({ route }: Success) => {
+  const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
-  const { id_order } = route.params;
-  const { order } = useGetOrderById(id_order);
+  const { data_detail } = route.params;
+  // console.log('data_detail', data_detail);
   let date = '';
-  if (order) {
+  if (data_detail) {
     date =
-      (order?.data.created_at).slice(11, 16) +
+      data_detail.results.created_at.slice(11, 16) +
       '-' +
-      Moment((order?.data.created_at).slice(0, 10)).format('DD/MM/YYYY');
+      Moment(data_detail.results.created_at).format('DD/MM/YYYY');
   }
-
-  // console.log('PaymentSuccess', order?.data);
 
   return (
     <View bgColor={'white'} flex={1}>
@@ -33,7 +32,7 @@ const PaymentSuccess = ({ route }: Success) => {
             source={require('../../assets/images/paymentsuccess.png')}
           />
           <Text variant={'Title'} fontWeight="bold" fontSize={20} mt={3} mb={7} color="black">
-            Successful payment
+            {t('PaymentSuccess.title')}
           </Text>
         </View>
 
@@ -47,7 +46,7 @@ const PaymentSuccess = ({ route }: Success) => {
                 color={'black'}
                 fontFamily="Raleway_500Medium"
               >
-                Payment time
+                {t('PaymentSuccess.paymentTime')}
               </Text>
               <Text
                 style={{
@@ -64,7 +63,7 @@ const PaymentSuccess = ({ route }: Success) => {
             </View>
             <View flexDirection={'row'} justifyContent="space-between" mb={2}>
               <Text variant={'Body1'} fontSize={16} color={'black'} fontFamily="Raleway_500Medium">
-                Trading code
+                {t('PaymentSuccess.tradingCode')}
               </Text>
               <Text
                 style={{
@@ -74,7 +73,7 @@ const PaymentSuccess = ({ route }: Success) => {
                 fontSize={16}
                 color={'primary.600'}
               >
-                {order ? '#' + order?.data._id : '...............'}
+                {data_detail ? '#' + data_detail.results._id : '...............'}
               </Text>
             </View>
             <View flexDirection={'row'} justifyContent="space-between" color={'black'} mb={3}>
@@ -84,26 +83,32 @@ const PaymentSuccess = ({ route }: Success) => {
                 fontWeight="extraBlack"
                 fontFamily="Raleway_500Medium"
               >
-                Paid by
+                {t('PaymentSuccess.paidBy')}
               </Text>
               <Text variant={'Body1'} fontSize={16} color={'black'} fontFamily="Raleway_500Medium">
-                {order ? (order?.data.payment_type === 'cod' ? 'Cash' : '...') : '......'}
+                {data_detail
+                  ? data_detail?.results.payment_type === 'cod'
+                    ? 'Cash'
+                    : data_detail?.results.payment_type === 'bank'
+                    ? 'bank'
+                    : 'momo'
+                  : '......'}
               </Text>
             </View>
             <View flexDirection={'row'} justifyContent="space-between" color={'black'}>
               <Text variant={'Body1'} fontSize={12} w={'60%'} fontFamily="Raleway_500Medium">
-                For more details on the status of your order please select{' '}
+                {t('PaymentSuccess.details1')}{' '}
                 <Text fontWeight={'extrabold'} fontSize={14} fontFamily="Raleway_700Bold">
-                  Profile
+                  {t('PaymentSuccess.profile')}
                 </Text>{' '}
-                or click to{' '}
+                {t('PaymentSuccess.details1')}{' '}
                 <Text
                   fontSize={14}
                   fontWeight={'extrabold'}
                   lineHeight={19}
                   fontFamily="Raleway_700Bold"
                 >
-                  View Orders
+                  {t('PaymentSuccess.viewOrders')}
                 </Text>
               </Text>
               <Pressable
@@ -126,7 +131,7 @@ const PaymentSuccess = ({ route }: Success) => {
                   fontSize={16}
                   color={'primary.600'}
                 >
-                  View orders
+                  {t('PaymentSuccess.viewOrders')}
                 </Text>
               </Pressable>
             </View>
@@ -134,13 +139,13 @@ const PaymentSuccess = ({ route }: Success) => {
         </View>
         <View mt={5}>
           <Text variant={'Caption'} textAlign="center" fontSize={12} fontFamily="Raleway_500Medium">
-            SevenShop thank you for choosing us.
+            {t('PaymentSuccess.thankYou1')}
           </Text>
           <Text variant={'Caption'} textAlign="center" fontSize={12} fontFamily="Raleway_500Medium">
-            Hope you will have a great experience when using our products/services.
+            {t('PaymentSuccess.thankYou2')}
           </Text>
           <Text variant={'Caption'} textAlign="center" fontSize={12} fontFamily="Raleway_500Medium">
-            We look forward to your continued support in the future.
+            {t('PaymentSuccess.thankYou3')}
           </Text>
         </View>
       </View>
@@ -162,7 +167,7 @@ const PaymentSuccess = ({ route }: Success) => {
           onPress={() => navigation.navigate('Main')}
         >
           <Text variant={'Button'} fontFamily="Raleway_700Bold" fontSize={16} color={'white'}>
-            Keep Shopping
+            {t('PaymentSuccess.keepShopping')}
           </Text>
         </Pressable>
       </View>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, FlatList } from 'react-native';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SSItemNotification from 'components/SSItemNotifications';
@@ -7,6 +8,7 @@ import useGetNotifications from 'hook/notification/useGetNotifications';
 import useGetCarts from 'hook/product/useGetCarts';
 
 const NotificationScreen = () => {
+  const { t } = useTranslation();
   const { me } = useGetMe();
   const { notifications } = useGetNotifications(me?.data.result._id);
   const { carts } = useGetCarts();
@@ -15,7 +17,7 @@ const NotificationScreen = () => {
     return (
       <SSItemNotification
         onPress={() => null}
-        title={data.title + '👋'}
+        title={data.title}
         details={data.body}
         date={data.modify[0].date}
       />
@@ -29,7 +31,7 @@ const NotificationScreen = () => {
         titleHeaderSearchEnabled={true}
         iconSearchEnabled={true}
         iconOther={false}
-        titleHeaderSearch={'Notification'}
+        titleHeaderSearch={t('Notification.title')}
         titleHeaderScreen={''}
         iconRightHeaderScreen={false}
         quantityItems={carts?.data.length}

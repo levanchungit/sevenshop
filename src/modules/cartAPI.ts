@@ -24,6 +24,10 @@ const cartAPI = {
     });
     return response;
   },
+
+  async checkoutStripe(data: any) {
+    return await axiosInstance.post(API_ROUTES.stripe, data);
+  },
 };
 
 export default cartAPI;

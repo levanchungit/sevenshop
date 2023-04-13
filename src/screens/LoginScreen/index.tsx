@@ -12,6 +12,7 @@ import {
   HStack,
   Center,
 } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icons from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
 import { URL_IMG_AUTH } from 'global/constants';
@@ -19,10 +20,11 @@ import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 const LoginScreen = React.memo(() => {
+  const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [email, setEmail] = useState('khuyenpv0509@gmail.com');
-  const [password, setPassword] = useState('123456');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = useCallback(async () => {
@@ -65,12 +67,12 @@ const LoginScreen = React.memo(() => {
         />
 
         <Text variant={'h2'} mt={5} textAlign="center">
-          Login
+          {t('Login.title')}
         </Text>
 
         <VStack space={1}>
           <SSTextInput
-            placeholder={'Enter your email/phone number'}
+            placeholder={t('Login.email')}
             value={email}
             changeValue={setEmail}
             inputLeftElement={<Icons.User stroke="#1C1C1C" width={24} height={24} />}
@@ -78,7 +80,7 @@ const LoginScreen = React.memo(() => {
           ></SSTextInput>
 
           <SSTextInput
-            placeholder={'Enter your password'}
+            placeholder={t('Login.password')}
             value={password}
             changeValue={setPassword}
             typePassword={true}
@@ -88,7 +90,7 @@ const LoginScreen = React.memo(() => {
           <Center mt={2}>
             <HStack w="80%" alignItems="flex-end" justifyContent={'flex-end'}>
               <Text variant={'body2'} color="primary.600" onPress={handleForgotPassword}>
-                Forgot password?
+                {t('Login.forgotPassword')}
               </Text>
             </HStack>
           </Center>
@@ -100,14 +102,14 @@ const LoginScreen = React.memo(() => {
           </Center>
 
           <Center mt={4}>
-            <Text variant={'body2'}>Or login with</Text>
+            <Text variant={'body2'}>{t('Login.loginWith')}</Text>
           </Center>
 
           <Center mt={4}>
             <HStack alignItems={'center'}>
-              <Text variant={'body1'}>Don’t you have an account?</Text>
+              <Text variant={'body1'}>{t('Login.notHaveAccount')}</Text>
               <Text variant={'button'} color="primary.600" ml={1} onPress={handleRegister}>
-                Register
+                {t('Login.register')}
               </Text>
             </HStack>
           </Center>

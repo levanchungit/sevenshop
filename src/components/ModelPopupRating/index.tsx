@@ -1,11 +1,10 @@
-import { Flex, Image, Modal, Text, TextArea } from 'native-base';
+import { useState } from 'react';
+import { Flex, Image, Modal, Text, TextArea, Toast } from 'native-base';
 import { Dimensions } from 'react-native';
 import { Rating } from 'react-native-ratings';
 import SSButton from 'components/SSButton';
-import { STATUS_PRODUCT } from 'global/constants';
-import { review } from 'interfaces/Auth';
-import { IModify } from 'interfaces/Basic';
-import { IStock } from 'interfaces/Product';
+import { INotYetRated, RatingPayload } from 'interfaces/Rating';
+import ratingAPI from 'modules/ratingAPI';
 
 const initialWidth = Dimensions.get('window').width;
 
@@ -13,27 +12,37 @@ type Props = {
   showModal: boolean;
   setShowModal: Function;
   rating: number;
-  product?: {
-    _id?: string;
-    name: string;
-    price: number;
-    price_sale: number;
-    description: string;
-    images: string[];
-    stock: IStock[];
-    status: STATUS_PRODUCT;
-    category_ids: string[];
-    color_ids: string[];
-    size_ids: string[];
-    created_at: string;
-    created_by: string;
-    modify: IModify[];
-    reviews: review[];
-  };
+  product: INotYetRated;
 };
 
 const ModelPopupRating = (props: Props) => {
   const { showModal, setShowModal, rating, product } = props;
+  const [content, setContent] = useState<string>('');
+  const data: RatingPayload = {
+    product_id: product.product_id,
+    color_id: product.color_id,
+    size_id: product.size_id,
+    images: ['https://res.cloudinary.com/dzhlsdyqv/image/upload/v1681145262/file_oqm3zt.jpg'],
+    content,
+    rating,
+  };
+  const addRating = async () => {
+    console.log(data);
+    try {
+      await ratingAPI.addRating(data);
+      Toast.show({
+        title: 'Successfully added rating',
+        placement: 'top',
+      });
+      setShowModal(!showModal);
+    } catch (error: any) {
+      Toast.show({
+        title: 'Cannot add rating',
+        description: error.response.data.message ? error.response.data.message : error.message,
+        placement: 'top',
+      });
+    }
+  };
   return (
     <Modal isOpen={showModal} onClose={() => setShowModal(!showModal)}>
       <Modal.Content maxWidth={initialWidth} marginBottom={0} marginTop="auto">
@@ -42,7 +51,7 @@ const ModelPopupRating = (props: Props) => {
           <Flex direction="row" w="100%">
             <Image
               source={{
-                uri: product?.images[0],
+                uri: product?.product_image,
               }}
               alt="Product img"
               size="full"
@@ -51,7 +60,7 @@ const ModelPopupRating = (props: Props) => {
               w="15%"
             />
             <Flex direction="column" w="100%" marginLeft={3}>
-              <Text variant="body2">{product?.name}</Text>
+              <Text variant="body2">{product?.product_name}</Text>
               <Rating
                 startingValue={rating}
                 imageSize={15}
@@ -69,18 +78,15 @@ const ModelPopupRating = (props: Props) => {
             Tell us how you feel:
           </Text>
           <TextArea
+            value={content}
+            onChangeText={setContent}
             placeholder="Put your comment right here..."
             w="100%"
             autoCompleteType={undefined}
           />
         </Modal.Body>
         <Modal.Footer>
-          <SSButton
-            width="100%"
-            variant={'red'}
-            text={'Submit'}
-            onPress={() => console.log('Submit comment')}
-          />
+          <SSButton width="100%" variant={'red'} text={'Submit'} onPress={() => addRating()} />
         </Modal.Footer>
       </Modal.Content>
     </Modal>

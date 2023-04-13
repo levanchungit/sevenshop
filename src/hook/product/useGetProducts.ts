@@ -8,7 +8,7 @@ const fetcher = async (page: number, limit: number) => {
 };
 
 export default function useGetProducts(page: number, limit: number) {
-  const { data, error, size, setSize } = useSWRInfinite(
+  const { data, error, size, setSize, isLoading } = useSWRInfinite(
     (index, previousPageData) => {
       if (previousPageData && !previousPageData.length) {
         return null;
@@ -22,7 +22,8 @@ export default function useGetProducts(page: number, limit: number) {
 
   return {
     products: data,
-    errorProducts: error,
+    error_products: error,
+    loading_products: isLoading,
     isReachingEnd,
     size,
     setSize,

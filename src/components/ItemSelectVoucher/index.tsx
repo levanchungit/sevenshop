@@ -1,4 +1,5 @@
 import { Box, Flex, Image, Pressable, Text } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import IconCheck from 'components/IconCheck';
 
@@ -16,6 +17,7 @@ type Props = {
 };
 
 const ItemSelectVoucher = (props: Props, handleChange: boolean) => {
+  const { t } = useTranslation();
   const { voucher, selected, onSelect } = props;
   return (
     <Flex
@@ -70,7 +72,7 @@ const ItemSelectVoucher = (props: Props, handleChange: boolean) => {
                 fontVariant: ['lining-nums'],
               }}
             >
-              Expire at {voucher.time}
+              {t('SelectVoucher.effective')} {voucher.time}
             </Text>
           </Flex>
           <Text
@@ -81,7 +83,7 @@ const ItemSelectVoucher = (props: Props, handleChange: boolean) => {
               fontVariant: ['lining-nums'],
             }}
           >
-            Condition
+            {t('SelectVoucher.condition')}
           </Text>
         </Flex>
       </Flex>

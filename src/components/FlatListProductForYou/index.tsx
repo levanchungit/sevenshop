@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, View, Text, FlatList } from 'react-native';
 import ItemProductForYou from 'components/ItemProductForYou';
 import { IProduct } from 'interfaces/Product';
@@ -13,6 +14,7 @@ type Props = {
 
 const FlatListProductForYou = (props: Props) => {
   const { data, onEndReached } = props;
+  const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
 
   const RenderItemForYou = ({ data }: { data: IProduct }) => {
@@ -37,7 +39,7 @@ const FlatListProductForYou = (props: Props) => {
       nestedScrollEnabled
     >
       <View>
-        <Text style={styles.headerForYou}>FOR YOU</Text>
+        <Text style={styles.headerForYou}>{t('Home.forYou')}</Text>
         <FlatList
           contentContainerStyle={styles.flashList}
           numColumns={2}

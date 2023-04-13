@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, FlatList, Pressable } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import SSInputSearch from 'components/SSInputSearch';
 
@@ -57,13 +58,14 @@ const renderItem1 = ({ item }: any) => {
 };
 
 const SearchProductScreen = () => {
+  const { t } = useTranslation();
   return (
     <View flex={1} py={5} px={3}>
       <SSInputSearch placeholder={'Search'}></SSInputSearch>
       <View flexDirection={'row'} justifyContent={'space-between'} mt={2}>
         <Text>History</Text>
         <Pressable flexDirection={'row'}>
-          <Text>Clear All</Text>
+          <Text>{t('SearchProduct.clearAll')}</Text>
           <Icon.Trash2 stroke="black" width={24} height={24} />
         </Pressable>
       </View>

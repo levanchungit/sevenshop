@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Text, Flex, Switch, Toast } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SSButton from 'components/SSButton';
@@ -16,7 +17,8 @@ type EditAddressScreenProps = {
 
 const EditAddressScreen = (props: EditAddressScreenProps) => {
   const navigation = useNavigation<AppNavigationProp>();
-  const { typeEdit, address, mutate } = props.route.params;
+  const { t } = useTranslation();
+  const { typeEdit, address } = props.route.params;
   const [isDefault, setIsDefault] = useState<boolean>(!address ? false : address?.default_address);
   // const [selectedType, setSelectedType] = useState<string>('');
   const [name, setName] = useState<string>(!address ? '' : address?.full_name);
@@ -25,10 +27,6 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
     !address ? '' : address?.address
   );
   const [_id] = useState<string>(!address ? '' : address?._id);
-  const goBackNav = () => {
-    mutate();
-    navigation.goBack();
-  };
 
   //api
   const data: AddressesPayload = {
@@ -101,7 +99,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
         iconSearchEnabled={false}
         iconOther={false}
         titleHeaderSearch={''}
-        titleHeaderScreen={typeEdit === true ? 'Edit address' : 'Add address'}
+        titleHeaderScreen={typeEdit === true ? t('Address.editAddress') : t('Address.newAddress')}
         iconRightHeaderScreen={false}
         quantityItems={0}
         iconRightHeaderCart={false}
@@ -109,7 +107,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
       />
 
       <SSTextInput
-        placeholder={'Enter the recipient’s name'}
+        placeholder={t('Address.name')}
         typePassword={false}
         inputLeftElement={<Icon.User strokeWidth={1} stroke={'black'} />}
         value={name === undefined ? '' : name}
@@ -118,7 +116,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
       />
 
       <SSTextInput
-        placeholder={'Enter the recipient’s phone number'}
+        placeholder={t('Address.phone')}
         typePassword={false}
         inputLeftElement={<Icon.Phone strokeWidth={1} stroke={'black'} />}
         value={phone === undefined ? '' : phone.toString()}
@@ -128,7 +126,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
       />
 
       <SSTextInput
-        placeholder={'Enter the address'}
+        placeholder={t('Address.address')}
         typePassword={false}
         inputLeftElement={<Icon.MapPin strokeWidth={1} stroke={'black'} />}
         value={addressDescription === undefined ? '' : addressDescription}
@@ -136,31 +134,9 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
         width="100%"
       />
 
-      {/* <Flex direction="row" alignItems="center" p={3}>
-        <Text variant={'body1'} w="50%">
-          Address type
-        </Text>
-        <Flex direction="row" justifyContent="center" alignItems="center" w="25%">
-          <Pressable onPress={() => setSelectedType('home')}>
-            <IconCheck isChecked={selectedType === 'home'} />
-          </Pressable>
-          <Text variant={'body1'} marginLeft={3}>
-            Home
-          </Text>
-        </Flex>
-        <Flex direction="row" justifyContent="center" alignItems="center" w="25%">
-          <Pressable onPress={() => setSelectedType('work')}>
-            <IconCheck isChecked={selectedType === 'work'} />
-          </Pressable>
-          <Text variant={'body1'} marginLeft={3}>
-            Work
-          </Text>
-        </Flex>
-      </Flex> */}
-
       <Flex direction="row" alignItems="center" p={3} justifyContent="space-between">
         <Text variant={'body1'} w="50%">
-          Set address default
+          {t('Address.setDefault')}
         </Text>
         <Switch
           size="lg"
@@ -172,14 +148,14 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
 
       <SSButton
         variant={'white'}
-        text={typeEdit === true ? 'Delete' : 'Cancel'}
-        onPress={() => (typeEdit === true ? deleteAddress() : goBackNav())}
+        onPress={() => (typeEdit === true ? deleteAddress() : navigation.goBack())}
+        text={typeEdit === true ? t('Address.Delete') : 'Cancle'}
       />
       <Box width={'100%'} margin={3} />
       <SSButton
         variant={'red'}
-        text={typeEdit === true ? 'Submit' : 'Add'}
         onPress={() => (typeEdit === true ? editAddress() : addAddress())}
+        text={typeEdit === true ? t('Address.submit') : 'Add'}
       />
     </SafeAreaView>
   );

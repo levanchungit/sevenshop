@@ -1,10 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { Image, Pressable, Text, View } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { AppNavigationProp } from 'providers/navigation/types';
 const ProfileScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
+  const { t } = useTranslation();
   return (
     <View flex={1}>
       <View
@@ -23,7 +25,7 @@ const ProfileScreen = () => {
           <SSHeaderNavigation
             tabHeaderSearchEnabled={true}
             titleHeaderSearchEnabled={true}
-            titleHeaderSearch="Proflie"
+            titleHeaderSearch={t('Profile.title')}
             iconSearchEnabled={false}
             iconOther={true}
             titleHeaderScreen="Payment Success"
@@ -56,7 +58,7 @@ const ProfileScreen = () => {
                 mt={1}
               >
                 <Text variant={'body1'} color={'white'} textAlign={'center'}>
-                  Member Sliver
+                  {t('Profile.memberSliver')}
                 </Text>
               </Pressable>
             </View>
@@ -68,15 +70,15 @@ const ProfileScreen = () => {
           <View flexDirection={'row'}>
             <Icon.User stroke="black" width={24} height={24} />
             <Text ml={2} variant={'subtitle1'}>
-              My Purchase
+              {t('Profile.myPurchase')}
             </Text>
           </View>
-          <View flexDirection={'row'}>
+          <Pressable flexDirection={'row'} onPress={() => navigation.navigate('MyPurchaseScreen')}>
             <Text mr={2} variant={'body2'}>
-              Purchase history
+              {t('Profile.purchaseHistory')}
             </Text>
             <Icon.ChevronRight stroke="black" width={24} height={24} />
-          </View>
+          </Pressable>
         </View>
 
         <View flexDirection={'row'} mt={2} px={7} justifyContent={'space-between'}>
@@ -92,7 +94,7 @@ const ProfileScreen = () => {
               </View>
             </View>
 
-            <Text variant={'body2'}>To Pay</Text>
+            <Text variant={'body2'}>{t('Profile.toPay')}</Text>
           </View>
 
           <View>
@@ -113,7 +115,7 @@ const ProfileScreen = () => {
               </View>
             </View>
 
-            <Text variant={'body2'}>To Ship</Text>
+            <Text variant={'body2'}>{t('Profile.toShip')}</Text>
           </View>
 
           <View>
@@ -134,7 +136,7 @@ const ProfileScreen = () => {
               </View>
             </View>
 
-            <Text variant={'body2'}>To Receive</Text>
+            <Text variant={'body2'}>{t('Profile.toReceive')}</Text>
           </View>
 
           <Pressable onPress={() => navigation.navigate('Rating')}>
@@ -144,7 +146,7 @@ const ProfileScreen = () => {
               </View>
             </View>
 
-            <Text variant={'body2'}>Rating</Text>
+            <Text variant={'body2'}>{t('Rating')}</Text>
           </Pressable>
         </View>
         <View px={3} mt={5} h={'35%'} justifyContent={'space-between'}>
@@ -152,7 +154,7 @@ const ProfileScreen = () => {
             <View flexDirection={'row'}>
               <Icon.Award stroke="black" width={24} height={24} />
               <Text ml={2} variant={'body1'}>
-                Membership
+                {t('Profile.memberShip')}
               </Text>
             </View>
             <Icon.ChevronRight stroke="black" width={24} height={24} />
@@ -162,7 +164,7 @@ const ProfileScreen = () => {
             <View flexDirection={'row'}>
               <Icon.Bookmark stroke="black" width={24} height={24} />
               <Text ml={2} variant={'body1'}>
-                Recently Viewed
+                {t('Profile.recentlyViewed')}
               </Text>
             </View>
             <Icon.ChevronRight stroke="black" width={24} height={24} />
@@ -172,7 +174,7 @@ const ProfileScreen = () => {
             <View flexDirection={'row'}>
               <Icon.Gift stroke="black" width={24} height={24} />
               <Text ml={2} variant={'body1'}>
-                My Voucher
+                {t('Profile.myVoucher')}
               </Text>
             </View>
             <Icon.ChevronRight stroke="black" width={24} height={24} />

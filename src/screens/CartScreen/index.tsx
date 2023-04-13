@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, Pressable, FlatList, Button, Modal, Toast } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import IconCheck from 'components/IconCheck';
 // eslint-disable-next-line import/namespace
@@ -12,67 +13,8 @@ import { cartAPI, checkoutAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 const Cart = () => {
-  // const dataColor = [
-  //   {
-  //     title: 'Cyan',
-  //     data: 'cyan.500',
-  //   },
-  //   {
-  //     title: 'Yellow',
-  //     data: 'yellow.100',
-  //   },
-  //   {
-  //     title: 'Violet',
-  //     data: 'violet.200',
-  //   },
-  //   {
-  //     title: 'red',
-  //     data: 'red.200',
-  //   },
-  //   {
-  //     title: 'blue',
-  //     data: 'blue.200',
-  //   },
-  //   {
-  //     title: 'white',
-  //     data: 'white',
-  //   },
-  //   {
-  //     title: 'green',
-  //     data: 'green.300',
-  //   },
-  //   {
-  //     title: 'black',
-  //     data: 'black',
-  //   },
-  // ];
-  // const dataSize = [
-  //   {
-  //     title: 'Size S',
-  //     data: 'S',
-  //   },
-  //   {
-  //     title: 'Size M',
-  //     data: 'M',
-  //   },
-  //   {
-  //     title: 'Size L',
-  //     data: 'L',
-  //   },
-  //   {
-  //     title: 'Size XL',
-  //     data: 'XL',
-  //   },
-  //   {
-  //     title: 'Size XXL',
-  //     data: 'XXL',
-  //   },
-  //   {
-  //     title: 'Size XXXL',
-  //     data: 'XXXL',
-  //   },
-  // ];
   const navigation = useNavigation<AppNavigationProp>();
+  const { t } = useTranslation();
   const { carts, mutate_carts } = useGetCarts();
   const [showModal, setShowModal] = useState(false);
   const [check, setCheck] = useState(false);
@@ -91,10 +33,19 @@ const Cart = () => {
   // let [quantity, setQuantity] = useState(1);
   // const [selectedSize, setSelectedSize] = useState<string>();
 
+  const newData = carts?.data
+    ? carts?.data.map(
+        (item: { size_id: any; size: { _id: any }; color_id: any; color: { _id: any } }) => {
+          item.size_id = item.size._id;
+          item.color_id = item.color._id;
+          return item;
+        }
+      )
+    : [];
+
   const onGetInvoice = async () => {
     try {
-      const response = await checkoutAPI.getInvoice({ products: carts?.data });
-
+      const response = await checkoutAPI.getInvoice({ products: newData });
       Toast.show({
         title: response.data.message,
         duration: 3000,
@@ -130,7 +81,7 @@ const Cart = () => {
         titleHeaderSearch="Your Favorites"
         iconSearchEnabled={true}
         iconOther={false}
-        titleHeaderScreen="Cart"
+        titleHeaderScreen={t('Cart.title')}
         iconRightHeaderScreen={false}
         quantityItems={12}
         iconRightHeaderCart={false}
@@ -144,7 +95,7 @@ const Cart = () => {
             </Pressable>
 
             <Text ml={3} variant={'body2'}>
-              Select All
+              {t('Cart.selectedAll')}
             </Text>
           </View>
           <View w={'5%'}>
@@ -174,16 +125,16 @@ const Cart = () => {
         </View>
         <View flex={1} flexDirection={'row'} w={'100%'} alignItems={'flex-end'}>
           <Text flex={1} fontSize={20} fontWeight={'bold'}>
-            Total
+            {t('Cart.total')}
           </Text>
           <Text color={'primary.600'} textAlign={'right'} variant={'title'}>
             500.000đ
           </Text>
         </View>
-        <View width={'100%'}>
+        <View width={'100%'} mb={3} mt={3}>
           <Button onPress={() => onGetInvoice()} width={'100%'}>
             <Text fontSize={14} color="light.100" fontWeight={'bold'}>
-              Buy Now
+              {t('Cart.buyNow')}
             </Text>
           </Button>
         </View>
@@ -225,7 +176,7 @@ const Cart = () => {
                     justifyContent="space-between"
                     alignItems="center"
                   >
-                    <Text variant={'caption'}>Warehouse: 20</Text>
+                    <Text variant={'caption'}>{t('Cart.wareHouse')}: 20</Text>
                     <Flex direction="row" ml={5} justifyItems={'center'} alignItems={'center'}>
                       <Pressable onPress={() => setQuantity(quantity--)}>
                         <Icon.Minus stroke="black" width={18} height={18} />
@@ -261,7 +212,7 @@ const Cart = () => {
                   numColumns={3}
                   ListHeaderComponent={
                     <Text fontSize="14" fontWeight="bold" mb={2}>
-                      Color
+                      {t('Cart.color')}
                     </Text>
                   }
                   renderItem={({ item }) => (
@@ -285,7 +236,7 @@ const Cart = () => {
                   numColumns={3}
                   ListHeaderComponent={
                     <Text fontSize="14" fontWeight="bold" mb={2}>
-                      Size
+                      {t('Cart.size')}
                     </Text>
                   }
                   showsVerticalScrollIndicator={false}
@@ -328,7 +279,7 @@ const Cart = () => {
                 }}
               >
                 <Text color="white" fontWeight="bold" fontSize="14">
-                  Confirm
+                  {t('Cart.confirm')}
                 </Text>
               </Pressable>
             </Modal.Body>
