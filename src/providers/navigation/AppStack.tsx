@@ -26,6 +26,7 @@ import {
   SelectVoucherScreen,
   SetPasswordForgotScreen,
   SetPasswordScreen,
+  VoucherScreen,
 } from 'screens';
 import { AppStackNavigatorParamList } from './types';
 
@@ -58,6 +59,7 @@ const StackNavigator = () => (
     <Stack.Screen name="OrderDetail" component={OrderDetailScreen} />
     <Stack.Screen name="MyPurchaseScreen" component={MyPurchaseScreen} />
     <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+    <Stack.Screen name="VoucherScreen" component={VoucherScreen} />
   </Stack.Navigator>
 );
 

@@ -108,7 +108,7 @@ const PaymentSuccess = ({ route }: Success) => {
                   lineHeight={19}
                   fontFamily="Raleway_700Bold"
                 >
-                  {t('PaymentSuccess.viewOrders')}
+                  {t('PaymentSuccess.viewOrder')}
                 </Text>
               </Text>
               <Pressable
@@ -131,7 +131,7 @@ const PaymentSuccess = ({ route }: Success) => {
                   fontSize={16}
                   color={'primary.600'}
                 >
-                  {t('PaymentSuccess.viewOrders')}
+                  {t('PaymentSuccess.viewOrder')}
                 </Text>
               </Pressable>
             </View>

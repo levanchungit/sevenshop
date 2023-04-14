@@ -10,6 +10,7 @@ import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { PAYMENT_TYPE } from 'global/constants';
 import { checkoutAPI } from 'modules';
 import { AppNavigationProp, CheckoutRouteProp } from 'providers/navigation/types';
+import { formatNumberCurrencyVN } from 'utils/common';
 import { CheckoutContext } from './CheckoutContext';
 
 type Props = {
@@ -17,21 +18,32 @@ type Props = {
 };
 const CheckoutScreen = ({ route }: Props) => {
   const { data } = route.params;
-  console.log('ee', data);
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
-  const data2 = Object.assign(data, { payment_type: 'cod', note: 'SYS test', voucher_id: '' });
   const { paymentType } = useContext(CheckoutContext);
+  const data2 = Object.assign(data, {
+    payment_type: paymentType + '',
+    note: 'SYS test',
+    voucher_id: '',
+  });
+  // console.log('data2', data2);
   console.log('payment_type', paymentType);
 
   const checkout = async () => {
-    try {
-      const response = await checkoutAPI.checkout(data2);
-      navigation.replace('PaymentSuccess', { data_detail: response.data });
-    } catch (error: any) {
-      console.error(error);
+    if (data2.address) {
+      try {
+        const response = await checkoutAPI.checkout(data2);
+        navigation.replace('PaymentSuccess', { data_detail: response.data });
+      } catch (error: any) {
+        console.error(error.message);
+        Toast.show({
+          title: error,
+          duration: 3000,
+        });
+      }
+    } else {
       Toast.show({
-        title: error,
+        title: 'Please add address!',
         duration: 3000,
       });
     }
@@ -105,7 +117,7 @@ const CheckoutScreen = ({ route }: Props) => {
             <View mt={1}>
               <Pressable
                 style={{ padding: 12 }}
-                // onPress={() => navigation.navigate('Address')}
+                onPress={() => navigation.navigate('Address', { typeUser: true })}
                 borderBottomColor={'gray.400'}
                 borderBottomWidth={0.5}
               >
@@ -130,7 +142,8 @@ const CheckoutScreen = ({ route }: Props) => {
                       variant={'Body2'}
                       fontFamily={'Raleway_500Medium'}
                     >
-                      {data.address.full_name} | {data.address.phone}
+                      {data.address ? data.address.full_name : 'You dont have address'} |{' '}
+                      {data.address ? data.address.phone : '...'}
                     </Text>
                     <Text
                       style={{
@@ -141,7 +154,7 @@ const CheckoutScreen = ({ route }: Props) => {
                       variant={'Body2'}
                       fontFamily={'Raleway_500Medium'}
                     >
-                      {data.address.address}
+                      {data.address ? data.address.address : 'Please add address!'}
                     </Text>
                   </View>
                   <Icons.ChevronRight stroke={'black'} fontSize={24} />
@@ -155,11 +168,11 @@ const CheckoutScreen = ({ route }: Props) => {
                     name={item.name}
                     image={item.images[0]}
                     price={item.price}
-                    size_color={'XXL_Back'}
+                    size_color={item.color_id}
                     quantity={item.quantity}
                   />
                 )}
-                keyExtractor={(item) => item.product_id}
+                keyExtractor={(item, index) => index + ''}
               />
             </View>
           );
@@ -224,7 +237,7 @@ const CheckoutScreen = ({ route }: Props) => {
                 }}
                 fontFamily={'Raleway_500Medium'}
               >
-                20.000đ
+                {formatNumberCurrencyVN(20000)}
               </Text>
             }
           />
@@ -253,7 +266,7 @@ const CheckoutScreen = ({ route }: Props) => {
                   fontVariant: ['lining-nums'],
                 }}
               >
-                520.000đ
+                {formatNumberCurrencyVN(data2.total_invoice_discount)}
               </Text>
             }
           />

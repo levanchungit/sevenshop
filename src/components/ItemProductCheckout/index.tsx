@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Image, Pressable } from 'native-base';
+import { formatNumberCurrencyVN } from 'utils/common';
 
 type Props = {
   name: string;
@@ -55,7 +56,7 @@ const ItemProductCheckout = (props: Props) => {
               variant={'Button'}
               fontFamily={'Raleway_500Medium'}
             >
-              {price}đ
+              {formatNumberCurrencyVN(price)}
             </Text>
             <Text
               style={{

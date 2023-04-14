@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import i18n from 'i18next';
-import { Pressable, Text, View, Button, Modal, Switch } from 'native-base';
+import { Pressable, Text, View, Button, Modal, Switch, Toast } from 'native-base';
 import { initReactI18next, useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 import SSInputPopupPass from '../../components/SSInputPopupPass';
 import en from '../../translate/en.json';
@@ -24,18 +25,98 @@ const AccountSettingScreen = () => {
   const { t } = useTranslation();
   const [showModalLanguage, setShowModalLanguage] = useState(false);
   const [showModalChangePass, setShowModalChangePass] = useState(false);
+  const [showModalLogout, setShowModalLogout] = useState(false);
   const [isVN, setIsVN] = useState(false);
   const [isEN, setIsEN] = useState(true);
-  const [password, setPassword] = useState('123');
+  const [passwordOld, setPasswordOld] = useState('');
+  const [passwordNew, setPasswordNew] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [errorPasswordOld, setErrorPasswordOld] = useState('');
+  const [errorPasswordNew, setErrorPasswordNew] = useState('');
+  const [errorPasswordConfirm, setErrorPasswordConfirm] = useState('');
 
   const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
     setShowModalLanguage(false);
   };
 
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const validatePassword = () => {
+    let isValid = false;
+    if (passwordOld.length < 6) {
+      setErrorPasswordOld('Password must be at least 6 characters');
+      isValid = false;
+    } else {
+      setErrorPasswordOld('');
+      isValid = true;
+    }
+    if (passwordNew.length < 6) {
+      setErrorPasswordNew('Password must be at least 6 characters');
+      isValid = false;
+    } else {
+      setErrorPasswordNew('');
+      isValid = true;
+    }
+    if (passwordConfirm.length < 6) {
+      setErrorPasswordConfirm('Password must be at least 6 characters');
+      isValid = false;
+    } else if (passwordNew !== passwordConfirm) {
+      setErrorPasswordConfirm('Password does not match');
+      isValid = false;
+    } else {
+      setErrorPasswordConfirm('');
+      isValid = true;
+    }
+    return isValid;
+  };
+
+  const changePassword = async () => {
+    if (validatePassword()) {
+      try {
+        await authAPI.changePassword({
+          password: passwordOld,
+          new_password: passwordNew,
+        });
+        Toast.show({
+          title: 'Change password successfully',
+          duration: 3000,
+        });
+        setShowModalChangePass(false);
+      } catch (e: any) {
+        console.error(e.response?.data?.message);
+        Toast.show({
+          title: e.response?.data?.message,
+          duration: 3000,
+        });
+      }
+    }
+  };
+
+  const onLogout = async () => {
+    try {
+      await authAPI.logout();
+      navigation.navigate('Login');
+      Toast.show({
+        title: 'Logout successfully',
+        duration: 3000,
+      });
+    } catch (e: any) {
+      console.error(e.response?.data?.message);
+    }
+  };
+
+  const onCloseModalChangePass = () => {
+    setShowModalChangePass(false);
+    setPasswordOld('');
+    setPasswordNew('');
+    setPasswordConfirm('');
+    setErrorPasswordConfirm('');
+    setErrorPasswordNew('');
+    setErrorPasswordOld('');
+  };
+
   return (
     <View py={10} backgroundColor={'white'}>
       <SSHeaderNavigation
@@ -50,6 +131,147 @@ const AccountSettingScreen = () => {
         iconRightHeaderCart={false}
         quantityHeaderCarts={0}
       />
+      <Modal isOpen={showModalChangePass} onClose={() => setShowModalChangePass(false)}>
+        <Modal.Content width={'100%'} mb={20}>
+          {/* <Modal.CloseButton /> */}
+
+          <View
+            flexDirection={'row'}
+            justifyContent={'center'}
+            backgroundColor={'primary.600'}
+            h={'auto'}
+            p={2}
+            alignItems={'center'}
+          >
+            <Text variant={'title'} color="white">
+              {t('Settings.changePassword')}
+            </Text>
+          </View>
+
+          <View p={3} justifyContent={'space-between'} h={'auto'}>
+            <SSInputPopupPass
+              placeholder={'Enter Password old'}
+              type={'password'}
+              inputLeftElement={<Icon.Lock stroke="#1C1C1C" width={24} height={24} />}
+              setEyes={true}
+              value={passwordOld}
+              changeValue={setPasswordOld}
+            ></SSInputPopupPass>
+            <Text color={'primary.500'} fontSize={14}>
+              {errorPasswordOld}
+            </Text>
+            <SSInputPopupPass
+              placeholder={t('Settings.passwordOld')}
+              type={'password'}
+              inputLeftElement={<Icon.Lock stroke="#1C1C1C" width={24} height={24} />}
+              setEyes={true}
+              value={passwordNew}
+              changeValue={setPasswordNew}
+            ></SSInputPopupPass>
+            <Text color={'primary.500'} fontSize={14}>
+              {errorPasswordNew}
+            </Text>
+            <SSInputPopupPass
+              placeholder={'Enter Password old'}
+              type={'password'}
+              inputLeftElement={<Icon.Lock stroke="#1C1C1C" width={24} height={24} />}
+              setEyes={true}
+              value={passwordConfirm}
+              changeValue={setPasswordConfirm}
+            ></SSInputPopupPass>
+            <Text color={'primary.500'} fontSize={14}>
+              {errorPasswordConfirm}
+            </Text>
+            <View flexDirection={'row'} justifyContent={'space-between'} mt={3}>
+              <Pressable
+                width="49%"
+                height="43"
+                borderRadius="6"
+                flexDirection={'row'}
+                backgroundColor={'white'}
+                borderWidth={1}
+                borderColor={'primary.600'}
+                alignItems="center"
+                justifyContent="center"
+                onPress={() => {
+                  onCloseModalChangePass();
+                }}
+              >
+                <Icon.X stroke="#ac1506" strokeWidth={2} width={18} height={18} />
+                <Text color="primary.600" variant={'button'} ml={2}>
+                  {t('Settings.close')}
+                </Text>
+              </Pressable>
+              <Pressable
+                width="49%"
+                height="43"
+                borderRadius="6"
+                backgroundColor="#AC1506"
+                alignItems="center"
+                flexDirection={'row'}
+                justifyContent="center"
+                onPress={() => {
+                  changePassword();
+                }}
+              >
+                <Icon.Check stroke="white" strokeWidth={2} width={18} height={18} />
+                <Text ml={2} color="white" fontWeight="bold" fontSize="14">
+                  {t('Settings.confirm')}
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal.Content>
+      </Modal>
+
+      <Modal isOpen={showModalLogout} onClose={() => setShowModalLogout(false)}>
+        <Modal.Content width={'100%'} mb={20}>
+          <View p={3} justifyContent={'space-between'} h={'auto'}>
+            <Text textAlign={'center'} fontSize={18} my={3}>
+              {' '}
+              Are you sure logout ?
+            </Text>
+            <View flexDirection={'row'} justifyContent={'space-between'} mt={3}>
+              <Pressable
+                width="49%"
+                height="43"
+                borderRadius="6"
+                flexDirection={'row'}
+                backgroundColor={'white'}
+                borderWidth={1}
+                borderColor={'primary.600'}
+                alignItems="center"
+                justifyContent="center"
+                onPress={() => {
+                  setShowModalLogout(false);
+                }}
+              >
+                <Icon.X stroke="#ac1506" strokeWidth={2} width={18} height={18} />
+                <Text color="primary.600" variant={'button'} ml={2}>
+                  {t('Settings.close')}
+                </Text>
+              </Pressable>
+              <Pressable
+                width="49%"
+                height="43"
+                borderRadius="6"
+                backgroundColor="#AC1506"
+                alignItems="center"
+                flexDirection={'row'}
+                justifyContent="center"
+                onPress={() => {
+                  onLogout();
+                }}
+              >
+                <Icon.Check stroke="white" strokeWidth={2} width={18} height={18} />
+                <Text ml={2} color="white" fontWeight="bold" fontSize="14">
+                  {t('Settings.logout')}
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal.Content>
+      </Modal>
 
       <View h={'100%'} mt={5}>
         <View flexDirection={'row'} px={3} alignItems={'center'}>
@@ -67,6 +289,7 @@ const AccountSettingScreen = () => {
           alignItems={'center'}
           h={'6%'}
           px={3}
+          onPress={() => navigation.navigate('AccountSecurity')}
         >
           <Text variant={'body1'}>{t('Settings.accountSecurity')}</Text>
           <Icon.ChevronRight stroke="black" width={24} height={24} />
@@ -94,6 +317,7 @@ const AccountSettingScreen = () => {
           alignItems={'center'}
           h={'6%'}
           px={3}
+          onPress={() => navigation.navigate('PaymentMethodScreen')}
         >
           <Text variant={'body1'}>{t('Settings.PaymentMethod')}</Text>
           <Icon.ChevronRight stroke="black" width={24} height={24} />
@@ -191,6 +415,9 @@ const AccountSettingScreen = () => {
             backgroundColor={'white'}
             borderWidth={1}
             borderColor={'primary.600'}
+            onPress={() => {
+              setShowModalLogout(true);
+            }}
           >
             <Text variant={'button'} color="primary.600">
               {t('Settings.logout')}
@@ -249,16 +476,6 @@ const AccountSettingScreen = () => {
                 {t('Settings.english')}
               </Text>
             </Pressable>
-            {/* <Pressable
-              h={10}
-              borderRadius={5}
-              backgroundColor={'white'}
-              borderWidth={1}
-              alignItems={'center'}
-            >
-              <Text variant={'title'}>{t('Settings.korea')}</Text>
-            </Pressable> */}
-
             <View flexDirection={'row'} justifyContent={'space-between'} mt={3}>
               <Pressable
                 width="49%"
@@ -290,97 +507,6 @@ const AccountSettingScreen = () => {
                 onPress={() => {
                   changeLanguage(isEN ? 'en' : 'vn');
                 }}
-              >
-                <Icon.Check stroke="white" strokeWidth={2} width={18} height={18} />
-                <Text ml={2} color="white" fontWeight="bold" fontSize="14">
-                  {t('Settings.confirm')}
-                </Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal.Content>
-      </Modal>
-
-      <Modal isOpen={showModalChangePass} onClose={() => setShowModalChangePass(false)}>
-        <Modal.Content width={'100%'} style={{ marginBottom: 0, marginTop: 'auto' }}>
-          {/* <Modal.CloseButton /> */}
-
-          <View
-            flexDirection={'row'}
-            justifyContent={'space-between'}
-            backgroundColor={'primary.600'}
-            h={'auto'}
-            p={2}
-            alignItems={'center'}
-          >
-            <Text variant={'title'} color="white">
-              {t('Settings.changePassword')}
-            </Text>
-            <Icon.X stroke="white" strokeWidth={2} width={18} height={18} />
-          </View>
-
-          <View p={3} justifyContent={'space-between'} h={'auto'}>
-            {/* <Pressable h={10} borderRadius={5} backgroundColor={'white'} borderWidth={1}  alignItems={'center'}>
-                    <Text variant={'title'}>Việt Nam</Text>
-                </Pressable>
-                <Pressable h={10} borderRadius={5} backgroundColor={'primary.600'}   alignItems={'center'}>
-                    <Text variant={'title'  }color='white' >EngLish</Text>
-                </Pressable>
-                <Pressable h={10 }borderRadius={5} backgroundColor={'white'} borderWidth={1}  alignItems={'center'}>
-                    <Text variant={'title'}>Korea</Text>
-                </Pressable> */}
-            <SSInputPopupPass
-              placeholder={'Enter Password old'}
-              type={'password'}
-              inputLeftElement={<Icon.Lock stroke="#1C1C1C" width={24} height={24} />}
-              setEyes={true}
-              value={password}
-              changeValue={setPassword}
-            ></SSInputPopupPass>
-            <SSInputPopupPass
-              placeholder={t('Settings.passwordOld')}
-              type={'password'}
-              inputLeftElement={<Icon.Lock stroke="#1C1C1C" width={24} height={24} />}
-              setEyes={true}
-              value={password}
-              changeValue={setPassword}
-            ></SSInputPopupPass>
-            <SSInputPopupPass
-              placeholder={'Enter Password old'}
-              type={'password'}
-              inputLeftElement={<Icon.Lock stroke="#1C1C1C" width={24} height={24} />}
-              setEyes={true}
-              value={password}
-              changeValue={setPassword}
-            ></SSInputPopupPass>
-            <View flexDirection={'row'} justifyContent={'space-between'} mt={3}>
-              <Pressable
-                width="49%"
-                height="43"
-                borderRadius="6"
-                flexDirection={'row'}
-                backgroundColor={'white'}
-                borderWidth={1}
-                borderColor={'primary.600'}
-                alignItems="center"
-                justifyContent="center"
-                onPress={() => {
-                  setShowModalLanguage(false);
-                }}
-              >
-                <Icon.X stroke="#ac1506" strokeWidth={2} width={18} height={18} />
-                <Text color="primary.600" variant={'button'} ml={2}>
-                  {t('Settings.close')}
-                </Text>
-              </Pressable>
-              <Pressable
-                width="49%"
-                height="43"
-                borderRadius="6"
-                backgroundColor="#AC1506"
-                alignItems="center"
-                flexDirection={'row'}
-                justifyContent="center"
               >
                 <Icon.Check stroke="white" strokeWidth={2} width={18} height={18} />
                 <Text ml={2} color="white" fontWeight="bold" fontSize="14">

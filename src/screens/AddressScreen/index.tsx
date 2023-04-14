@@ -62,12 +62,6 @@ const AddressScreen = (props: AddressScreenProps) => {
           <Text variant="title" mb={3}>
             Cannot find any address. Would you like to create one?
           </Text>
-          <SSButton
-            width="100%"
-            variant={'white'}
-            text={'Add address'}
-            onPress={() => navigation.navigate('EditAddress', { typeEdit: false })}
-          />
         </Center>
       ) : (
         <FlatListUserAddress

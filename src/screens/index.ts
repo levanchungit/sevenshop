@@ -23,3 +23,4 @@ export { default as AccountSettingScreen } from './AccountSettingScreen';
 export { default as AccountSecurityScreen } from './Account&SecurityScreen';
 export { default as MyPurchaseScreen } from './MyPurchaseScreen';
 export { default as OrderDetailScreen } from './OrderDetailScreen';
+export { default as VoucherScreen } from './VoucherScreen';

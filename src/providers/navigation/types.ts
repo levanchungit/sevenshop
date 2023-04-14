@@ -32,7 +32,7 @@ export type AppStackNavigatorParamList = {
     typeEdit: boolean;
     address?: AddressesResult;
   };
-  Voucher: undefined;
+  VoucherScreen: undefined;
   SelectVoucher: undefined;
   Rating: undefined;
   PaymentMethodScreen: undefined;

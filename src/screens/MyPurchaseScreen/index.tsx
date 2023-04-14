@@ -46,7 +46,7 @@ const MyPurchaseScreen = () => {
   ]);
   const [idOrders, setIdOrders]: any = useState('pending');
   const { orders } = useGetOrders();
-  // console.log('orders', orders?.data.results[3].products[0].product_id);
+  // console.log('orders', idOrders);
 
   const RenderItemProductMyPurchases = ({ data }: { data: IMyPurchases }) => (
     <ItemProductMyPurchases
