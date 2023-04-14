@@ -18,7 +18,7 @@ const ItemCart = (props: Props) => {
   const { cart, setShowModal, increaseQuantity, decreaseQuantity, isChecked, onPressChecked } =
     props;
   return (
-    <View flexDirection={'row'} mt={2} w={'100%'} h={110} alignItems={'center'} borderRadius={10}>
+    <View flexDirection={'row'} my={3} w={'100%'} h={110} alignItems={'center'} borderRadius={10}>
       <View w={'6%'}>
         <Pressable onPress={() => onPressChecked()}>
           <IconCheck isChecked={isChecked} />
@@ -45,7 +45,9 @@ const ItemCart = (props: Props) => {
           height={'100%'}
           justifyContent={'space-between'}
         >
-          <Text variant={'subtitle1'}>{cart?.name}</Text>
+          <Text variant={'subtitle1'} numberOfLines={1}>
+            {cart?.name}
+          </Text>
           <Pressable
             mt={1}
             borderWidth={0.5}
@@ -57,7 +59,7 @@ const ItemCart = (props: Props) => {
             alignItems={'center'}
             onPress={setShowModal}
           >
-            <View flexDirection={'row'} ml={2} w={'70%'}>
+            <View flexDirection={'row'} ml={2} w={'80%'}>
               <Text variant={'caption'} w={'100%'} color={'black'}>
                 {cart.color.name} | {cart.size.size}
               </Text>

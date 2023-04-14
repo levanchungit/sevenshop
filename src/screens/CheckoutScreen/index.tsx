@@ -18,7 +18,6 @@ type Props = {
 };
 const CheckoutScreen = ({ route }: Props) => {
   const { data } = route.params;
-  console.log('ee', data);
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
   const { paymentType } = useContext(CheckoutContext);
@@ -27,7 +26,7 @@ const CheckoutScreen = ({ route }: Props) => {
     note: 'SYS test',
     voucher_id: '',
   });
-  console.log('data2', data2);
+  // console.log('data2', data2);
   console.log('payment_type', paymentType);
 
   const checkout = async () => {
@@ -169,7 +168,7 @@ const CheckoutScreen = ({ route }: Props) => {
                     name={item.name}
                     image={item.images[0]}
                     price={item.price}
-                    size_color={'XXL_Back'}
+                    size_color={item.color_id}
                     quantity={item.quantity}
                   />
                 )}

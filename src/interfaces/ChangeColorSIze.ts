@@ -1,5 +1,5 @@
 export type ChangeColorSize = {
-  size_id: string;
-  color_id: string;
-  quantity: number;
+  _size_id: string;
+  _color_id: string;
+  _quantity: number;
 };

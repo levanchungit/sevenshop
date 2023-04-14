@@ -29,11 +29,11 @@ const cartAPI = {
   async updateColorSize(
     data: ChangeColorSize,
     product_id: string,
-    size_id: string,
-    color_id: string
+    color_id: string,
+    size_id: string
   ) {
     const response = await axiosInstance.put(
-      API_ROUTES.updateColorSize(product_id, size_id, color_id),
+      API_ROUTES.updateColorSize(product_id, color_id, size_id),
       data
     );
     return response;

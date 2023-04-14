@@ -7,40 +7,31 @@ import * as Icon from 'react-native-feather';
 import IconCheck from 'components/IconCheck';
 import ItemCart from 'components/ItemCart';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
-import useGetColors from 'hook/colors/useGetColors';
 import useGetCarts from 'hook/product/useGetCarts';
-import useGetSizes from 'hook/sizes/useGetSizes';
 import { IData } from 'interfaces/Cart';
 import { ChangeColorSize } from 'interfaces/ChangeColorSIze';
-import { cartAPI, checkoutAPI } from 'modules';
+import { IColor } from 'interfaces/Color';
+import { IProduct, IStock } from 'interfaces/Product';
+import { ISize } from 'interfaces/Size';
+import { cartAPI, checkoutAPI, productAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 import { formatNumberCurrencyVN } from 'utils/common';
 
 const Cart = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const { t } = useTranslation();
-  const { carts, mutate_carts } = useGetCarts();
+  const { carts, mutate } = useGetCarts();
   const [showModal, setShowModal] = useState(false);
-  const { colors } = useGetColors();
-  const { sizes } = useGetSizes();
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedItem, setSelectedItem] = useState<IData>({} as IData);
+  const [productSelected, setProductSelected] = useState<IProduct>({} as IProduct);
   const [total, setTotal] = useState(0);
   const [selectIsCheckAll, setSelectIsCheckAll] = useState(false);
   const [checkedItems, setCheckedItems]: any = useState([]);
   const [itemIsChecked, setItemIsChecked]: any = useState([]);
-
-  const newData = carts?.data
-    ? itemIsChecked.map(
-        (item: { size_id: any; size: { _id: any }; color_id: any; color: { _id: any } }) => {
-          item.size_id = item.size._id;
-          item.color_id = item.color._id;
-          return item;
-        }
-      )
-    : [];
-  // console.log('newData', newData);
+  const [quantityWareHouses, setQuantityWareHouses] = useState<number>();
+  const [quantityModal, setQuantityModal] = useState<number>(0);
 
   useEffect(() => {
     const newData1 = carts?.data.map((item: IData) => ({ ...item, isChecked: false }));
@@ -54,6 +45,16 @@ const Cart = () => {
       setTotal((prev) => prev + item.price_sale * item.quantity);
     });
   }, [checkedItems]);
+
+  const newData = carts?.data
+    ? itemIsChecked.map(
+        (item: { size_id: any; size: { _id: any }; color_id: any; color: { _id: any } }) => {
+          item.size_id = item.size._id;
+          item.color_id = item.color._id;
+          return item;
+        }
+      )
+    : [];
 
   const onCheckedItem = (index: number) => {
     const newItems = [...checkedItems];
@@ -100,41 +101,64 @@ const Cart = () => {
   ) => {
     try {
       await cartAPI.ChangeQuantity(product_id, quantity, size_id, color_id);
-      mutate_carts();
+      mutate();
     } catch (error: any) {
       console.error(error.message);
     }
   };
 
-  const onSelectedSize = (item: any) => {
-    setSelectedSize(item._id);
-  };
-  const onSelectedColor = (item: any) => {
-    setSelectedColor(item._id);
+  const getProductSelected = async (item: IData) => {
+    try {
+      const product = await productAPI.getProductID(item.product_id);
+      setProductSelected(product);
+    } catch (error: any) {
+      console.error(error.message);
+    }
   };
 
-  console.log('itemIsChecked', selectedItem.product_id);
+  const updateSizeColor = async (data: { idSize?: string; idColor?: string }) => {
+    if (data.idSize) setSelectedSize(data.idSize);
+    if (data.idColor) setSelectedColor(data.idColor);
+
+    const filterStock = productSelected.stock.filter(
+      (stock: IStock) =>
+        stock.color_id._id === (data.idColor ? data.idColor : selectedColor) &&
+        stock.size_id._id === (data.idSize ? data.idSize : selectedSize)
+    );
+    setQuantityWareHouses(filterStock[0].quantity);
+    // setSelectedQuantity(0);
+  };
+
   const itemChangeColorSize: ChangeColorSize = {
-    size_id: selectedSize,
-    color_id: selectedColor,
-    quantity: 2,
+    _size_id: selectedSize,
+    _color_id: selectedColor,
+    _quantity: quantityModal,
   };
 
   const onChangeColorSize = async (item: ChangeColorSize) => {
-    try {
-      await cartAPI.updateColorSize(
-        item,
-        selectedItem.product_id,
-        selectedItem.size._id,
-        selectedItem.color._id
-      );
-      setShowModal(false);
+    if (quantityModal > 0) {
+      try {
+        await cartAPI.updateColorSize(
+          item,
+          selectedItem.product_id,
+          selectedItem.color._id,
+          selectedItem.size._id
+        );
+        setShowModal(false);
+        Toast.show({
+          title: 'Change color size success!',
+          duration: 3000,
+        });
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    } else {
+      // setShowModal(false);
       Toast.show({
-        title: 'Change color size success',
+        title: 'Please select quantity',
         duration: 3000,
+        position: 'revert',
       });
-    } catch (error: any) {
-      console.error(error.message);
     }
   };
 
@@ -168,6 +192,7 @@ const Cart = () => {
         </View>
         <View style={{ height: '70%', marginTop: 1 }}>
           <FlatList
+            style={{ marginTop: 12 }}
             keyExtractor={(item, index) => index + ''}
             data={checkedItems ? checkedItems : []}
             renderItem={({ item, index }: { item: IData; index: number }) => (
@@ -178,6 +203,8 @@ const Cart = () => {
                   setSelectedSize(item.size._id);
                   setSelectedColor(item.color._id);
                   setSelectedItem(item);
+                  getProductSelected(item);
+                  setQuantityModal(item.quantity);
                 }}
                 increaseQuantity={() =>
                   ChangQuantity(item.product_id, item.quantity + 1, item.size._id, item.color._id)
@@ -206,7 +233,7 @@ const Cart = () => {
           </Button>
         </View>
 
-        <Modal isOpen={showModal}>
+        <Modal isOpen={showModal} zIndex={50}>
           <Modal.Content width={'100%'} style={{ marginBottom: 0, marginTop: 'auto' }}>
             <Modal.CloseButton onPress={() => setShowModal(false)} />
             <Modal.Body height="auto" w="full">
@@ -252,16 +279,25 @@ const Cart = () => {
                       alignItems: 'center',
                     }}
                   >
-                    <Text variant={'caption'}>{t('Cart.wareHouse')}: 20</Text>
+                    <Text
+                      variant={'caption'}
+                      style={{
+                        fontVariant: ['lining-nums'],
+                      }}
+                    >
+                      {t('Cart.wareHouse')}: {quantityWareHouses}
+                    </Text>
                     <View
                       style={{
                         flexDirection: 'row',
-                        marginLeft: 5,
                         justifyContent: 'center',
                         alignItems: 'center',
+                        width: '30%',
                       }}
                     >
-                      <Pressable onPress={() => null}>
+                      <Pressable
+                        onPress={() => setQuantityModal(quantityModal > 1 ? quantityModal - 1 : 1)}
+                      >
                         <Icon.Minus stroke="black" width={18} height={18} />
                       </Pressable>
                       <Box
@@ -276,10 +312,14 @@ const Cart = () => {
                         textAlign={'center'}
                       >
                         <Text textAlign={'center'} fontSize={14} fontWeight={'bold'}>
-                          {selectedItem.quantity}
+                          {quantityWareHouses !== 0 ? quantityModal : 0}
                         </Text>
                       </Box>
-                      <Pressable onPress={() => null}>
+                      <Pressable
+                        onPress={() =>
+                          setQuantityModal(quantityWareHouses !== 0 ? quantityModal + 1 : 0)
+                        }
+                      >
                         <Icon.Plus stroke="black" width={18} height={18} />
                       </Pressable>
                     </View>
@@ -291,82 +331,68 @@ const Cart = () => {
                 scrollEnabled={false}
                 contentContainerStyle={{ justifyContent: 'space-between', width: '100%' }}
               >
-                <FlatList
-                  data={colors ? colors?.data.results : []}
-                  scrollEnabled={false}
-                  showsVerticalScrollIndicator={false}
-                  showsHorizontalScrollIndicator={false}
-                  numColumns={3}
-                  ListHeaderComponent={
-                    <Text fontSize="14" fontWeight="bold" mb={2}>
-                      {t('Cart.color')}
-                    </Text>
-                  }
-                  renderItem={({ item }: any) => (
-                    <Pressable
-                      style={{
-                        backgroundColor:
-                          item.name === 'Black dark'
-                            ? '#001100'
-                            : item.name === 'Red light'
-                            ? '#F62822'
-                            : item.name === 'Yellow light'
-                            ? '#FFFF00'
-                            : item.name.toLowerCase(),
-                        marginRight: 3,
-                        marginBottom: 3,
-                        borderWidth: 5,
-                        borderColor: item._id === selectedColor ? '#C9C9C9' : 'transparent',
-                        width: 40,
-                        height: 40,
-                        borderRadius: 50,
-                        borderBottomColor: 'gray',
-                      }}
-                      onPress={() => onSelectedColor(item)}
-                    />
+                <View style={{ width: '50%' }}>
+                  <Text mb={3} variant={'button'}>
+                    Color
+                  </Text>
+                  {productSelected.color_ids ? (
+                    productSelected.color_ids.map((color: IColor) => (
+                      <Pressable
+                        onPress={() => updateSizeColor({ idColor: color._id })}
+                        style={{
+                          backgroundColor: color.code,
+                          marginRight: 3,
+                          marginBottom: 3,
+                          borderWidth: 5,
+                          borderColor: color._id === selectedColor ? '#C9C9C9' : 'transparent',
+                          width: 40,
+                          height: 40,
+                          borderRadius: 50,
+                          borderBottomColor: 'gray',
+                        }}
+                        key={color._id}
+                      />
+                    ))
+                  ) : (
+                    <View></View>
                   )}
-                  keyExtractor={(item, index) => index + ''}
-                />
+                </View>
 
-                <FlatList
-                  style={{ marginLeft: 10 }}
-                  data={sizes?.data.results}
-                  scrollEnabled={false}
-                  numColumns={3}
-                  ListHeaderComponent={
-                    <Text fontSize="14" fontWeight="bold" mb={2}>
-                      {t('Cart.size')}
-                    </Text>
-                  }
-                  showsVerticalScrollIndicator={false}
-                  showsHorizontalScrollIndicator={false}
-                  renderItem={({ item }: any) => (
-                    <Pressable
-                      onPress={() => onSelectedSize(item)}
-                      style={{
-                        marginRight: 12,
-                        marginBottom: 12,
-                        borderWidth: 1,
-                        backgroundColor: item._id === selectedSize ? 'red' : 'transparent',
-                        borderColor: 'red',
-                        width: 39,
-                        height: 39,
-                        borderRadius: 8,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Text
-                        fontSize={14}
-                        color={item._id === selectedSize ? 'white' : 'primary.600'}
-                        fontWeight="bold"
+                <View style={{ width: '50%' }}>
+                  <Text mb={3} variant={'button'}>
+                    Size
+                  </Text>
+                  {productSelected.size_ids ? (
+                    productSelected.size_ids.map((size: ISize) => (
+                      <Pressable
+                        onPress={() => updateSizeColor({ idSize: size._id })}
+                        style={{
+                          marginRight: 12,
+                          marginBottom: 12,
+                          borderWidth: 1,
+                          backgroundColor: size._id === selectedSize ? 'red' : 'transparent',
+                          borderColor: 'red',
+                          width: 39,
+                          height: 39,
+                          borderRadius: 8,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                        key={size._id}
                       >
-                        {item.size}
-                      </Text>
-                    </Pressable>
+                        <Text
+                          fontSize={14}
+                          color={size._id === selectedSize ? 'white' : 'primary.600'}
+                          fontWeight="bold"
+                        >
+                          {size.size}
+                        </Text>
+                      </Pressable>
+                    ))
+                  ) : (
+                    <View></View>
                   )}
-                  keyExtractor={(item, index) => index + ''}
-                />
+                </View>
               </ScrollView>
               <Pressable
                 style={{

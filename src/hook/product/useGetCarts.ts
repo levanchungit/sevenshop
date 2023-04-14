@@ -10,14 +10,13 @@ const fetcher = async () => {
 };
 
 export default function useGetCarts() {
-  const swr = useSWR(SWR_KEY, fetcher);
-  const { data, error, isLoading, mutate, ...others } = swr;
+  const { data, error, isLoading, mutate } = useSWR(SWR_KEY, fetcher);
+  // const  = swr;
 
   return {
     carts: data,
     err_carts: error,
     loading_carts: isLoading,
-    mutate_carts: mutate,
-    ...others,
+    mutate,
   };
 }
