@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { Flex, Image, Modal, Text, TextArea, Toast } from 'native-base';
 import { Dimensions } from 'react-native';
+// import {
+//   ImagePickerResponse,
+//   launchImageLibrary,
+//   MediaType,
+//   PhotoQuality,
+//   Asset,
+// } from 'react-native-image-picker';
 import { Rating } from 'react-native-ratings';
 import SSButton from 'components/SSButton';
 import { INotYetRated, RatingPayload } from 'interfaces/Rating';
@@ -18,6 +25,25 @@ type Props = {
 const ModelPopupRating = (props: Props) => {
   const { showModal, setShowModal, rating, product } = props;
   const [content, setContent] = useState<string>('');
+  // const [image, setImage] = useState<string[]>();
+  // const openImagePicker = () => {
+  //   const options = {
+  //     mediaType: 'photo' as MediaType,
+  //     quality: 1 as PhotoQuality,
+  //   };
+
+  //   launchImageLibrary(options, (response: ImagePickerResponse) => {
+  //     try {
+  //       if (response.didCancel) {
+  //         console.log('User cancelled image picker');
+  //       } else {
+  //         setImage(response.assets.uri);
+  //       }
+  //     } catch (error) {
+  //       console.log('ImagePicker Error: ', error);
+  //     }
+  //   });
+  // };
   const data: RatingPayload = {
     product_id: product.product_id,
     color_id: product.color_id,
@@ -83,6 +109,7 @@ const ModelPopupRating = (props: Props) => {
             w="100%"
             autoCompleteType={undefined}
           />
+          {/* <SSButton variant={'red'} text="Image" onPress={() => openImagePicker()} /> */}
         </Modal.Body>
         <Modal.Footer>
           <SSButton width="100%" variant={'red'} text={'Submit'} onPress={() => addRating()} />

@@ -1,9 +1,9 @@
 import { Box, FlatList, HStack, Skeleton, VStack } from 'native-base';
 import ItemRating from 'components/ItemRating';
-import { IRating, IRatingByProductId } from 'interfaces/Rating';
+import { IRating } from 'interfaces/Rating';
 
 type Props = {
-  rated: IRatingByProductId;
+  rated: IRating[];
   isLoading: boolean;
 };
 
@@ -38,8 +38,10 @@ const FlatListRated = (props: Props) => {
   } else {
     return (
       <FlatList
-        data={rated ? rated.ratings : null}
-        renderItem={({ item }: { item: IRating }) => <ItemRating rating={item} />}
+        data={rated ? rated : null}
+        renderItem={({ item }: { item: IRating }) => (
+          <ItemRating rating={item} showProduct={false} smallImage={false} />
+        )}
         keyExtractor={(item) => item._id}
       />
     );

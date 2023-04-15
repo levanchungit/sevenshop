@@ -1,4 +1,4 @@
-import { Box, FlatList, HStack, Skeleton, VStack } from 'native-base';
+import { Box, FlatList, HStack, Skeleton, VStack, Text } from 'native-base';
 import ItemRating from 'components/ItemRating';
 import { IRating } from 'interfaces/Rating';
 

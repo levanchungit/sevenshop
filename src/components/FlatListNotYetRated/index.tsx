@@ -1,4 +1,4 @@
-import { Box, FlatList, HStack, Skeleton, VStack, Text } from 'native-base';
+import { FlatList, HStack, Skeleton, VStack, Text } from 'native-base';
 import ItemNotYetRated from 'components/ItemNotYetRated';
 import { INotYetRated } from 'interfaces/Rating';
 
@@ -11,15 +11,16 @@ const FlatListNotYetRated = (props: Props) => {
   const { ratings, isLoading } = props;
   if (isLoading) {
     return (
-      <VStack>
-        <Box p={3} marginBottom={2}>
-          <HStack mb={3}>
-            <Skeleton rounded="full" size={50} mr={3} />
-            <Skeleton borderRadius={10} w="50%" h={6} />
-          </HStack>
-          <Skeleton.Text lines={4} mb={3} />
-        </Box>
-      </VStack>
+      <HStack flex={1} justifyContent="space-between">
+        <VStack mb={3} p={3} w="48%" alignItems="center">
+          <Skeleton w="100%" h={100} mb={3} />
+          <Skeleton.Text />
+        </VStack>
+        <VStack mb={3} p={3} w="48%" alignItems="center">
+          <Skeleton w="100%" h={100} mb={3} />
+          <Skeleton.Text />
+        </VStack>
+      </HStack>
     );
   } else if (ratings.length === 0) {
     return (

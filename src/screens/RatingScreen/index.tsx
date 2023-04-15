@@ -17,14 +17,6 @@ const RatingScreen = () => {
   const { rated, err_rated, loading_rated } = useGetRated();
   const { not_yet_rated, loading_not_yet_rated } = useGetNotYetRated();
 
-  if (!loading_rated) {
-    console.log('Rated: ', rated?.data.results);
-  }
-
-  if (!loading_not_yet_rated) {
-    console.log('Not yet rated: ', not_yet_rated?.data.results);
-  }
-
   const Rated = () => (
     <Flex backgroundColor="white">
       {err_rated ? (
