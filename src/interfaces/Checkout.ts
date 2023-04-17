@@ -2,7 +2,9 @@ export type ProductCheckout = {
   product_id: string;
   quantity: number;
   size_id: string;
+  size_name: string;
   color_id: string;
+  color_name: string;
   name: string;
   price: number;
   price_sale: number;

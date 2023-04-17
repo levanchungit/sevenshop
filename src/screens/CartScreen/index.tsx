@@ -101,7 +101,7 @@ const Cart = () => {
   ) => {
     try {
       await cartAPI.ChangeQuantity(product_id, quantity, size_id, color_id);
-      mutate();
+      mutate(carts);
     } catch (error: any) {
       console.error(error.message);
     }

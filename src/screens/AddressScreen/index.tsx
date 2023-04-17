@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Box, Center, Text, VStack } from 'native-base';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +6,9 @@ import FlatListUserAddress from 'components/FlatListUserAddress';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetAddresses from 'hook/addresses/useGetAddresses';
+import { AddressCheckout } from 'interfaces/Checkout';
 import { AddressRouteProp, AppNavigationProp } from 'providers/navigation/types';
+import { CheckoutContext } from 'screens/CheckoutScreen/CheckoutContext';
 
 type AddressScreenProps = {
   route: AddressRouteProp;
@@ -19,12 +21,14 @@ const AddressScreen = (props: AddressScreenProps) => {
   const { addresses, err_addresses, loading_addresses, mutate_addresses } = useGetAddresses();
   const [checkedId, setCheckedId] = useState('');
   const isFocused = useIsFocused();
+  const { setAddress } = useContext(CheckoutContext);
 
   useEffect(() => {
     if (isFocused) {
       mutate_addresses();
     }
   }, [isFocused]);
+  console.log('AddressScreen', checkedId);
   return (
     <Box flex={1} paddingY={2} paddingX={3} backgroundColor="#FFFFFF" safeArea>
       <SSHeaderNavigation
@@ -82,7 +86,12 @@ const AddressScreen = (props: AddressScreenProps) => {
           <SSButton
             variant={'red'}
             text={'Select address'}
-            onPress={() => console.log('CheckoutScreen', { address_id: checkedId })}
+            onPress={() => {
+              setAddress(
+                addresses?.data.results.find((item: AddressCheckout) => item._id === checkedId)
+              );
+              navigation.goBack();
+            }}
           />
         )}
       </VStack>

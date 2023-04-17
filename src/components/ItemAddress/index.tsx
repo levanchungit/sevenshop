@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Box, HStack, Pressable, Text } from 'native-base';
 import * as Icon from 'react-native-feather';
@@ -16,6 +16,13 @@ const ItemAdrress = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
   const { address, check, setCheck } = props;
   const [elementVisible] = useState<boolean>(address.default_address);
+
+  useEffect(() => {
+    if (address.default_address) {
+      setCheck(address._id);
+    }
+  }, []);
+
   return (
     <HStack
       justifyContent="center"

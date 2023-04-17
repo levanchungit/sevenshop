@@ -8,6 +8,7 @@ import ItemProductCheckout from 'components/ItemProductCheckout';
 import SelectOptions from 'components/SelectOptions';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { PAYMENT_TYPE } from 'global/constants';
+import { Checkout } from 'interfaces/Checkout';
 import { checkoutAPI } from 'modules';
 import { AppNavigationProp, CheckoutRouteProp } from 'providers/navigation/types';
 import { formatNumberCurrencyVN } from 'utils/common';
@@ -20,19 +21,24 @@ const CheckoutScreen = ({ route }: Props) => {
   const { data } = route.params;
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
-  const { paymentType } = useContext(CheckoutContext);
+  const { paymentType, addresses } = useContext(CheckoutContext);
+
   const data2 = Object.assign(data, {
     payment_type: paymentType + '',
     note: 'SYS test',
     voucher_id: '',
   });
-  // console.log('data2', data2);
+
+  const newData: Checkout = {
+    ...data2,
+    address: addresses._id ? addresses : data2.address,
+  };
   console.log('payment_type', paymentType);
 
   const checkout = async () => {
     if (data2.address) {
       try {
-        const response = await checkoutAPI.checkout(data2);
+        const response = await checkoutAPI.checkout(newData);
         navigation.replace('PaymentSuccess', { data_detail: response.data });
       } catch (error: any) {
         console.error(error.message);
@@ -117,7 +123,7 @@ const CheckoutScreen = ({ route }: Props) => {
             <View mt={1}>
               <Pressable
                 style={{ padding: 12 }}
-                onPress={() => navigation.navigate('Address', { typeUser: true })}
+                onPress={() => navigation.navigate('Address', { typeUser: false })}
                 borderBottomColor={'gray.400'}
                 borderBottomWidth={0.5}
               >
@@ -168,7 +174,7 @@ const CheckoutScreen = ({ route }: Props) => {
                     name={item.name}
                     image={item.images[0]}
                     price={item.price}
-                    size_color={item.color_id}
+                    size_color={item.size_name + ' | ' + item.color_name}
                     quantity={item.quantity}
                   />
                 )}
