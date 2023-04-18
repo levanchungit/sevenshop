@@ -107,7 +107,7 @@ const DetailScreen = (props: DetailScreenProps) => {
       </Flex>
       {error_products ? (
         <Text variant="title" alignSelf="center">
-          Failed to load
+          Failed to load: {error_products.response.data.message}
         </Text>
       ) : (
         <FlatListRecommendForYou

@@ -62,5 +62,9 @@ export const API_ROUTES = {
 
   // notifications
   getNotifications: (id: string) => `/notification/get/${id}`,
+
+  //voucher
+  getVouchersUser: `/voucher/get_vouchers`,
+  addVoucherUser: (code: string) => `/voucher/add_voucher/${code}`,
 };
 export default API_ROUTES;
