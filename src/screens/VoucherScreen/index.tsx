@@ -1,16 +1,42 @@
 import { useState } from 'react';
-import { Box, FlatList, Pressable } from 'native-base';
+import { Box, Pressable, Text, Toast } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ItemVoucher from 'components/ItemVoucher';
+import FlatListVoucher from 'components/FlatListVoucher';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SSTextInput from 'components/SSTextInput';
-import { DATA6 } from 'mocks';
+import useGetVouchersUser from 'hook/voucher/useGetVouchersUser';
+import voucherAPI from 'modules/voucherAPI';
 
 const VoucherScreen = () => {
   const { t } = useTranslation();
+  const { vouchers, err_vouchers, loading_vouchers, mutate_vouchers } = useGetVouchersUser();
+
   const [voucher, setVoucher] = useState('');
+  const addVoucher = async () => {
+    try {
+      if (voucher === '')
+        Toast.show({
+          title: 'Please select type of color & size',
+          placement: 'top',
+        });
+      else {
+        await voucherAPI.addVoucherUser(voucher);
+        Toast.show({
+          title: 'Successfully added voucher to account',
+          placement: 'top',
+        });
+        mutate_vouchers();
+      }
+    } catch (error: any) {
+      Toast.show({
+        title: 'Cannot add voucher to account',
+        description: error.response.data.message ? error.response.data.message : error.message,
+        placement: 'top',
+      });
+    }
+  };
   return (
     <SafeAreaView
       style={{
@@ -33,11 +59,12 @@ const VoucherScreen = () => {
         quantityHeaderCarts={0}
       />
       <SSTextInput
+        width="100%"
         placeholder={t('SelectVoucher.title')}
         typePassword={false}
         inputLeftElement={<Icon.Gift strokeWidth={1} stroke={'black'} />}
         inputRightElement={
-          <Pressable onPress={() => console.log('Add voucher')}>
+          <Pressable onPress={() => addVoucher()}>
             <Icon.PlusCircle strokeWidth={1} stroke={'black'} />
           </Pressable>
         }
@@ -45,11 +72,13 @@ const VoucherScreen = () => {
         changeValue={setVoucher}
       />
       <Box marginBottom={3} />
-      <FlatList
-        data={DATA6}
-        renderItem={({ item }) => <ItemVoucher voucher={item} />}
-        keyExtractor={(item) => item.name}
-      />
+      {err_vouchers ? (
+        <Text variant="title" alignSelf="center">
+          Failed to load: {err_vouchers.response.data.message}
+        </Text>
+      ) : (
+        <FlatListVoucher vouchers={vouchers?.data.results.unused} isLoading={loading_vouchers} />
+      )}
     </SafeAreaView>
   );
 };

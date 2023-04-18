@@ -1,16 +1,10 @@
 import { Box, Flex, Image, Text } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
+import { IVoucher } from 'interfaces/Voucher';
 
 type Props = {
-  voucher: {
-    id: number;
-    name: string;
-    description: string;
-    time: string;
-    image: string;
-    condition: string;
-  };
+  voucher: IVoucher;
 };
 
 const ItemVoucher = (props: Props) => {
@@ -30,7 +24,7 @@ const ItemVoucher = (props: Props) => {
     >
       <Image
         source={{
-          uri: voucher.image,
+          uri: 'https://res.cloudinary.com/dzhlsdyqv/image/upload/v1681803278/Image/Logo_Typography_Small_w7ak1d.png',
         }}
         alt="Voucher Image"
         size="full"
@@ -49,16 +43,6 @@ const ItemVoucher = (props: Props) => {
         >
           {voucher.name}
         </Text>
-        <Text
-          variant="body1"
-          numberOfLines={1}
-          marginBottom={2}
-          style={{
-            fontVariant: ['lining-nums'],
-          }}
-        >
-          {voucher.description}
-        </Text>
         <Flex direction="row" justifyContent="space-between">
           <Flex direction="row" alignItems="center">
             <Icon.Clock stroke="#AC1506" strokeWidth={2} width={12} height={12} />
@@ -70,19 +54,9 @@ const ItemVoucher = (props: Props) => {
                 fontVariant: ['lining-nums'],
               }}
             >
-              {t('SelectVoucher.effective')} {voucher.time}
+              {t('SelectVoucher.effective')} {voucher.start_date} - {voucher.end_date}
             </Text>
           </Flex>
-          <Text
-            variant="overline"
-            color="#0C32F9"
-            marginLeft={1}
-            style={{
-              fontVariant: ['lining-nums'],
-            }}
-          >
-            {t('SelectVoucher.condition')}
-          </Text>
         </Flex>
       </Box>
     </Flex>

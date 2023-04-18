@@ -1,40 +1,43 @@
 import React, { useState } from 'react';
-import { Box, FlatList, Pressable, Text } from 'native-base';
+import { Box, Pressable, Text, Toast } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ItemSelectVoucher from 'components/ItemSelectVoucher';
+import FlatListSelectVoucher from 'components/FlatListSelectVoucher';
 import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SSTextInput from 'components/SSTextInput';
-import { DATA6 } from 'mocks';
+import useGetVouchersUser from 'hook/voucher/useGetVouchersUser';
+import voucherAPI from 'modules/voucherAPI';
 
 const SelectVoucherScreen = () => {
   const { t } = useTranslation();
-  const [selected, setSelected] = React.useState(new Map());
-
-  const onSelect = React.useCallback(
-    (id: number) => {
-      const newSelected = new Map(selected);
-      newSelected.set(id, !selected.get(id));
-
-      setSelected(newSelected);
-    },
-    [selected]
-  );
   const [voucher, setVoucher] = useState('');
-  // const [totalDiscount, setTotalDiscount] = useState(1);
-  // const [totalShipping, setTotalShipping] = useState(1);
-  // const [totalVoucher, setTotalVoucher] = useState(0);
-
-  // const select = (total: number, Function: Function, available: number) => {
-  //   if (available === 0) return console.log('Can not select more voucher');
-  //   return Function(available - 1) && total + 1;
-  // };
-
-  // const deselect = (total: number, Function: Function, available: number) => {
-  //   return Function(available + 1) && total - 1;
-  // };
+  const [selectVoucher, setSelectVoucher] = useState('');
+  const { vouchers, err_vouchers, loading_vouchers, mutate_vouchers } = useGetVouchersUser();
+  const addVoucher = async () => {
+    try {
+      if (voucher === '')
+        Toast.show({
+          title: 'Please select type of color & size',
+          placement: 'top',
+        });
+      else {
+        await voucherAPI.addVoucherUser(voucher);
+        Toast.show({
+          title: 'Successfully added voucher to account',
+          placement: 'top',
+        });
+        mutate_vouchers();
+      }
+    } catch (error: any) {
+      Toast.show({
+        title: 'Cannot add voucher to account',
+        description: error.response.data.message ? error.response.data.message : error.message,
+        placement: 'top',
+      });
+    }
+  };
   return (
     <SafeAreaView
       style={{
@@ -57,60 +60,37 @@ const SelectVoucherScreen = () => {
         quantityHeaderCarts={0}
       />
       <SSTextInput
-        placeholder={t('SelectVoucher.voucherCode')}
+        width="100%"
+        placeholder={t('SelectVoucher.title')}
         typePassword={false}
         inputLeftElement={<Icon.Gift strokeWidth={1} stroke={'black'} />}
         inputRightElement={
-          <Pressable onPress={() => console.log('Add voucher')}>
+          <Pressable onPress={() => addVoucher()}>
             <Icon.PlusCircle strokeWidth={1} stroke={'black'} />
           </Pressable>
         }
         value={voucher}
         changeValue={setVoucher}
       />
-      <Box marginY={3}>
-        <Text variant="subtitle1">{t('SelectVoucher.shippingVoucher')}</Text>
-        <Text variant="subtitle2">
-          {1} {t('SelectVoucher.voucherCanSelected')}
+      <Box marginBottom={3} />
+      {err_vouchers ? (
+        <Text variant="title" alignSelf="center">
+          Failed to load: {err_vouchers.response.data.message}
         </Text>
-      </Box>
-      <FlatList
-        data={DATA6}
-        renderItem={({ item }) => (
-          <ItemSelectVoucher
-            voucher={item}
-            selected={!!selected.get(item.id)}
-            onSelect={onSelect}
-          />
-        )}
-        keyExtractor={(item) => item.name}
-      />
-      <Box marginY={3}>
-        <Text variant="subtitle1">{t('SelectVoucher.discount')}</Text>
-        <Text variant="subtitle2">
-          {1} {t('SelectVoucher.voucherCanSelected')}
-        </Text>
-      </Box>
-      <FlatList
-        data={DATA6}
-        renderItem={({ item }) => (
-          <ItemSelectVoucher
-            voucher={item}
-            selected={!!selected.get(item.id)}
-            onSelect={onSelect}
-          />
-        )}
-        keyExtractor={(item) => item.name}
-      />
+      ) : (
+        <FlatListSelectVoucher
+          vouchers={vouchers?.data.results.unused}
+          isLoading={loading_vouchers}
+          selectVoucher={selectVoucher}
+          setSelectVoucher={setSelectVoucher}
+        />
+      )}
       <Box height="auto" width="100%" paddingTop={3}>
-        <Text variant="button">
-          {0} {t('SelectVoucher.voucherSelected')}
-        </Text>
         <SSButton
           variant={'red'}
           text={t('SelectVoucher.title')}
           width="100%"
-          onPress={() => console.log('Hello')}
+          onPress={() => console.log('Select voucher')}
         />
       </Box>
     </SafeAreaView>
