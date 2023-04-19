@@ -45,6 +45,7 @@ export type ProductInvoice = {
 
 export interface getInvoice {
   products: ProductInvoice[];
+  voucher_id?: string;
 }
 export type StripeCheckout = {
   amount: number;

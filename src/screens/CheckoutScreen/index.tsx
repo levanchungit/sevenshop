@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { initPaymentSheet, presentPaymentSheet } from '@stripe/stripe-react-native';
 import { Button, FlatList, Pressable, Text, Toast, View } from 'native-base';
@@ -17,23 +17,50 @@ import { CheckoutContext } from './CheckoutContext';
 type Props = {
   route: CheckoutRouteProp;
 };
+
+const SHIPPING_FEE = 20000;
+
 const CheckoutScreen = ({ route }: Props) => {
   const { data } = route.params;
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
-  const { paymentType, addresses } = useContext(CheckoutContext);
+  const { paymentType, addresses, selectVoucher } = useContext(CheckoutContext);
+  const [invoice, setInvoice]: any = useState();
+  const [isInvoiceRequested, setIsInvoiceRequested] = useState(false);
 
-  const data2 = Object.assign(data, {
+  const data2 = Object.assign(invoice ? invoice : data, {
     payment_type: paymentType + '',
     note: 'SYS test',
-    voucher_id: '',
+    voucher_id: selectVoucher ? selectVoucher._id : '',
   });
 
   const newData: Checkout = {
     ...data2,
     address: addresses._id ? addresses : data2.address,
   };
-  console.log('payment_type', paymentType);
+  // console.log('payment_type', paymentType);
+  // console.log('voucher', selectVoucher);
+  console.log('newData', data);
+
+  const onGetInvoice = async () => {
+    try {
+      const response = await checkoutAPI.getInvoice({
+        products: data.products,
+        voucher_id: selectVoucher._id,
+      });
+      setInvoice(response.data);
+    } catch (e: any) {
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
+
+  if (selectVoucher._id && !isInvoiceRequested) {
+    onGetInvoice();
+    setIsInvoiceRequested(true);
+  }
 
   const checkout = async () => {
     if (data2.address) {
@@ -60,11 +87,11 @@ const CheckoutScreen = ({ route }: Props) => {
     if (data.payment_type === PAYMENT_TYPE.bank) {
       //total order
       const _data = {
-        amount: Math.floor(1314 * 100),
+        amount: Math.floor(newData.total_invoice),
       };
-      console.log(_data);
+      // console.log(_data);
       const response = await checkoutAPI.stripe(_data);
-
+      // console.log(response);
       if (response.error) {
         Toast.show({
           title: response.error,
@@ -92,7 +119,7 @@ const CheckoutScreen = ({ route }: Props) => {
         title: 'Coming soon',
         duration: 3000,
       });
-      return;
+      return false;
     }
 
     await checkout();
@@ -148,8 +175,17 @@ const CheckoutScreen = ({ route }: Props) => {
                       variant={'Body2'}
                       fontFamily={'Raleway_500Medium'}
                     >
-                      {data.address ? data.address.full_name : 'You dont have address'} |{' '}
-                      {data.address ? data.address.phone : '...'}
+                      {addresses.full_name
+                        ? addresses.full_name
+                        : data.address
+                        ? data.address.full_name
+                        : 'You do not have address'}{' '}
+                      |{' '}
+                      {addresses.phone
+                        ? addresses.phone
+                        : data.address
+                        ? data.address.phone
+                        : '...'}
                     </Text>
                     <Text
                       style={{
@@ -160,7 +196,11 @@ const CheckoutScreen = ({ route }: Props) => {
                       variant={'Body2'}
                       fontFamily={'Raleway_500Medium'}
                     >
-                      {data.address ? data.address.address : 'Please add address!'}
+                      {addresses.address
+                        ? addresses.address
+                        : data.address
+                        ? data.address.address
+                        : 'Please add address!'}
                     </Text>
                   </View>
                   <Icons.ChevronRight stroke={'black'} fontSize={24} />
@@ -173,7 +213,7 @@ const CheckoutScreen = ({ route }: Props) => {
                   <ItemProductCheckout
                     name={item.name}
                     image={item.images[0]}
-                    price={item.price}
+                    price={item.price_sale}
                     size_color={item.size_name + ' | ' + item.color_name}
                     quantity={item.quantity}
                   />
@@ -200,7 +240,7 @@ const CheckoutScreen = ({ route }: Props) => {
                   variant="Body2"
                   fontFamily={'Raleway_500Medium'}
                 >
-                  {t('Checkout.cashOnDelivery')}
+                  {paymentType}
                 </Text>
                 <Icons.ChevronRight stroke={'black'} width={24} height={24} />
               </Pressable>
@@ -214,14 +254,20 @@ const CheckoutScreen = ({ route }: Props) => {
             iconRight={
               <Pressable
                 style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
-                onPress={() => console.log('payment_type2', paymentType)}
+                onPress={() => navigation.navigate('SelectVoucher')}
               >
                 <Text
                   style={{ marginBottom: 4, marginRight: 8, fontVariant: ['lining-nums'] }}
                   variant="Body2"
                   fontFamily={'Raleway_500Medium'}
                 >
-                  {t('Checkout.chooseVoucher')}
+                  {selectVoucher._id
+                    ? selectVoucher.type === 'money'
+                      ? 'Giảm ' + formatNumberCurrencyVN(selectVoucher.value)
+                      : selectVoucher.type === 'percent'
+                      ? 'Giảm ' + selectVoucher.value + '%'
+                      : '...'
+                    : t('Checkout.chooseVoucher')}
                 </Text>
                 <Icons.ChevronRight stroke={'black'} width={24} height={24} />
               </Pressable>
@@ -243,7 +289,7 @@ const CheckoutScreen = ({ route }: Props) => {
                 }}
                 fontFamily={'Raleway_500Medium'}
               >
-                {formatNumberCurrencyVN(20000)}
+                {formatNumberCurrencyVN(SHIPPING_FEE)}
               </Text>
             }
           />
@@ -272,7 +318,7 @@ const CheckoutScreen = ({ route }: Props) => {
                   fontVariant: ['lining-nums'],
                 }}
               >
-                {formatNumberCurrencyVN(data2.total_invoice_discount)}
+                {formatNumberCurrencyVN(data2.total_invoice + SHIPPING_FEE)}
               </Text>
             }
           />

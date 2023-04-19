@@ -28,7 +28,7 @@ const AddressScreen = (props: AddressScreenProps) => {
       mutate_addresses();
     }
   }, [isFocused]);
-  console.log('AddressScreen', checkedId);
+
   return (
     <Box flex={1} paddingY={2} paddingX={3} backgroundColor="#FFFFFF" safeArea>
       <SSHeaderNavigation

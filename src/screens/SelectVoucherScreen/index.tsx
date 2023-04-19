@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Box, Pressable, Text, Toast } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
@@ -8,13 +9,18 @@ import SSButton from 'components/SSButton';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SSTextInput from 'components/SSTextInput';
 import useGetVouchersUser from 'hook/voucher/useGetVouchersUser';
+import { IVoucher } from 'interfaces/Voucher';
 import voucherAPI from 'modules/voucherAPI';
+import { AppNavigationProp } from 'providers/navigation/types';
+import { CheckoutContext } from 'screens/CheckoutScreen/CheckoutContext';
 
 const SelectVoucherScreen = () => {
   const { t } = useTranslation();
+  const navigation = useNavigation<AppNavigationProp>();
   const [voucher, setVoucher] = useState('');
-  const [selectVoucher, setSelectVoucher] = useState('');
+  const [selectVoucher1, setSelectVoucher1] = useState('');
   const { vouchers, err_vouchers, loading_vouchers, mutate_vouchers } = useGetVouchersUser();
+  const { setSelectVoucher } = useContext(CheckoutContext);
   const addVoucher = async () => {
     try {
       if (voucher === '')
@@ -81,8 +87,8 @@ const SelectVoucherScreen = () => {
         <FlatListSelectVoucher
           vouchers={vouchers?.data.results.unused}
           isLoading={loading_vouchers}
-          selectVoucher={selectVoucher}
-          setSelectVoucher={setSelectVoucher}
+          selectVoucher={selectVoucher1}
+          setSelectVoucher={setSelectVoucher1}
         />
       )}
       <Box height="auto" width="100%" paddingTop={3}>
@@ -90,7 +96,12 @@ const SelectVoucherScreen = () => {
           variant={'red'}
           text={t('SelectVoucher.title')}
           width="100%"
-          onPress={() => console.log('Select voucher')}
+          onPress={() => {
+            setSelectVoucher(
+              vouchers?.data.results.unused.find((item: IVoucher) => item._id === selectVoucher1)
+            );
+            navigation.goBack();
+          }}
         />
       </Box>
     </SafeAreaView>

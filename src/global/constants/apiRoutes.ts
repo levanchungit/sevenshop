@@ -58,7 +58,7 @@ export const API_ROUTES = {
   // checkout
   checkout: `/pay`,
   getInvoice: `/pay/get_invoice`,
-  stripe: '/pay/stripe',
+  stripe: '/pay/intents',
 
   // notifications
   getNotifications: (id: string) => `/notification/get/${id}`,

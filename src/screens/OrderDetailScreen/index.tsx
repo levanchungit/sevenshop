@@ -123,30 +123,13 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
                   key={item.product_id.id}
                   name={item.product_id.name}
                   image={item.product_id.images[0]}
-                  price={2134}
-                  size_color={item.size_id.size + '_' + item.color_id.name}
+                  price={item.product_id.price}
+                  size_color={item.size_id.size + ' |' + item.color_id.name}
                   quantity={item.quantity}
                 />
               )}
               keyExtractor={(item, index) => index + ''}
-              key={'20'}
             />
-            {/* <ItemProductCheckout
-              name="Áo sơ mi nam phối màu cực chất"
-              price={123}
-              image="https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656"
-              size_color="XL_Black"
-              quantity={2}
-              key={4}
-            />
-            <ItemProductCheckout
-              name="Áo sơ mi nam phối màu cực chất"
-              price={123}
-              image="https://eu.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-lv-fair-isle-stripes-nylon-tracksuit--HOY21WZED900_PM2_Front%20view.png?wid=656&hei=656"
-              size_color="XL_Black"
-              quantity={3}
-              key={5}
-            /> */}
           </View>
         }
       ></FlatList>

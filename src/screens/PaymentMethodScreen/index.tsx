@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Flex, Text, Image, Pressable } from 'native-base';
 import { useTranslation } from 'react-i18next';
@@ -13,12 +13,21 @@ import { CheckoutContext } from 'screens/CheckoutScreen/CheckoutContext';
 
 const PaymentMethodScreen = () => {
   const { t } = useTranslation();
-  // const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation<AppNavigationProp>();
-  const [isCod, setIsCod] = useState(true);
+  const [isCod, setIsCod] = useState(false);
   const [isBank, setIsBank] = useState(false);
   const [isMomo, setIsMomo] = useState(false);
-  const { setPaymentType } = useContext(CheckoutContext);
+  const { paymentType, setPaymentType } = useContext(CheckoutContext);
+
+  useEffect(() => {
+    if (paymentType === PAYMENT_TYPE.cod) {
+      setIsCod(true);
+    } else if (paymentType === PAYMENT_TYPE.bank) {
+      setIsBank(true);
+    } else if (paymentType === PAYMENT_TYPE.momo) {
+      setIsMomo(true);
+    }
+  }, []);
 
   const onSetPaymentType = () => {
     if (isCod) {

@@ -40,7 +40,9 @@ const Cart = () => {
 
   useEffect(() => {
     setTotal(0);
-    const checkedItemsList = checkedItems.filter((item: IData) => item.isChecked === true);
+    const checkedItemsList = checkedItems
+      ? checkedItems.filter((item: IData) => item.isChecked === true)
+      : [];
     checkedItemsList.map((item: IData) => {
       setTotal((prev) => prev + item.price_sale * item.quantity);
     });
@@ -190,11 +192,12 @@ const Cart = () => {
             <Icon.Trash2 stroke="#ac1506" width={24} height={24} />
           </View>
         </View>
-        <View style={{ height: '70%', marginTop: 1 }}>
+        <View style={{ height: '85%', marginTop: 1 }}>
           <FlatList
             style={{ marginTop: 12 }}
             keyExtractor={(item, index) => index + ''}
             data={checkedItems ? checkedItems : []}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item, index }: { item: IData; index: number }) => (
               <ItemCart
                 cart={item}
@@ -219,7 +222,15 @@ const Cart = () => {
             )}
           />
         </View>
-        <View style={{ flex: 1, flexDirection: 'row', width: '100%', alignItems: 'flex-end' }}>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            width: '100%',
+            alignItems: 'flex-end',
+            // backgroundColor: 'red',
+          }}
+        >
           <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>{t('Cart.total')}</Text>
           <Text color={'primary.600'} textAlign={'right'} variant={'title'}>
             {formatNumberCurrencyVN(total)}

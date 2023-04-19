@@ -31,6 +31,9 @@ const ItemProductCheckout = (props: Props) => {
             color="black"
             variant={'Body1'}
             fontFamily="Raleway_700Bold"
+            style={{
+              fontVariant: ['lining-nums'],
+            }}
           >
             {name}
           </Text>

@@ -98,7 +98,12 @@ const PaymentSuccess = ({ route }: Success) => {
             <View flexDirection={'row'} justifyContent="space-between" color={'black'}>
               <Text variant={'Body1'} fontSize={12} w={'60%'} fontFamily="Raleway_500Medium">
                 {t('PaymentSuccess.details1')}{' '}
-                <Text fontWeight={'extrabold'} fontSize={14} fontFamily="Raleway_700Bold">
+                <Text
+                  fontWeight={'extrabold'}
+                  fontSize={14}
+                  fontFamily="Raleway_700Bold"
+                  onPress={() => navigation.navigate('Profile')}
+                >
                   {t('PaymentSuccess.profile')}
                 </Text>{' '}
                 {t('PaymentSuccess.details1')}{' '}

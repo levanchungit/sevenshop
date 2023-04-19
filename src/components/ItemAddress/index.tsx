@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Box, HStack, Pressable, Text } from 'native-base';
 import * as Icon from 'react-native-feather';
 import IconCheck from 'components/IconCheck';
 import { AddressesResult } from 'interfaces/Address';
 import { AppNavigationProp } from 'providers/navigation/types';
+import { CheckoutContext } from 'screens/CheckoutScreen/CheckoutContext';
 
 type Props = {
   address: AddressesResult;
@@ -16,10 +17,15 @@ const ItemAdrress = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
   const { address, check, setCheck } = props;
   const [elementVisible] = useState<boolean>(address.default_address);
+  const { addresses } = useContext(CheckoutContext);
 
   useEffect(() => {
-    if (address.default_address) {
-      setCheck(address._id);
+    if (addresses._id) {
+      setCheck(addresses._id);
+    } else {
+      if (address.default_address) {
+        setCheck(address._id);
+      }
     }
   }, []);
 
