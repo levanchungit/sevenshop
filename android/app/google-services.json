@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "510176618752",
+    "project_id": "pushnotification-sevenshop",
+    "storage_bucket": "pushnotification-sevenshop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510176618752:android:1e397f72f58e0e14d46be5",
+        "android_client_info": {
+          "package_name": "com.levanchung.it.sevenshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510176618752-hupt2b9c8ojrqs35ip93iuu6b29pmvhk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.levanchung.it.sevenshop",
+            "certificate_hash": "aa3530f49cddec6d0cf3bdc4de65db736d8ea417"
+          }
+        },
+        {
+          "client_id": "510176618752-bke3thtp4hldf2dpl73889m35uilbv16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApf2AkLMKmAoHs4R-pHIK_BTbeDfpxCw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510176618752-bke3thtp4hldf2dpl73889m35uilbv16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
