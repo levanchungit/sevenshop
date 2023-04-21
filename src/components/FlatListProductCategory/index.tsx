@@ -17,6 +17,8 @@ const FlatListProductCategory = (props: Props) => {
   const { categories } = useGetCategories();
   const [ItemSelected, setItemSelected]: any = useState([]);
   const [progressEnable, setProgressEnable] = useState(true);
+  const [firstItemSelected, setFirstItemSelected] = useState(false);
+  const [idItemSelected, setIdItemSelected] = useState('');
 
   useEffect(() => {
     if (categories) {
@@ -28,16 +30,6 @@ const FlatListProductCategory = (props: Props) => {
     }
     setProgressEnable(true);
   }, [categories]);
-
-  // useEffect(() => {
-  //   ItemSelected.map((item: { isSelected: boolean; _id: React.SetStateAction<string> }) => {
-  //     if (item.isSelected === true) {
-  //       console.warn('Item selected', item._id);
-  //       setIdCate(item._id);
-  //     }
-  //   });
-  //   console.warn(idCate);
-  // }, [ItemSelected]);
 
   const RenderItemCategory = ({ data }: { data: IProduct }) => {
     return (
@@ -57,19 +49,28 @@ const FlatListProductCategory = (props: Props) => {
           horizontal
           showsHorizontalScrollIndicator={false}
           data={ItemSelected}
-          renderItem={({ item }: any) => (
-            <ButtonCategory
-              onPress={() => {
-                const ItemSelected3 = ItemSelected.map((item2: any) => {
-                  return { ...item2, isSelected: item.name === item2.name };
-                });
-                setItemSelected(ItemSelected3);
-              }}
-              title={item.name}
-              isSelected={item.isSelected}
-              key={item._id}
-            />
-          )}
+          renderItem={({ item, index }: any) => {
+            if (!firstItemSelected && index === 0) {
+              item.isSelected = true;
+              setFirstItemSelected(true);
+              setIdItemSelected(item._id);
+            }
+
+            return (
+              <ButtonCategory
+                onPress={() => {
+                  const ItemSelected3 = ItemSelected.map((item2: any) => {
+                    return { ...item2, isSelected: item.name === item2.name };
+                  });
+                  setItemSelected(ItemSelected3);
+                  setIdItemSelected(item._id);
+                }}
+                title={item.name}
+                isSelected={item.isSelected}
+                key={item._id}
+              />
+            );
+          }}
         />
       </View>
       {!progressEnable ? (
@@ -81,11 +82,11 @@ const FlatListProductCategory = (props: Props) => {
           contentContainerStyle={styles.flashListFlashSale}
           data={
             data
-            // ? data.filter(function (item) {
-            //     // console.warn(id_Category());
-            //     return item.category_ids.includes(id_Category());
-            //   })
-            // : null
+              ? data.filter(function (item) {
+                  // console.warn(id_Category());
+                  return item.category_ids.includes(idItemSelected);
+                })
+              : null
           }
           renderItem={({ item }) => <RenderItemCategory data={item} />}
           keyExtractor={(item1, index) => index.toString()}

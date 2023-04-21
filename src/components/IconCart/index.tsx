@@ -42,7 +42,15 @@ const IconCart = (props: Props) => {
           right={-15}
           top={-15}
         >
-          <Text numberOfLines={1} fontSize={'lg'} color="white" lineHeight={17}>
+          <Text
+            numberOfLines={1}
+            fontSize={14}
+            color="white"
+            lineHeight={17}
+            style={{
+              fontVariant: ['lining-nums'],
+            }}
+          >
             {quantityItems}
           </Text>
         </View>

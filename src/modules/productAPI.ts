@@ -7,9 +7,9 @@ const productAPI = {
     return axiosInstance.get(API_ROUTES.getProducts(page, limit));
   },
 
-  // getFavoritesProduct(page: number, limit: number) {
-  //   return axiosInstance.get(API_ROUTES.getFavoritesProduct(page, limit));
-  // },
+  getProductFlashSale() {
+    return axiosInstance.get(API_ROUTES.getProductsFlashSale);
+  },
 
   getFavoritesProduct() {
     return axiosInstance.get(API_ROUTES.getFavoritesProduct);

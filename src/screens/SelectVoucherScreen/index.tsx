@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Box, Pressable, Text, Toast } from 'native-base';
+import { Box, Pressable, Text, Toast, View } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -91,19 +91,26 @@ const SelectVoucherScreen = () => {
           setSelectVoucher={setSelectVoucher1}
         />
       )}
-      <Box height="auto" width="100%" paddingTop={3}>
+      <View position={'absolute'} bottom={0} width="100%" paddingTop={3}>
         <SSButton
           variant={'red'}
           text={t('SelectVoucher.title')}
           width="100%"
           onPress={() => {
-            setSelectVoucher(
-              vouchers?.data.results.unused.find((item: IVoucher) => item._id === selectVoucher1)
-            );
+            if (selectVoucher1) {
+              setSelectVoucher(
+                vouchers?.data.results.unused.find((item: IVoucher) => item._id === selectVoucher1)
+              );
+            } else {
+              Toast.show({
+                title: 'Please you do not have any voucher',
+                placement: 'top',
+              });
+            }
             navigation.goBack();
           }}
         />
-      </Box>
+      </View>
     </SafeAreaView>
   );
 };
