@@ -7,10 +7,11 @@ type Props = {
   isLoading: boolean;
   checkId: string;
   setCheckId: Function;
+  typeUser: boolean;
 };
 
 const FlatListUserAddress = (props: Props) => {
-  const { address, isLoading, checkId, setCheckId } = props;
+  const { address, isLoading, checkId, setCheckId, typeUser } = props;
   if (isLoading) {
     return (
       <VStack>
@@ -47,11 +48,11 @@ const FlatListUserAddress = (props: Props) => {
   } else {
     return (
       <FlatList
-        extraData={address}
+        // extraData={address}
         showsVerticalScrollIndicator={false}
         data={address}
         renderItem={({ item }: { item: AddressesResult }) => (
-          <ItemAdrress address={item} check={checkId} setCheck={setCheckId} />
+          <ItemAdrress address={item} check={checkId} setCheck={setCheckId} typeUser={typeUser} />
         )}
         keyExtractor={(item) => item._id}
       />

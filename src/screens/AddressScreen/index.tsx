@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import React, { useContext, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Box, Center, Text, VStack } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import FlatListUserAddress from 'components/FlatListUserAddress';
@@ -18,16 +18,9 @@ const AddressScreen = (props: AddressScreenProps) => {
   const { typeUser } = props.route.params;
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
-  const { addresses, err_addresses, loading_addresses, mutate_addresses } = useGetAddresses();
+  const { addresses, err_addresses, loading_addresses } = useGetAddresses();
   const [checkedId, setCheckedId] = useState('');
-  const isFocused = useIsFocused();
   const { setAddress } = useContext(CheckoutContext);
-
-  useEffect(() => {
-    if (isFocused) {
-      mutate_addresses();
-    }
-  }, [isFocused]);
 
   return (
     <Box flex={1} paddingY={2} paddingX={3} backgroundColor="#FFFFFF" safeArea>
@@ -73,13 +66,14 @@ const AddressScreen = (props: AddressScreenProps) => {
           isLoading={loading_addresses}
           checkId={checkedId}
           setCheckId={setCheckedId}
+          typeUser={typeUser}
         />
       )}
       <VStack w="100%">
         <SSButton
           variant={'white'}
           text={'Add address'}
-          onPress={() => navigation.navigate('EditAddress', { typeEdit: false })}
+          onPress={() => navigation.replace('EditAddress', { typeEdit: false })}
         />
         <Box marginBottom={3} />
         {typeUser ? null : (

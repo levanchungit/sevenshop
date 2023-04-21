@@ -42,7 +42,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
         title: 'Successfully added address',
         placement: 'top',
       });
-      navigation.goBack();
+      navigation.replace('Address', { typeUser: true });
     } catch (error: any) {
       Toast.show({
         title: 'Cannot add address',
@@ -58,7 +58,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
         title: 'Successfully update address',
         placement: 'top',
       });
-      navigation.goBack();
+      navigation.replace('Address', { typeUser: true });
     } catch (error: any) {
       Toast.show({
         title: 'Cannot update address',
@@ -74,7 +74,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
         title: 'Successfully delete address',
         placement: 'top',
       });
-      navigation.goBack();
+      navigation.replace('Address', { typeUser: true });
     } catch (error: any) {
       Toast.show({
         title: 'Cannot delete address',
@@ -148,8 +148,10 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
 
       <SSButton
         variant={'white'}
-        onPress={() => (typeEdit === true ? deleteAddress() : navigation.goBack())}
-        text={typeEdit === true ? t('Address.Delete') : 'Cancle'}
+        onPress={() =>
+          typeEdit === true ? deleteAddress() : navigation.replace('Address', { typeUser: true })
+        }
+        text={typeEdit === true ? t('Address.delete') : 'Cancel'}
       />
       <Box width={'100%'} margin={3} />
       <SSButton

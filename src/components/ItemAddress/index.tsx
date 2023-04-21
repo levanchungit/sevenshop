@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Box, HStack, Pressable, Text } from 'native-base';
 import * as Icon from 'react-native-feather';
@@ -11,12 +11,12 @@ type Props = {
   address: AddressesResult;
   check: string;
   setCheck: Function;
+  typeUser: boolean;
 };
 
 const ItemAdrress = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
-  const { address, check, setCheck } = props;
-  const [elementVisible] = useState<boolean>(address.default_address);
+  const { address, check, setCheck, typeUser } = props;
   const { addresses } = useContext(CheckoutContext);
 
   useEffect(() => {
@@ -39,14 +39,17 @@ const ItemAdrress = (props: Props) => {
       borderColor="#C9C9C9"
       borderRadius={10}
     >
-      <Pressable
-        justifyContent="center"
-        alignItems="center"
-        w="10%"
-        onPress={() => setCheck(address._id)}
-      >
-        {address._id === check ? <IconCheck isChecked={true} /> : <IconCheck isChecked={false} />}
-      </Pressable>
+      {!typeUser ? (
+        <Pressable
+          justifyContent="center"
+          alignItems="center"
+          w="10%"
+          onPress={() => setCheck(address._id)}
+        >
+          {address._id === check ? <IconCheck isChecked={true} /> : <IconCheck isChecked={false} />}
+        </Pressable>
+      ) : null}
+
       <Box w="80%">
         <Text
           numberOfLines={1}
@@ -66,7 +69,7 @@ const ItemAdrress = (props: Props) => {
         >
           {address.address}
         </Text>
-        {elementVisible ? (
+        {address.default_address ? (
           <Text
             borderColor="red.600"
             borderRadius={5}
@@ -86,7 +89,7 @@ const ItemAdrress = (props: Props) => {
         justifyContent="center"
         alignItems="center"
         w="10%"
-        onPress={() => navigation.navigate('EditAddress', { typeEdit: true, address })}
+        onPress={() => navigation.replace('EditAddress', { typeEdit: true, address })}
       >
         <Icon.Edit2 stroke="#AC1506" width={26} height={26} />
       </Pressable>
