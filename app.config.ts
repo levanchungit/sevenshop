@@ -23,10 +23,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   jsEngine: 'hermes',
   android: {
+    googleServicesFile: './google-services.json',
     adaptiveIcon: {
       foregroundImage: './src/assets/adaptive-icon.png',
       backgroundColor: '#FFFFFF',
     },
+    package: 'com.levanchung.it.sevenshop',
   },
   web: {
     favicon: './src/assets/favicon.png',
@@ -35,7 +37,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     eas: {
       projectId: '7076de2a-0de0-4a71-aa4c-dae2b8dd04fb',
     },
-    apiUrl: process.env.API_URL,
   },
   owner: 'levanchung.it',
 });
