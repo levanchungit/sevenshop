@@ -94,7 +94,8 @@ const App = React.memo(() => {
       messaging()
         .getToken()
         .then((token: any) => {
-          console.log(token);
+          console.log('TOKEN FCM', token);
+          AsyncStorage.setItem('fcm_token', token);
         });
       // ...
     };
