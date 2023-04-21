@@ -16,20 +16,50 @@ const FlatListProductFlashSale = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
   const { t } = useTranslation();
   const { data, error } = props;
-  const [hour, setHour] = useState(2);
-  const [minute, setMinute] = useState(2);
-  const [second, setSecond] = useState(5);
+
+  const targetTime = { hour: 24, minute: 0, second: 0 };
+
+  const getTimeRemaining = (targetTime: any) => {
+    const now = new Date();
+    const targetDate = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      targetTime.hour,
+      targetTime.minute,
+      targetTime.second
+    );
+
+    let timeDifference = targetDate.getTime() - now.getTime();
+
+    if (timeDifference < 0) {
+      targetDate.setDate(targetDate.getDate() + 1);
+      timeDifference = targetDate.getTime() - now.getTime();
+    }
+
+    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    return { hours, minutes, seconds };
+  };
+
+  const remainingTime = getTimeRemaining(targetTime);
+
+  const [hour, setHour] = useState(remainingTime.hours);
+  const [minute, setMinute] = useState(remainingTime.minutes);
+  const [second, setSecond] = useState(remainingTime.seconds);
 
   const myRef: any = useRef();
   const decreaseSecond = () => setSecond((second) => second - 1);
   const time = () => {
     if (second === 0) {
       setMinute(minute - 1);
-      setSecond(3);
+      setSecond(59);
     }
     if (minute < 0) {
       setHour(hour - 1);
-      setMinute(1);
+      setMinute(59);
     }
     if (hour === 0 && second === 0) {
       setHour(23);
@@ -39,35 +69,19 @@ const FlatListProductFlashSale = (props: Props) => {
   };
 
   const timeBar = () => {
-    let secondC = '',
-      minuteC = '',
-      hourC = '';
-    if (second.toString().length === 1) {
-      secondC = '0' + second;
-    } else {
-      secondC = '' + second;
-    }
-    if (minute.toString().length === 1) {
-      minuteC = '0' + minute;
-    } else {
-      minuteC = minute + '';
-    }
-    if (hour.toString().length === 1) {
-      hourC = '0' + hour;
-    } else {
-      hourC = '' + hour;
-    }
-    return hourC + ':' + minuteC + ':' + secondC;
+    const secondC = second.toString().length === 1 ? '0' + second : second;
+    const minuteC = minute.toString().length === 1 ? '0' + minute : minute;
+    const hourC = hour.toString().length === 1 ? '0' + hour : hour;
+    return `${hourC}:${minuteC}:${secondC}`;
   };
   useEffect(() => {
+    myRef.current = setInterval(() => decreaseSecond(), 1000);
     time();
-    timeBar();
-    myRef.current = setInterval(decreaseSecond, 1000);
     return () => clearInterval(myRef.current);
   }, [second]);
 
   return (
-    <View style={{}}>
+    <View>
       <View style={styles.coverHeader}>
         <View style={styles.headerFlashSale}>
           <Text

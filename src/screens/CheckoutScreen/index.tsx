@@ -9,6 +9,7 @@ import SelectOptions from 'components/SelectOptions';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import { PAYMENT_TYPE } from 'global/constants';
 import { Checkout } from 'interfaces/Checkout';
+import { IVoucher } from 'interfaces/Voucher';
 import { checkoutAPI } from 'modules';
 import { AppNavigationProp, CheckoutRouteProp } from 'providers/navigation/types';
 import { formatNumberCurrencyVN } from 'utils/common';
@@ -24,7 +25,8 @@ const CheckoutScreen = ({ route }: Props) => {
   const { data } = route.params;
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
-  const { paymentType, addresses, selectVoucher } = useContext(CheckoutContext);
+  const { paymentType, addresses, selectVoucher, setSelectVoucher, setPaymentType } =
+    useContext(CheckoutContext);
   const [invoice, setInvoice]: any = useState();
   const [isInvoiceRequested, setIsInvoiceRequested] = useState(false);
 
@@ -38,9 +40,9 @@ const CheckoutScreen = ({ route }: Props) => {
     ...data2,
     address: addresses._id ? addresses : data2.address,
   };
-  // console.log('payment_type', paymentType);
+  console.log('payment_type', paymentType);
   // console.log('voucher', selectVoucher);
-  console.log('newData', data);
+  // console.log('newData', data);
 
   const onGetInvoice = async () => {
     try {
@@ -66,6 +68,8 @@ const CheckoutScreen = ({ route }: Props) => {
     if (data2.address) {
       try {
         const response = await checkoutAPI.checkout(newData);
+        setPaymentType(PAYMENT_TYPE.cod);
+        setSelectVoucher({} as IVoucher);
         navigation.replace('PaymentSuccess', { data_detail: response.data });
       } catch (error: any) {
         console.error(error.message);
@@ -89,9 +93,7 @@ const CheckoutScreen = ({ route }: Props) => {
       const _data = {
         amount: Math.floor(newData.total_invoice),
       };
-      // console.log(_data);
       const response = await checkoutAPI.stripe(_data);
-      // console.log(response);
       if (response.error) {
         Toast.show({
           title: response.error,

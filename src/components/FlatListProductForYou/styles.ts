@@ -13,6 +13,6 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     marginBottom: 8,
   },
-  listFooter: { width: '100%', alignItems: 'center', marginTop: 12, flexDirection: 'row' },
+  listFooter: { width: '100%', alignItems: 'center', marginTop: 30, flexDirection: 'row' },
 });
 export default styles;
