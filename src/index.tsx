@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Raleway_400Regular, Raleway_500Medium, Raleway_700Bold } from '@expo-google-fonts/raleway';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import * as Font from 'expo-font';
@@ -33,7 +34,8 @@ const App = React.memo(() => {
       messaging()
         .getToken()
         .then((token: any) => {
-          console.log(token);
+          console.log('TOKEN FCM', token);
+          AsyncStorage.setItem('fcm_token', token);
         });
       // ...
     };
