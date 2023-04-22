@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Text, View, Image, Button, Toast } from 'native-base';
+import { Text, View, Image, Button, Toast, KeyboardAvoidingView } from 'native-base';
 import { useTranslation } from 'react-i18next';
+import { Platform } from 'react-native';
 import * as Icon from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
 import { URL_IMG_AUTH } from 'global/constants';
@@ -35,55 +36,63 @@ const SetPasswordForgotScreen = () => {
     }
     setDisable(false);
   };
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
 
   return (
-    <View w="100%" h="100%" flex={1}>
-      <Image
-        alt="Image"
-        w="100%"
-        h={250}
-        borderBottomLeftRadius={12}
-        borderBottomRightRadius={12}
-        shadow={1}
-        source={{
-          uri: URL_IMG_AUTH,
-        }}
-      />
-      <Text
-        mt="5"
-        fontFamily="heading"
-        fontStyle="normal"
-        fontWeight={400}
-        fontSize={36}
-        textAlign="center"
-      >
-        {t('SetPassWord.title')}
-      </Text>
+    <KeyboardAvoidingView
+      height={'100%'}
+      bgColor={'white'}
+      behavior="position"
+      keyboardVerticalOffset={keyboardVerticalOffset}
+    >
+      <View w="100%" h="100%" flex={1}>
+        <Image
+          alt="Image"
+          w="100%"
+          h={250}
+          borderBottomLeftRadius={12}
+          borderBottomRightRadius={12}
+          shadow={1}
+          source={{
+            uri: URL_IMG_AUTH,
+          }}
+        />
+        <Text
+          mt="5"
+          fontFamily="heading"
+          fontStyle="normal"
+          fontWeight={400}
+          fontSize={36}
+          textAlign="center"
+        >
+          {t('SetPassWord.title')}
+        </Text>
 
-      <View h={200} alignItems="center">
-        <SSTextInput
-          placeholder={t('SetPassWord.password')}
-          typePassword={false}
-          inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
-          value={password}
-          changeValue={setPassword}
-        ></SSTextInput>
+        <View h={200} alignItems="center">
+          <SSTextInput
+            placeholder={t('SetPassWord.password')}
+            typePassword={false}
+            inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
+            value={password}
+            changeValue={setPassword}
+          ></SSTextInput>
 
-        <SSTextInput
-          placeholder={t('SetPassWord.confirmPassword')}
-          typePassword={false}
-          inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
-          value={password_new}
-          changeValue={setPassword_new}
-        ></SSTextInput>
+          <SSTextInput
+            placeholder={t('SetPassWord.confirmPassword')}
+            typePassword={false}
+            inputLeftElement={<Icon.Lock stroke="black" width={24} height={24} />}
+            value={password_new}
+            changeValue={setPassword_new}
+          ></SSTextInput>
 
-        <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="6" disabled={disableButton}>
-          <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
-            Set
-          </Text>
-        </Button>
+          <Button onPress={onSubmit} w={{ base: '50%' }} mb="1" mt="6" disabled={disableButton}>
+            <Text fontSize={14} color={'light.100'} fontWeight={'bold'}>
+              Set
+            </Text>
+          </Button>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

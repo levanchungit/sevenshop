@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import {
   Text,
@@ -13,6 +14,7 @@ import {
   Center,
 } from 'native-base';
 import { useTranslation } from 'react-i18next';
+import { Platform } from 'react-native';
 import * as Icons from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
 import { URL_IMG_AUTH } from 'global/constants';
@@ -25,12 +27,19 @@ const LoginScreen = React.memo(() => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [device_id, setDeviceId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem('fcm_token').then((token) => {
+      if (token !== null) setDeviceId(token);
+    });
+  }, []);
 
   const handleLogin = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await authAPI.login({ email, password });
+      const response = await authAPI.login({ email, password, device_id });
       Toast.show({
         title: response.data.message,
         duration: 3000,
@@ -52,10 +61,15 @@ const LoginScreen = React.memo(() => {
   const handleRegister = useCallback(() => {
     navigation.navigate('Register');
   }, [navigation]);
-
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
   return (
-    <KeyboardAvoidingView>
-      <VStack height={'100%'} bgColor={'white'}>
+    <KeyboardAvoidingView
+      height={'100%'}
+      bgColor={'white'}
+      behavior="position"
+      keyboardVerticalOffset={keyboardVerticalOffset}
+    >
+      <VStack>
         <Image
           alt="Image Login"
           h={250}

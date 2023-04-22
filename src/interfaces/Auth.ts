@@ -1,6 +1,7 @@
 export type SignInPayload = {
   email: string;
   password: string;
+  device_id: string;
 };
 
 export type RegisterPayload = {
