@@ -74,5 +74,16 @@ export const API_ROUTES = {
   //Search
   addKeywordSearch: `/users/add_keyword_search`,
   getKeywordsearch: `/users/get_keyword_search`,
+  getSearchProducts: (page: number, limit: number, keyword: string) =>
+    `/products/search_products/find?page=${page}&limit=${limit}&keyword=${keyword}`,
+  getFilterProducts: (
+    // page: number,
+    // limit: number,
+    categories: string,
+    sizes: string,
+    colors: string,
+    price_min: number,
+    price_max: number
+  ) => `/products/filter_products/find?${colors}&price_min=${price_min}&price_max=${price_max}`,
 };
 export default API_ROUTES;
