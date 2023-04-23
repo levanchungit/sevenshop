@@ -22,6 +22,11 @@ const productAPI = {
   updateFavorite(id: string) {
     return axiosInstance.post(API_ROUTES.updateFavorite(id));
   },
+
+  async getProductsCategory(limit: number, category: string) {
+    const response = await axiosInstance.get(API_ROUTES.getProductsCategory(limit, category));
+    return response.data;
+  },
 };
 
 export default productAPI;

@@ -169,7 +169,7 @@ const PaymentSuccess = ({ route }: Success) => {
             borderColor: 'gray',
           }}
           backgroundColor={'primary.600'}
-          onPress={() => navigation.navigate('Main')}
+          onPress={() => navigation.replace('Main')}
         >
           <Text variant={'Button'} fontFamily="Raleway_700Bold" fontSize={16} color={'white'}>
             {t('PaymentSuccess.keepShopping')}

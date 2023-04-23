@@ -42,11 +42,12 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.7,
     height: 40,
     marginRight: 12,
-    borderRadius: 2,
+    borderRadius: 3,
     borderColor: '#000000',
     borderWidth: 0.2,
     paddingLeft: 12,
     paddingVertical: 4,
   },
+  listFooter: { width: '100%', alignItems: 'center', marginTop: 30, flexDirection: 'row' },
 });
 export default styles;
