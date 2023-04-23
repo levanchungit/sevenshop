@@ -12,7 +12,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     image: './src/assets/splash.png',
     resizeMode: 'contain',
   },
-  scheme: 'sevenshop',
+  scheme: 'com.levanchung.it.sevenshop',
   updates: {
     fallbackToCacheTimeout: 0,
   },

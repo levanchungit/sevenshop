@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+// import * as Google from 'expo-auth-session/providers/google';
+import * as WebBrowser from 'expo-web-browser';
+// import * as Crypto from 'expo-crypto';
 import {
   Text,
   Button,
@@ -21,15 +24,36 @@ import { URL_IMG_AUTH } from 'global/constants';
 import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
+WebBrowser.maybeCompleteAuthSession();
 const LoginScreen = React.memo(() => {
   const { height } = useWindowDimensions();
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [device_id, setDeviceId] = useState('');
+  const [email, setEmail] = useState('quyen@seveshop.com');
+  const [password, setPassword] = useState('123456');
+  const [device_id, setDeviceId] = useState('123');
   const [isLoading, setIsLoading] = useState(false);
+
+  // const getUserInfo = async () => {
+  //   try {
+  //     const response = await fetch('https://www.googleapis.com/userinfo/v2/me', {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+
+  //     const user = await response.json();
+  //     setUserInfo(user);
+  //   } catch (error) {
+  //     // Add your own error handler here
+  //     console.error(error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   if (response?.type === 'success') {
+  //     setToken(response.params.access_token);
+  //     getUserInfo();
+  //   }
+  // }, [response, token]);
 
   useEffect(() => {
     AsyncStorage.getItem('fcm_token').then((token) => {
@@ -116,6 +140,16 @@ const LoginScreen = React.memo(() => {
               Login
             </Button>
           </Center>
+
+          {/* <Center mt={4}>
+            <Button
+              title="Sign in with Google"
+              disabled={!request}
+              onPress={() => {
+                promptAsync();
+              }}
+            />
+          </Center> */}
 
           <Center mt={4}>
             <Text variant={'body2'}>{t('Login.loginWith')}</Text>
