@@ -20,7 +20,9 @@ export const API_ROUTES = {
   getProductDetail: (id: string) => `/products/${id}`,
   getFavoritesProduct: `/products/favorites/get`,
   updateFavorite: (id: string) => `/products/favorites/${id}`,
-  getProductsFlashSale: `/products/flash_sale`,
+  getProductsFlashSale: `/products/flash_sale/get`,
+  getProductsCategory: (limit: number, category: string) =>
+    `/products/categories/get?limit=${limit}&category=${category}`,
 
   //categories
   getCategories: `/categories`,

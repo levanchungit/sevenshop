@@ -80,7 +80,7 @@ const Cart = () => {
           title: response.data.message,
           duration: 3000,
         });
-        navigation.navigate('CheckoutScreen', { data: response.data });
+        navigation.replace('CheckoutScreen', { data: response.data });
       } catch (e: any) {
         Toast.show({
           title: e.response?.data?.message,

@@ -3,19 +3,22 @@ import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { View, Text, FlatList } from 'react-native';
 import ItemProductFlashSale from 'components/ItemProductFlashSale';
+import useGetProductFlashSale from 'hook/product/useGetProductFlashSale';
 import { IProduct } from 'interfaces/Product';
 import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';
 
-type Props = {
-  data: IProduct[];
-  error: any;
-};
+// type Props = {
+//   data: IProduct[];
+//   error: any;
+// };
 
-const FlatListProductFlashSale = (props: Props) => {
+const FlatListProductFlashSale = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const { t } = useTranslation();
-  const { data, error } = props;
+  // const { data, error } = props;
+  const { productFlashSale, err_productFlashSale } = useGetProductFlashSale();
+  // console.log('productFlashSale', productFlashSale?.data);
 
   const targetTime = { hour: 24, minute: 0, second: 0 };
 
@@ -99,14 +102,14 @@ const FlatListProductFlashSale = (props: Props) => {
         <Text style={{ fontWeight: 'bold' }}>{t('Home.seeAll')}</Text>
       </View>
 
-      {error && <Text>Failed to load</Text>}
+      {err_productFlashSale && <Text>Failed to load</Text>}
 
-      {data && (
+      {productFlashSale && (
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal
           contentContainerStyle={styles.flashListFlashSale}
-          data={data}
+          data={productFlashSale.data.results}
           renderItem={({ item }: { item: IProduct }) => (
             <ItemProductFlashSale
               data={item}
