@@ -27,7 +27,6 @@ const ModelPopupRating = (props: Props) => {
     rating,
   };
   const addRating = async () => {
-    console.log(data);
     try {
       await ratingAPI.addRating(data);
       Toast.show({

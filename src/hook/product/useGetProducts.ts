@@ -1,4 +1,4 @@
-// import useSWR from 'swr';
+import { useCallback, useMemo } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { productAPI } from 'modules';
 
@@ -9,23 +9,29 @@ const fetcher = async (page: number, limit: number) => {
 
 export default function useGetProducts(page: number, limit: number) {
   const { data, error, size, setSize, isLoading } = useSWRInfinite(
-    (index, previousPageData) => {
-      if (previousPageData && !previousPageData.length) {
-        return null;
-      }
-      return `products?page=${page}&limit=${limit}`;
-    },
+    useCallback(
+      (index, previousPageData) => {
+        if (previousPageData && !previousPageData.length) {
+          return null;
+        }
+        return `products?page=${page}&limit=${limit}`;
+      },
+      [page, limit]
+    ),
     (url) => fetcher(page, limit)
   );
 
-  const isReachingEnd = data ? data[0].data.results.length < 1 : null;
+  const isReachingEnd = useMemo(() => (data ? data[0].data.results.length < 1 : null), [data]);
 
-  return {
-    products: data,
-    error_products: error,
-    loading_products: isLoading,
-    isReachingEnd,
-    size,
-    setSize,
-  };
+  return useMemo(
+    () => ({
+      products: data,
+      error_products: error,
+      loading_products: isLoading,
+      isReachingEnd,
+      size,
+      setSize,
+    }),
+    [data, error, isLoading, isReachingEnd, size, setSize]
+  );
 }

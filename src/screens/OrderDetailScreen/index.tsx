@@ -20,7 +20,6 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
   const { order } = useGetOrderById(id_order);
   const { t } = useTranslation();
 
-  console.log('order', order?.data.products);
   return (
     <View flex={1} pt={3} backgroundColor="white">
       <View mt={4}>
@@ -32,9 +31,7 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
           titleHeaderSearch={''}
           titleHeaderScreen={t('OrderDetail.title')}
           iconRightHeaderScreen={true}
-          quantityItems={0}
           iconRightHeaderCart={false}
-          quantityHeaderCarts={0}
         />
       </View>
       <FlatList

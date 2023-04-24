@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, Pressable, Box } from 'native-base';
 import * as Icons from 'react-native-feather';
+import useGetQuantityCart from 'hook/product/useGetQuantityCart';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 type Props = {
@@ -13,12 +14,12 @@ type Props = {
   titleHeaderScreen: string;
   iconRightHeaderScreen: boolean;
   iconRightHeaderCart: boolean;
-  quantityItems: number;
-  quantityHeaderCarts: number;
 };
 
 const SSHeaderNavigation = (props: Props) => {
   const navigation = useNavigation<AppNavigationProp>();
+  const { quantity } = useGetQuantityCart();
+
   const {
     tabHeaderSearchEnabled,
     titleHeaderSearchEnabled,
@@ -28,12 +29,20 @@ const SSHeaderNavigation = (props: Props) => {
     titleHeaderSearch,
     iconRightHeaderScreen,
     iconRightHeaderCart,
-    quantityItems,
-    quantityHeaderCarts,
   } = props;
 
   return tabHeaderSearchEnabled ? (
-    <View flexDirection={'row'} justifyContent="space-between" paddingX={3} pb={2}>
+    <View
+      position={'absolute'}
+      zIndex={999}
+      flexDirection={'row'}
+      justifyContent="space-between"
+      paddingX={3}
+      pb={2}
+      mt={4}
+      width={'100%'}
+      backgroundColor={'red'}
+    >
       {titleHeaderSearchEnabled ? (
         <Text variant="Title" fontWeight={'bold'} fontSize={20}>
           {titleHeaderSearch}
@@ -41,7 +50,7 @@ const SSHeaderNavigation = (props: Props) => {
       ) : (
         <View></View>
       )}
-      <View flexDirection={'row'}>
+      <View flexDirection={'row'} alignItems={'flex-end'}>
         {iconSearchEnabled ? (
           <Icons.Search style={{ marginRight: 12 }} width={24} height={24} stroke={'black'} />
         ) : null}
@@ -68,7 +77,7 @@ const SSHeaderNavigation = (props: Props) => {
           borderRadius={15}
         >
           <Text color="white" fontSize={14} lineHeight={14}>
-            {quantityItems}
+            {quantity?.data.quantity}
           </Text>
         </Box>
       ) : null}
@@ -98,23 +107,6 @@ const SSHeaderNavigation = (props: Props) => {
       ) : (
         <View></View>
       )}
-      {iconRightHeaderCart ? (
-        <Box
-          position={'absolute'}
-          alignItems="center"
-          justifyContent={'center'}
-          backgroundColor="primary.600"
-          w={6}
-          h={6}
-          top={-12}
-          right={1}
-          borderRadius={15}
-        >
-          <Text color="white" fontSize={14} lineHeight={14}>
-            {quantityHeaderCarts}
-          </Text>
-        </Box>
-      ) : null}
     </View>
   );
 };

@@ -101,9 +101,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
         titleHeaderSearch={''}
         titleHeaderScreen={typeEdit === true ? t('Address.editAddress') : t('Address.newAddress')}
         iconRightHeaderScreen={false}
-        quantityItems={0}
         iconRightHeaderCart={false}
-        quantityHeaderCarts={0}
       />
 
       <SSTextInput
@@ -149,7 +147,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
       <SSButton
         variant={'white'}
         onPress={() => (typeEdit === true ? deleteAddress() : navigation.goBack())}
-        text={typeEdit === true ? t('Address.Delete') : 'Cancle'}
+        text={typeEdit === true ? t('Address.Delete') : 'Cancel'}
       />
       <Box width={'100%'} margin={3} />
       <SSButton

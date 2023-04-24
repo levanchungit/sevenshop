@@ -67,7 +67,7 @@ const ItemCart = (props: Props) => {
             <Icon.ChevronDown stroke="black" width={24} height={24} />
           </Pressable>
           <View w={'100%'} flexDirection={'row'}>
-            <View w={'60%'}>
+            <View w={'50%'}>
               <Text
                 mt={1}
                 variant={'overline'}
@@ -83,7 +83,7 @@ const ItemCart = (props: Props) => {
                 {formatNumberCurrencyVN(cart?.price_sale)}
               </Text>
             </View>
-            <View flexDirection={'row'} alignItems={'center'} mt={4}>
+            <View w={'50%'} flexDirection={'row'} alignItems={'flex-end'} mt={4}>
               <Pressable onPress={() => decreaseQuantity()}>
                 <Icon.Minus stroke="black" width={18} height={18} />
               </Pressable>

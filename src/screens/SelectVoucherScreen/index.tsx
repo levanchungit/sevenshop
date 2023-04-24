@@ -61,9 +61,7 @@ const SelectVoucherScreen = () => {
         titleHeaderSearch={''}
         titleHeaderScreen={t('SelectVoucher.title')}
         iconRightHeaderScreen={false}
-        quantityItems={0}
         iconRightHeaderCart={false}
-        quantityHeaderCarts={0}
       />
       <SSTextInput
         width="100%"
@@ -91,7 +89,7 @@ const SelectVoucherScreen = () => {
           setSelectVoucher={setSelectVoucher1}
         />
       )}
-      <View position={'absolute'} bottom={0} width="100%" paddingTop={3}>
+      <View bottom={0} width="100%" paddingTop={3}>
         <SSButton
           variant={'red'}
           text={t('SelectVoucher.title')}

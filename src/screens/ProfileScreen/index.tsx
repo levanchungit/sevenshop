@@ -10,11 +10,6 @@ const ProfileScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const { t } = useTranslation();
   const { orders } = useGetOrders();
-  console.log(
-    orders?.data.results
-      ? orders?.data.results.filter((item: any) => item.status === 'pending').length
-      : 'undefined'
-  );
 
   return (
     <View flex={1}>
@@ -39,9 +34,7 @@ const ProfileScreen = () => {
             iconOther={true}
             titleHeaderScreen="Payment Success"
             iconRightHeaderScreen={false}
-            quantityItems={12}
             iconRightHeaderCart={false}
-            quantityHeaderCarts={0}
           />
 
           <View flexDirection={'row'} pb={1}>

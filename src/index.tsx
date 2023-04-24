@@ -5,6 +5,7 @@ import messaging from '@react-native-firebase/messaging';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { LogBox } from 'react-native';
 import { Provider } from 'providers';
 import { StackNavigator } from 'providers/navigation';
 import { CheckoutProvider } from 'screens/CheckoutScreen/CheckoutContext';
@@ -15,6 +16,7 @@ const PUBLISHABLE_KEY =
 
 const App = React.memo(() => {
   const [appIsReady, setAppIsReady] = useState(false);
+  LogBox.ignoreAllLogs();
 
   //firebase push notification
   const requestUserPermission = async () => {
