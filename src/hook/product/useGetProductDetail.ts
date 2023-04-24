@@ -1,14 +1,14 @@
+import { useCallback } from 'react';
 import useSWR from 'swr';
 import { productAPI } from 'modules';
 
-const fetcher = async (id: string) => {
-  const response = await productAPI.getProductID(id);
-  return response;
-};
+const useGetProductDetail = (id: string) => {
+  const fetcher = useCallback(async () => {
+    const response = await productAPI.getProductID(id);
+    return response;
+  }, [id]);
 
-export default function useGetProductDetail(id: string) {
-  const swr = useSWR(id, fetcher);
-  const { data, error, isLoading, mutate, ...others } = swr;
+  const { data, error, isLoading, mutate, ...others } = useSWR(id, fetcher);
 
   return {
     product: data,
@@ -17,4 +17,6 @@ export default function useGetProductDetail(id: string) {
     mutate_product: mutate,
     ...others,
   };
-}
+};
+
+export default useGetProductDetail;

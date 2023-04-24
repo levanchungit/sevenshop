@@ -14,7 +14,7 @@ import {
   Center,
 } from 'native-base';
 import { useTranslation } from 'react-i18next';
-import { Platform } from 'react-native';
+import { useWindowDimensions, Platform } from 'react-native';
 import * as Icons from 'react-native-feather';
 import SSTextInput from 'components/SSTextInput';
 import { URL_IMG_AUTH } from 'global/constants';
@@ -22,6 +22,7 @@ import { authAPI } from 'modules';
 import { AppNavigationProp } from 'providers/navigation/types';
 
 const LoginScreen = React.memo(() => {
+  const { height } = useWindowDimensions();
   const { t } = useTranslation();
   const navigation = useNavigation<AppNavigationProp>();
 
@@ -44,7 +45,7 @@ const LoginScreen = React.memo(() => {
         title: response.data.message,
         duration: 3000,
       });
-      navigation.navigate('Main');
+      navigation.replace('Main');
     } catch (e: any) {
       Toast.show({
         title: e.response?.data?.message,
@@ -64,12 +65,13 @@ const LoginScreen = React.memo(() => {
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
   return (
     <KeyboardAvoidingView
-      height={'100%'}
+      height={height}
+      flex={1}
       bgColor={'white'}
       behavior="position"
       keyboardVerticalOffset={keyboardVerticalOffset}
     >
-      <VStack>
+      <VStack height={height}>
         <Image
           alt="Image Login"
           h={250}

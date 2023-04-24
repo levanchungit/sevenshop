@@ -9,8 +9,15 @@ const fetcher = async () => {
   return response;
 };
 
+const swrConfig = {
+  revalidateOnMount: true,
+  dedupingInterval: 3000,
+  errorRetryCount: 5,
+  errorRetryInterval: 5000,
+};
+
 export default function useGetCategories() {
-  const swr = useSWR(SWR_KEY, fetcher);
+  const swr = useSWR(SWR_KEY, fetcher, swrConfig);
   const { data, error, isLoading, mutate, ...others } = swr;
 
   return {

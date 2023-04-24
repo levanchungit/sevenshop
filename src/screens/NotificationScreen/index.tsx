@@ -5,13 +5,11 @@ import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SSItemNotification from 'components/SSItemNotifications';
 import useGetMe from 'hook/auth/useGetMe';
 import useGetNotifications from 'hook/notification/useGetNotifications';
-import useGetCarts from 'hook/product/useGetCarts';
 
 const NotificationScreen = () => {
   const { t } = useTranslation();
   const { me } = useGetMe();
   const { notifications } = useGetNotifications(me?.data.result._id);
-  const { carts } = useGetCarts();
 
   const RenderItemNotification = ({ data }: { data: any }) => {
     return (
@@ -34,9 +32,7 @@ const NotificationScreen = () => {
         titleHeaderSearch={t('Notification.title')}
         titleHeaderScreen={''}
         iconRightHeaderScreen={false}
-        quantityItems={carts?.data.length}
         iconRightHeaderCart={false}
-        quantityHeaderCarts={3}
       />
       {notifications?.data.results ? (
         <FlatList

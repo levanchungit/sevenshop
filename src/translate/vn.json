@@ -63,7 +63,8 @@
     "wareHouse": "Kho",
     "size": "Kích cỡ",
     "color": "Màu sắc",
-    "confirm": "Xác nhận"
+    "confirm": "Xác nhận",
+    "noItem": "Bạn chưa có sản phẩm nào trong giỏ hàng"
   },
   "Checkout": {
     "title": "Thanh toán",

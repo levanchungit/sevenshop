@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { Box, Pressable, Text, Toast } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
@@ -8,10 +9,23 @@ import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SSTextInput from 'components/SSTextInput';
 import useGetVouchersUser from 'hook/voucher/useGetVouchersUser';
 import voucherAPI from 'modules/voucherAPI';
+import { AppNavigationProp } from 'providers/navigation/types';
 
 const VoucherScreen = () => {
   const { t } = useTranslation();
+  const navigation = useNavigation<AppNavigationProp>();
+
   const { vouchers, err_vouchers, loading_vouchers, mutate_vouchers } = useGetVouchersUser();
+
+  //how to check err_vouchers 401 and navigate to login screen
+  if (err_vouchers && err_vouchers.response.status === 401) {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      })
+    );
+  }
 
   const [voucher, setVoucher] = useState('');
   const addVoucher = async () => {
@@ -54,9 +68,7 @@ const VoucherScreen = () => {
         titleHeaderSearch={''}
         titleHeaderScreen={'Voucher'}
         iconRightHeaderScreen={false}
-        quantityItems={0}
         iconRightHeaderCart={false}
-        quantityHeaderCarts={0}
       />
       <SSTextInput
         width="100%"

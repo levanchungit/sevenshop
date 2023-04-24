@@ -22,7 +22,7 @@ const authAPI = {
         refreshToken: response.data.refresh_token,
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
     return response;
   },
@@ -50,7 +50,7 @@ const authAPI = {
         refreshToken: response.data.refresh_token,
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
     return response;
   },
@@ -63,7 +63,7 @@ const authAPI = {
         refreshToken: response.data.refresh_token,
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
     return response;
   },
@@ -76,7 +76,7 @@ const authAPI = {
         refreshToken: response.data.refresh_token,
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
     return response;
   },

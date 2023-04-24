@@ -15,6 +15,10 @@ const productAPI = {
     return axiosInstance.get(API_ROUTES.getFavoritesProduct);
   },
 
+  addRecentlyProduct(id: string) {
+    return axiosInstance.post(API_ROUTES.addRecentlyProduct(id));
+  },
+
   async getProductID(id: string) {
     const response = await axiosInstance.get(API_ROUTES.getProductDetail(id));
     return response.data;

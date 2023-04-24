@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Text,
@@ -41,7 +41,7 @@ const DetailScreen = (props: DetailScreenProps) => {
   //api detail
   const { product, err_product, loading_product, mutate_product } = useGetProductDetail(_id);
   //api cart
-  const { quantity, mutate_quantity } = useGetQuantityCart();
+  const { mutate_quantity } = useGetQuantityCart();
 
   //api products
   const limitProducts = 8;
@@ -78,6 +78,15 @@ const DetailScreen = (props: DetailScreenProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    try {
+      productAPI.addRecentlyProduct(_id);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   const DescriptionRoute = () => (
     <ScrollView
       flex={1}
@@ -286,10 +295,9 @@ const DetailScreen = (props: DetailScreenProps) => {
           titleHeaderSearch={''}
           titleHeaderScreen={t('Details.title')}
           iconRightHeaderScreen={true}
-          quantityItems={quantity?.data.quantity}
           iconRightHeaderCart={true}
-          quantityHeaderCarts={quantity?.data.quantity}
         />
+
         {err_product ? null : !product && !loading_product ? null : loading_product ? null : (
           <Center
             w={initialWidth}

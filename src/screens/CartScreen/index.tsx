@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Button, Modal, Toast, Box, Text } from 'native-base';
+import { Button, Modal, Toast, Box, Text, Center } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View, Pressable, FlatList, Image } from 'react-native';
 import * as Icon from 'react-native-feather';
@@ -20,7 +20,7 @@ import { formatNumberCurrencyVN } from 'utils/common';
 const Cart = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const { t } = useTranslation();
-  const { carts, mutate } = useGetCarts();
+  const { carts, mutate, err_carts } = useGetCarts();
   const [showModal, setShowModal] = useState(false);
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
@@ -34,9 +34,11 @@ const Cart = () => {
   const [quantityModal, setQuantityModal] = useState<number>(0);
 
   useEffect(() => {
-    const newData1 = carts?.data.map((item: IData) => ({ ...item, isChecked: false }));
-    setCheckedItems(newData1);
-  }, []);
+    if (carts?.data) {
+      const newData = carts?.data.map((item: IData) => ({ ...item, isChecked: false }));
+      setCheckedItems(newData);
+    }
+  }, [carts?.data]);
 
   useEffect(() => {
     setTotal(0);
@@ -103,9 +105,9 @@ const Cart = () => {
   ) => {
     try {
       await cartAPI.ChangeQuantity(product_id, quantity, size_id, color_id);
-      mutate(carts);
+      mutate();
     } catch (error: any) {
-      console.error(error.message);
+      console.log(error.message);
     }
   };
 
@@ -114,7 +116,7 @@ const Cart = () => {
       const product = await productAPI.getProductID(item.product_id);
       setProductSelected(product);
     } catch (error: any) {
-      console.error(error.message);
+      console.log(error.message);
     }
   };
 
@@ -152,7 +154,7 @@ const Cart = () => {
           duration: 3000,
         });
       } catch (error: any) {
-        console.error(error.message);
+        console.log(error.message);
       }
     } else {
       // setShowModal(false);
@@ -174,9 +176,7 @@ const Cart = () => {
         iconOther={false}
         titleHeaderScreen={t('Cart.title')}
         iconRightHeaderScreen={false}
-        quantityItems={12}
         iconRightHeaderCart={false}
-        quantityHeaderCarts={0}
       />
       <View style={{ width: '100%', height: '100%', padding: 12 }}>
         <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
@@ -193,42 +193,66 @@ const Cart = () => {
           </View>
         </View>
         <View style={{ height: '85%', marginTop: 1 }}>
-          <FlatList
-            style={{ marginTop: 12 }}
-            keyExtractor={(item, index) => index + ''}
-            data={checkedItems ? checkedItems : []}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }: { item: IData; index: number }) => (
-              <ItemCart
-                cart={item}
-                setShowModal={() => {
-                  setShowModal(true);
-                  setSelectedSize(item.size._id);
-                  setSelectedColor(item.color._id);
-                  setSelectedItem(item);
-                  getProductSelected(item);
-                  setQuantityModal(item.quantity);
-                }}
-                increaseQuantity={() =>
-                  ChangQuantity(item.product_id, item.quantity + 1, item.size._id, item.color._id)
-                }
-                decreaseQuantity={() =>
-                  ChangQuantity(item.product_id, item.quantity - 1, item.size._id, item.color._id)
-                }
-                isChecked={item.isChecked}
-                onPressChecked={() => onCheckedItem(index)}
-                key={index}
-              />
-            )}
-          />
+          {err_carts ? (
+            <Center
+              h="100%"
+              position="absolute"
+              top={8}
+              left={3}
+              right={3}
+              backgroundColor={'transparent'}
+            >
+              <Text variant="title">Error</Text>
+            </Center>
+          ) : carts?.data.length === 0 ? (
+            <Center
+              h="100%"
+              position="absolute"
+              top={8}
+              left={3}
+              right={3}
+              backgroundColor={'transparent'}
+            >
+              <Text variant="title" mb={3}>
+                {t('Cart.noItem')}
+              </Text>
+            </Center>
+          ) : (
+            <FlatList
+              style={{ marginTop: 12 }}
+              keyExtractor={(item, index) => index + ''}
+              data={checkedItems ? checkedItems : []}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item, index }: { item: IData; index: number }) => (
+                <ItemCart
+                  cart={item}
+                  setShowModal={() => {
+                    setShowModal(true);
+                    setSelectedSize(item.size._id);
+                    setSelectedColor(item.color._id);
+                    setSelectedItem(item);
+                    getProductSelected(item);
+                    setQuantityModal(item.quantity);
+                  }}
+                  increaseQuantity={() =>
+                    ChangQuantity(item.product_id, item.quantity + 1, item.size._id, item.color._id)
+                  }
+                  decreaseQuantity={() =>
+                    ChangQuantity(item.product_id, item.quantity - 1, item.size._id, item.color._id)
+                  }
+                  isChecked={item.isChecked}
+                  onPressChecked={() => onCheckedItem(index)}
+                  key={index}
+                />
+              )}
+            />
+          )}
         </View>
         <View
           style={{
-            flex: 1,
             flexDirection: 'row',
             width: '100%',
             alignItems: 'flex-end',
-            // backgroundColor: 'red',
           }}
         >
           <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>{t('Cart.total')}</Text>
@@ -236,7 +260,7 @@ const Cart = () => {
             {formatNumberCurrencyVN(total)}
           </Text>
         </View>
-        <View style={{ width: '100%', marginVertical: 12 }}>
+        <View style={{ width: '100%', marginBottom: 20 }}>
           <Button onPress={() => onGetInvoice()} width={'100%'}>
             <Text fontSize={14} color="light.100" fontWeight={'bold'}>
               {t('Cart.buyNow')}
