@@ -10,6 +10,7 @@ import {
   ForgotPayload,
   ChangePasswordPayload,
   SetPasswordPayload,
+  SignInGmailPayload,
 } from 'interfaces/Auth';
 import { axiosInstance } from './config/AxiosInstance';
 
@@ -23,6 +24,19 @@ const authAPI = {
       });
     } catch (error) {
       console.log(error);
+    }
+    return response;
+  },
+
+  async login_gmail(payload: SignInGmailPayload) {
+    const response = await axios.post(API_URL + API_ROUTES.loginGoogle, payload);
+    try {
+      await setAuthTokens({
+        accessToken: response.data.access_token,
+        refreshToken: response.data.refresh_token,
+      });
+    } catch (error) {
+      console.error(error);
     }
     return response;
   },

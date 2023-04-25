@@ -62,7 +62,7 @@ const CheckoutScreen = ({ route }: Props) => {
   }
 
   const checkout = async () => {
-    if (data2.address) {
+    if (data2.address || addresses._id) {
       try {
         const response = await checkoutAPI.checkout(newData);
         setPaymentType(PAYMENT_TYPE.cod);

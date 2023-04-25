@@ -4,6 +4,12 @@ export type SignInPayload = {
   device_id: string;
 };
 
+export type SignInGmailPayload = {
+  email: string;
+  full_name: string;
+  avatar: string;
+};
+
 export type RegisterPayload = {
   email: string;
 };

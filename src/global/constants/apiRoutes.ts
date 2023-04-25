@@ -1,6 +1,7 @@
 export const API_ROUTES = {
   // auth
   login: `/auth/login`,
+  loginGoogle: `/auth/login_gmail`,
   logout: `/auth/logout`,
   register: `/auth/register`,
   check_otp: `/auth/check_otp`,
