@@ -102,7 +102,7 @@ const PaymentSuccess = ({ route }: Success) => {
                   fontWeight={'extrabold'}
                   fontSize={14}
                   fontFamily="Raleway_700Bold"
-                  onPress={() => navigation.navigate('Profile')}
+                  onPress={() => navigation.replace('Profile')}
                 >
                   {t('PaymentSuccess.profile')}
                 </Text>{' '}

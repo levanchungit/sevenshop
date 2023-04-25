@@ -34,6 +34,7 @@ const Cart = () => {
   const [quantityModal, setQuantityModal] = useState<number>(0);
 
   useEffect(() => {
+    mutate();
     if (carts?.data) {
       const newData = carts?.data.map((item: IData) => ({ ...item, isChecked: false }));
       setCheckedItems(newData);
@@ -82,6 +83,7 @@ const Cart = () => {
           title: response.data.message,
           duration: 3000,
         });
+        mutate();
         navigation.replace('CheckoutScreen', { data: response.data });
       } catch (e: any) {
         Toast.show({
@@ -148,6 +150,7 @@ const Cart = () => {
           selectedItem.color._id,
           selectedItem.size._id
         );
+        mutate();
         setShowModal(false);
         Toast.show({
           title: 'Change color size success!',

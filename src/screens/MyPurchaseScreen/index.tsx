@@ -129,20 +129,43 @@ const MyPurchaseScreen = () => {
           renderItem={renderItemOrder}
           keyExtractor={(item, index) => index + ''}
         />
-        <FlatList
-          mt={1}
-          data={
-            orders
-              ? orders?.data.results.filter((item: { status: string }) => item.status === idOrders)
-              : null
-          }
-          renderItem={({ item }: any) => <RenderItemProductMyPurchases data={item} />}
-          keyExtractor={(item, index) => index + ''}
-          marginBottom={110}
-          showsVerticalScrollIndicator={false}
-          bounces={false}
-          onEndReachedThreshold={2}
-        />
+        {orders ? (
+          <FlatList
+            mt={1}
+            data={
+              orders
+                ? orders?.data.results.filter(
+                    (item: { status: string }) => item.status === idOrders
+                  )
+                : null
+            }
+            renderItem={({ item }: any) => <RenderItemProductMyPurchases data={item} />}
+            keyExtractor={(item, index) => index + ''}
+            marginBottom={110}
+            showsVerticalScrollIndicator={false}
+            bounces={false}
+            onEndReachedThreshold={2}
+          />
+        ) : (
+          <View display={'flex'} flexDirection={'column'}>
+            <ItemProductMyPurchases
+              total={0}
+              quantitiesProduct={0}
+              name={''}
+              image={''}
+              onPressViewDetail={() => null}
+              onPressBuyAgain={() => null}
+            />
+            <ItemProductMyPurchases
+              total={0}
+              quantitiesProduct={0}
+              name={''}
+              image={''}
+              onPressViewDetail={() => null}
+              onPressBuyAgain={() => null}
+            />
+          </View>
+        )}
       </View>
     </View>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import i18n from 'i18next';
 import { Pressable, Text, View, Button, Modal, Switch, Toast } from 'native-base';
 import { initReactI18next, useTranslation } from 'react-i18next';
@@ -97,7 +97,12 @@ const AccountSettingScreen = () => {
   const onLogout = async () => {
     try {
       await authAPI.logout();
-      navigation.navigate('Login');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'Login' }],
+        })
+      );
       Toast.show({
         title: 'Logout successfully',
         duration: 3000,
