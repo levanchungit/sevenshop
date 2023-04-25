@@ -40,7 +40,7 @@ const FlatListRated = (props: Props) => {
       <FlatList
         data={rated ? rated : null}
         renderItem={({ item }: { item: IRating }) => (
-          <ItemRating rating={item} showProduct={false} smallImage={false} />
+          <ItemRating rating={item} showProduct={true} smallImage={false} />
         )}
         keyExtractor={(item) => item._id}
       />

@@ -5,41 +5,43 @@ import { Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import FlatListNotYetRated from 'components/FlatListNotYetRated';
-import FlatListRating from 'components/FlatListRating';
+import FlatListRated from 'components/FlatListRated';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import useGetNotYetRated from 'hook/ratings/useGetNotYetRated';
 import useGetRated from 'hook/ratings/useGetRated';
-// import { IProduct } from 'interfaces/Product';
 
 const RatingScreen = () => {
   const { t } = useTranslation();
   const initialWidth = Dimensions.get('window').width;
   const { rated, err_rated, loading_rated } = useGetRated();
-  const { not_yet_rated, loading_not_yet_rated } = useGetNotYetRated();
+  const { not_yet_rated, err_not_yet_rated, loading_not_yet_rated, mutate_not_yet_rated } =
+    useGetNotYetRated();
 
   const Rated = () => (
     <Flex backgroundColor="white">
       {err_rated ? (
         <Text variant="body1" alignSelf="center">
-          No comment yet
+          Error
         </Text>
       ) : (
-        <FlatListRating
-          ratings={rated?.data.results}
-          isLoading={loading_rated}
-          showProduct={false}
-          smallImage={false}
-        />
+        <FlatListRated rated={rated?.data.results} isLoading={loading_rated} />
       )}
     </Flex>
   );
 
   const NotYetRated = () => (
     <Flex backgroundColor="white">
-      <FlatListNotYetRated
-        ratings={not_yet_rated?.data.results}
-        isLoading={loading_not_yet_rated}
-      />
+      {err_not_yet_rated ? (
+        <Text variant="body1" alignSelf="center">
+          Error
+        </Text>
+      ) : (
+        <FlatListNotYetRated
+          ratings={not_yet_rated?.data.results}
+          isLoading={loading_not_yet_rated}
+          mutate={mutate_not_yet_rated}
+        />
+      )}
     </Flex>
   );
 

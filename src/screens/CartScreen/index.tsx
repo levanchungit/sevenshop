@@ -7,9 +7,7 @@ import * as Icon from 'react-native-feather';
 import IconCheck from 'components/IconCheck';
 import ItemCart from 'components/ItemCart';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
-import useGetColors from 'hook/colors/useGetColors';
 import useGetCarts from 'hook/product/useGetCarts';
-import useGetSizes from 'hook/sizes/useGetSizes';
 import { IData } from 'interfaces/Cart';
 import { ChangeColorSize } from 'interfaces/ChangeColorSIze';
 import { IColor } from 'interfaces/Color';
@@ -62,34 +60,6 @@ const Cart = () => {
         }
       )
     : [];
-  // console.log('newData', newData);
-
-  useEffect(() => {
-    const newData1 = carts?.data.map((item: IData) => ({ ...item, isChecked: false }));
-    setCheckedItems(newData1);
-  }, []);
-
-  useEffect(() => {
-    setTotal(0);
-    const checkedItemsList = checkedItems.filter((item: IData) => item.isChecked === true);
-    checkedItemsList.map((item: IData) => {
-      setTotal((prev) => prev + item.price_sale * item.quantity);
-    });
-  }, [checkedItems]);
-
-  const onCheckedItem = (index: number) => {
-    const newItems = [...checkedItems];
-    newItems[index].isChecked = !newItems[index].isChecked;
-    setCheckedItems(newItems);
-    setItemIsChecked(checkedItems.filter((item: IData) => item.isChecked === true));
-  };
-
-  const onSelectedAll = () => {
-    setSelectIsCheckAll(!selectIsCheckAll);
-    const newData1 = carts?.data.map((item: IData) => ({ ...item, isChecked: !selectIsCheckAll }));
-    setCheckedItems(newData1);
-    setItemIsChecked(newData1.filter((item: IData) => item.isChecked === true));
-  };
 
   const onCheckedItem = (index: number) => {
     const newItems = [...checkedItems];
@@ -196,38 +166,6 @@ const Cart = () => {
         duration: 3000,
         position: 'revert',
       });
-    }
-  };
-
-  const onSelectedSize = (item: any) => {
-    setSelectedSize(item._id);
-  };
-  const onSelectedColor = (item: any) => {
-    setSelectedColor(item._id);
-  };
-
-  console.log('itemIsChecked', selectedItem.product_id);
-  const itemChangeColorSize: ChangeColorSize = {
-    size_id: selectedSize,
-    color_id: selectedColor,
-    quantity: 2,
-  };
-
-  const onChangeColorSize = async (item: ChangeColorSize) => {
-    try {
-      await cartAPI.updateColorSize(
-        item,
-        selectedItem.product_id,
-        selectedItem.size._id,
-        selectedItem.color._id
-      );
-      setShowModal(false);
-      Toast.show({
-        title: 'Change color size success',
-        duration: 3000,
-      });
-    } catch (error: any) {
-      console.error(error.message);
     }
   };
 

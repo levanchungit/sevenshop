@@ -5,10 +5,11 @@ import { INotYetRated } from 'interfaces/Rating';
 type Props = {
   ratings: INotYetRated[];
   isLoading: boolean;
+  mutate: Function;
 };
 
 const FlatListNotYetRated = (props: Props) => {
-  const { ratings, isLoading } = props;
+  const { ratings, isLoading, mutate } = props;
   if (isLoading) {
     return (
       <HStack flex={1} justifyContent="space-between">
@@ -24,8 +25,8 @@ const FlatListNotYetRated = (props: Props) => {
     );
   } else if (ratings.length === 0) {
     return (
-      <Text variant="title" alignSelf="center">
-        No comment yet
+      <Text variant="title" width="70%" alignSelf="center">
+        You don't have any product to review
       </Text>
     );
   } else {
@@ -34,7 +35,9 @@ const FlatListNotYetRated = (props: Props) => {
         columnWrapperStyle={{ justifyContent: 'space-between' }}
         data={ratings}
         numColumns={2}
-        renderItem={({ item }: { item: INotYetRated }) => <ItemNotYetRated product={item} />}
+        renderItem={({ item }: { item: INotYetRated }) => (
+          <ItemNotYetRated product={item} mutate={mutate} />
+        )}
       />
     );
   }

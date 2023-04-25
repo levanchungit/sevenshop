@@ -41,7 +41,7 @@ const LoginScreen = React.memo(() => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [device_id, setDeviceId] = useState('');
+  const [device_id, setDeviceId] = useState('a');
   const [isLoading, setIsLoading] = useState(false);
 
   const getUserInfo = async () => {

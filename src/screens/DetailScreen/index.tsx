@@ -9,7 +9,6 @@ import {
   ScrollView,
   Skeleton,
   Toast,
-  // Toast,
 } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, LogBox } from 'react-native';
@@ -51,6 +50,7 @@ const DetailScreen = (props: DetailScreenProps) => {
   const [showModal, setShowModal] = useState(false);
   const [typeModal, setTypeModal] = useState<string>('');
   const initialWidth = Dimensions.get('window').width;
+  const initialHeight = Dimensions.get('window').height;
 
   //api favorite
   const handleUpdateFavorite = async () => {
@@ -83,19 +83,12 @@ const DetailScreen = (props: DetailScreenProps) => {
     try {
       productAPI.addRecentlyProduct(_id);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }, []);
 
   const DescriptionRoute = () => (
-    <ScrollView
-      flex={1}
-      backgroundColor="transparent"
-      flexDirection="column"
-      contentContainerStyle={{
-        justifyContent: 'space-evenly',
-      }}
-    >
+    <Box backgroundColor="transparent">
       <Skeleton.Text lines={3} isLoaded={!loading_product}>
         <Text
           variant="body1"
@@ -124,7 +117,7 @@ const DetailScreen = (props: DetailScreenProps) => {
           isLoading={loading_products}
         />
       )}
-    </ScrollView>
+    </Box>
   );
   const ReviewRoute = () => (
     <Box backgroundColor="transparent">
@@ -139,12 +132,7 @@ const DetailScreen = (props: DetailScreenProps) => {
           Failed to load: {err_product.response.data.message}
         </Text>
       ) : (
-        <FlatListRating
-          ratings={product ? product?.ratings : null}
-          isLoading={loading_product}
-          showProduct={false}
-          smallImage={true}
-        />
+        <FlatListRating ratings={product ? product?.ratings : null} isLoading={loading_product} />
       )}
     </Box>
   );
@@ -167,32 +155,37 @@ const DetailScreen = (props: DetailScreenProps) => {
   });
 
   return (
-    <Box w="100%" h="100%">
-      <Box w="100%" safeArea paddingY={2} paddingX={3} backgroundColor="white" flex={1}>
-        {err_product ? (
-          <Center
-            h="100%"
-            position="absolute"
-            top={8}
-            left={3}
-            right={3}
-            backgroundColor={'transparent'}
-          >
-            <Text variant="title">Error</Text>
-          </Center>
-        ) : !product && !loading_product ? (
-          <Center
-            h="100%"
-            position="absolute"
-            top={8}
-            left={3}
-            right={3}
-            backgroundColor={'transparent'}
-          >
-            <Text variant="title">Cannot find product</Text>
-          </Center>
-        ) : (
-          <Box h="90%" position="absolute" top={8} left={3} right={3}>
+    <Box
+      w={initialWidth}
+      h={initialHeight}
+      safeArea
+      paddingY={2}
+      paddingX={3}
+      backgroundColor="white"
+      flex={1}
+    >
+      <SSHeaderNavigation
+        tabHeaderSearchEnabled={false}
+        titleHeaderSearchEnabled={false}
+        iconSearchEnabled={true}
+        iconOther={true}
+        titleHeaderSearch={''}
+        titleHeaderScreen={t('Details.title')}
+        iconRightHeaderScreen={true}
+        iconRightHeaderCart={true}
+      />
+
+      {err_product ? (
+        <Center h="100%" backgroundColor={'transparent'}>
+          <Text variant="title">Error: {err_product.response.data.message}</Text>
+        </Center>
+      ) : !product && !loading_product ? (
+        <Center h="100%" backgroundColor={'transparent'}>
+          <Text variant="title">Cannot find product</Text>
+        </Center>
+      ) : (
+        <Box h="85%">
+          <ScrollView contentContainerStyle={{ height: '130%' }}>
             <Skeleton w="100%" h="50%" mb="3" isLoaded={!loading_product}>
               <Image
                 source={
@@ -208,7 +201,7 @@ const DetailScreen = (props: DetailScreenProps) => {
               />
             </Skeleton>
 
-            <Skeleton mb="3" w="70%" borderRadius="full" isLoaded={!loading_product}>
+            <Skeleton mb="3" borderRadius="full" isLoaded={!loading_product}>
               <Text
                 variant="h3"
                 fontWeight="semibold"
@@ -250,6 +243,7 @@ const DetailScreen = (props: DetailScreenProps) => {
                 </Text>
               ) : null}
             </Skeleton.Text>
+
             <TabView
               navigationState={{
                 index,
@@ -284,30 +278,19 @@ const DetailScreen = (props: DetailScreenProps) => {
               )}
               initialLayout={{ width: initialWidth, height: 0 }}
             />
-          </Box>
-        )}
+          </ScrollView>
+        </Box>
+      )}
 
-        <SSHeaderNavigation
-          tabHeaderSearchEnabled={false}
-          titleHeaderSearchEnabled={false}
-          iconSearchEnabled={true}
-          iconOther={true}
-          titleHeaderSearch={''}
-          titleHeaderScreen={t('Details.title')}
-          iconRightHeaderScreen={true}
-          iconRightHeaderCart={true}
-        />
-
-        {err_product ? null : !product && !loading_product ? null : loading_product ? null : (
+      {err_product ? null : !product && !loading_product ? null : loading_product ? null : (
+        <>
           <Center
             w={initialWidth}
             h="10%"
-            borderTopRadius={10}
-            backgroundColor="white"
             position="absolute"
             bottom={0}
-            left={0}
-            right={0}
+            borderTopRadius={10}
+            backgroundColor="white"
             borderColor="#C9C9C9"
             borderWidth={1}
           >
@@ -345,16 +328,14 @@ const DetailScreen = (props: DetailScreenProps) => {
               />
             </Flex>
           </Center>
-        )}
-      </Box>
-      {err_product ? null : !product && !loading_product ? null : loading_product ? null : (
-        <ModalPopupCart
-          product={product ? product : null}
-          showModal={showModal}
-          setShowModal={setShowModal}
-          functionButton={typeModal}
-          mutate={mutate_quantity}
-        />
+          <ModalPopupCart
+            product={product}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            functionButton={typeModal}
+            mutate={mutate_quantity}
+          />
+        </>
       )}
     </Box>
   );
