@@ -10,7 +10,7 @@
     "email": "Enter your email/phone number",
     "password": "Enter your password",
     "forgotPassword": "Forgot Password?",
-    "loginWith": "Or login with",
+    "loginWith": "Or",
     "notHaveAccount": "Don't you have an account?",
     "register": "Register"
   },
