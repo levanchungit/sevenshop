@@ -185,7 +185,7 @@ const DetailScreen = (props: DetailScreenProps) => {
         </Center>
       ) : (
         <Box h="85%">
-          <ScrollView contentContainerStyle={{ height: '130%' }}>
+          <ScrollView contentContainerStyle={{ height: '140%' }}>
             <Skeleton w="100%" h="50%" mb="3" isLoaded={!loading_product}>
               <Image
                 source={
