@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, FlatList } from 'react-native';
 import ButtonCategory from 'components/ButtonCategory';
@@ -38,7 +38,7 @@ const FlatListProductCategory = () => {
     }
   }, [ItemSelected]);
 
-  const RenderItemCategory = ({ data }: { data: IProduct }) => {
+  const RenderItemCategory = React.memo(({ data }: { data: IProduct }) => {
     return (
       <ItemProductCategory
         onPress={() => navigation.navigate('Detail', { _id: data._id })}
@@ -47,7 +47,18 @@ const FlatListProductCategory = () => {
         price={data.price}
       />
     );
-  };
+  });
+
+  const handleButtonCategoryPress = useCallback(
+    (item: any) => {
+      const ItemSelected3 = ItemSelected.map((item2: any) => {
+        return { ...item2, isSelected: item.name === item2.name };
+      });
+      setItemSelected(ItemSelected3);
+      setIdItemSelected(item._id);
+    },
+    [ItemSelected]
+  );
 
   return (
     <View>
@@ -60,13 +71,7 @@ const FlatListProductCategory = () => {
             renderItem={({ item }: any) => {
               return (
                 <ButtonCategory
-                  onPress={() => {
-                    const ItemSelected3 = ItemSelected.map((item2: any) => {
-                      return { ...item2, isSelected: item.name === item2.name };
-                    });
-                    setItemSelected(ItemSelected3);
-                    setIdItemSelected(item._id);
-                  }}
+                  onPress={() => handleButtonCategoryPress(item)}
                   title={item.name}
                   isSelected={item.isSelected}
                   key={item._id}

@@ -18,9 +18,7 @@ const AccountSecurityScreen = () => {
         iconOther={false}
         titleHeaderScreen={t('Settings.accountSecurity')}
         iconRightHeaderScreen={false}
-        quantityItems={12}
         iconRightHeaderCart={false}
-        quantityHeaderCarts={0}
       />
 
       <View h={'70%'} px={3}>

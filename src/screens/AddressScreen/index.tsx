@@ -32,9 +32,7 @@ const AddressScreen = (props: AddressScreenProps) => {
         titleHeaderSearch={''}
         titleHeaderScreen={t('Address.title')}
         iconRightHeaderScreen={false}
-        quantityItems={0}
         iconRightHeaderCart={false}
-        quantityHeaderCarts={0}
       />
       {err_addresses ? (
         <Center

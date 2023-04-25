@@ -10,7 +10,6 @@ const fetcher = async (limit: number, category: string) => {
 export default function useGetProductsCategory(limit: number, category: string) {
   const SWR_KEY = API_ROUTES.getProductsCategory(limit, category);
   const { data, error, isLoading, mutate } = useSWR(SWR_KEY, () => fetcher(limit, category));
-  // const  = swr;
 
   return {
     productCategory: data,

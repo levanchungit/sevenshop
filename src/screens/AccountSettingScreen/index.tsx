@@ -85,7 +85,7 @@ const AccountSettingScreen = () => {
         });
         setShowModalChangePass(false);
       } catch (e: any) {
-        console.error(e.response?.data?.message);
+        console.log(e.response?.data?.message);
         Toast.show({
           title: e.response?.data?.message,
           duration: 3000,
@@ -103,7 +103,7 @@ const AccountSettingScreen = () => {
         duration: 3000,
       });
     } catch (e: any) {
-      console.error(e.response?.data?.message);
+      console.log(e.response?.data?.message);
     }
   };
 
@@ -127,9 +127,7 @@ const AccountSettingScreen = () => {
         iconOther={false}
         titleHeaderScreen={t('Settings.title')}
         iconRightHeaderScreen={false}
-        quantityItems={12}
         iconRightHeaderCart={false}
-        quantityHeaderCarts={0}
       />
       <Modal isOpen={showModalChangePass} onClose={() => setShowModalChangePass(false)}>
         <Modal.Content width={'100%'} mb={20}>

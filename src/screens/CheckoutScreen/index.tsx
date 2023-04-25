@@ -19,7 +19,7 @@ type Props = {
   route: CheckoutRouteProp;
 };
 
-const SHIPPING_FEE = 20000;
+const SHIPPING_FEE = 0;
 
 const CheckoutScreen = ({ route }: Props) => {
   const { data } = route.params;
@@ -40,9 +40,6 @@ const CheckoutScreen = ({ route }: Props) => {
     ...data2,
     address: addresses._id ? addresses : data2.address,
   };
-  console.log('payment_type', paymentType);
-  // console.log('voucher', selectVoucher);
-  // console.log('newData', data);
 
   const onGetInvoice = async () => {
     try {
@@ -72,7 +69,7 @@ const CheckoutScreen = ({ route }: Props) => {
         setSelectVoucher({} as IVoucher);
         navigation.replace('PaymentSuccess', { data_detail: response.data });
       } catch (error: any) {
-        console.error(error.message);
+        console.log(error.message);
         Toast.show({
           title: error,
           duration: 3000,
@@ -87,44 +84,75 @@ const CheckoutScreen = ({ route }: Props) => {
   };
 
   const onCheckout = async () => {
-    //check payment_type: bank
-    if (data.payment_type === PAYMENT_TYPE.bank) {
-      //total order
-      const _data = {
-        amount: Math.floor(newData.total_invoice),
-      };
-      const response = await checkoutAPI.stripe(_data);
-      if (response.error) {
+    let check;
+    try {
+      if (data2.address) {
+      } else {
         Toast.show({
-          title: response.error,
+          title: 'Please add address!',
           duration: 3000,
         });
-        return;
       }
 
-      const initResponse = await initPaymentSheet({
-        merchantDisplayName: 'SevenShop',
-        paymentIntentClientSecret: response.paymentIntent,
-      });
+      if (data.payment_type === PAYMENT_TYPE.bank) {
+        //total order
+        const _data = {
+          amount: Math.floor(newData.total_invoice),
+        };
+        const response = await checkoutAPI.stripe(_data);
+        if (response.error) {
+          Toast.show({
+            title: response.error,
+            duration: 3000,
+          });
+          return;
+        }
 
-      if (initResponse.error) {
+        console.log(response);
+
+        const initResponse = await initPaymentSheet({
+          merchantDisplayName: 'SevenShop',
+          paymentIntentClientSecret: response.paymentIntent,
+        });
+
+        if (initResponse.error) {
+          Toast.show({
+            title: 'Payment sheet failed to initialize',
+            duration: 3000,
+          });
+          return;
+        }
+
+        check = await presentPaymentSheet();
+        console.log(check);
+      } else if (data.payment_type === PAYMENT_TYPE.momo) {
         Toast.show({
-          title: 'Payment sheet failed to initialize',
+          title: 'Coming soon',
           duration: 3000,
         });
-        return;
+        return false;
       }
 
-      await presentPaymentSheet();
-    } else if (data.payment_type === PAYMENT_TYPE.momo) {
+      if (data.payment_type === PAYMENT_TYPE.bank) {
+        if (check !== undefined) {
+          if (check.error?.code === 'Failed') {
+            Toast.show({
+              title: 'Payment failed. Please check your internet connection and try again',
+              duration: 3000,
+            });
+            return;
+          }
+        }
+      }
+
+      await checkout();
+    } catch (err) {
+      console.log(err);
       Toast.show({
-        title: 'Coming soon',
+        title: 'Có xãy ra lỗi vui lòng thử lại',
         duration: 3000,
       });
-      return false;
     }
-
-    await checkout();
   };
 
   return (
@@ -138,9 +166,7 @@ const CheckoutScreen = ({ route }: Props) => {
           titleHeaderSearch={''}
           titleHeaderScreen={t('Checkout.title')}
           iconRightHeaderScreen={false}
-          quantityItems={0}
           iconRightHeaderCart={false}
-          quantityHeaderCarts={0}
         />
       </View>
       <FlatList
@@ -242,7 +268,11 @@ const CheckoutScreen = ({ route }: Props) => {
                   variant="Body2"
                   fontFamily={'Raleway_500Medium'}
                 >
-                  {paymentType}
+                  {paymentType === PAYMENT_TYPE.bank
+                    ? 'BANK'
+                    : paymentType === PAYMENT_TYPE.momo
+                    ? 'MOMO'
+                    : 'COD'}
                 </Text>
                 <Icons.ChevronRight stroke={'black'} width={24} height={24} />
               </Pressable>

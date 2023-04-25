@@ -8,7 +8,7 @@
   "Login": {
     "title": "Login",
     "email": "Enter your email/phone number",
-    "password": "'Enter your password'",
+    "password": "Enter your password",
     "forgotPassword": "Forgot Password?",
     "loginWith": "Or login with",
     "notHaveAccount": "Don't you have an account?",
@@ -63,7 +63,8 @@
     "wareHouse": "WareHouse",
     "size": "Size",
     "color": "Color",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "noItem": "You have no items in your shopping cart"
   },
   "Checkout": {
     "title": "Checkout",

@@ -101,9 +101,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
         titleHeaderSearch={''}
         titleHeaderScreen={typeEdit === true ? t('Address.editAddress') : t('Address.newAddress')}
         iconRightHeaderScreen={false}
-        quantityItems={0}
         iconRightHeaderCart={false}
-        quantityHeaderCarts={0}
       />
 
       <SSTextInput

@@ -46,7 +46,6 @@ const MyPurchaseScreen = () => {
   ]);
   const [idOrders, setIdOrders]: any = useState('pending');
   const { orders } = useGetOrders();
-  // console.log('orders', idOrders);
 
   const RenderItemProductMyPurchases = ({ data }: { data: IMyPurchases }) => (
     <ItemProductMyPurchases
@@ -115,9 +114,7 @@ const MyPurchaseScreen = () => {
             titleHeaderSearch={''}
             titleHeaderScreen={t('MyPurchases.title')}
             iconRightHeaderScreen={false}
-            quantityItems={5}
             iconRightHeaderCart={false}
-            quantityHeaderCarts={3}
           />
         </View>
 

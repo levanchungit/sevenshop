@@ -23,6 +23,7 @@ export const API_ROUTES = {
   getProductsFlashSale: `/products/flash_sale/get`,
   getProductsCategory: (limit: number, category: string) =>
     `/products/categories/get?limit=${limit}&category=${category}`,
+  addRecentlyProduct: (id: string) => `/products/recently/${id}`,
 
   //categories
   getCategories: `/categories`,
@@ -64,7 +65,7 @@ export const API_ROUTES = {
   stripe: '/pay/intents',
 
   // notifications
-  getNotifications: (id: string) => `/notification/get/${id}`,
+  getNotifications: (id: string) => `/notification/get/${id}?limit=5&page1`,
 
   //voucher
   getVouchersUser: `/voucher/get_vouchers`,
