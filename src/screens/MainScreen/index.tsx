@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text } from 'native-base';
 import { FlatList, View, LogBox } from 'react-native';
-import FlatListProductCategory from 'components/FlatListProductCategory';
-import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
+// import FlatListProductCategory from 'components/FlatListProductCategory';
+// import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import ItemProductForYou from 'components/ItemProductForYou';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SlideShowImage from 'components/SwipeBanner';
@@ -80,8 +80,8 @@ export const MainScreen = () => {
               <View>
                 <SlideShowImage />
 
-                <FlatListProductCategory />
-                <FlatListProductFlashSale />
+                {/* <FlatListProductCategory /> */}
+                {/* <FlatListProductFlashSale /> */}
               </View>
 
               <Text

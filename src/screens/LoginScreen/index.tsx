@@ -56,6 +56,7 @@ const LoginScreen = React.memo(() => {
           email: user.email + '',
           full_name: user.name + '',
           avatar: user.picture + '',
+          device_id,
         });
         setIsLoading(false);
         navigation.navigate('Main');

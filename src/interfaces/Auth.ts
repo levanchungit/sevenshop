@@ -8,6 +8,7 @@ export type SignInGmailPayload = {
   email: string;
   full_name: string;
   avatar: string;
+  device_id: string;
 };
 
 export type RegisterPayload = {
