@@ -88,7 +88,7 @@ const DetailScreen = (props: DetailScreenProps) => {
   }, []);
 
   const DescriptionRoute = () => (
-    <Box backgroundColor="transparent">
+    <ScrollView backgroundColor="transparent">
       <Skeleton.Text lines={3} isLoaded={!loading_product}>
         <Text
           variant="body1"
@@ -117,14 +117,14 @@ const DetailScreen = (props: DetailScreenProps) => {
           isLoading={loading_products}
         />
       )}
-    </Box>
+    </ScrollView>
   );
   const ReviewRoute = () => (
     <Box backgroundColor="transparent">
       <Rating
         readonly={true}
         startingValue={product ? product?.average_rating : 0}
-        imageSize={40}
+        imageSize={24}
         style={{ paddingVertical: 12 }}
       />
       {err_product ? (
@@ -185,100 +185,98 @@ const DetailScreen = (props: DetailScreenProps) => {
         </Center>
       ) : (
         <Box h="85%">
-          <ScrollView contentContainerStyle={{ height: '140%' }}>
-            <Skeleton w="100%" h="50%" mb="3" isLoaded={!loading_product}>
-              <Image
-                source={
-                  product?.images[0] === undefined
-                    ? require('../../assets/images/logo_sevenshop_image_default.png')
-                    : { uri: product?.images[0] }
-                }
-                alt="Invalid product image"
-                size="full"
-                alignSelf="center"
-                w="100%"
-                h="50%"
-              />
-            </Skeleton>
-
-            <Skeleton mb="3" borderRadius="full" isLoaded={!loading_product}>
-              <Text
-                variant="h3"
-                fontWeight="semibold"
-                style={{
-                  fontVariant: ['lining-nums'],
-                }}
-              >
-                {product?.name}
-              </Text>
-            </Skeleton>
-
-            <Skeleton.Text lines={1} w="30%" borderRadius="full" mb={3} isLoaded={!loading_product}>
-              <Text
-                variant="title"
-                fontWeight="semibold"
-                color="red.600"
-                marginRight="1.5"
-                style={{
-                  fontVariant: ['lining-nums'],
-                }}
-              >
-                {!product
-                  ? 0
-                  : product?.price_sale
-                  ? formatNumberCurrencyVN(product.price_sale)
-                  : formatNumberCurrencyVN(product.price)}
-              </Text>
-
-              {product?.price_sale ? (
-                <Text
-                  variant="caption"
-                  strikeThrough
-                  color="gray.500"
-                  style={{
-                    fontVariant: ['lining-nums'],
-                  }}
-                >
-                  {!product ? 0 : formatNumberCurrencyVN(product.price)}
-                </Text>
-              ) : null}
-            </Skeleton.Text>
-
-            <TabView
-              navigationState={{
-                index,
-                routes,
-              }}
-              swipeEnabled={false}
-              renderScene={renderScene}
-              onIndexChange={setIndex}
-              renderTabBar={(prop) => (
-                <TabBar
-                  {...prop}
-                  indicatorStyle={{ backgroundColor: 'transparent' }}
-                  style={{
-                    backgroundColor: 'transparent',
-                  }}
-                  renderLabel={({ route, focused }) => (
-                    <Text
-                      padding={[2, 4, 8]}
-                      variant="button"
-                      color={focused ? 'black' : '#C9C9C9'}
-                      borderBottomColor={focused ? 'black' : 'green'}
-                      borderBottomWidth={focused ? 1 : 0}
-                    >
-                      {route.title}
-                    </Text>
-                  )}
-                  pressColor={'transparent'}
-                  tabStyle={{
-                    width: 'auto',
-                  }}
-                />
-              )}
-              initialLayout={{ width: initialWidth, height: 0 }}
+          <Skeleton w="100%" h="50%" mb="3" isLoaded={!loading_product}>
+            <Image
+              source={
+                product?.images[0] === undefined
+                  ? require('../../assets/images/logo_sevenshop_image_default.png')
+                  : { uri: product?.images[0] }
+              }
+              alt="Invalid product image"
+              size="full"
+              alignSelf="center"
+              w="100%"
+              h={300}
             />
-          </ScrollView>
+          </Skeleton>
+
+          <Skeleton mb="3" borderRadius="full" isLoaded={!loading_product}>
+            <Text
+              variant="h3"
+              fontWeight="semibold"
+              style={{
+                fontVariant: ['lining-nums'],
+              }}
+            >
+              {product?.name}
+            </Text>
+          </Skeleton>
+
+          <Skeleton.Text lines={1} w="30%" borderRadius="full" mb={3} isLoaded={!loading_product}>
+            <Text
+              variant="title"
+              fontWeight="semibold"
+              color="red.600"
+              marginRight="1.5"
+              style={{
+                fontVariant: ['lining-nums'],
+              }}
+            >
+              {!product
+                ? 0
+                : product?.price_sale
+                ? formatNumberCurrencyVN(product.price_sale)
+                : formatNumberCurrencyVN(product.price)}
+            </Text>
+
+            {product?.price_sale ? (
+              <Text
+                variant="caption"
+                strikeThrough
+                color="gray.500"
+                style={{
+                  fontVariant: ['lining-nums'],
+                }}
+              >
+                {!product ? 0 : formatNumberCurrencyVN(product.price)}
+              </Text>
+            ) : null}
+          </Skeleton.Text>
+
+          <TabView
+            navigationState={{
+              index,
+              routes,
+            }}
+            swipeEnabled={false}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            renderTabBar={(prop) => (
+              <TabBar
+                {...prop}
+                indicatorStyle={{ backgroundColor: 'transparent' }}
+                style={{
+                  backgroundColor: 'transparent',
+                }}
+                renderLabel={({ route, focused }) => (
+                  <Text
+                    padding={[2, 4, 8]}
+                    variant="button"
+                    color={focused ? 'black' : '#C9C9C9'}
+                    borderBottomColor={focused ? 'black' : 'green'}
+                    borderBottomWidth={focused ? 1 : 0}
+                  >
+                    {route.title}
+                  </Text>
+                )}
+                pressColor={'transparent'}
+                tabStyle={{
+                  width: 'auto',
+                }}
+              />
+            )}
+            initialLayout={{ width: initialWidth, height: 0 }}
+          />
         </Box>
       )}
 
