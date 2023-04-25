@@ -21,11 +21,11 @@ const searchAPI = {
     categories: string,
     sizes: string,
     colors: string,
-    price_min: number,
-    price_max: number
+    price_min: string,
+    price_max: string
   ) {
     return await axiosInstance.get(
-      API_ROUTES.getFilterProducts(categories, sizes, colors, price_min, price_max)
+      API_ROUTES.getFilterProducts(categories, colors, sizes, price_min, price_max)
     );
   },
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, FlatList, Pressable, ScrollView, Modal, Input, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
-import ItemProductForYou from 'components/ItemProductForYou';
+import ItemFavoritesProduct from 'components/ItemFavoritesProduct';
 import useGetColors from 'hook/colors/useGetColors';
 import useGetCategories from 'hook/product/useGetCategories';
 import useGetSearchProducts from 'hook/product/useGetSearchProducts';
@@ -47,11 +47,17 @@ const ProductScreen = (props: ProductScreenProps) => {
   const { categories } = useGetCategories();
   const { sizes } = useGetSizes();
   const { colors } = useGetColors();
-
   const [selectedcategories, setSelectedcategories]: any = useState([]);
   const [selectedSize, setSelectedSize]: any = useState([]);
   const [selectedColor, setSelectedColor]: any = useState([]);
   const [selectedPrice, setSelectedPice]: any = useState({});
+
+  const [displayData, setDisplayData]: any = useState([]);
+  useEffect(() => {
+    if (searchproducts) {
+      setDisplayData(searchproducts[0]?.data.results);
+    }
+  }, [searchproducts]);
 
   useEffect(() => {
     const newDataCategory = categories?.data.results.map((item: any) => ({
@@ -84,44 +90,42 @@ const ProductScreen = (props: ProductScreenProps) => {
     const newItems = [...selectedSize];
     newItems[index].isChecked = !newItems[index].isChecked;
     setSelectedSize(newItems);
-    // setItemIsChecked(checkedItems.filter((item: IData) => item.isChecked === true));
   };
 
   const onCheckedItemColor = (index: number) => {
     const newItems = [...selectedColor];
     newItems[index].isChecked = !newItems[index].isChecked;
     setSelectedColor(newItems);
-    // setItemIsChecked(checkedItems.filter((item: IData) => item.isChecked === true));
   };
-  // const onCheckedItem = (index: number) => {
-  //   const newItems = [...selectedPrice];
-  //   newItems[index].isChecked = !newItems[index].isChecked;
-  //   setSelectedPice(newItems);
-  //   // setItemIsChecked(checkedItems.filter((item: IData) => item.isChecked === true));
-  // };
   const Colorseleted = selectedColor
-    ? selectedColor.map((color: any) => `colors=${color._id}`).join('&')
+    ? selectedColor
+        .filter((item: any) => item.isChecked === true)
+        .map((color: any) => `colors=${color._id}`)
+        .join('&')
+    : [];
+  const categoriesseleted = selectedcategories
+    ? selectedcategories
+        .filter((item: any) => item.isChecked === true)
+        .map((categories: any) => `categories=${categories._id}`)
+        .join('&')
     : [];
 
-  const categoriesseleted = selectedcategories
-    ? selectedcategories.map((categories: any) => `categories=${categories._id}`).join('&')
-    : [];
-  console.log('selected', categoriesseleted);
   const Sizeseleted = selectedSize
-    ? selectedSize.map((size: any) => `sizes=${size._id}`).join('&')
+    ? selectedSize
+        .filter((item: any) => item.isChecked === true)
+        .map((size: any) => `sizes=${size._id}`)
+        .join('&')
     : [];
-  // const colorss = ['6438671a23fa76f73a5c0808', '643865f923fa76f73a5c06d7'];
-  // const color = colorss.map((color) => `colors=${color}`).join('&');
   const addSearch = async () => {
     try {
       const response = await searchAPI.getFillterProducts(
         categoriesseleted,
-        Colorseleted,
         Sizeseleted,
-        selectedPrice.price_min,
-        selectedPrice.price_max
+        Colorseleted,
+        selectedPrice.price_min ? selectedPrice.price_min : '',
+        selectedPrice.price_max ? selectedPrice.price_max : ''
       );
-      console.log('colorrr', response.data);
+      setDisplayData(response.data.results);
       Toast.show({
         title: response.data.message,
         duration: 3000,
@@ -166,12 +170,19 @@ const ProductScreen = (props: ProductScreenProps) => {
         </Pressable>
       </View>
 
-      <View flexDirection={'row'} borderRadius={3} borderWidth={0} w={'100%'} mt={2} py={1} px={3}>
+      <View
+        flexDirection={'row'}
+        justifyContent={'space-between'}
+        borderRadius={3}
+        borderWidth={0}
+        w={'100%'}
+        mt={2}
+        py={1}
+      >
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          w={'18%'}
-          py={2}
+          p={2}
           justifyContent={'center'}
           backgroundColor={'#D1D1D6'}
           onPress={() => setShowModal(true)}
@@ -185,8 +196,7 @@ const ProductScreen = (props: ProductScreenProps) => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          w={'18%'}
-          ml={1}
+          p={2}
           justifyContent={'center'}
           alignItems={'center'}
           backgroundColor={'gray.300'}
@@ -198,8 +208,7 @@ const ProductScreen = (props: ProductScreenProps) => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          w={'18%'}
-          ml={1}
+          p={2}
           justifyContent={'center'}
           alignItems={'center'}
           backgroundColor={'gray.300'}
@@ -211,8 +220,7 @@ const ProductScreen = (props: ProductScreenProps) => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          w={'18%'}
-          ml={1}
+          p={2}
           justifyContent={'center'}
           alignItems={'center'}
           backgroundColor={'gray.300'}
@@ -224,8 +232,6 @@ const ProductScreen = (props: ProductScreenProps) => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          w={'25%'}
-          ml={1}
           px={1}
           alignItems={'center'}
           justifyContent={'space-between'}
@@ -242,16 +248,22 @@ const ProductScreen = (props: ProductScreenProps) => {
         <FlatList
           w={'100%'}
           keyExtractor={(item) => item._id}
-          data={searchproducts ? searchproducts[0]?.data.results : null}
-          renderItem={({ item }: { item: IProduct }) => (
-            <ItemProductForYou
-              name={item.name}
-              image={item.images[0]}
-              price={item.price}
-              selled={123}
-              onPress={() => navigation.navigate('Detail', { _id: item._id })}
-            />
-          )}
+          data={displayData}
+          renderItem={({ item }: { item: IProduct }) => {
+            return (
+              // <ItemProductForYou
+              //   name={item.name}
+              //   image={item.images[0]}
+              //   price={item.price_sale}
+              //   selled={123}
+              //   onPress={() => navigation.navigate('Detail', { _id: item._id })}
+              // />
+              <ItemFavoritesProduct
+                data={item}
+                onPress={() => navigation.navigate('Detail', { _id: item._id })}
+              ></ItemFavoritesProduct>
+            );
+          }}
           numColumns={2}
           showsHorizontalScrollIndicator={false}
           columnWrapperStyle={{
@@ -439,27 +451,6 @@ const ProductScreen = (props: ProductScreenProps) => {
                       <Text variant="button">{item.price_max}</Text>
                     </Pressable>
                   ))}
-                  {/* {data.map((item) => {
-                    return (
-                      <Pressable
-                        onPress={() => update({ idPrice: item._id })}
-                        justifyContent="center"
-                        mr={3}
-                        p={2}
-                        alignItems="center"
-                        backgroundColor={item._id === selectedSize ? 'gray.400' : 'white'}
-                        borderWidth={1}
-                        borderColor="black"
-                        flexDirection={'row'}
-                        borderRadius={8}
-                        key={item._id}
-                      >
-                        <Text variant="button">{item.price_min}</Text>
-                        <Text variant="button">-</Text>
-                        <Text variant="button">{item.price_max}</Text>
-                      </Pressable>
-                    );
-                  })} */}
                 </ScrollView>
               </View>
             </View>

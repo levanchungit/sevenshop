@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, FlatList, Pressable, Toast } from 'native-base';
-import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import SSInputSearch from 'components/SSInputSearch';
 import useGetKeyword from 'hook/product/useGetKeyword';
@@ -13,7 +12,6 @@ const SearchProductScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const [keyword, setKeyword] = useState('');
   const { search } = useGetKeyword();
-  const { t } = useTranslation();
 
   const addSearch = async () => {
     try {
@@ -59,19 +57,17 @@ const SearchProductScreen = () => {
         }
       ></SSInputSearch>
 
-      <View mt={1} maxH={'30%'}>
-        <FlatList
-          w={'100%'}
-          keyExtractor={(item) => item._id}
-          data={search?.data.results}
-          renderItem={renderItem1}
-        />
-      </View>
+      <FlatList
+        w={'100%'}
+        h={'10%'}
+        keyExtractor={(item) => item._id}
+        data={search?.data.results}
+        renderItem={renderItem1}
+      />
 
       <View flexDirection={'row'} justifyContent={'space-between'} mt={2}>
-        {/* <Text>History</Text> */}
         <Pressable flexDirection={'row'} justifyContent={'center'}>
-          <Text>{t('SearchProduct.clearAll')}</Text>
+          <Text>ClearAll</Text>
           <Icon.Trash2 stroke="black" width={24} height={24} />
         </Pressable>
       </View>
