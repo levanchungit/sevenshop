@@ -6,6 +6,7 @@ import { INotYetRated } from 'interfaces/Rating';
 
 type Props = {
   product: INotYetRated;
+  mutate: Function;
 };
 
 const ItemNotYetRated = (props: Props) => {
@@ -15,7 +16,7 @@ const ItemNotYetRated = (props: Props) => {
     setRatingScore(rating);
     setShowModal(!showModal);
   };
-  const { product } = props;
+  const { product, mutate } = props;
   return (
     <Flex
       w="48%"
@@ -78,6 +79,7 @@ const ItemNotYetRated = (props: Props) => {
         setShowModal={setShowModal}
         rating={ratingScore}
         product={product}
+        mutate={mutate}
       />
     </Flex>
   );

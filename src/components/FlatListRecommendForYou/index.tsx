@@ -41,7 +41,7 @@ const FlatListRecommendForYou = (props: Props) => {
         horizontal
         renderItem={({ item }: { item: IProduct }) => (
           <ItemProductFlashSale
-            onPress={() => navigation.navigate('Detail', { _id: item._id })}
+            onPress={() => navigation.replace('Detail', { _id: item._id })}
             data={item}
           />
         )}

@@ -5,12 +5,10 @@ import { IRating } from 'interfaces/Rating';
 type Props = {
   ratings: IRating[];
   isLoading: boolean;
-  showProduct: boolean;
-  smallImage: boolean;
 };
 
 const FlatListRating = (props: Props) => {
-  const { ratings, isLoading, showProduct, smallImage } = props;
+  const { ratings, isLoading } = props;
   if (isLoading) {
     return (
       <VStack>
@@ -34,7 +32,7 @@ const FlatListRating = (props: Props) => {
       <FlatList
         data={ratings}
         renderItem={({ item }: { item: IRating }) => (
-          <ItemRating rating={item} showProduct={showProduct} smallImage={smallImage} />
+          <ItemRating rating={item} showProduct={false} smallImage={true} />
         )}
       />
     );

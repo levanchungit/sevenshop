@@ -1,30 +1,32 @@
-import { Box, FlatList, HStack, Skeleton, VStack, Text } from 'native-base';
+import { FlatList, HStack, Skeleton, VStack, Text } from 'native-base';
 import ItemNotYetRated from 'components/ItemNotYetRated';
 import { INotYetRated } from 'interfaces/Rating';
 
 type Props = {
   ratings: INotYetRated[];
   isLoading: boolean;
+  mutate: Function;
 };
 
 const FlatListNotYetRated = (props: Props) => {
-  const { ratings, isLoading } = props;
+  const { ratings, isLoading, mutate } = props;
   if (isLoading) {
     return (
-      <VStack>
-        <Box p={3} marginBottom={2}>
-          <HStack mb={3}>
-            <Skeleton rounded="full" size={50} mr={3} />
-            <Skeleton borderRadius={10} w="50%" h={6} />
-          </HStack>
-          <Skeleton.Text lines={4} mb={3} />
-        </Box>
-      </VStack>
+      <HStack flex={1} justifyContent="space-between">
+        <VStack mb={3} p={3} w="48%" alignItems="center">
+          <Skeleton w="100%" h={100} mb={3} />
+          <Skeleton.Text />
+        </VStack>
+        <VStack mb={3} p={3} w="48%" alignItems="center">
+          <Skeleton w="100%" h={100} mb={3} />
+          <Skeleton.Text />
+        </VStack>
+      </HStack>
     );
   } else if (ratings.length === 0) {
     return (
-      <Text variant="title" alignSelf="center">
-        No comment yet
+      <Text variant="title" width="70%" alignSelf="center">
+        You don't have any product to review
       </Text>
     );
   } else {
@@ -33,7 +35,9 @@ const FlatListNotYetRated = (props: Props) => {
         columnWrapperStyle={{ justifyContent: 'space-between' }}
         data={ratings}
         numColumns={2}
-        renderItem={({ item }: { item: INotYetRated }) => <ItemNotYetRated product={item} />}
+        renderItem={({ item }: { item: INotYetRated }) => (
+          <ItemNotYetRated product={item} mutate={mutate} />
+        )}
       />
     );
   }

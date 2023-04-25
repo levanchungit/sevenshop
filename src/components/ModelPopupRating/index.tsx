@@ -13,10 +13,11 @@ type Props = {
   setShowModal: Function;
   rating: number;
   product: INotYetRated;
+  mutate: Function;
 };
 
 const ModelPopupRating = (props: Props) => {
-  const { showModal, setShowModal, rating, product } = props;
+  const { showModal, setShowModal, rating, product, mutate } = props;
   const [content, setContent] = useState<string>('');
   const data: RatingPayload = {
     product_id: product.product_id,
@@ -33,6 +34,7 @@ const ModelPopupRating = (props: Props) => {
         title: 'Successfully added rating',
         placement: 'top',
       });
+      mutate();
       setShowModal(!showModal);
     } catch (error: any) {
       Toast.show({
