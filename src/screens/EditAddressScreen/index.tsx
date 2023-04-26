@@ -42,7 +42,7 @@ const EditAddressScreen = (props: EditAddressScreenProps) => {
         title: 'Successfully added address',
         placement: 'top',
       });
-      navigation.replace('Address', { typeUser: true });
+      navigation.replace('Address', { typeUser: false });
     } catch (error: any) {
       Toast.show({
         title: 'Cannot add address',

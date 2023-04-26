@@ -1,6 +1,5 @@
 import React from 'react';
 import { FlatList, Text, View } from 'native-base';
-// import { ScrollView, Text, View } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icons from 'react-native-feather';
 import ItemProductCheckout from 'components/ItemProductCheckout';
@@ -9,7 +8,7 @@ import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SSItemFeeOrderDetail from 'components/SSItemFeeOrderDetail';
 import useGetOrderById from 'hook/order/useGetOrderById';
 import { OrderDetailRouteProp } from 'providers/navigation/types';
-import { formatNumberCurrencyVN } from 'utils/common';
+import { formatDate, formatNumberCurrencyVN } from 'utils/common';
 
 type orderDetail = {
   route: OrderDetailRouteProp;
@@ -19,6 +18,7 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
   const { id_order } = route.params;
   const { order } = useGetOrderById(id_order);
   const { t } = useTranslation();
+  console.log('order', order?.data);
 
   return (
     <View flex={1} pt={3} backgroundColor="white">
@@ -40,11 +40,11 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
         renderItem={undefined}
         ListHeaderComponent={
           <View key={7}>
-            <View backgroundColor={'#EDC5C1'} px={4} py={3} mt={1} key={1}>
+            <View backgroundColor={'#EDC5C1'} px={4} py={2} mt={1} key={1}>
               <Text
-                mb={2.5}
+                mb={1}
                 variant={'title'}
-                fontSize={20}
+                fontSize={18}
                 fontWeight="bold"
                 fontFamily={'Raleway_700Bold'}
               >
@@ -62,7 +62,8 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
             <View
               key={2}
               flexDirection={'row'}
-              p={4}
+              px={4}
+              py={2}
               borderBottomWidth={0.5}
               borderBottomColor="gray.300"
             >
@@ -75,8 +76,11 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
                 variant={'Body1'}
                 fontFamily="Raleway_500Medium"
                 key={9}
+                fontSize={14}
               >
-                Get by Mon 23 Feb - Fri 27 Feb
+                {t('OrderDetail.time')}
+                {':    '}
+                {formatDate(order ? (order?.data.created_at).slice(0, 10) : '...')}
               </Text>
             </View>
             <View p={3} borderBottomColor={'gray.300'} borderBottomWidth={0.5} key={10}>
@@ -86,7 +90,7 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
                   Delivery Address
                 </Text>
               </View>
-              <View flexDirection={'row'} justifyContent={'center'}>
+              <View flexDirection={'row'} alignItems={'center'}>
                 <View flexDirection={'column'}>
                   <Text
                     style={{
@@ -97,7 +101,9 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
                     variant={'Body2'}
                     fontFamily={'Raleway_500Medium'}
                   >
-                    Trần Quyền | 0834196884
+                    {order
+                      ? order.data.address.full_name + ' | ' + order.data.address.phone
+                      : '...'}
                   </Text>
                   <Text
                     style={{
@@ -108,7 +114,7 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
                     variant={'Body2'}
                     fontFamily={'Raleway_500Medium'}
                   >
-                    12a/2 Đường QL 50, Xã Long An, Cần Giuộc, Long An
+                    {order ? order.data.address.address : '...'}
                   </Text>
                 </View>
               </View>
@@ -130,7 +136,7 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
           </View>
         }
       ></FlatList>
-      <View h={'27%'} borderTopWidth={0.5} borderTopColor="gray.300">
+      <View h={'40%'}>
         <View w="100%" position={'absolute'} bottom={0} left={0}>
           <View borderBottomColor={'gray.400'} borderBottomWidth={0.5} pb={3}>
             <View px={3} flexDirection={'row'} justifyContent="space-between" alignItems={'center'}>
@@ -154,7 +160,17 @@ const OrderDetailScreen = ({ route }: orderDetail) => {
             <SSItemFeeOrderDetail
               style={{}}
               title={'Paid by'}
-              detail={order ? (order?.data.payment_type === 'cod' ? 'Cash' : '...') : '......'}
+              detail={
+                order
+                  ? order?.data.payment_type === 'cod'
+                    ? 'Cash'
+                    : order?.data.payment_type === 'bank'
+                    ? 'Bank'
+                    : order?.data.payment_type === 'momo'
+                    ? 'MoMo'
+                    : '...'
+                  : '......'
+              }
             />
             <SSItemFeeOrderDetail style={{}} title={'Payment status'} detail={'Waiting'} />
             <SSItemFeeOrderDetail

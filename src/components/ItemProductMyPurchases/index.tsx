@@ -18,7 +18,7 @@ const ItemProductMyPurchases = (props: Props) => {
   const { total, quantitiesProduct, name, image, onPressBuyAgain, onPressViewDetail } = props;
 
   return (
-    <View px={3} pt={2} borderBottomColor={'gray.300'} borderBottomWidth={3}>
+    <View px={1} pt={2} borderBottomColor={'gray.300'} borderBottomWidth={3}>
       <Pressable flexDirection={'column'}>
         <View w={'100%'} borderBottomColor="gray.400" pb={5}>
           <View flexDirection={'row'} m={3} alignItems={'center'}>
@@ -53,7 +53,7 @@ const ItemProductMyPurchases = (props: Props) => {
                       fontVariant: ['lining-nums'],
                     }}
                     color="black"
-                    fontSize={16}
+                    fontSize={15}
                     variant={'Subtitle2'}
                     fontWeight="semibold"
                   >
@@ -64,7 +64,7 @@ const ItemProductMyPurchases = (props: Props) => {
                       fontVariant: ['lining-nums'],
                     }}
                     color="primary.600"
-                    fontSize={16}
+                    fontSize={15}
                     variant={'Button'}
                     fontFamily="Raleway_500Medium"
                   >
