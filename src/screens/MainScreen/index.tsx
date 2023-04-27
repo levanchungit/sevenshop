@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import { FlatList, View, LogBox } from 'react-native';
 import FlatListProductCategory from 'components/FlatListProductCategory';
 import FlatListProductFlashSale from 'components/FlatListProductFlashSale';
 import ItemProductForYou from 'components/ItemProductForYou';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
 import SlideShowImage from 'components/SwipeBanner';
-import useGetProducts from 'hook/product/useGetProducts';
+import useGetProductsForYou from 'hook/product/useGetProductsForYou';
 import { IProduct } from 'interfaces/Product';
 import { AppNavigationProp } from 'providers/navigation/types';
 import styles from './styles';
@@ -15,22 +16,22 @@ import styles from './styles';
 export const MainScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
   LogBox.ignoreAllLogs();
-
+  const { t } = useTranslation();
   const limit = 6;
   const [page, setPage] = useState(1);
   const [product, setProduct] = useState<IProduct[] | null>(null);
-  const { products, isReachingEnd } = useGetProducts(page, limit);
+  const { products_forYou, isReachingEnd } = useGetProductsForYou(page, limit);
 
   useEffect(() => {
-    if (products) {
+    if (products_forYou) {
       setProduct((prevProduct) => {
         if (prevProduct) {
-          return [...prevProduct, ...products[0].data.results];
+          return [...prevProduct, ...products_forYou[0].results];
         }
-        return products[0].data.results;
+        return products_forYou[0].results;
       });
     }
-  }, [products]);
+  }, [products_forYou]);
 
   const RenderItemForYou = React.memo(({ data }: { data: IProduct }) => {
     return (
@@ -92,7 +93,9 @@ export const MainScreen = () => {
                   marginBottom: 8,
                   fontWeight: 'bold',
                 }}
-              ></Text>
+              >
+                {t('Home.forYou')}
+              </Text>
             </View>
           );
         }}

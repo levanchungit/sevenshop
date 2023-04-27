@@ -36,6 +36,8 @@ const CheckoutScreen = ({ route }: Props) => {
     voucher_id: selectVoucher ? selectVoucher._id : '',
   });
 
+  console.log('data2', addresses._id);
+
   const newData: Checkout = {
     ...data2,
     address: addresses._id ? addresses : data2.address,
@@ -62,7 +64,7 @@ const CheckoutScreen = ({ route }: Props) => {
   }
 
   const checkout = async () => {
-    if (data2.address || addresses._id) {
+    if (data2.address || addresses._id !== '') {
       try {
         const response = await checkoutAPI.checkout(newData);
         setPaymentType(PAYMENT_TYPE.cod);

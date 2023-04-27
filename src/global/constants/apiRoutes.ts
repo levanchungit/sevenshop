@@ -25,6 +25,8 @@ export const API_ROUTES = {
   getProductsCategory: (limit: number, category: string) =>
     `/products/categories/get?limit=${limit}&category=${category}`,
   addRecentlyProduct: (id: string) => `/products/recently/${id}`,
+  getRecentlyProduct: (page: number, limit: number) =>
+    `products/for_you/get?page=${page}&limit=${limit}`,
 
   //categories
   getCategories: `/categories`,
@@ -48,7 +50,7 @@ export const API_ROUTES = {
   addToCart: 'order/addToCart/',
 
   // orders
-  getOrders: `/orders/me`,
+  getOrders: `/orders/me?limit=50`,
   getOrderById: (id: string) => `/orders/me/${id}`,
 
   //rating

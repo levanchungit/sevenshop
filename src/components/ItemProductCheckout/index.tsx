@@ -69,6 +69,7 @@ const ItemProductCheckout = (props: Props) => {
               fontSize={14}
               variant={'Subtitle2'}
               fontFamily={'Raleway_500Medium'}
+              mr={3}
             >
               x{quantity}
             </Text>
