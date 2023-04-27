@@ -1,248 +1,193 @@
-import React, { useState } from 'react';
-import { Text, View, FlatList, Pressable, Image, Modal, Input } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Text, View, FlatList, Pressable, ScrollView, Modal, Input, Toast } from 'native-base';
 import * as Icon from 'react-native-feather';
-import SSInputSearch from 'components/SSInputSearch';
+import ItemFavoritesProduct from 'components/ItemFavoritesProduct';
+import useGetColors from 'hook/colors/useGetColors';
+import useGetCategories from 'hook/product/useGetCategories';
+import useGetSearchProducts from 'hook/product/useGetSearchProducts';
+import useGetSizes from 'hook/sizes/useGetSizes';
+import { ICategory } from 'interfaces/Category';
+import { IColor } from 'interfaces/Color';
+import { IProduct } from 'interfaces/Product';
+import { ISize } from 'interfaces/Size';
+import searchAPI from 'modules/searchAPI';
+import { AppNavigationProp, ProductRouteProp } from 'providers/navigation/types';
+
+type ProductScreenProps = { route: ProductRouteProp };
 
 const data = [
+  { _id: '1', price_min: '0', price_max: '200000' },
+
   {
-    id: '1',
-    title: 'The Bodacious Period Essential T-Shirt',
-    price: '300.000',
-    image: 'https://th.bing.com/th/id/OIP.ThmKsOdlJutZumjUHsxbXwHaIK?pid=ImgDet&w=1361&h=1500&rs=1',
-    category: 'T-Shrit',
+    _id: '2',
+    price_min: '200000',
+    price_max: '400000',
   },
   {
-    id: '2',
-    title: 'Alstyle Essential T-Shirt',
-    price: '300.000',
-    image:
-      'https://th.bing.com/th/id/R.1042542be1a853baf9993f9ab8b49081?rik=ir5NnhPDLNDRyA&pid=ImgRaw&r=0',
-    category: 'T-Shrit',
+    _id: '3',
+    price_min: '400000',
+    price_max: '600000',
   },
+
   {
-    id: '3',
-    title: 'The Bodacious Period Essential T-Shirt',
-    price: '300.000',
-    image: 'https://i.pinimg.com/originals/ca/0f/56/ca0f5658847ed0a0efb6c77a2c7d95ac.jpg',
-    category: 'T-Shrit',
-  },
-  {
-    id: '4',
-    title: 'Alstyle Essential T-Shirt',
-    price: '300.000',
-    image: 'https://th.bing.com/th/id/OIP.u46lTC4iNSc02-2kvW0qjQHaJb?pid=ImgDet&w=1571&h=2000&rs=1',
-    category: 'T-Shrit',
-  },
-  {
-    id: '5',
-    title: 'Keyword',
-    price: '300.000',
-    image: 'https://th.bing.com/th/id/OIP.zjbr3E-Jn0KcnJ-sfJAPVQHaJ4?pid=ImgDet&w=510&h=680&rs=1',
-    category: 'T-Shrit',
-  },
-  {
-    id: '6',
-    title: 'Keyword',
-    price: '300.000',
-    image:
-      'https://th.bing.com/th/id/OIP.yNCkERw1wSN810ADQahHLwHaHa?w=182&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7',
-    category: 'T-Shrit',
-  },
-  {
-    id: '7',
-    title: 'Keyword',
-    price: '300.000',
-    image:
-      'https://th.bing.com/th/id/OIP.yNCkERw1wSN810ADQahHLwHaHa?w=182&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7',
-    category: 'T-Shrit',
-  },
-  {
-    id: '8',
-    title: 'Keyword',
-    price: '300.000',
-    image:
-      'https://th.bing.com/th/id/OIP.yNCkERw1wSN810ADQahHLwHaHa?w=182&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7',
-    category: 'T-Shrit',
+    _id: '4',
+    price_min: '600000',
+    price_max: '800000',
   },
 ];
 
-const data1 = [
-  { id: '1', category: 'Shirt', size: 'S', price: '0 - 100,000', review: '5 sao' },
-  {
-    id: '2',
-    category: 'Shirt',
-    size: 'M',
-    price: '100,000 - 200,000',
-    review: '5 sao',
-  },
-  {
-    id: '3',
-    category: 'Shirt',
-    size: 'L',
-    price: '100,000 - 200,000',
-    review: '4 sao',
-  },
-  {
-    id: '4',
-    category: 'Shirt',
-    size: 'XL',
-    price: '0 - 100,000',
-    review: '3 sao',
-  },
-  {
-    id: '5',
-    category: 'Shirt',
-    size: 'S',
-    price: '0 - 100,000',
-    review: '2 sao',
-  },
-  {
-    id: '6',
-    category: 'Shirt',
-    size: 'S',
-    price: '0 - 100,000',
-    review: '1 sao',
-  },
-  {
-    id: '7',
-    category: 'Shirt',
-    size: 'S',
-    price: '0 - 100,000',
-    review: '0 sao',
-  },
-  {
-    id: '8',
-    category: 'Shirt',
-    size: 'S',
-    price: '0 - 100,000',
-    review: '5 sao',
-  },
-];
-const renderItem1 = ({ item }: any) => {
-  return (
-    <Pressable w={'50%'} height={'100%'}>
-      <View w={'100%'} h={'auto'} borderRadius={1} mt={2}>
-        <Image
-          alt="Image OTP"
-          w={'100%'}
-          h={'197'}
-          source={{
-            uri: item.image,
-          }}
-        />
-        <Text variant={'body1'}>{item.title}</Text>
-        <Text
-          color={'primary.600'}
-          variant={'body1'}
-          style={{
-            fontVariant: ['lining-nums'],
-          }}
-        >
-          {item.price}đ
-        </Text>
-      </View>
-    </Pressable>
-  );
-};
-
-const renderItem2 = ({ item }: any) => {
-  return (
-    <Pressable
-      flexDirection={'row'}
-      borderRadius={7}
-      h={31}
-      w={71}
-      ml={2}
-      mr={2}
-      justifyContent={'center'}
-      alignItems={'center'}
-      backgroundColor={'gray.300'}
-    >
-      <Text variant={'caption'} textAlign={'center'}>
-        {item.category}
-      </Text>
-    </Pressable>
-  );
-};
-
-const renderItem3 = ({ item }: any) => {
-  return (
-    <Pressable
-      flexDirection={'row'}
-      borderRadius={7}
-      h={31}
-      w={71}
-      ml={2}
-      mr={2}
-      justifyContent={'center'}
-      alignItems={'center'}
-      backgroundColor={'gray.300'}
-    >
-      <Text variant={'caption'} textAlign={'center'}>
-        {item.size}
-      </Text>
-    </Pressable>
-  );
-};
-
-const renderItem4 = ({ item }: any) => {
-  return (
-    <Pressable
-      flexDirection={'row'}
-      borderRadius={7}
-      h={31}
-      px={3}
-      ml={2}
-      mr={2}
-      justifyContent={'center'}
-      alignItems={'center'}
-      backgroundColor={'gray.300'}
-    >
-      <Text variant={'caption'} textAlign={'center'}>
-        {item.price}
-      </Text>
-    </Pressable>
-  );
-};
-
-const renderItem5 = ({ item }: any) => {
-  return (
-    <Pressable
-      flexDirection={'row'}
-      borderRadius={7}
-      h={31}
-      w={71}
-      ml={2}
-      mr={2}
-      justifyContent={'center'}
-      alignItems={'center'}
-      backgroundColor={'gray.300'}
-    >
-      <Text
-        variant={'caption'}
-        textAlign={'center'}
-        style={{
-          fontVariant: ['lining-nums'],
-        }}
-      >
-        {item.review}
-      </Text>
-    </Pressable>
-  );
-};
-
-const ProductScreen = () => {
+const ProductScreen = (props: ProductScreenProps) => {
+  const { keyword } = props.route.params;
+  const navigation = useNavigation<AppNavigationProp>();
   const [showModal, setShowModal] = useState(false);
-  return (
-    <View flex={1} py={5} px={3} backgroundColor={'white'}>
-      <SSInputSearch placeholder={'Search'}></SSInputSearch>
+  const limitProducts = 8;
+  const [productPage] = useState(1);
+  const { searchproducts } = useGetSearchProducts(productPage, limitProducts, keyword);
+  const { categories } = useGetCategories();
+  const { sizes } = useGetSizes();
+  const { colors } = useGetColors();
+  const [selectedcategories, setSelectedcategories]: any = useState([]);
+  const [selectedSize, setSelectedSize]: any = useState([]);
+  const [selectedColor, setSelectedColor]: any = useState([]);
+  const [selectedPrice, setSelectedPice]: any = useState({});
 
-      <View flexDirection={'row'} borderRadius={3} borderWidth={0} w={'100%'} mt={2} py={1} px={3}>
+  const [displayData, setDisplayData]: any = useState([]);
+  useEffect(() => {
+    if (searchproducts) {
+      setDisplayData(searchproducts[0]?.data.results);
+    }
+  }, []);
+
+  useEffect(() => {
+    const newDataCategory = categories?.data.results.map((item: any) => ({
+      ...item,
+      isChecked: false,
+    }));
+    setSelectedcategories(newDataCategory);
+
+    const newDataSize = sizes?.data.results.map((item: any) => ({ ...item, isChecked: false }));
+    setSelectedSize(newDataSize);
+
+    const newDataColorolor = colors?.data.results.map((item: any) => ({
+      ...item,
+      isChecked: false,
+    }));
+    setSelectedColor(newDataColorolor);
+
+    const newDataPrice = data.map((item: any) => ({ ...item, isChecked: false }));
+    setSelectedPice(newDataPrice);
+  }, []);
+
+  const onCheckedItemCategory = (index: number) => {
+    const newItems = [...selectedcategories];
+    newItems[index].isChecked = !newItems[index].isChecked;
+    setSelectedcategories(newItems);
+    // setItemIsChecked(checkedItems.filter((item: IData) => item.isChecked === true));
+  };
+
+  const onCheckedItemSize = (index: number) => {
+    const newItems = [...selectedSize];
+    newItems[index].isChecked = !newItems[index].isChecked;
+    setSelectedSize(newItems);
+  };
+
+  const onCheckedItemColor = (index: number) => {
+    const newItems = [...selectedColor];
+    newItems[index].isChecked = !newItems[index].isChecked;
+    setSelectedColor(newItems);
+  };
+  const Colorseleted = selectedColor
+    ? selectedColor
+        .filter((item: any) => item.isChecked === true)
+        .map((color: any) => `colors=${color._id}`)
+        .join('&')
+    : [];
+  const categoriesseleted = selectedcategories
+    ? selectedcategories
+        .filter((item: any) => item.isChecked === true)
+        .map((categories: any) => `categories=${categories._id}`)
+        .join('&')
+    : [];
+
+  const Sizeseleted = selectedSize
+    ? selectedSize
+        .filter((item: any) => item.isChecked === true)
+        .map((size: any) => `sizes=${size._id}`)
+        .join('&')
+    : [];
+  const addSearch = async () => {
+    try {
+      const response = await searchAPI.getFillterProducts(
+        categoriesseleted,
+        Sizeseleted,
+        Colorseleted,
+        selectedPrice.price_min ? selectedPrice.price_min : '',
+        selectedPrice.price_max ? selectedPrice.price_max : ''
+      );
+
+      setDisplayData(response.data.results);
+      console.log('Fi', response.data);
+      setShowModal(false);
+      // navigation.replace('Product', { keyword });
+    } catch (e: any) {
+      Toast.show({
+        title: e.response?.data?.message,
+        duration: 3000,
+      });
+    }
+  };
+
+  return (
+    <View flex={1} px={3} backgroundColor={'white'}>
+      <View flexDirection="row">
+        <Pressable
+          onPress={() => navigation.replace('Main')}
+          w="10%"
+          justifyContent={'center'}
+          alignItems={'center'}
+          mt={5}
+        >
+          <Icon.ChevronLeft stroke="black" width={24} height={24} />
+        </Pressable>
+        <Pressable
+          flexDirection="row"
+          w="90%"
+          alignItems="center"
+          backgroundColor={'primary.600'}
+          px={2}
+          mt={5}
+          borderRadius={7}
+        >
+          <Input
+            onPressIn={() => navigation.replace('SearchProduct')}
+            autoCapitalize="none"
+            fontSize={16}
+            fontFamily="heading"
+            fontStyle="normal"
+            w={{ base: '100%' }}
+            variant="unstyled"
+            color={'white'}
+            placeholderTextColor={'white'}
+            placeholder="Search"
+            InputRightElement={<Icon.Search stroke="white" width={24} height={24} />}
+          />
+        </Pressable>
+      </View>
+
+      <View
+        flexDirection={'row'}
+        justifyContent={'space-between'}
+        borderRadius={3}
+        borderWidth={0}
+        w={'100%'}
+        mt={2}
+        py={1}
+      >
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          w={'18%'}
-          py={2}
+          p={2}
           justifyContent={'center'}
           backgroundColor={'#D1D1D6'}
           onPress={() => setShowModal(true)}
@@ -256,8 +201,7 @@ const ProductScreen = () => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          w={'18%'}
-          ml={1}
+          p={2}
           justifyContent={'center'}
           alignItems={'center'}
           backgroundColor={'gray.300'}
@@ -269,8 +213,7 @@ const ProductScreen = () => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          w={'18%'}
-          ml={1}
+          p={2}
           justifyContent={'center'}
           alignItems={'center'}
           backgroundColor={'gray.300'}
@@ -282,8 +225,7 @@ const ProductScreen = () => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          w={'18%'}
-          ml={1}
+          p={2}
           justifyContent={'center'}
           alignItems={'center'}
           backgroundColor={'gray.300'}
@@ -295,8 +237,6 @@ const ProductScreen = () => {
         <Pressable
           flexDirection={'row'}
           borderRadius={7}
-          w={'25%'}
-          ml={1}
           px={1}
           alignItems={'center'}
           justifyContent={'space-between'}
@@ -312,14 +252,21 @@ const ProductScreen = () => {
       <View>
         <FlatList
           w={'100%'}
-          keyExtractor={(item) => item.id}
-          data={data}
-          renderItem={renderItem1}
+          keyExtractor={(item) => item._id}
+          data={displayData}
+          renderItem={({ item }: { item: IProduct }) => {
+            return (
+              <ItemFavoritesProduct
+                data={item}
+                onPress={() => navigation.navigate('Detail', { _id: item._id })}
+              ></ItemFavoritesProduct>
+            );
+          }}
           numColumns={2}
           showsHorizontalScrollIndicator={false}
           columnWrapperStyle={{
             flexGrow: 1,
-            justifyContent: 'center',
+            justifyContent: 'space-between',
           }}
         />
       </View>
@@ -342,80 +289,168 @@ const ProductScreen = () => {
             <Text mt={4} variant={'button'}>
               Category
             </Text>
-            <View borderBottomWidth={1} borderColor={'gray.300'} py={2}>
-              <FlatList
-                w={'100%'}
-                keyExtractor={(item) => item.id}
-                data={data}
-                renderItem={renderItem2}
-                showsHorizontalScrollIndicator={false}
-                horizontal
-              ></FlatList>
+            <View borderBottomWidth={1} borderColor={'gray.300'} py={2} flexDirection={'row'}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {selectedcategories
+                  ? selectedcategories.map((category: ICategory, index: number) => {
+                      return (
+                        <Pressable
+                          onPress={() => onCheckedItemCategory(index)}
+                          justifyContent="center"
+                          mr={3}
+                          p={2}
+                          alignItems="center"
+                          backgroundColor={
+                            selectedcategories[index].isChecked ? 'gray.400' : 'white'
+                          }
+                          borderWidth={1}
+                          borderColor="black"
+                          borderRadius={8}
+                          key={category._id}
+                        >
+                          <Text variant="button">{category.name}</Text>
+                        </Pressable>
+                      );
+                    })
+                  : null}
+              </ScrollView>
             </View>
             <Text mt={4} variant={'button'}>
               Size
             </Text>
-            <View borderBottomWidth={1} borderColor={'gray.300'} py={2}>
-              <FlatList
-                w={'100%'}
-                keyExtractor={(item) => item.id}
-                data={data1}
-                renderItem={renderItem3}
-                showsHorizontalScrollIndicator={false}
-                horizontal
-              ></FlatList>
+            <View borderBottomWidth={1} borderColor={'gray.300'} py={2} flexDirection={'row'}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {selectedSize
+                  ? selectedSize.map((size: ISize, index: number) => {
+                      return (
+                        <Pressable
+                          onPress={() => onCheckedItemSize(index)}
+                          justifyContent="center"
+                          w={60}
+                          mr={3}
+                          p={2}
+                          alignItems="center"
+                          backgroundColor={selectedSize[index].isChecked ? 'gray.400' : 'white'}
+                          borderWidth={1}
+                          borderColor="black"
+                          borderRadius={8}
+                          key={size._id}
+                        >
+                          <Text variant="button">{size.size}</Text>
+                        </Pressable>
+                      );
+                    })
+                  : null}
+              </ScrollView>
+            </View>
+            <Text mt={4} variant={'button'}>
+              Color
+            </Text>
+            <View borderBottomWidth={1} borderColor={'gray.300'} py={2} flexDirection={'row'}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {selectedColor
+                  ? selectedColor.map((size: IColor, index: number) => {
+                      return (
+                        <Pressable
+                          onPress={() => onCheckedItemColor(index)}
+                          justifyContent="center"
+                          mr={3}
+                          p={2}
+                          alignItems="center"
+                          backgroundColor={selectedColor[index].isChecked ? 'gray.400' : 'white'}
+                          borderWidth={1}
+                          borderColor="black"
+                          borderRadius={8}
+                          key={size._id}
+                        >
+                          <Text variant="button">{size.name}</Text>
+                        </Pressable>
+                      );
+                    })
+                  : null}
+              </ScrollView>
             </View>
             <Text mt={4} variant={'button'}>
               Price
             </Text>
             <View justifyItems={'center'} borderBottomWidth={1} borderColor={'gray.300'} py={2}>
-              <View flexDirection={'row'} justifyContent={'center'} px={6} alignItems={'center'}>
-                <View w="45%" h={30} backgroundColor={'gray.300'} mt={2} borderRadius={10}>
+              <View
+                flexDirection={'row'}
+                justifyContent={'center'}
+                px={6}
+                alignItems={'center'}
+                h={'30%'}
+              >
+                <View
+                  justifyContent="center"
+                  mr={3}
+                  p={2}
+                  h={'60%'}
+                  alignItems="center"
+                  borderWidth={1}
+                  borderColor="black"
+                  flexDirection={'row'}
+                  borderRadius={8}
+                >
                   <Input
                     textAlign={'center'}
                     alignItems={'center'}
-                    w={{ base: '100%' }}
-                    h={'100%'}
-                    variant="unstyleds"
+                    w={100}
+                    variant="button"
                     placeholder="MIN"
                     placeholderTextColor={'black'}
                   />
                 </View>
                 <Icon.Minus stroke="grey" width={24} height={24} />
-                <View w="45%" h={30} backgroundColor={'gray.300'} mt={2} borderRadius={10}>
+                <View
+                  justifyContent="center"
+                  mr={3}
+                  p={2}
+                  h={'60%'}
+                  alignItems="center"
+                  borderWidth={1}
+                  borderColor="black"
+                  flexDirection={'row'}
+                  borderRadius={8}
+                >
                   <Input
                     textAlign={'center'}
                     alignItems={'center'}
-                    w={{ base: '100%' }}
-                    h={'100%'}
-                    variant="unstyleds"
+                    w={100}
+                    variant="button"
                     placeholder="MAX"
                     placeholderTextColor={'black'}
                   />
                 </View>
               </View>
-              <FlatList
-                mt={3}
-                w={'98%'}
-                keyExtractor={(item) => item.id}
-                data={data1}
-                showsHorizontalScrollIndicator={false}
-                renderItem={renderItem4}
-                horizontal
-              ></FlatList>
-            </View>
-            <Text mt={4} variant={'button'}>
-              Customer review
-            </Text>
-            <View mt={2}>
-              <FlatList
-                w={'100%'}
-                keyExtractor={(item) => item.id}
-                data={data1}
-                renderItem={renderItem5}
-                showsHorizontalScrollIndicator={false}
-                horizontal
-              ></FlatList>
+              <View borderBottomWidth={1} borderColor={'gray.300'} py={2} flexDirection={'row'}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                  {data.map((item) => (
+                    <Pressable
+                      onPress={() => setSelectedPice(item)}
+                      flexDirection={'row'}
+                      mr={3}
+                      p={2}
+                      alignItems="center"
+                      backgroundColor={
+                        selectedPrice._id
+                          ? item._id === selectedPrice._id
+                            ? 'gray.400'
+                            : 'white'
+                          : 'white'
+                      }
+                      borderWidth={1}
+                      borderColor="black"
+                      borderRadius={8}
+                      key={item._id}
+                    >
+                      <Text variant="button">{item.price_min}</Text>
+                      <Text variant="button"> - </Text>
+                      <Text variant="button">{item.price_max}</Text>
+                    </Pressable>
+                  ))}
+                </ScrollView>
+              </View>
             </View>
           </Modal.Body>
           <Modal.Footer>
@@ -427,7 +462,7 @@ const ProductScreen = () => {
               alignItems="center"
               justifyContent="center"
               onPress={() => {
-                setShowModal(false);
+                addSearch();
               }}
             >
               <Text color="white" fontWeight="bold" fontSize="14">

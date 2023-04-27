@@ -73,5 +73,21 @@ export const API_ROUTES = {
   //voucher
   getVouchersUser: `/voucher/get_vouchers`,
   addVoucherUser: (code: string) => `/voucher/add_voucher/${code}`,
+  //Search
+  addKeywordSearch: `/users/add_keyword_search`,
+  getKeywordsearch: `/users/get_keyword_search`,
+  getSearchProducts: (page: number, limit: number, keyword: string) =>
+    `/products/search_products/find?page=${page}&limit=${limit}&keyword=${keyword}`,
+  getFilterProducts: (
+    // page: number,
+    // limit: number,
+    categories: string,
+    sizes: string,
+    colors: string,
+    price_min: string,
+    price_max: string
+  ) =>
+    `/products/filter_products/find?${categories}&${colors}&${sizes}&price_min=${price_min}&price_max=${price_max}`,
 };
+
 export default API_ROUTES;

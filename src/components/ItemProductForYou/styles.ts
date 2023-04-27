@@ -4,7 +4,6 @@ const windowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   itemProductForYou: {
-    marginHorizontal: 5,
     width: windowWidth * 0.47,
     height: windowWidth * 0.47,
     padding: 6,
