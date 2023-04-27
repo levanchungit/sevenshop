@@ -34,7 +34,6 @@ const Cart = () => {
   const [quantityModal, setQuantityModal] = useState<number>(0);
 
   useEffect(() => {
-    mutate();
     if (carts?.data) {
       const newData = carts?.data.map((item: IData) => ({ ...item, isChecked: false }));
       setCheckedItems(newData);
@@ -69,8 +68,8 @@ const Cart = () => {
   };
 
   const onSelectedAll = () => {
-    setSelectIsCheckAll(!selectIsCheckAll);
     const newData1 = carts?.data.map((item: IData) => ({ ...item, isChecked: !selectIsCheckAll }));
+    setSelectIsCheckAll(!selectIsCheckAll);
     setCheckedItems(newData1);
     setItemIsChecked(newData1.filter((item: IData) => item.isChecked === true));
   };
@@ -250,25 +249,6 @@ const Cart = () => {
               )}
             />
           )}
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '100%',
-            alignItems: 'flex-end',
-          }}
-        >
-          <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>{t('Cart.total')}</Text>
-          <Text color={'primary.600'} textAlign={'right'} variant={'title'}>
-            {formatNumberCurrencyVN(total)}
-          </Text>
-        </View>
-        <View style={{ width: '100%', marginBottom: 20 }}>
-          <Button onPress={() => onGetInvoice()} width={'100%'}>
-            <Text fontSize={14} color="light.100" fontWeight={'bold'}>
-              {t('Cart.buyNow')}
-            </Text>
-          </Button>
         </View>
 
         <Modal isOpen={showModal} zIndex={50}>
@@ -452,6 +432,36 @@ const Cart = () => {
             </Modal.Body>
           </Modal.Content>
         </Modal>
+      </View>
+      <View
+        style={{
+          position: 'absolute',
+          width: '100%',
+          bottom: 0,
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingHorizontal: 12,
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '100%',
+            alignItems: 'flex-end',
+          }}
+        >
+          <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>{t('Cart.total')}</Text>
+          <Text color={'primary.600'} textAlign={'right'} variant={'title'}>
+            {formatNumberCurrencyVN(total)}
+          </Text>
+        </View>
+        <View style={{ width: '100%', marginBottom: 20 }}>
+          <Button onPress={() => onGetInvoice()} width={'100%'}>
+            <Text fontSize={14} color="light.100" fontWeight={'bold'}>
+              {t('Cart.buyNow')}
+            </Text>
+          </Button>
+        </View>
       </View>
     </View>
   );

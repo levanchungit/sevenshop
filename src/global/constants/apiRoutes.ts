@@ -48,7 +48,7 @@ export const API_ROUTES = {
   addToCart: 'order/addToCart/',
 
   // orders
-  getOrders: `/orders/me`,
+  getOrders: `/orders/me?limit=50`,
   getOrderById: (id: string) => `/orders/me/${id}`,
 
   //rating
