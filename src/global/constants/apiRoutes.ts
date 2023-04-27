@@ -25,6 +25,8 @@ export const API_ROUTES = {
   getProductsCategory: (limit: number, category: string) =>
     `/products/categories/get?limit=${limit}&category=${category}`,
   addRecentlyProduct: (id: string) => `/products/recently/${id}`,
+  getRecentlyProduct: (page: number, limit: number) =>
+    `products/for_you/get?page=${page}&limit=${limit}`,
 
   //categories
   getCategories: `/categories`,
