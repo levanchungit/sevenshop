@@ -57,7 +57,7 @@ const ProductScreen = (props: ProductScreenProps) => {
     if (searchproducts) {
       setDisplayData(searchproducts[0]?.data.results);
     }
-  }, [searchproducts]);
+  }, []);
 
   useEffect(() => {
     const newDataCategory = categories?.data.results.map((item: any) => ({
@@ -125,12 +125,11 @@ const ProductScreen = (props: ProductScreenProps) => {
         selectedPrice.price_min ? selectedPrice.price_min : '',
         selectedPrice.price_max ? selectedPrice.price_max : ''
       );
+
       setDisplayData(response.data.results);
-      Toast.show({
-        title: response.data.message,
-        duration: 3000,
-      });
-      navigation.navigate('Product', { keyword });
+      console.log('Fi', response.data);
+      setShowModal(false);
+      // navigation.replace('Product', { keyword });
     } catch (e: any) {
       Toast.show({
         title: e.response?.data?.message,
@@ -140,11 +139,17 @@ const ProductScreen = (props: ProductScreenProps) => {
   };
 
   return (
-    <View flex={1} py={5} px={3} backgroundColor={'white'}>
+    <View flex={1} px={3} backgroundColor={'white'}>
       <View flexDirection="row">
-        <View w="10%" justifyContent={'center'} alignItems={'center'} mt={5}>
+        <Pressable
+          onPress={() => navigation.replace('Main')}
+          w="10%"
+          justifyContent={'center'}
+          alignItems={'center'}
+          mt={5}
+        >
           <Icon.ChevronLeft stroke="black" width={24} height={24} />
-        </View>
+        </Pressable>
         <Pressable
           flexDirection="row"
           w="90%"
@@ -155,7 +160,7 @@ const ProductScreen = (props: ProductScreenProps) => {
           borderRadius={7}
         >
           <Input
-            onPressIn={() => navigation.navigate('SearchProduct')}
+            onPressIn={() => navigation.replace('SearchProduct')}
             autoCapitalize="none"
             fontSize={16}
             fontFamily="heading"
@@ -251,13 +256,6 @@ const ProductScreen = (props: ProductScreenProps) => {
           data={displayData}
           renderItem={({ item }: { item: IProduct }) => {
             return (
-              // <ItemProductForYou
-              //   name={item.name}
-              //   image={item.images[0]}
-              //   price={item.price_sale}
-              //   selled={123}
-              //   onPress={() => navigation.navigate('Detail', { _id: item._id })}
-              // />
               <ItemFavoritesProduct
                 data={item}
                 onPress={() => navigation.navigate('Detail', { _id: item._id })}

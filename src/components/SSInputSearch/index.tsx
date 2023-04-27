@@ -1,20 +1,27 @@
 import React from 'react';
-import { Input, View } from 'native-base';
+import { Input, View, Pressable } from 'native-base';
 import * as Icon from 'react-native-feather';
 type Props = {
   placeholder: string;
   inputRightElement?: JSX.Element;
   value: string;
   changeValue: Function;
+  onPress: Function;
 };
 
 const SSInputSearch = (props: Props) => {
-  const { placeholder, value, changeValue, inputRightElement } = props;
+  const { placeholder, value, changeValue, inputRightElement, onPress } = props;
   return (
     <View flexDirection="row">
-      <View w="10%" justifyContent={'center'} alignItems={'center'} mt={5}>
+      <Pressable
+        onPress={() => onPress()}
+        w="10%"
+        justifyContent={'center'}
+        alignItems={'center'}
+        mt={5}
+      >
         <Icon.ChevronLeft stroke="black" width={24} height={24} />
-      </View>
+      </Pressable>
       <View
         flexDirection="row"
         w="90%"

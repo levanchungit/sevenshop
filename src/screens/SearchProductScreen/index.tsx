@@ -20,7 +20,7 @@ const SearchProductScreen = () => {
         title: response.data.message,
         duration: 3000,
       });
-      navigation.navigate('Product', { keyword });
+      navigation.replace('Product', { keyword });
     } catch (e: any) {
       Toast.show({
         title: e.response?.data?.message,
@@ -37,7 +37,7 @@ const SearchProductScreen = () => {
           justifyContent={'center'}
           borderRadius={10}
           mt={2}
-          onPress={() => navigation.navigate('Product', { keyword: item.keyword })}
+          onPress={() => navigation.replace('Product', { keyword: item.keyword })}
         >
           <Text>{item.keyword}</Text>
         </Pressable>
@@ -45,7 +45,7 @@ const SearchProductScreen = () => {
     );
   };
   return (
-    <View flex={1} py={5} px={3}>
+    <View flex={1} px={3}>
       <SSInputSearch
         placeholder={'Search'}
         value={keyword}
@@ -55,6 +55,7 @@ const SearchProductScreen = () => {
             <Icon.Search stroke="white" width={24} height={24} />
           </Pressable>
         }
+        onPress={() => navigation.replace('Main')}
       ></SSInputSearch>
 
       <FlatList
@@ -65,12 +66,12 @@ const SearchProductScreen = () => {
         renderItem={renderItem1}
       />
 
-      <View flexDirection={'row'} justifyContent={'space-between'} mt={2}>
+      {/* <View flexDirection={'row'} justifyContent={'space-between'} mt={2}>
         <Pressable flexDirection={'row'} justifyContent={'center'}>
           <Text>ClearAll</Text>
           <Icon.Trash2 stroke="black" width={24} height={24} />
         </Pressable>
-      </View>
+      </View> */}
     </View>
   );
 };
