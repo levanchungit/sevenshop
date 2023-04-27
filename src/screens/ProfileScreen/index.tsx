@@ -3,14 +3,14 @@ import { Image, Pressable, Text, View } from 'native-base';
 import { useTranslation } from 'react-i18next';
 import * as Icon from 'react-native-feather';
 import SSHeaderNavigation from 'components/SSHeaderNavigation';
+import useGetMe from 'hook/auth/useGetMe';
 import useGetOrders from 'hook/order/useGetOrders';
 import { AppNavigationProp } from 'providers/navigation/types';
-
 const ProfileScreen = () => {
   const navigation = useNavigation<AppNavigationProp>();
   const { t } = useTranslation();
   const { orders } = useGetOrders();
-
+  const { me } = useGetMe();
   return (
     <View flex={1}>
       <View
@@ -25,31 +25,34 @@ const ProfileScreen = () => {
         borderColor={'gray.400'}
         backgroundColor={'gray.300'}
       >
-        <View h={'90%'} justifyContent={'space-between'}>
-          <SSHeaderNavigation
-            tabHeaderSearchEnabled={true}
-            titleHeaderSearchEnabled={true}
-            titleHeaderSearch={t('Profile.title')}
-            iconSearchEnabled={false}
-            iconOther={true}
-            titleHeaderScreen="Payment Success"
-            iconRightHeaderScreen={false}
-            iconRightHeaderCart={false}
-          />
-
+        <View h={'90%'} justifyContent={'space-between'} mb={3}>
+          <View>
+            <SSHeaderNavigation
+              tabHeaderSearchEnabled={true}
+              titleHeaderSearchEnabled={true}
+              titleHeaderSearch={t('Profile.title')}
+              iconSearchEnabled={false}
+              iconOther={true}
+              titleHeaderScreen="Payment Success"
+              iconRightHeaderScreen={false}
+              iconRightHeaderCart={false}
+            />
+          </View>
           <View flexDirection={'row'} pb={1}>
             <Image
               alt="Image OTP"
               w={100}
               h={100}
               borderRadius={'full'}
-              source={{
-                uri: 'https://th.bing.com/th/id/R.07236489f54f5a6f91ede61a5b805da6?rik=m7AJs7zCdXB2Bg&pid=ImgRaw&r=0',
-              }}
+              source={
+                me?.data.result.avatar
+                  ? { uri: me?.data.result.avatar }
+                  : require('../../assets/images/logo_sevenshop_image_default.png')
+              }
             />
             <View ml={3} justifyContent={'center'}>
               <Text variant={'subtitle1'} color={'primary.600'}>
-                SevenShop
+                {me?.data.result.full_name}
               </Text>
               <Pressable
                 backgroundColor={'primary.600'}

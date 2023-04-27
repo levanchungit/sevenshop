@@ -89,3 +89,9 @@ export type GetProductData = {
   price: number;
   quantity: number;
 };
+
+export type UpdateSelfUser = {
+  full_name: string;
+  phone: string;
+  birthday: string;
+};

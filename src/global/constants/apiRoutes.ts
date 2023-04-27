@@ -59,7 +59,7 @@ export const API_ROUTES = {
   //user
   getUsers: (page: number, limit: number) => `/users?page=${page}&limit=${limit}`,
   getUserById: (id: string) => `/users/get/${id}`,
-
+  updateSelfUser: `/users/get`,
   // checkout
   checkout: `/pay`,
   getInvoice: `/pay/get_invoice`,
