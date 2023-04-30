@@ -7,7 +7,7 @@ type MainProps = {
 };
 
 const HomeScreen = ({ route }: MainProps) => {
-  return <BottomTabs quantity={3} />;
+  return <BottomTabs quantity={5} />;
 };
 
 export default HomeScreen;

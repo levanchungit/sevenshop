@@ -25,6 +25,8 @@ export const API_ROUTES = {
   getProductsCategory: (limit: number, category: string) =>
     `/products/categories/get?limit=${limit}&category=${category}`,
   addRecentlyProduct: (id: string) => `/products/recently/${id}`,
+  getRecentlyProduct: (page: number, limit: number) =>
+    `products/for_you/get?page=${page}&limit=${limit}`,
 
   //categories
   getCategories: `/categories`,
@@ -59,7 +61,7 @@ export const API_ROUTES = {
   //user
   getUsers: (page: number, limit: number) => `/users?page=${page}&limit=${limit}`,
   getUserById: (id: string) => `/users/get/${id}`,
-
+  updateSelfUser: `/users/get`,
   // checkout
   checkout: `/pay`,
   getInvoice: `/pay/get_invoice`,
@@ -71,5 +73,21 @@ export const API_ROUTES = {
   //voucher
   getVouchersUser: `/voucher/get_vouchers`,
   addVoucherUser: (code: string) => `/voucher/add_voucher/${code}`,
+  //Search
+  addKeywordSearch: `/users/add_keyword_search`,
+  getKeywordsearch: `/users/get_keyword_search`,
+  getSearchProducts: (page: number, limit: number, keyword: string) =>
+    `/products/search_products/find?page=${page}&limit=${limit}&keyword=${keyword}`,
+  getFilterProducts: (
+    // page: number,
+    // limit: number,
+    categories: string,
+    sizes: string,
+    colors: string,
+    price_min: string,
+    price_max: string
+  ) =>
+    `/products/filter_products/find?${categories}&${colors}&${sizes}&price_min=${price_min}&price_max=${price_max}`,
 };
+
 export default API_ROUTES;

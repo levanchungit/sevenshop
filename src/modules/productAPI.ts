@@ -31,6 +31,10 @@ const productAPI = {
     const response = await axiosInstance.get(API_ROUTES.getProductsCategory(limit, category));
     return response.data;
   },
+  async getRecentlyProduct(page: number, limit: number) {
+    const response = await axiosInstance.get(API_ROUTES.getRecentlyProduct(page, limit));
+    return response.data;
+  },
 };
 
 export default productAPI;

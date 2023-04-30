@@ -19,7 +19,9 @@ export type AppStackNavigatorParamList = {
   OTPForgot: undefined;
   SearchProduct: undefined;
   SearchKeywordProducts: undefined;
-  Product: undefined;
+  Product: {
+    keyword: string;
+  };
   ProductFavorites: undefined;
   Profile: undefined;
   AccountSettings: undefined;
@@ -66,6 +68,7 @@ export type BottomTabNavigatorParamList = {
 export type AppNavigationProp = NativeStackNavigationProp<AppStackNavigatorParamList>;
 
 export type DetailRouteProp = RouteProp<AppStackNavigatorParamList, 'Detail'>;
+export type ProductRouteProp = RouteProp<AppStackNavigatorParamList, 'Product'>;
 
 export type AddressRouteProp = RouteProp<AppStackNavigatorParamList, 'Address'>;
 

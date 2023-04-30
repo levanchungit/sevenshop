@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Pressable, Box } from 'native-base';
+import { View, Text, Pressable } from 'native-base';
 import * as Icons from 'react-native-feather';
 import useGetQuantityCart from 'hook/product/useGetQuantityCart';
 import { AppNavigationProp } from 'providers/navigation/types';
@@ -65,7 +65,7 @@ const SSHeaderNavigation = (props: Props) => {
         )}
       </View>
       {!iconOther ? (
-        <Box
+        <View
           position={'absolute'}
           alignItems="center"
           justifyContent={'center'}
@@ -79,8 +79,10 @@ const SSHeaderNavigation = (props: Props) => {
           <Text color="white" fontSize={14} lineHeight={14}>
             {quantity?.data.quantity}
           </Text>
-        </Box>
-      ) : null}
+        </View>
+      ) : (
+        <></>
+      )}
     </View>
   ) : (
     <View
@@ -100,6 +102,21 @@ const SSHeaderNavigation = (props: Props) => {
         iconRightHeaderCart ? (
           <Pressable onPress={() => navigation.navigate('Cart')}>
             <Icons.ShoppingCart width={24} height={24} stroke={'black'} />
+            <View
+              position={'absolute'}
+              alignItems="center"
+              justifyContent={'center'}
+              backgroundColor="primary.600"
+              w={6}
+              h={6}
+              top={-12}
+              right={-12}
+              borderRadius={15}
+            >
+              <Text color="white" fontSize={14} lineHeight={14}>
+                {quantity?.data.quantity}
+              </Text>
+            </View>
           </Pressable>
         ) : (
           <Icons.Headphones stroke={'black'} width={24} height={24} />

@@ -11,6 +11,7 @@ import {
   ChangePasswordPayload,
   SetPasswordPayload,
   SignInGmailPayload,
+  UpdateSelfUser,
 } from 'interfaces/Auth';
 import { axiosInstance } from './config/AxiosInstance';
 
@@ -105,6 +106,10 @@ const authAPI = {
 
   async me() {
     return await axiosInstance.get(API_ROUTES.me);
+  },
+  async UpdateSelfUser(payload: UpdateSelfUser) {
+    const response = await axiosInstance.put(API_ROUTES.updateSelfUser, payload);
+    return response;
   },
 };
 
